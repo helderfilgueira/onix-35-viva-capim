@@ -1,3 +1,5 @@
+ATUALIZAÇÃO VISUAL: veja docs/DESIGN_MAQUETE.txt. Seleção com aproximação, fachadas e interiores ilustrativos, coberturas alternáveis e rotas preservadas.
+
 VIVA CAPIM | LABORATÓRIO ONIX - 35
 
 Este incremento evolui a demonstração local existente. Abra ABRIR_LABORATORIO.cmd com Python 3.10+ instalado: o explorador abre em http://127.0.0.1:8878/explorar.html. Para o estado atual, leia docs/PLANTA_RECONSTRUIDA.txt. Código 3D/2D, rotas e QR estão integrados e verificados em demonstração local.

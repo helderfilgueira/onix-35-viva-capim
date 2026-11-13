@@ -1,0 +1,74 @@
+// Run from workspace root after starting demo on port 8877.
+// Tests only: no application source mutation or fabricated production metrics.
+const { chromium } = require('playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const base = process.env.QA_BASE || 'http://127.0.0.1:8877';
+(async () => {
+  const browser = await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--enable-unsafe-swiftshader']});
+  const page = await browser.newPage({viewport:{width:1440,height:1100}});
+  const errors=[],checks=[]; page.on('pageerror',e=>errors.push(e.message));
+  const pass = s => {checks.push(s);console.log('PASS',s)};
+  const choose = async name => {await page.locator('#search').fill(name);await page.locator('#store-list button').filter({hasText:name}).first().click();};
+  await page.goto(base+'/explorar.html');
+  await page.waitForFunction(()=>document.querySelector('#map-state').textContent.includes('3D'));
+  await choose('Renner');
+  await page.waitForTimeout(1400);
+  await page.locator('#scene3d').screenshot({path:'docs/design-renner.png'});
+  await page.locator('#route-button').click();await page.locator('#route-result li').first().waitFor();
+  await page.waitForTimeout(1400);
+  await page.locator('#scene3d').screenshot({path:'docs/design-route.png'});
+  pass('Selection and real-plan route remain functional');
+  await page.getByRole('button',{name:'Visão geral',exact:true}).click();await page.waitForTimeout(1400);
+  await page.locator('#scene3d').screenshot({path:'docs/design-overview.png'});assert(await page.locator('#route-result li').count()>0);pass('Overview control preserves destination and route');
+  await page.locator('#reduce-motion').click();assert.equal(await page.locator('#reduce-motion').getAttribute('aria-pressed'),'true');
+  // Compare the canvas itself, excluding button text; reduced motion avoids animated-pixel false positives.
+  await page.mouse.move(1,1);await page.waitForTimeout(250);
+  const interiors=await page.locator('#scene3d canvas').screenshot();
+  const coverButton=page.getByRole('button',{name:'Mostrar coberturas',exact:true});
+  assert.equal(await coverButton.getAttribute('aria-pressed'),'true');await coverButton.click();
+  await page.mouse.move(1,1);await page.waitForTimeout(250);
+  const covered=await page.locator('#scene3d canvas').screenshot();
+  assert(!interiors.equals(covered),'Showing roofs must change rendered canvas, not only button label');
+  const interiorButton=page.getByRole('button',{name:'Ver interiores',exact:true});
+  assert.equal(await interiorButton.getAttribute('aria-pressed'),'false');await interiorButton.click();
+  await page.mouse.move(1,1);await page.waitForTimeout(250);
+  const restoredInteriors=await page.locator('#scene3d canvas').screenshot();
+  assert(interiors.equals(restoredInteriors),'Returning to interiors must restore the same static canvas');
+  assert.equal(await page.getByRole('button',{name:'Mostrar coberturas',exact:true}).getAttribute('aria-pressed'),'true');
+  pass('Roof/interior toggle changes canvas and restores interiors');
+  await choose('Cinemark');
+  assert.match(await page.locator('#destination').innerText(),/Cinemark/);
+  await page.locator('#reset').click();assert.equal(await page.locator('#search').inputValue(),'');assert.equal(await page.locator('#route-result').count(),0);
+  pass('Reduced-motion control and new-session reset work');
+  await choose('Subway');await page.locator('#origin').selectOption('u-west-entry');await page.locator('#route-result li').first().waitFor();
+  await page.locator('#view2d').click();assert(await page.locator('#map2d').isVisible());await page.locator('#view3d').click();
+  pass('Upper-floor route and 2D/3D switch remain functional');
+  await page.setViewportSize({width:390,height:844});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  pass('Mobile layout has no horizontal overflow');
+  // Isolated renderer harness exercises actual camera API while avoiding exposing app state.
+  await page.setViewportSize({width:1200,height:800});
+  await page.evaluate(async () => {
+    const T=await import('/vendor/three.module.js'); const original=T.OrthographicCamera.prototype.updateProjectionMatrix; window.__qaCamera=null; T.OrthographicCamera.prototype.updateProjectionMatrix=function(){window.__qaCamera=this;return original.call(this)};
+    const {createPlanScene}=await import('/map-plan3d.js');const data=await (await fetch('/api/navigation')).json();
+    const host=document.createElement('div');host.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;z-index:99999';document.body.append(host);
+    window.__qa={data,scene:createPlanScene(host,data,()=>{}),restore(){T.OrthographicCamera.prototype.updateProjectionMatrix=original}};
+  });
+  const metrics=()=>page.evaluate(()=>({zoom:window.__qaCamera.zoom/(window.__qaCamera.top-window.__qaCamera.bottom),position:window.__qaCamera.position.toArray(),...window.__qa.scene.getMetrics()}));
+  await page.waitForTimeout(300);const overview=await metrics();
+  assert.equal(typeof overview.zoom,'number','Renderer must initialize orthographic camera');
+  const id=await page.evaluate(()=>window.__qa.data.stores.find(s=>s.name==='Renner').id);
+  await page.evaluate(id=>window.__qa.scene.selectStore(id),id);await page.waitForTimeout(1600);const focused=await metrics();
+  assert(focused.zoom>overview.zoom,'Selecting Renner must increase camera zoom');
+  pass('Selecting store measurably increases camera zoom');
+  await page.evaluate(()=>window.__qa.scene.selectStore(null));await page.waitForTimeout(1600);const reset=await metrics();
+  assert(Math.abs(reset.zoom-overview.zoom)<overview.zoom*.01,'Deselect/reset must restore overview zoom');
+  pass('Deselect restores overview camera');
+  await page.evaluate(id=>{window.__qa.scene.setReducedMotion(true);window.__qa.scene.selectStore(id);},id);
+  await page.waitForTimeout(80);const reduced=await metrics();assert(reduced.zoom>overview.zoom,'Reduced-motion selection should focus immediately');
+  await page.waitForTimeout(500);const stable=await metrics();assert(Math.abs(stable.zoom-reduced.zoom)<overview.zoom*.001,'Reduced-motion camera must be stable');
+  pass('Reduced-motion focus is immediate and stable');
+  await page.evaluate(()=>{window.__qa.scene.dispose();window.__qa.restore()});assert.deepEqual(errors,[]);pass('No JavaScript exceptions');
+  fs.writeFileSync('docs/QA_DESIGN.json',JSON.stringify({checks,errors,overview,focused,reset,reduced},null,2));
+  await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -1,0 +1,21 @@
+VIVA CAPIM — ONIX 35 | DESIGN DA MAQUETE
+13/11/2026
+
+ENTREGUE
+Fachadas procedurais com vitrines, caixilhos, portas, letreiros e iluminação ilustrativa. Piso com textura gerada localmente, sombras e acabamento de maquete. Modo aberto com expositores e mesas ilustrativos dentro dos polígonos; botão para alternar coberturas. Nenhum desses elementos representa o levantamento do interior real.
+Seleção aproxima e orienta a câmera à entrada inferida. Transição de 650–900ms com desaceleração; rota enquadra o caminho; Visão geral retorna ao pavimento completo. Giro, zoom, gesto de pinça e arraste com Shift para deslocar. Movimento reduzido interrompe interpolação e fluxo animado. Setas animadas orientam o percurso sem representar localização contínua.
+Cartão da loja com fachada vetorial ilustrativa. Interface mais compacta para destacar o mapa.
+
+PRESERVAÇÃO ESPACIAL
+navigation-data.json não foi alterado neste ciclo.
+SHA256: 2D97520F36AE84CE8A96DF5F9DDD7C0313A625DEA4E566B5940FB117C081F0DF
+157 posições, 81 contornos e 77 destinos roteáveis mantidos. Fachadas recuadas dentro do contorno original; mobiliário ilustrativo condicionado à contenção no polígono. Rotas usam o grafo original, não os detalhes decorativos.
+
+COLABORAÇÃO REAL
+Direção visual e implementação principal do renderer delegadas no terminal ao Claude, exclusivamente claude-opus-5-5; identificação conferida no registro da execução. A coordenação interrompeu a sessão após o código ter sido entregue para concluir a integração local. Não houve relatório final de conclusão do Claude. Coordenação adicionou interiores abertos, ajustes nas fachadas, orientação de câmera e interface. Agente QA criou testes independentes de câmera e fluxo. Não são fotografias reais nem projeto arquitetônico executivo.
+
+VALIDAÇÃO
+40 testes Python aprovados. Verificações independentes de navegador cobrem seleção e zoom mensurável, visão geral preservando rota, reset, movimento reduzido imediato, térreo/alimentação, 2D/3D, mobile e ausência de exceções JS. Resultado detalhado em QA_DESIGN.json; capturas design-*.png. Desempenho de Chrome headless/SwiftShader não equivale ao hardware do totem.
+
+LIMITES
+Entradas e percursos continuam inferidos, distâncias estimadas. Os destinos sem rota e as conexões entre pisos seguem pendentes de validação no shopping. Sem fotos de fachadas, contatos ou avaliações inventados. GlTF anterior shopping-planta.gltf preserva geometria básica; os detalhes novos são gerados no renderer JavaScript, não estão incorporados nesse export anterior. Demonstração local; requisitos de operação pública e isolamento integral da sessão legada continuam pendentes.
