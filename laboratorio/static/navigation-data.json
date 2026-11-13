@@ -18253,7 +18253,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Núcleo Bistrô81/Chopp Brahma; banda superior na folha2. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": "Núcleo Bistrô81/Chopp Brahma; banda superior na folha2. Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "portal_node_id": "portal-f0-escalator-up",
       "connection_id": "f0-f1-escalator-up"
     },
@@ -18309,7 +18309,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Escada central entre duas rolantes, visível nas folhas2e3. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": "Escada central entre duas rolantes, visível nas folhas2e3. Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "portal_node_id": "portal-f0-public-stairs",
       "connection_id": "f0-f1-public-stairs"
     },
@@ -18365,7 +18365,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": " Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "portal_node_id": "portal-f0-escalator-down",
       "connection_id": "f0-f1-escalator-down"
     },
@@ -18421,7 +18421,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": " Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "portal_node_id": "portal-f1-escalator-up",
       "connection_id": "f0-f1-escalator-up"
     },
@@ -18477,7 +18477,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": " Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "portal_node_id": "portal-f1-public-stairs",
       "connection_id": "f0-f1-public-stairs"
     },
@@ -18533,7 +18533,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": " Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "portal_node_id": "portal-f1-escalator-down",
       "connection_id": "f0-f1-escalator-down"
     },
@@ -20439,7 +20439,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal na fachada curva. Correspondência com panorâmico da alimentação provável, não habilitada. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal na fachada curva. Correspondência com o panorâmico da alimentação conferida nas duas folhas. Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado. A aproximação sem degraus pelo térreo ainda não está comprovada. Origem disponível somente para quem já está na porta deste elevador.",
       "access_point": [
         -180.48233,
         86.64907
@@ -20501,7 +20501,7 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal na fachada curva. Destinos/capacidade e operação a confirmar. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal na fachada curva. Destinos/capacidade e operação a confirmar. Representação ilustrativa. Conexão incluída no grafo de percursos conforme a planta. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "access_point": [
         -47.15721,
         1.40326
