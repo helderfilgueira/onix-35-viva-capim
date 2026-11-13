@@ -42,7 +42,10 @@ def validate_plan(data,nodes):
         elif s.get('route_status')!='unavailable':raise ValueError('Missing entrance must be unavailable')
     for e in data['edges']:
         a,b=nodes[e['from']],nodes[e['to']]
-        if a['floor_id']!=b['floor_id'] and data.get('interfloor_status')=='unconfirmed':raise ValueError('Unconfirmed vertical link')
+        if a['floor_id']!=b['floor_id']:
+            if data.get('interfloor_status')=='unconfirmed':raise ValueError('Unconfirmed vertical link')
+            if not e.get('connection_id') or e.get('coordinate_space')!='independent_floor_portals':raise ValueError('Undocumented vertical portals')
+            continue  # A transfer is not a straight corridor across independent drawings.
         p=(a['x'],a['z']);q=(b['x'],b['z'])
         seg_bounds=(min(p[0],q[0]),min(p[1],q[1]),max(p[0],q[0]),max(p[1],q[1]))
         for s,box in footprints:

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "rota térreo-alimentação",
+    "troca visual de piso",
+    "bloqueio de rota acessível sem acesso confirmado",
+    "elevador a partir da porta explícita",
+    "loja: cinco estrelas enviadas e persistidas",
+    "loja: exclusão dos próprios dados",
+    "evento: estrelas e atualização visual"
+  ],
+  "errors": []
+}

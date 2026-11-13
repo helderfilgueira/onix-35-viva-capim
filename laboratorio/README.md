@@ -1,3 +1,5 @@
+ATUALIZAÇÃO ATUAL: docs/PISOS_E_ESTRELAS.txt — quatro conexões térreo/alimentação, rotas por piso e estrelas para lojas/eventos; 65 testes aprovados. A aproximação acessível ao elevador no térreo ainda exige confirmação. Os estados abaixo são históricos.
+
 > **Versão atual:** [serviços e circulação](docs/SERVICOS_PLANTA.txt). 211 unidades + 44 serviços/equipamentos + 1 área ocupada. Atalhos para banheiros, elevadores, escadas e família. 48 testes aprovados; ligações entre pisos e acessos externos permanecem pendentes. Abra `ABRIR_LABORATORIO.cmd`.
 
 # Viva Capim

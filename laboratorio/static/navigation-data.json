@@ -1,9 +1,9 @@
 {
-  "version": "capim-planta-2026-11-v6-servicos",
+  "version": "capim-planta-2026-11-v7-conexoes",
   "demo": true,
   "geometry_source": "pdf-vector",
   "units": "metres_estimated_from_plan",
-  "notice": "Reconstrução da planta enviada, novembro/2026. Entradas inferidas e rotas intrapiso; validação física pendente.",
+  "notice": "Planta reconstruída. Ligações documentais entre térreo e alimentação; aproximação sem degraus ao elevador no térreo pendente. Escalas e custos de transferência estimados.",
   "floors": [
     {
       "id": "f0",
@@ -18216,7 +18216,7 @@
       "confidence": "label_and_symbol",
       "access": "public",
       "accessible": false,
-      "connection_status": "unconfirmed",
+      "connection_status": "documented_plan",
       "notes": "Núcleo Bistrô81/Chopp Brahma; banda superior na folha2.",
       "unit_type": "facility",
       "service_type": "escalator",
@@ -18245,15 +18245,17 @@
       "depth": 1.7301000000000073,
       "access_status": "public",
       "route_enabled": false,
-      "node_id": null,
-      "route_status": "unavailable",
+      "node_id": "portal-f0-escalator-up",
+      "route_status": "plan_inferred",
       "featured": true,
       "color": "#4b8cab",
       "website": null,
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Núcleo Bistrô81/Chopp Brahma; banda superior na folha2. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+      "description": "Núcleo Bistrô81/Chopp Brahma; banda superior na folha2. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "portal_node_id": "portal-f0-escalator-up",
+      "connection_id": "f0-f1-escalator-up"
     },
     {
       "id": "f0-public-stairs",
@@ -18270,7 +18272,7 @@
       "confidence": "paired_floor_symbol",
       "access": "public",
       "accessible": false,
-      "connection_status": "unconfirmed",
+      "connection_status": "documented_plan",
       "notes": "Escada central entre duas rolantes, visível nas folhas2e3.",
       "unit_type": "facility",
       "service_type": "stairs",
@@ -18299,15 +18301,17 @@
       "depth": 2.1371800000000007,
       "access_status": "public",
       "route_enabled": false,
-      "node_id": null,
-      "route_status": "unavailable",
+      "node_id": "portal-f0-public-stairs",
+      "route_status": "plan_inferred",
       "featured": true,
       "color": "#4b8cab",
       "website": null,
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Escada central entre duas rolantes, visível nas folhas2e3. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+      "description": "Escada central entre duas rolantes, visível nas folhas2e3. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "portal_node_id": "portal-f0-public-stairs",
+      "connection_id": "f0-f1-public-stairs"
     },
     {
       "id": "f0-escalator-down",
@@ -18324,7 +18328,7 @@
       "confidence": "label_and_symbol",
       "access": "public",
       "accessible": false,
-      "connection_status": "unconfirmed",
+      "connection_status": "documented_plan",
       "notes": "",
       "unit_type": "facility",
       "service_type": "escalator",
@@ -18353,15 +18357,17 @@
       "depth": 1.8318700000000092,
       "access_status": "public",
       "route_enabled": false,
-      "node_id": null,
-      "route_status": "unavailable",
+      "node_id": "portal-f0-escalator-down",
+      "route_status": "plan_inferred",
       "featured": true,
       "color": "#4b8cab",
       "website": null,
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "portal_node_id": "portal-f0-escalator-down",
+      "connection_id": "f0-f1-escalator-down"
     },
     {
       "id": "f1-escalator-up",
@@ -18378,7 +18384,7 @@
       "confidence": "paired_floor_symbol",
       "access": "public",
       "accessible": false,
-      "connection_status": "unconfirmed",
+      "connection_status": "documented_plan",
       "notes": "",
       "unit_type": "facility",
       "service_type": "escalator",
@@ -18407,15 +18413,17 @@
       "depth": 1.5028200000000003,
       "access_status": "public",
       "route_enabled": false,
-      "node_id": null,
-      "route_status": "unavailable",
+      "node_id": "portal-f1-escalator-up",
+      "route_status": "plan_inferred",
       "featured": true,
       "color": "#4b8cab",
       "website": null,
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "portal_node_id": "portal-f1-escalator-up",
+      "connection_id": "f0-f1-escalator-up"
     },
     {
       "id": "f1-public-stairs",
@@ -18432,7 +18440,7 @@
       "confidence": "paired_floor_symbol",
       "access": "public",
       "accessible": false,
-      "connection_status": "unconfirmed",
+      "connection_status": "documented_plan",
       "notes": "",
       "unit_type": "facility",
       "service_type": "stairs",
@@ -18461,15 +18469,17 @@
       "depth": 1.6530999999999998,
       "access_status": "public",
       "route_enabled": false,
-      "node_id": null,
-      "route_status": "unavailable",
+      "node_id": "portal-f1-public-stairs",
+      "route_status": "plan_inferred",
       "featured": true,
       "color": "#4b8cab",
       "website": null,
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "portal_node_id": "portal-f1-public-stairs",
+      "connection_id": "f0-f1-public-stairs"
     },
     {
       "id": "f1-escalator-down",
@@ -18486,7 +18496,7 @@
       "confidence": "paired_floor_symbol",
       "access": "public",
       "accessible": false,
-      "connection_status": "unconfirmed",
+      "connection_status": "documented_plan",
       "notes": "",
       "unit_type": "facility",
       "service_type": "escalator",
@@ -18515,15 +18525,17 @@
       "depth": 1.57796,
       "access_status": "public",
       "route_enabled": false,
-      "node_id": null,
-      "route_status": "unavailable",
+      "node_id": "portal-f1-escalator-down",
+      "route_status": "plan_inferred",
       "featured": true,
       "color": "#4b8cab",
       "website": null,
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+      "description": " Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
+      "portal_node_id": "portal-f1-escalator-down",
+      "connection_id": "f0-f1-escalator-down"
     },
     {
       "id": "f1-stairs-service",
@@ -20390,8 +20402,8 @@
       "public_access": null,
       "access_status": "restricted_or_unconfirmed",
       "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal na fachada curva. Correspondência com panorâmico da alimentação provável, não habilitada.",
-      "route_status": "unavailable",
-      "node_id": null,
+      "route_status": "plan_inferred",
+      "node_id": "portal-f0-lift-panoramic",
       "entry_point_px": [
         406.644,
         692.854
@@ -20427,11 +20439,14 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal na fachada curva. Correspondência com panorâmico da alimentação provável, não habilitada. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas.",
+      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal na fachada curva. Correspondência com panorâmico da alimentação provável, não habilitada. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "access_point": [
         -180.48233,
         86.64907
-      ]
+      ],
+      "portal_node_id": "portal-f0-lift-panoramic",
+      "connection_id": "f0-f1-panoramic-lift",
+      "connection_status": "documented_plan"
     },
     {
       "id": "f1-lift-panoramic",
@@ -20449,8 +20464,8 @@
       "public_access": null,
       "access_status": "restricted_or_unconfirmed",
       "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal na fachada curva. Destinos/capacidade e operação a confirmar.",
-      "route_status": "unavailable",
-      "node_id": null,
+      "route_status": "plan_inferred",
+      "node_id": "portal-f1-lift-panoramic",
       "entry_point_px": [
         332.417,
         578.675
@@ -20486,11 +20501,14 @@
       "phone": null,
       "hours": "Consulte a operação local",
       "review_count": 0,
-      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal na fachada curva. Destinos/capacidade e operação a confirmar. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas.",
+      "description": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal na fachada curva. Destinos/capacidade e operação a confirmar. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas. Conexão entre térreo e alimentação identificada por correspondência das duas plantas. Funcionamento físico não verificado.",
       "access_point": [
         -47.15721,
         1.40326
-      ]
+      ],
+      "portal_node_id": "portal-f1-lift-panoramic",
+      "connection_id": "f0-f1-panoramic-lift",
+      "connection_status": "documented_plan"
     },
     {
       "id": "f1-lift-service-n1",
@@ -20896,6 +20914,156 @@
       "hours": "Consulte a operação local",
       "review_count": 0,
       "description": "Volume ocupado visível na planta; identificação comercial não determinada. Área excluída da circulação. Representação ilustrativa. Uso restrito ou acesso ainda não confirmado; não incluído em rotas públicas."
+    },
+    {
+      "id": "f0-lift-service-n1",
+      "name": "Elevador de apoio N1 · térreo",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Cabine junto depósitos alimentacao",
+      "source_position_px": [
+        458.705,
+        619.815
+      ],
+      "geometry_status": "cross_page_registered_trace",
+      "evidence": "Cabine visível na folha2; limites transpostos da cabine correspondente folha3 por registro geométrico corroborado. Contornoaproximado; nãoCADcertificado.",
+      "access_status": "public_use_unconfirmed",
+      "route_enabled": false,
+      "public_access": null,
+      "polygon": [
+        [
+          -160.424986,
+          56.777789
+        ],
+        [
+          -159.185828,
+          55.786544
+        ],
+        [
+          -158.160795,
+          57.048091
+        ],
+        [
+          -159.377564,
+          58.050735
+        ]
+      ],
+      "x": -159.289227,
+      "z": 56.916197,
+      "width": 2.2641909999999825,
+      "depth": 2.264191000000004,
+      "category": "Elevadores",
+      "node_id": null,
+      "route_status": "unavailable",
+      "featured": true,
+      "color": "#4b8cab",
+      "website": null,
+      "phone": null,
+      "hours": "Uso público a confirmar",
+      "review_count": 0,
+      "description": "Cabine visível na folha2; limites transpostos da cabine correspondente folha3 por registro geométrico corroborado. Contornoaproximado; nãoCADcertificado. Uso público não confirmado; ligação não habilitada como atalho."
+    },
+    {
+      "id": "f0-lift-service-n2",
+      "name": "Elevador de apoio N2 · térreo",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Cabine junto depósitos alimentacao",
+      "source_position_px": [
+        462.519,
+        624.469
+      ],
+      "geometry_status": "cross_page_registered_trace",
+      "evidence": "Cabine visível na folha2; limites transpostos da cabine correspondente folha3 por registro geométrico corroborado. Contornoaproximado; nãoCADcertificado.",
+      "access_status": "public_use_unconfirmed",
+      "route_enabled": false,
+      "public_access": null,
+      "polygon": [
+        [
+          -158.870339,
+          58.670314
+        ],
+        [
+          -157.631181,
+          57.69006
+        ],
+        [
+          -156.606148,
+          58.951608
+        ],
+        [
+          -157.833908,
+          59.931862
+        ]
+      ],
+      "x": -157.736615,
+      "z": 58.810757,
+      "width": 2.264191000000011,
+      "depth": 2.241802,
+      "category": "Elevadores",
+      "node_id": null,
+      "route_status": "unavailable",
+      "featured": true,
+      "color": "#4b8cab",
+      "website": null,
+      "phone": null,
+      "hours": "Uso público a confirmar",
+      "review_count": 0,
+      "description": "Cabine visível na folha2; limites transpostos da cabine correspondente folha3 por registro geométrico corroborado. Contornoaproximado; nãoCADcertificado. Uso público não confirmado; ligação não habilitada como atalho."
+    },
+    {
+      "id": "f0-lift-service-s",
+      "name": "Elevador de apoio S · térreo",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Cabine junto MY LOJA07 / Resolve Palmas",
+      "source_position_px": [
+        542.463,
+        753.254
+      ],
+      "geometry_status": "cross_page_registered_trace",
+      "evidence": "Cabine visível na folha2; limites transpostos da cabine correspondente folha3 por registro geométrico corroborado. Contornoaproximado; nãoCADcertificado.",
+      "access_status": "public_use_unconfirmed",
+      "route_enabled": false,
+      "public_access": null,
+      "polygon": [
+        [
+          -126.003744,
+          110.515895
+        ],
+        [
+          -124.381522,
+          110.515895
+        ],
+        [
+          -124.381522,
+          111.95778
+        ],
+        [
+          -126.003744,
+          111.95778
+        ]
+      ],
+      "x": -125.192836,
+      "z": 111.236838,
+      "width": 1.6222219999999936,
+      "depth": 1.4418849999999992,
+      "category": "Elevadores",
+      "node_id": null,
+      "route_status": "unavailable",
+      "featured": true,
+      "color": "#4b8cab",
+      "website": null,
+      "phone": null,
+      "hours": "Uso público a confirmar",
+      "review_count": 0,
+      "description": "Cabine visível na folha2; limites transpostos da cabine correspondente folha3 por registro geométrico corroborado. Contornoaproximado; nãoCADcertificado. Uso público não confirmado; ligação não habilitada como atalho."
     }
   ],
   "nodes": [
@@ -21677,8 +21845,8 @@
     },
     {
       "id": "f0-loja-09-entrada",
-      "x": -110.5757,
-      "z": 102.1333,
+      "x": -110.66865045617213,
+      "z": 101.74470342296867,
       "y": 0,
       "floor_id": "f0",
       "label": "entrada inferida de Loja 09"
@@ -21949,8 +22117,8 @@
     },
     {
       "id": "f0-loja-52-entrada",
-      "x": 65.7002,
-      "z": 76.6218,
+      "x": 65.719304669,
+      "z": 77.021570684,
       "y": 0,
       "floor_id": "f0",
       "label": "entrada inferida de Loja 52"
@@ -22038,7 +22206,7 @@
     {
       "id": "f0-ancora-02-entrada",
       "x": -12.2125,
-      "z": 56.0279,
+      "z": 56.42794,
       "y": 0,
       "floor_id": "f0",
       "label": "entrada inferida de Riachuelo"
@@ -24826,6 +24994,238 @@
       "y": 0,
       "floor_id": "f0",
       "label": "Corredor: Comodato"
+    },
+    {
+      "id": "portal-f0-escalator-up",
+      "x": -99.5316,
+      "z": 81.772636,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Patamar de Escada rolante — sobe à praça"
+    },
+    {
+      "id": "portal-f0-escalator-up-approach-0",
+      "x": -93.221822,
+      "z": 81.823521,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Aproximação de Escada rolante — sobe à praça"
+    },
+    {
+      "id": "portal-f0-escalator-up-approach-1",
+      "x": -98.106809,
+      "z": 81.823521,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Aproximação de Escada rolante — sobe à praça"
+    },
+    {
+      "id": "portal-f0-escalator-up-main-junction",
+      "x": -92.44836242307053,
+      "z": 79.50315688457367,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Corredor para Escada rolante — sobe à praça"
+    },
+    {
+      "id": "portal-f1-escalator-up",
+      "x": 19.53666,
+      "z": -3.681908,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Patamar de Escada rolante — chegada do térreo"
+    },
+    {
+      "id": "portal-f1-escalator-up-approach-0",
+      "x": 16.906723,
+      "z": -3.681908,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Escada rolante — chegada do térreo"
+    },
+    {
+      "id": "portal-f1-escalator-up-approach-1",
+      "x": 18.409542,
+      "z": -3.681908,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Escada rolante — chegada do térreo"
+    },
+    {
+      "id": "portal-f1-escalator-up-main-junction",
+      "x": 18.594034819323653,
+      "z": -3.7287829706931994,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Corredor para Escada rolante — chegada do térreo"
+    },
+    {
+      "id": "portal-f0-public-stairs",
+      "x": -101.15992,
+      "z": 86.657622,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Patamar de Escada fixa — praça de alimentação"
+    },
+    {
+      "id": "portal-f0-public-stairs-approach-0",
+      "x": -93.221822,
+      "z": 86.657622,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Aproximação de Escada fixa — praça de alimentação"
+    },
+    {
+      "id": "portal-f0-public-stairs-approach-1",
+      "x": -98.106809,
+      "z": 86.657622,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Aproximação de Escada fixa — praça de alimentação"
+    },
+    {
+      "id": "portal-f0-public-stairs-main-junction",
+      "x": -91.17251499385861,
+      "z": 93.07883093809613,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Corredor para Escada fixa — praça de alimentação"
+    },
+    {
+      "id": "portal-f1-public-stairs",
+      "x": 19.53666,
+      "z": 1.50282,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Patamar de Escada fixa — térreo"
+    },
+    {
+      "id": "portal-f1-public-stairs-approach-0",
+      "x": 16.906723,
+      "z": 1.50282,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Escada fixa — térreo"
+    },
+    {
+      "id": "portal-f1-public-stairs-approach-1",
+      "x": 18.409542,
+      "z": 1.50282,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Escada fixa — térreo"
+    },
+    {
+      "id": "portal-f1-public-stairs-main-junction",
+      "x": 18.635,
+      "z": 1.5028200000000003,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Corredor para Escada fixa — térreo"
+    },
+    {
+      "id": "portal-f0-escalator-down",
+      "x": -99.5316,
+      "z": 92.102346,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Patamar de Escada rolante — desce da praça"
+    },
+    {
+      "id": "portal-f0-escalator-down-approach-0",
+      "x": -93.221822,
+      "z": 92.102346,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Aproximação de Escada rolante — desce da praça"
+    },
+    {
+      "id": "portal-f0-escalator-down-approach-1",
+      "x": -98.106809,
+      "z": 92.102346,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Aproximação de Escada rolante — desce da praça"
+    },
+    {
+      "id": "portal-f0-escalator-down-main-junction",
+      "x": -92.74955177501582,
+      "z": 93.58213686626708,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Corredor para Escada rolante — desce da praça"
+    },
+    {
+      "id": "portal-f1-escalator-down",
+      "x": 19.53666,
+      "z": 6.725119,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Patamar de Escada rolante — saída para térreo"
+    },
+    {
+      "id": "portal-f1-escalator-down-approach-0",
+      "x": 16.906723,
+      "z": 6.725119,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Escada rolante — saída para térreo"
+    },
+    {
+      "id": "portal-f1-escalator-down-approach-1",
+      "x": 18.409542,
+      "z": 6.725119,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Escada rolante — saída para térreo"
+    },
+    {
+      "id": "portal-f1-escalator-down-main-junction",
+      "x": 18.575623725011194,
+      "z": 6.779558044335314,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Corredor para Escada rolante — saída para térreo"
+    },
+    {
+      "id": "portal-f0-lift-panoramic",
+      "x": -180.5438,
+      "z": 86.741074,
+      "y": 0,
+      "floor_id": "f0",
+      "label": "Patamar de Elevador · fachada Renner"
+    },
+    {
+      "id": "portal-f1-lift-panoramic",
+      "x": -47.1799,
+      "z": 1.4201650000000003,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Patamar de Elevador · fachada alimentação"
+    },
+    {
+      "id": "portal-f1-lift-panoramic-approach-0",
+      "x": -42.078954,
+      "z": 1.420165,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Elevador · fachada alimentação"
+    },
+    {
+      "id": "portal-f1-lift-panoramic-approach-1",
+      "x": -45.084593,
+      "z": 1.420165,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Aproximação de Elevador · fachada alimentação"
+    },
+    {
+      "id": "portal-f1-lift-panoramic-main-junction",
+      "x": -42.078954,
+      "z": 1.5028,
+      "y": 9,
+      "floor_id": "f1",
+      "label": "Corredor para Elevador · fachada alimentação"
     }
   ],
   "edges": [
@@ -31677,6 +32077,373 @@
       "accessible": true,
       "bidirectional": true,
       "source": "plan_inferred"
+    },
+    {
+      "from": "portal-f0-escalator-up-approach-0",
+      "to": "portal-f0-escalator-up-approach-1",
+      "kind": "corridor",
+      "distance": 4.884986999999995,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-escalator-up-approach-1",
+      "to": "portal-f0-escalator-up",
+      "kind": "entrance",
+      "distance": 1.4256993641388764,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "g-west-island-upper3",
+      "to": "portal-f0-escalator-up-main-junction",
+      "kind": "corridor",
+      "distance": 11.199595415291709,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "g-west-island-upper2",
+      "to": "portal-f0-escalator-up-main-junction",
+      "kind": "corridor",
+      "distance": 5.5353993217854525,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-escalator-up-main-junction",
+      "to": "portal-f0-escalator-up-approach-0",
+      "kind": "corridor",
+      "distance": 2.4458800758218144,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-escalator-up-approach-0",
+      "to": "portal-f1-escalator-up-approach-1",
+      "kind": "corridor",
+      "distance": 1.5028189999999988,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-escalator-up-approach-1",
+      "to": "portal-f1-escalator-up",
+      "kind": "entrance",
+      "distance": 1.127118000000003,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-ring-east1",
+      "to": "portal-f1-escalator-up-main-junction",
+      "kind": "corridor",
+      "distance": 3.937135443960014,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-ring-east2",
+      "to": "portal-f1-escalator-up-main-junction",
+      "kind": "corridor",
+      "distance": 1.4751518848871892,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-escalator-up-main-junction",
+      "to": "portal-f1-escalator-up-approach-0",
+      "kind": "corridor",
+      "distance": 1.687962807204823,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-public-stairs-approach-0",
+      "to": "portal-f0-public-stairs-approach-1",
+      "kind": "corridor",
+      "distance": 4.884986999999995,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-public-stairs-approach-1",
+      "to": "portal-f0-public-stairs",
+      "kind": "entrance",
+      "distance": 3.0531110000000012,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "g-west-island-lower2",
+      "to": "portal-f0-public-stairs-main-junction",
+      "kind": "corridor",
+      "distance": 9.842741825409329,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "g-west-island-lower3",
+      "to": "portal-f0-public-stairs-main-junction",
+      "kind": "corridor",
+      "distance": 10.240921706177737,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-public-stairs-main-junction",
+      "to": "portal-f0-public-stairs-approach-0",
+      "kind": "corridor",
+      "distance": 6.740295500354995,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-public-stairs-approach-0",
+      "to": "portal-f1-public-stairs-approach-1",
+      "kind": "corridor",
+      "distance": 1.5028189999999988,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-public-stairs-approach-1",
+      "to": "portal-f1-public-stairs",
+      "kind": "entrance",
+      "distance": 1.127118000000003,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-ring-east2",
+      "to": "portal-f1-public-stairs-main-junction",
+      "kind": "corridor",
+      "distance": 3.7570200000000002,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-ring-east3",
+      "to": "portal-f1-public-stairs-main-junction",
+      "kind": "corridor",
+      "distance": 3.4564799999999996,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-public-stairs-main-junction",
+      "to": "portal-f1-public-stairs-approach-0",
+      "kind": "corridor",
+      "distance": 1.728277000000002,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-escalator-down-approach-0",
+      "to": "portal-f0-escalator-down-approach-1",
+      "kind": "corridor",
+      "distance": 4.884986999999995,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-escalator-down-approach-1",
+      "to": "portal-f0-escalator-down",
+      "kind": "entrance",
+      "distance": 1.424790999999999,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "g-west-island-lower2",
+      "to": "portal-f0-escalator-down-main-junction",
+      "kind": "corridor",
+      "distance": 8.187337987533297,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "g-west-island-lower3",
+      "to": "portal-f0-escalator-down-main-junction",
+      "kind": "corridor",
+      "distance": 11.896325544053768,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-escalator-down-main-junction",
+      "to": "portal-f0-escalator-down-approach-0",
+      "kind": "corridor",
+      "distance": 1.553325520711641,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-escalator-down-approach-0",
+      "to": "portal-f1-escalator-down-approach-1",
+      "kind": "corridor",
+      "distance": 1.5028189999999988,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-escalator-down-approach-1",
+      "to": "portal-f1-escalator-down",
+      "kind": "entrance",
+      "distance": 1.127118000000003,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-ring-east3",
+      "to": "portal-f1-escalator-down-main-junction",
+      "kind": "corridor",
+      "distance": 1.821226205060472,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-ring-east4",
+      "to": "portal-f1-escalator-down-main-junction",
+      "kind": "corridor",
+      "distance": 5.095450688506264,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-escalator-down-main-junction",
+      "to": "portal-f1-escalator-down-approach-0",
+      "kind": "corridor",
+      "distance": 1.6697883816493138,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-lift-panoramic-approach-0",
+      "to": "portal-f1-lift-panoramic-approach-1",
+      "kind": "corridor",
+      "distance": 3.005638999999995,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-lift-panoramic-approach-1",
+      "to": "portal-f1-lift-panoramic",
+      "kind": "entrance",
+      "distance": 2.0953070000000054,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-west-elevator",
+      "to": "portal-f1-lift-panoramic-main-junction",
+      "kind": "corridor",
+      "distance": 4.658745999999994,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "u-west-hall",
+      "to": "portal-f1-lift-panoramic-main-junction",
+      "kind": "corridor",
+      "distance": 5.259854000000004,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f1-lift-panoramic-main-junction",
+      "to": "portal-f1-lift-panoramic-approach-0",
+      "kind": "corridor",
+      "distance": 0.08263500000000001,
+      "accessible": true,
+      "bidirectional": true,
+      "source": "documented_landing_approach"
+    },
+    {
+      "from": "portal-f0-escalator-up",
+      "to": "portal-f1-escalator-up",
+      "kind": "escalator",
+      "distance": 16.0,
+      "accessible": false,
+      "bidirectional": false,
+      "connection_id": "f0-f1-escalator-up",
+      "coordinate_space": "independent_floor_portals",
+      "label": "Escada rolante · sobe",
+      "source": "documented_plan_connection",
+      "distance_status": "model_transfer_cost"
+    },
+    {
+      "from": "portal-f0-public-stairs",
+      "to": "portal-f1-public-stairs",
+      "kind": "stairs",
+      "distance": 16.0,
+      "accessible": false,
+      "bidirectional": true,
+      "connection_id": "f0-f1-public-stairs",
+      "coordinate_space": "independent_floor_portals",
+      "label": "Escada central",
+      "source": "documented_plan_connection",
+      "distance_status": "model_transfer_cost"
+    },
+    {
+      "from": "portal-f1-escalator-down",
+      "to": "portal-f0-escalator-down",
+      "kind": "escalator",
+      "distance": 16.0,
+      "accessible": false,
+      "bidirectional": false,
+      "connection_id": "f0-f1-escalator-down",
+      "coordinate_space": "independent_floor_portals",
+      "label": "Escada rolante · desce",
+      "source": "documented_plan_connection",
+      "distance_status": "model_transfer_cost"
+    },
+    {
+      "from": "portal-f0-lift-panoramic",
+      "to": "portal-f1-lift-panoramic",
+      "kind": "elevator",
+      "distance": 9.0,
+      "accessible": true,
+      "bidirectional": true,
+      "connection_id": "f0-f1-panoramic-lift",
+      "coordinate_space": "independent_floor_portals",
+      "label": "Elevador panorâmico",
+      "source": "documented_plan_connection",
+      "distance_status": "model_transfer_cost"
     }
   ],
   "anchors": [
@@ -31709,6 +32476,14 @@
       "id": "alimentacao-leste",
       "node_id": "u-ring-east2",
       "label": "Praça de alimentação — circulação leste"
+    },
+    {
+      "id": "anchor-portal-f0-lift-panoramic",
+      "node_id": "portal-f0-lift-panoramic",
+      "label": "Já estou na porta do elevador panorâmico · Térreo",
+      "floor_id": "f0",
+      "source": "manual_portal_origin",
+      "notice": "Use somente se você já está neste ponto; aproximação sem degraus não confirmada."
     }
   ],
   "places": [
@@ -31737,7 +32512,7 @@
       "event_mapping": "demonstration_only"
     }
   ],
-  "interfloor_status": "unconfirmed",
+  "interfloor_status": "partial_documented",
   "source": {
     "document": "2026_11_CDS_MIX (1).pdf",
     "pages": [
@@ -31769,6 +32544,64 @@
       "direction": "both",
       "status": "documentary_correspondence",
       "evidence": "Banda central de degraus com patamar nas duas plantas."
+    }
+  ],
+  "vertical_connections": [
+    {
+      "id": "f0-f1-escalator-up",
+      "from_node": "portal-f0-escalator-up",
+      "to_node": "portal-f1-escalator-up",
+      "kind": "escalator",
+      "from_facility": "f0-escalator-up",
+      "to_facility": "f1-escalator-up",
+      "evidence": "Mesmo conjunto de três equipamentos, mesma relação com praça de alimentação e fachada curva; alinhamento quantitativo com panorâmico: escala5,457233 e erro máximo2,34px na folha3. Rotas refletem a planta, não disponibilidade física atual. Texto SOBE na folha2 em[596.637,680.815] identifica a unidade norte. Embarque no lado leste inferior; desembarque no lado oeste superior.",
+      "bidirectional": false,
+      "public_approach_confirmed": true,
+      "distance_status": "transfer_cost_estimate_not_surveyed_height",
+      "graph_step_free_transfer": false,
+      "physical_accessibility_verified": false
+    },
+    {
+      "id": "f0-f1-public-stairs",
+      "from_node": "portal-f0-public-stairs",
+      "to_node": "portal-f1-public-stairs",
+      "kind": "stairs",
+      "from_facility": "f0-public-stairs",
+      "to_facility": "f1-public-stairs",
+      "evidence": "Mesmo conjunto de três equipamentos, mesma relação com praça de alimentação e fachada curva; alinhamento quantitativo com panorâmico: escala5,457233 e erro máximo2,34px na folha3. Rotas refletem a planta, não disponibilidade física atual. Unidade central com degraus contínuos. Não vincular às escadasE2/E7 de outros núcleos.",
+      "bidirectional": true,
+      "public_approach_confirmed": true,
+      "distance_status": "transfer_cost_estimate_not_surveyed_height",
+      "graph_step_free_transfer": false,
+      "physical_accessibility_verified": false
+    },
+    {
+      "id": "f0-f1-escalator-down",
+      "from_node": "portal-f1-escalator-down",
+      "to_node": "portal-f0-escalator-down",
+      "kind": "escalator",
+      "from_facility": "f0-escalator-down",
+      "to_facility": "f1-escalator-down",
+      "evidence": "Mesmo conjunto de três equipamentos, mesma relação com praça de alimentação e fachada curva; alinhamento quantitativo com panorâmico: escala5,457233 e erro máximo2,34px na folha3. Rotas refletem a planta, não disponibilidade física atual. Texto DESCE na folha2 em[596.565,706.040] identifica a unidade sul; sentido permitido da alimentação para térreo.",
+      "bidirectional": false,
+      "public_approach_confirmed": true,
+      "distance_status": "transfer_cost_estimate_not_surveyed_height",
+      "graph_step_free_transfer": false,
+      "physical_accessibility_verified": false
+    },
+    {
+      "id": "f0-f1-panoramic-lift",
+      "from_node": "portal-f0-lift-panoramic",
+      "to_node": "portal-f1-lift-panoramic",
+      "kind": "elevator",
+      "from_facility": "f0-lift-panoramic",
+      "to_facility": "f1-lift-panoramic",
+      "evidence": "Cabines com símbolo diagonal, localização única na fachada curva e posição correspondente sob transformação que alinha escadas públicas. Térreo: cabine dentro do vestíbulo da fachada oeste da Renner, NÃO diretamente no corredor principal do mall. A escadaria externa é visível, mas não há rampa/caminho sem degraus inequívoco nem acesso pelo interior da Renner comprovado. Superior: acesso pelo saguão aberto em frente à cabine. Pode funcionar no protótipo a partir da origem específica porta do elevador; não inventar segmento cruzando Renner.",
+      "bidirectional": true,
+      "public_approach_confirmed": false,
+      "distance_status": "transfer_cost_estimate_not_surveyed_height",
+      "graph_step_free_transfer": true,
+      "physical_accessibility_verified": false
     }
   ]
 }

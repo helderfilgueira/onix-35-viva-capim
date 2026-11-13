@@ -1,0 +1,92 @@
+/* Viva Capim · avaliações locais de lojas (store-reviews.js). Prefixo .vsr- para não colidir com o mapa. */
+.vsr{
+  --vsr-ink:#172e25;--vsr-green:#244f3b;--vsr-muted:#5d6b60;--vsr-cream:#fbf7ec;--vsr-paper:#fffdf7;
+  --vsr-line:#e4dcc6;--vsr-gold:#d9a23a;--vsr-gold-deep:#9a6a14;--vsr-gold-soft:#fdf0cf;--vsr-danger:#9b2f22;
+  font-family:'Segoe UI Variable','Segoe UI',Arial,sans-serif;color:var(--vsr-ink);
+  background:linear-gradient(160deg,var(--vsr-paper) 0%,var(--vsr-cream) 100%);
+  border:1px solid var(--vsr-line);border-radius:20px;padding:18px 18px 14px;
+  box-shadow:0 10px 28px -18px rgba(23,46,37,.45);display:grid;gap:12px;line-height:1.4
+}
+.vsr *{box-sizing:border-box}
+.vsr p{margin:0}
+.vsr-head{display:grid;gap:2px}
+.vsr-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vsr-gold-deep)}
+.vsr-title{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:600;line-height:1.15;letter-spacing:-.01em;overflow-wrap:anywhere}
+.vsr-summary{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.7);border:1px solid var(--vsr-line)}
+.vsr-summary-stars{position:relative;display:inline-block;flex:0 0 auto;font-size:22px;letter-spacing:2px;line-height:1}
+.vsr-stars-outline{color:transparent;-webkit-text-stroke:1.4px #9c8f70}
+.vsr-stars-fill{position:absolute;inset:0 auto 0 0;width:0;overflow:hidden;white-space:nowrap;color:var(--vsr-gold);-webkit-text-stroke:1px var(--vsr-gold-deep)}
+.vsr-summary-text{font-size:14px;color:var(--vsr-muted)}
+.vsr-link{border:0;background:none;padding:2px 0;margin-top:2px;font:inherit;font-size:13px;font-weight:700;color:var(--vsr-green);text-decoration:underline;cursor:pointer}
+.vsr-cta,.vsr-submit,.vsr-secondary{font:inherit;font-weight:700;min-height:48px;border-radius:999px;padding:10px 20px;cursor:pointer;transition:transform .15s ease,background .15s ease,box-shadow .15s ease}
+.vsr-cta,.vsr-submit{border:0;background:var(--vsr-green);color:#fff;box-shadow:0 6px 16px -10px rgba(23,46,37,.8)}
+.vsr-cta{justify-self:start;display:inline-flex;align-items:center;gap:8px}
+.vsr-cta::before{content:'★';color:var(--vsr-gold)}
+.vsr-cta:hover,.vsr-submit:hover:not(:disabled){background:#1b3d2d;transform:translateY(-1px)}
+.vsr-secondary{border:1.5px solid var(--vsr-green);background:transparent;color:var(--vsr-green)}
+.vsr-secondary:hover:not(:disabled){background:rgba(36,79,59,.08)}
+.vsr-danger{border-color:var(--vsr-danger);color:var(--vsr-danger)}
+.vsr-danger-solid{background:var(--vsr-danger)}
+.vsr-danger-solid:hover:not(:disabled){background:#7c2419}
+.vsr button:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.vsr button:focus-visible,.vsr-form-title:focus-visible,.vsr-receipt:focus-visible{outline:3px solid var(--vsr-gold-deep);outline-offset:3px}
+.vsr-form{display:grid;gap:14px;padding:16px;border-radius:16px;background:var(--vsr-paper);border:1px solid var(--vsr-line)}
+.vsr-form[hidden],.vsr-rights[hidden],.vsr-confirm[hidden],.vsr-receipt[hidden],.vsr [hidden]{display:none}
+.vsr-form-title{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:600}
+.vsr-intro{font-size:13px;color:var(--vsr-muted)}
+.vsr-fieldset{border:0;margin:0;padding:0;min-width:0;display:grid;gap:8px}
+.vsr-fieldset legend{padding:0;margin-bottom:8px;font-weight:700;font-size:15px}
+.vsr-stars{display:flex;gap:6px;flex-wrap:wrap}
+.vsr-star{position:relative;display:block}
+.vsr-star input,.vsr-chip input,.vsr-check input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.vsr-star-face{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;border:1px solid var(--vsr-line);background:#fff;font-size:32px;line-height:1;color:transparent;-webkit-text-stroke:1.6px #8a7a55;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.vsr-star:hover .vsr-star-face{transform:translateY(-2px) scale(1.04);background:var(--vsr-gold-soft)}
+.vsr-stars[data-score="1"] .vsr-star:nth-child(-n+1) .vsr-star-face,
+.vsr-stars[data-score="2"] .vsr-star:nth-child(-n+2) .vsr-star-face,
+.vsr-stars[data-score="3"] .vsr-star:nth-child(-n+3) .vsr-star-face,
+.vsr-stars[data-score="4"] .vsr-star:nth-child(-n+4) .vsr-star-face,
+.vsr-stars[data-score="5"] .vsr-star:nth-child(-n+5) .vsr-star-face{color:var(--vsr-gold);-webkit-text-stroke:1.2px var(--vsr-gold-deep);background:var(--vsr-gold-soft);border-color:#e6c27a}
+.vsr-star input:checked+.vsr-star-face{border:2px solid var(--vsr-gold-deep);box-shadow:0 0 0 3px rgba(217,162,58,.25)}
+.vsr-star input:focus-visible+.vsr-star-face{outline:3px solid var(--vsr-green);outline-offset:3px}
+.vsr-star input:disabled+.vsr-star-face{cursor:default;transform:none}
+.vsr-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.vsr-scale{display:flex;justify-content:space-between;max-width:290px;font-size:11px;color:var(--vsr-muted)}
+.vsr-score-text{font-size:14px;font-weight:700}
+.vsr-chips{display:flex;flex-wrap:wrap;gap:8px}
+.vsr-chip{position:relative}
+.vsr-chip span{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--vsr-line);background:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.vsr-chip input:checked+span{background:var(--vsr-green);border-color:var(--vsr-green);color:#fff}
+.vsr-chip input:checked+span::before{content:'✓ '}
+.vsr-chip input:focus-visible+span{outline:3px solid var(--vsr-gold-deep);outline-offset:2px}
+.vsr-check{position:relative;display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:14px;border:1.5px solid var(--vsr-line);background:#fff;cursor:pointer}
+.vsr-check::before{content:'';flex:0 0 22px;height:22px;margin-top:1px;border-radius:6px;border:2px solid var(--vsr-green);background:#fff}
+.vsr-check:has(input:checked)::before{background:var(--vsr-green);box-shadow:inset 0 0 0 3px #fff}
+.vsr-check:has(input:focus-visible){outline:3px solid var(--vsr-gold-deep);outline-offset:2px}
+.vsr-check span{display:grid;gap:3px}
+.vsr-check strong{font-size:14px}
+.vsr-check small{font-size:12px;color:var(--vsr-muted)}
+.vsr-consent-check{border-color:#d9cfae;background:#fffaf0}
+.vsr-consent-note{font-size:13px;padding:10px 12px;border-radius:12px;background:#eef3ea;color:var(--vsr-green)}
+.vsr-error:empty,.vsr-rights-status:empty{display:none}
+.vsr-error{padding:10px 12px;border-radius:12px;background:#fbe9e5;border:1px solid #e7b8ad;color:var(--vsr-danger);font-size:14px;font-weight:600}
+.vsr-actions{display:flex;flex-wrap:wrap;gap:8px}
+.vsr-receipt{display:grid;gap:4px;padding:12px 14px;border-radius:14px;background:#eef3ea;border:1px solid #bfd3c3;color:var(--vsr-green);font-size:14px;overflow-wrap:anywhere}
+.vsr-receipt small{color:var(--vsr-muted)}
+.vsr-rights{display:grid;gap:10px;padding:14px;border-radius:16px;border:1px dashed #cdbf98;background:rgba(255,255,255,.55)}
+.vsr-rights h4{margin:0;font-size:15px}
+.vsr-rights>p{font-size:13px;color:var(--vsr-muted)}
+.vsr-confirm{display:grid;gap:8px;padding:12px;border-radius:12px;background:#fff4f1;border:1px solid #e7b8ad}
+.vsr-confirm-text{font-size:13px}
+.vsr-rights-status,.vsr-done{font-size:13px;font-weight:600;color:var(--vsr-green)}
+.vsr-note{font-size:11px;color:var(--vsr-muted);border-top:1px solid var(--vsr-line);padding-top:10px}
+@media (max-width:420px){.vsr{padding:14px}.vsr-star-face{width:46px;height:46px;font-size:28px}}
+@media (prefers-reduced-motion:reduce){.vsr *{transition:none!important}.vsr-star:hover .vsr-star-face,.vsr-cta:hover,.vsr-submit:hover:not(:disabled){transform:none}}
+:root[data-motion="paused"] .vsr *{transition:none!important}
+@media (forced-colors:active){
+  .vsr-stars-outline,.vsr-star-face{forced-color-adjust:none;color:Canvas;-webkit-text-stroke:1.5px CanvasText;background:Canvas;border-color:CanvasText}
+  .vsr-stars-fill{forced-color-adjust:none;color:Highlight;-webkit-text-stroke:0}
+  .vsr-stars[data-score="1"] .vsr-star:nth-child(-n+1) .vsr-star-face,.vsr-stars[data-score="2"] .vsr-star:nth-child(-n+2) .vsr-star-face,.vsr-stars[data-score="3"] .vsr-star:nth-child(-n+3) .vsr-star-face,.vsr-stars[data-score="4"] .vsr-star:nth-child(-n+4) .vsr-star-face,.vsr-stars[data-score="5"] .vsr-star:nth-child(-n+5) .vsr-star-face{color:Highlight;-webkit-text-stroke:0;background:Canvas;border-color:Highlight}
+  .vsr-check::before{forced-color-adjust:none;border-color:CanvasText;background:Canvas}
+  .vsr-check:has(input:checked)::before{background:Highlight}
+  .vsr-chip input:checked+span{forced-color-adjust:none;background:Highlight;color:HighlightText}
+}

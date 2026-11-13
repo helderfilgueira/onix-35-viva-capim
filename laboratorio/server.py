@@ -10,12 +10,15 @@ import threading
 import time
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 from navigation import load_navigation, calculate_route, NavigationError
 
 ROOT = Path(__file__).resolve().parent
 REASONS = ('programacao', 'localizacao', 'acessibilidade', 'organizacao', 'outro')
 LOCATIONS = ('Praça A', 'Praça B', 'Praça C')
+STORE_REASONS = ('atendimento', 'produtos', 'ambiente', 'acessibilidade', 'outro')
+STORE_NOTICE = 'store-review-v1'
+RATING_THRESHOLD = 5
 SESSION_TTL = 86400
 RETENTION = 30 * 86400
 
@@ -43,6 +46,15 @@ class Store:
         CREATE TABLE IF NOT EXISTS reviews(id TEXT PRIMARY KEY,session_id TEXT REFERENCES sessions(id) ON DELETE CASCADE,
         event_id TEXT REFERENCES events(id),score INTEGER NOT NULL CHECK(score BETWEEN 1 AND 5),
         reason TEXT NOT NULL,created REAL NOT NULL,UNIQUE(session_id,event_id));
+        CREATE TABLE IF NOT EXISTS store_consents(session_id TEXT PRIMARY KEY REFERENCES sessions(id) ON DELETE CASCADE,
+        notice TEXT NOT NULL,created REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS store_checkins(session_id TEXT REFERENCES sessions(id) ON DELETE CASCADE,
+        store_id TEXT NOT NULL,created REAL NOT NULL,PRIMARY KEY(session_id,store_id));
+        CREATE TABLE IF NOT EXISTS store_reviews(id TEXT PRIMARY KEY,session_id TEXT NOT NULL,
+        store_id TEXT NOT NULL,score INTEGER NOT NULL CHECK(score BETWEEN 1 AND 5),
+        reason TEXT NOT NULL CHECK(reason IN ('atendimento','produtos','ambiente','acessibilidade','outro')),
+        created REAL NOT NULL,UNIQUE(session_id,store_id),
+        FOREIGN KEY(session_id,store_id) REFERENCES store_checkins(session_id,store_id) ON DELETE CASCADE);
         ''')
         if not self.db.execute('SELECT 1 FROM events').fetchone():
             self.db.executemany('INSERT INTO events VALUES(?,?,?,?,?,?,?)', [
@@ -122,6 +134,19 @@ class Handler(BaseHTTPRequestHandler):
         if not secrets.compare_digest(self.headers.get('X-Admin-Token',''),self.server.admin_token):
             raise Problem(401,'Credencial administrativa inválida.')
 
+    def retail_store(self, store_id):
+        if not isinstance(store_id, str):
+            raise Problem(404, 'Loja não encontrada no catálogo.')
+        item = next((s for s in load_navigation()['stores'] if s['id'] == store_id), None)
+        if not item or item.get('unit_type') in ('facility', 'structure'):
+            raise Problem(404, 'Loja não encontrada no catálogo.')
+        return item
+
+    def store_consent(self, db, sid):
+        row = db.execute('SELECT notice FROM store_consents WHERE session_id=?', (sid,)).fetchone()
+        if not row or row['notice'] != STORE_NOTICE:
+            raise Problem(403, 'Avaliar lojas é opcional e exige aceite específico do aviso store-review-v1.')
+
     def route(self):
         host = self.headers.get('Host','')
         allowed_hosts = {f'127.0.0.1:{self.server.server_port}',f'localhost:{self.server.server_port}'}
@@ -149,21 +174,72 @@ class Handler(BaseHTTPRequestHandler):
                 return self.reply(200,{'events':[dict(r) for r in db.execute('SELECT * FROM events ORDER BY starts')], 'demo':True})
             if method == 'POST' and path == '/api/session':
                 data=self.body(('consent','notice'))
-                if data.get('consent') is not True or data.get('notice') != 'demo-v1':
-                    raise Problem(400,'A participação é opcional. Leia e aceite o aviso demo-v1.')
-                token=secrets.token_urlsafe(32); now=time.time()
-                with db: db.execute('INSERT INTO sessions VALUES(?,?,?,?)',(hashlib.sha256(token.encode()).hexdigest(),now,now+SESSION_TTL,'demo-v1'))
-                return self.reply(201,{'token':token,'expires_in':SESSION_TTL,'notice':'demo-v1'})
+                notice = data.get('notice')
+                if data.get('consent') is not True or notice not in ('demo-v1', STORE_NOTICE):
+                    raise Problem(400,'A participação é opcional. Leia e aceite o aviso específico da finalidade.')
+                token=secrets.token_urlsafe(32); now=time.time();sid=hashlib.sha256(token.encode()).hexdigest()
+                with db:
+                    db.execute('INSERT INTO sessions VALUES(?,?,?,?)',(sid,now,now+SESSION_TTL,notice))
+                    if notice == STORE_NOTICE:
+                        db.execute('INSERT INTO store_consents VALUES(?,?,?)',(sid,STORE_NOTICE,now))
+                return self.reply(201,{'token':token,'expires_in':SESSION_TTL,'notice':notice})
+            if method == 'GET' and path == '/api/store-ratings':
+                params = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                if set(params) != {'store_id'} or len(params['store_id']) != 1:
+                    raise Problem(400,'Informe somente store_id para consultar a nota da loja.')
+                item = self.retail_store(params['store_id'][0])
+                count, average = db.execute('SELECT count(*),avg(score) FROM store_reviews WHERE store_id=?',(item['id'],)).fetchone()
+                visible = count >= RATING_THRESHOLD
+                return self.reply(200,{'store_id':item['id'],'average':round(average,2) if visible else None,
+                    'count':count if visible else None,'status':'disponivel' if visible else 'amostra_insuficiente',
+                    'threshold':RATING_THRESHOLD,'demo':True,'source':'local_demo',
+                    'unit':'sessões por loja; não pessoas únicas',
+                    'warning':'Avaliações locais desta demonstração; sem dados do Google. A supressão de amostras pequenas não garante anonimização.'})
+            if path in ('/api/store-consent','/api/store-checkins','/api/store-reviews') and method == 'POST':
+                sid=store.session(self.headers.get('X-Session-Token',''))
+                if path == '/api/store-consent':
+                    data=self.body(('consent','notice'))
+                    if data.get('consent') is not True or data.get('notice') != STORE_NOTICE:
+                        raise Problem(400,'Leia e aceite voluntariamente o aviso store-review-v1.')
+                    with db:
+                        db.execute('INSERT OR IGNORE INTO store_consents VALUES(?,?,?)',(sid,STORE_NOTICE,time.time()))
+                    return self.reply(200,{'consented':True,'notice':STORE_NOTICE})
+                self.store_consent(db,sid)
+                data=self.body(('store_id','visited') if path == '/api/store-checkins' else ('store_id','score','reason'))
+                item=self.retail_store(data.get('store_id'));store_id=item['id']
+                if path == '/api/store-checkins':
+                    if data.get('visited') is not True:
+                        raise Problem(400,'Confirme a visita de forma autodeclarada para avaliar. Isso não comprova presença física.')
+                    try:
+                        with db: db.execute('INSERT INTO store_checkins VALUES(?,?,?)',(sid,store_id,time.time()))
+                    except sqlite3.IntegrityError:
+                        raise Problem(409,'Esta sessão já confirmou uma visita a esta loja.')
+                    return self.reply(201,{'checked_in':True,'store_id':store_id,'self_reported':True})
+                if type(data.get('score')) is not int or not 1 <= data['score'] <= 5 or data.get('reason') not in STORE_REASONS:
+                    raise Problem(400,'Escolha uma nota inteira de 1 a 5 e um aspecto válido.')
+                if not db.execute('SELECT 1 FROM store_checkins WHERE session_id=? AND store_id=?',(sid,store_id)).fetchone():
+                    raise Problem(409,'Confirme sua visita antes de avaliar a loja.')
+                receipt=secrets.token_hex(8)
+                try:
+                    with db: db.execute('INSERT INTO store_reviews VALUES(?,?,?,?,?,?)',(receipt,sid,store_id,data['score'],data['reason'],time.time()))
+                except sqlite3.IntegrityError:
+                    raise Problem(409,'Esta sessão já avaliou esta loja.')
+                return self.reply(201,{'receipt':receipt,'store_id':store_id,'message':'Avaliação registrada nesta demonstração. Obrigado pela participação voluntária.'})
             if path in ('/api/me','/api/checkins','/api/reviews'):
                 sid=store.session(self.headers.get('X-Session-Token',''),allow_expired=path=='/api/me' and method in ('GET','DELETE'))
                 if method=='GET' and path=='/api/me':
-                    return self.reply(200,{'notice':'demo-v1','retention_days':30,
+                    return self.reply(200,{'notice':db.execute('SELECT notice FROM sessions WHERE id=?',(sid,)).fetchone()['notice'],'retention_days':30,
                         'checkins':[dict(r) for r in db.execute('SELECT event_id,created FROM checkins WHERE session_id=?',(sid,))],
-                        'reviews':[dict(r) for r in db.execute('SELECT id,event_id,score,reason,created FROM reviews WHERE session_id=?',(sid,))]})
+                        'reviews':[dict(r) for r in db.execute('SELECT id,event_id,score,reason,created FROM reviews WHERE session_id=?',(sid,))],
+                        'store_consents':[dict(r) for r in db.execute('SELECT notice,created FROM store_consents WHERE session_id=?',(sid,))],
+                        'store_checkins':[dict(r) for r in db.execute('SELECT store_id,created FROM store_checkins WHERE session_id=?',(sid,))],
+                        'store_reviews':[dict(r) for r in db.execute('SELECT id,store_id,score,reason,created FROM store_reviews WHERE session_id=?',(sid,))]})
                 if method=='DELETE' and path=='/api/me':
                     with db: db.execute('DELETE FROM sessions WHERE id=?',(sid,))
                     return self.reply(200,{'deleted':True,'message':'Sessão, check-ins e avaliações excluídos desta base.'})
                 if method=='POST' and path in ('/api/checkins','/api/reviews'):
+                    if db.execute('SELECT notice FROM sessions WHERE id=?',(sid,)).fetchone()['notice'] != 'demo-v1':
+                        raise Problem(403,'A participação em eventos exige aceite específico do aviso demo-v1.')
                     data=self.body(('event_id',) if path.endswith('checkins') else ('event_id','score','reason'))
                     eid=data.get('event_id')
                     if not isinstance(eid,str) or not db.execute('SELECT 1 FROM events WHERE id=?',(eid,)).fetchone():
@@ -218,7 +294,7 @@ class Handler(BaseHTTPRequestHandler):
                     raise Problem(404, 'Logomarca não encontrada.')
                 mime = {'png':'image/png','jpg':'image/jpeg','jpeg':'image/jpeg','svg':'image/svg+xml','webp':'image/webp'}[file.suffix[1:]]
                 return self.reply(200, file.read_bytes(), mime)
-            if method=='GET' and path in ('/','/index.html','/app.js','/style.css','/modern.css','/explorar.html','/explorar.css','/explorar.js','/map3d.js','/map-plan3d.js','/brand-logos.js','/vendor/three.module.js','/vendor/three.core.js','/vendor/qrcode.js'):
+            if method=='GET' and path in ('/','/index.html','/app.js','/style.css','/modern.css','/explorar.html','/explorar.css','/explorar.js','/map3d.js','/map-plan3d.js','/brand-logos.js','/store-reviews.js','/store-reviews.css','/vendor/three.module.js','/vendor/three.core.js','/vendor/qrcode.js'):
                 name='index.html' if path=='/' else path[1:]
                 mime={'html':'text/html; charset=utf-8','js':'text/javascript; charset=utf-8','css':'text/css; charset=utf-8'}[name.rsplit('.',1)[1]]
                 file = ROOT/'static'/name

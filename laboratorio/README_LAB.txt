@@ -1,3 +1,5 @@
+ATUALIZAÇÃO ATUAL: docs/PISOS_E_ESTRELAS.txt — quatro conexões térreo/alimentação, rotas por piso e estrelas para lojas/eventos; 65 testes aprovados. A aproximação acessível ao elevador no térreo ainda exige confirmação. Os estados abaixo são históricos.
+
 ESTADO ATUAL: consulte docs/SERVICOS_PLANTA.txt. Atalhos para banheiros, elevadores, escadas e família; 48 testes aprovados. O restante deste arquivo registra etapas anteriores.
 
 ATUALIZAÇÃO: revisão integral disponível em docs/REVISAO_INTEGRAL.txt. Estado atual: 211 unidades, 208 contornos, 196 percursos inferidos. O conteúdo abaixo registra ciclos anteriores.

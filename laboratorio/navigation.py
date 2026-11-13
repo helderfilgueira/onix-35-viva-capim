@@ -36,15 +36,25 @@ def validate_graph(data):
             raise ValueError('Invalid distance')
         if type(edge['accessible']) is not bool:
             raise ValueError('Invalid accessibility')
-        if edge.get('kind') not in ('corridor', 'entrance', 'stairs', 'elevator'):
+        if edge.get('kind') not in ('corridor', 'entrance', 'stairs', 'escalator', 'elevator'):
             raise ValueError('Invalid edge kind')
         if any(type(edge.get(flag, default)) is not bool for flag, default in [('blocked', False), ('bidirectional', True)]):
             raise ValueError('Invalid edge flag')
         a, b = nodes[edge['from']], nodes[edge['to']]
-        if a['floor_id'] != b['floor_id'] and edge['kind'] not in ('stairs', 'elevator'):
+        if a['floor_id'] != b['floor_id'] and edge['kind'] not in ('stairs', 'escalator', 'elevator'):
             raise ValueError('Unspecified vertical connection')
-        # Distances are physical schematic metres, not arbitrary preference penalties.
-        if edge['distance'] + 1e-9 < math.dist((a['x'], a['y'], a['z']), (b['x'], b['y'], b['z'])):
+        # Independent floor drawings do not share an x/z origin: never measure a lift
+        # by the diagonal between two page-local coordinates.
+        vertical=a['floor_id']!=b['floor_id']
+        if vertical and data.get('geometry_source')=='pdf-vector':
+            connections={c['id']:c for c in data.get('vertical_connections',[])}
+            c=connections.get(edge.get('connection_id'))
+            if not c or (edge['from'],edge['to'])!=(c['from_node'],c['to_node']) or edge['kind']!=c['kind']:
+                raise ValueError('Undocumented vertical connection')
+            if edge.get('coordinate_space')!='independent_floor_portals':raise ValueError('Vertical coordinate model missing')
+            if edge['kind'] in ('stairs','escalator') and edge['accessible']:raise ValueError('Steps cannot be accessible')
+            if edge['distance']+1e-9<abs(a['y']-b['y']):raise ValueError('Invalid vertical distance')
+        elif edge['distance'] + 1e-9 < math.dist((a['x'], a['y'], a['z']), (b['x'], b['y'], b['z'])):
             raise ValueError('Distance shorter than straight line')
     for place in data['stores'] + data.get('places', []):
         if data.get('geometry_source')=='pdf-vector' and place.get('node_id') is None:
@@ -109,7 +119,7 @@ def calculate_route(request, data=None):
     for edge in data['edges']:
         if edge.get('blocked', False):
             continue
-        if request['accessible'] and (not edge['accessible'] or edge['kind'] == 'stairs'):
+        if request['accessible'] and (not edge['accessible'] or edge['kind'] in ('stairs','escalator')):
             continue
         adjacency[edge['from']].append((edge['to'], edge))
         if edge.get('bidirectional', True):
@@ -126,12 +136,14 @@ def calculate_route(request, data=None):
             if candidate < distances.get(target, float('inf')):
                 distances[target], previous[target] = candidate, (current, edge)
                 heapq.heappush(queue, (candidate, target))
+    if end not in distances and request['accessible'] and nodes[start]['floor_id']!=nodes[end]['floor_id']:
+        raise NavigationError(422,'Não há ligação sem degraus confirmada entre esta origem e o destino. Nenhuma escada ou escada rolante foi incluída. Escolha uma origem junto a um elevador com conexão indicada, se você já estiver nesse ponto.')
     if end not in distances:
         raise NavigationError(422, 'Nenhum percurso disponível para esta preferência. Procure orientação no local.')
     path, segments, current = [end], [], end
     while current != start:
         parent, edge = previous[current]
-        segments.append({'from': parent, 'to': current, 'kind': edge['kind'], 'distance': edge['distance']})
+        segments.append({'from': parent, 'to': current, 'kind': edge['kind'], 'distance': edge['distance'], 'connection_id':edge.get('connection_id'), 'label':edge.get('label'), 'from_floor':nodes[parent]['floor_id'], 'to_floor':nodes[current]['floor_id']})
         path.append(parent)
         current = parent
     path.reverse()
@@ -140,13 +152,24 @@ def calculate_route(request, data=None):
     instructions = []
     for segment in segments:
         target = nodes[segment['to']]
-        if segment['kind'] in ('stairs', 'elevator'):
-            means = 'elevador' if segment['kind'] == 'elevator' else 'escada'
-            instructions.append(f"Use o {means} até {floors[target['floor_id']] }.")
+        if segment['kind'] in ('stairs', 'escalator', 'elevator'):
+            means={'elevator':'o elevador','escalator':'a escada rolante','stairs':'a escada'}[segment['kind']]
+            instructions.append(f"Use {means} até {floors[target['floor_id']]}. Ao chegar, continue no trecho desse piso.")
         else:
             instructions.append(f"Siga cerca de {segment['distance']:.1f} m até {target.get('label', 'o próximo ponto')}.")
     instructions.append('Você chegou ao ponto de entrada do destino.' if segments else 'Origem e destino são o mesmo ponto.')
+    floor_steps=[]
+    for i,nid in enumerate(path):
+        fid=nodes[nid]['floor_id']
+        if not floor_steps or floor_steps[-1]['floor_id']!=fid:
+            floor_steps.append({'floor_id':fid,'name':floors[fid],'start_index':i,'end_index':i,'distance':0.0,'transfer':None})
+        floor_steps[-1]['end_index']=i
+        if i<len(segments):
+            seg=segments[i]
+            if seg['from_floor']!=seg['to_floor']:floor_steps[-1]['transfer']={'kind':seg['kind'],'label':seg['label'],'to_floor':seg['to_floor'],'to_name':floors[seg['to_floor']],'connection_id':seg['connection_id']}
+            else:floor_steps[-1]['distance']+=seg['distance']
+    for step in floor_steps:step['distance']=round(step['distance'],1)
     return {'version': data['version'], 'path': [nodes[n] for n in path],
             'distance': round(distances[end], 1), 'instructions': instructions,
-            'segments': segments, 'demo': True,
+            'segments': segments, 'floor_steps':floor_steps, 'accessible_requested':request['accessible'], 'demo': True,
             'warning': 'Percurso inferido da planta. Distâncias estimadas e acessibilidade não validadas no shopping.' if data.get('geometry_source') else 'Percurso esquemático demonstrativo. Distâncias e acessibilidade não validadas no shopping.'}

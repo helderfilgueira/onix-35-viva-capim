@@ -1,0 +1,27 @@
+EQUIPE ONIX - 35 | VIVA CAPIM
+CONEXÕES ENTRE PISOS E AVALIAÇÕES EM ESTRELAS — 13/11/2026
+
+ESTADO ATUAL
+259 destinos da planta: 211 unidades comerciais, 47 representações de serviços/equipamentos e uma área sem identificação. 256 contornos. Eventos demonstrativos são adicionados separadamente na interface. Este documento substitui os estados históricos de serviços e navegação.
+
+CONFERÊNCIA DA PLANTA
+Fonte: 2026_11_CDS_MIX.pdf, folhas 2 e 3. Correspondência do conjunto escada central/rolantes e elevador panorâmico conferida por posição relativa e alinhamento dos desenhos. Escala entre desenhos: 5,457233; erro máximo dos pontos comparados: 2,34 pixels na folha 3. Não é georreferenciamento nem levantamento de campo.
+Ativadas quatro conexões: escada central bidirecional; rolante norte sobe; rolante sul desce; elevador panorâmico bidirecional. As linhas de caminhada permanecem no respectivo piso; a transição possui portais correspondentes. A interface oferece etapas clicáveis por pavimento e instrução de troca de piso. O grafo não liga coordenadas de desenhos independentes por uma diagonal fictícia.
+As três cabines de apoio têm correspondência documental, mas não uso público comprovado; permanecem fora das rotas. Escadas de outros núcleos e detalhes de subsolos não recebem ligações inventadas.
+
+ROTA ACESSÍVEL
+A opção permanece visível e exclui escadas, rolantes e arestas não acessíveis. O elevador panorâmico conecta térreo e alimentação. O acesso sem degraus do corredor térreo à porta dele não está comprovado na planta: não foi criado atalho através da Renner.
+Para testar a conexão, selecione como origem “Já estou na porta do elevador panorâmico · Térreo”, somente se essa for a posição real. Do corredor comum, uma rota sem degraus não confirmada é recusada com explicação. As condições físicas, larguras, rampas, disponibilidade e acessibilidade operacional precisam de validação local. Custos verticais 9/16 são estimativas para escolha do percurso, não altura levantada nem distância física medida.
+
+ESTRELAS — ONDE ESTÃO
+No mapa, selecione uma loja e toque em “★ Avaliar loja” ou “Avaliar esta loja” na ficha. Cinco estrelas acessíveis por teclado e toque, aspecto avaliado, confirmação autodeclarada de visita e aceite específico. O servidor grava nota e comprovante em SQLite. Uma avaliação por sessão/loja. Não há texto livre nem coleta de nome, telefone, CPF ou GPS.
+A agenda também mostra estrelas de 1 a 5 no formulário de evento. Os aceites de lojas e eventos são separados. Médias locais só aparecem a partir de cinco avaliações; não há notas simuladas, importadas do Google ou atribuídas ao shopping real. O visitante pode exportar/excluir seus registros. Retenção de 30 dias; participação expira em 24 horas. Novo atendimento limpa o acesso local à avaliação de lojas, sem apagar automaticamente registros no servidor. Antes de encerrar, exporte ou exclua os dados se desejar. Isolamento da sessão legada de eventos em totem público continua sendo requisito de endurecimento antes de implantação.
+
+VALIDAÇÃO EXECUTADA
+65 testes Python aprovados, incluindo conexões, sentido das rolantes, bloqueio de elevador, ausência de alternativa acessível com escadas, consentimento, duplicidade, exportação, exclusão, retenção e limiar de agregação.
+Navegador Chrome: rota em dois pisos, troca de piso, mensagem de rota acessível indisponível, elevador a partir da porta explícita, avaliação real de cinco estrelas persistida e excluída pela interface, estrelas dos eventos e ausência de erros JavaScript. Evidência em QA_PISOS_ESTRELAS.json e imagens correspondentes.
+Conferência geométrica: nenhuma sobreposição maior que 0,3 m² entre contornos de destinos do mesmo piso, considerando vazios internos. Isso não substitui conferência de campo.
+
+ASSISTÊNCIA E RESPONSABILIDADES
+Claude executado exclusivamente com claude-opus-5-5 para os componentes de estrelas; integração e testes por Codex. Agentes de auditoria da planta e backend contribuíram com evidências e API. Equipe humana: Helder Filgueira (frontend/líder), Gabriel Schimit (backend), Luis (QA), Robson (integração/operação).
+Demonstração local, sem publicação de banco/segredos/planta bruta. Não representa instalação no shopping nem submissão ao Hackarun.

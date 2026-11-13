@@ -55,13 +55,13 @@ class PlanTests(unittest.TestCase):
             self.assertGreater(len(r['path']),1)
     def test_restricted_and_unconfirmed_facilities_do_not_create_public_shortcuts(self):
         facilities=[s for s in self.data['stores'] if s.get('unit_type')=='facility']
-        self.assertEqual(len(facilities),44)
+        self.assertEqual(len(facilities),47)
         for s in facilities:
-            if not s.get('route_enabled'):self.assertIsNone(s['node_id'],s['id'])
+            if not s.get('route_enabled') and s.get('connection_status')!='documented_plan':self.assertIsNone(s['node_id'],s['id'])
         byid={s['id']:s for s in facilities}
-        for sid in ['f0-stairs-ca','f0-lift-panoramic','f0-escalator-up','ss2-elevator-candidate-1','ss1-motorcycle-ramp']:
+        for sid in ['f0-stairs-ca','ss2-elevator-candidate-1','ss1-motorcycle-ramp','f0-lift-service-n1']:
             self.assertTrue(byid[sid]['polygon']);self.assertIsNone(byid[sid]['node_id'])
-        self.assertEqual(self.data['interfloor_status'],'unconfirmed')
+        self.assertEqual(self.data['interfloor_status'],'partial_documented')
 
     def test_external_restaurants_have_no_internal_entry(self):
         for name in ['Madero','Outback']:
@@ -90,11 +90,13 @@ class PlanTests(unittest.TestCase):
     def test_interfloor_not_fabricated(self):
         with self.assertRaises(NavigationError) as e:self.route('g-south-entrance','Subway')
         self.assertEqual(e.exception.status,422)
-        self.assertIn('pavimentos',e.exception.message)
+        self.assertIn('sem degraus',e.exception.message)
     def test_no_edges_cross_known_store_interiors(self):
         nodes={n['id']:n for n in self.data['nodes']}
         for e in self.data['edges']:
             a,b=nodes[e['from']],nodes[e['to']]
+            if a['floor_id']!=b['floor_id']:
+                self.assertIn(e.get('connection_id'),{c['id'] for c in self.data['vertical_connections']});continue
             for s in self.data['stores']:
                 if s['floor_id']==a['floor_id'] and s['polygon']:
                     self.assertFalse(crosses_interior((a['x'],a['z']),(b['x'],b['z']),s['polygon']),s['name'])
