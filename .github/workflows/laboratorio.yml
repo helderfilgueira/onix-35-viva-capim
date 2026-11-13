@@ -1,0 +1,19 @@
+name: Laboratorio - testes Python
+on:
+  push:
+    paths: ['laboratorio/**', '.github/workflows/laboratorio.yml']
+  pull_request:
+    paths: ['laboratorio/**', '.github/workflows/laboratorio.yml']
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Contratos, privacidade e rotas
+        working-directory: laboratorio
+        run: python -m unittest -v test_server.py test_privacy.py test_navigation.py

@@ -1,0 +1,697 @@
+{
+  "version": "onix-demo-2026-11-13-v1",
+  "demo": true,
+  "units": "metres_schematic",
+  "notice": "Mapa e estabelecimentos fictícios. Não usar para orientação física no shopping.",
+  "floors": [
+    {
+      "id": "f0",
+      "name": "Térreo",
+      "level": 0,
+      "y": 0
+    },
+    {
+      "id": "f1",
+      "name": "Piso superior",
+      "level": 1,
+      "y": 9
+    }
+  ],
+  "nodes": [
+    {
+      "id": "f0-c0",
+      "x": -24,
+      "y": 0,
+      "z": 0,
+      "floor_id": "f0",
+      "label": "corredor 1 do Térreo"
+    },
+    {
+      "id": "f0-c1",
+      "x": -12,
+      "y": 0,
+      "z": 0,
+      "floor_id": "f0",
+      "label": "corredor 2 do Térreo"
+    },
+    {
+      "id": "f0-c2",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "floor_id": "f0",
+      "label": "corredor 3 do Térreo"
+    },
+    {
+      "id": "f0-c3",
+      "x": 12,
+      "y": 0,
+      "z": 0,
+      "floor_id": "f0",
+      "label": "corredor 4 do Térreo"
+    },
+    {
+      "id": "f0-c4",
+      "x": 24,
+      "y": 0,
+      "z": 0,
+      "floor_id": "f0",
+      "label": "corredor 5 do Térreo"
+    },
+    {
+      "id": "loja-01-entrada",
+      "x": -12,
+      "y": 0,
+      "z": -5.0,
+      "floor_id": "f0",
+      "label": "entrada de Aurora"
+    },
+    {
+      "id": "loja-02-entrada",
+      "x": 0,
+      "y": 0,
+      "z": -5.0,
+      "floor_id": "f0",
+      "label": "entrada de Folha & Forma"
+    },
+    {
+      "id": "loja-03-entrada",
+      "x": 12,
+      "y": 0,
+      "z": -5.0,
+      "floor_id": "f0",
+      "label": "entrada de Café do Sol"
+    },
+    {
+      "id": "loja-04-entrada",
+      "x": -12,
+      "y": 0,
+      "z": 5.0,
+      "floor_id": "f0",
+      "label": "entrada de Passo Leve"
+    },
+    {
+      "id": "loja-05-entrada",
+      "x": 0,
+      "y": 0,
+      "z": 5.0,
+      "floor_id": "f0",
+      "label": "entrada de Casa Cerrado"
+    },
+    {
+      "id": "loja-06-entrada",
+      "x": 12,
+      "y": 0,
+      "z": 5.0,
+      "floor_id": "f0",
+      "label": "entrada de Universo Geek"
+    },
+    {
+      "id": "f1-c0",
+      "x": -24,
+      "y": 9,
+      "z": 0,
+      "floor_id": "f1",
+      "label": "corredor 1 do Piso superior"
+    },
+    {
+      "id": "f1-c1",
+      "x": -12,
+      "y": 9,
+      "z": 0,
+      "floor_id": "f1",
+      "label": "corredor 2 do Piso superior"
+    },
+    {
+      "id": "f1-c2",
+      "x": 0,
+      "y": 9,
+      "z": 0,
+      "floor_id": "f1",
+      "label": "corredor 3 do Piso superior"
+    },
+    {
+      "id": "f1-c3",
+      "x": 12,
+      "y": 9,
+      "z": 0,
+      "floor_id": "f1",
+      "label": "corredor 4 do Piso superior"
+    },
+    {
+      "id": "f1-c4",
+      "x": 24,
+      "y": 9,
+      "z": 0,
+      "floor_id": "f1",
+      "label": "corredor 5 do Piso superior"
+    },
+    {
+      "id": "loja-07-entrada",
+      "x": -12,
+      "y": 9,
+      "z": -5.0,
+      "floor_id": "f1",
+      "label": "entrada de Mesa Viva"
+    },
+    {
+      "id": "loja-08-entrada",
+      "x": 0,
+      "y": 9,
+      "z": -5.0,
+      "floor_id": "f1",
+      "label": "entrada de Livraria Horizonte"
+    },
+    {
+      "id": "loja-09-entrada",
+      "x": 12,
+      "y": 9,
+      "z": -5.0,
+      "floor_id": "f1",
+      "label": "entrada de Ateliê Íris"
+    },
+    {
+      "id": "loja-10-entrada",
+      "x": -12,
+      "y": 9,
+      "z": 5.0,
+      "floor_id": "f1",
+      "label": "entrada de Sabor de Casa"
+    },
+    {
+      "id": "loja-11-entrada",
+      "x": 0,
+      "y": 9,
+      "z": 5.0,
+      "floor_id": "f1",
+      "label": "entrada de Pausa Verde"
+    },
+    {
+      "id": "loja-12-entrada",
+      "x": 12,
+      "y": 9,
+      "z": 5.0,
+      "floor_id": "f1",
+      "label": "entrada de Pequenos Mundos"
+    }
+  ],
+  "edges": [
+    {
+      "from": "f0-c0",
+      "to": "f0-c1",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c1",
+      "to": "f0-c2",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c2",
+      "to": "f0-c3",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c3",
+      "to": "f0-c4",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c1",
+      "to": "loja-01-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c2",
+      "to": "loja-02-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c3",
+      "to": "loja-03-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c1",
+      "to": "loja-04-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c2",
+      "to": "loja-05-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c3",
+      "to": "loja-06-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c0",
+      "to": "f1-c1",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c1",
+      "to": "f1-c2",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c2",
+      "to": "f1-c3",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c3",
+      "to": "f1-c4",
+      "distance": 12,
+      "kind": "corridor",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c1",
+      "to": "loja-07-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c2",
+      "to": "loja-08-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c3",
+      "to": "loja-09-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c1",
+      "to": "loja-10-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c2",
+      "to": "loja-11-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f1-c3",
+      "to": "loja-12-entrada",
+      "distance": 5,
+      "kind": "entrance",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c0",
+      "to": "f1-c0",
+      "distance": 12,
+      "kind": "stairs",
+      "accessible": false,
+      "bidirectional": true,
+      "blocked": false
+    },
+    {
+      "from": "f0-c4",
+      "to": "f1-c4",
+      "distance": 9,
+      "kind": "elevator",
+      "accessible": true,
+      "bidirectional": true,
+      "blocked": false
+    }
+  ],
+  "stores": [
+    {
+      "id": "loja-01",
+      "name": "Aurora",
+      "category": "Moda",
+      "floor_id": "f0",
+      "node_id": "loja-01-entrada",
+      "x": -12,
+      "z": -10,
+      "y": 0,
+      "width": 9,
+      "depth": 10,
+      "color": "#cc7b58",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-02",
+      "name": "Folha & Forma",
+      "category": "Design",
+      "floor_id": "f0",
+      "node_id": "loja-02-entrada",
+      "x": 0,
+      "z": -10,
+      "y": 0,
+      "width": 9,
+      "depth": 10,
+      "color": "#8caa84",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-03",
+      "name": "Café do Sol",
+      "category": "Café",
+      "floor_id": "f0",
+      "node_id": "loja-03-entrada",
+      "x": 12,
+      "z": -10,
+      "y": 0,
+      "width": 9,
+      "depth": 10,
+      "color": "#d6ac65",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-04",
+      "name": "Passo Leve",
+      "category": "Esportes",
+      "floor_id": "f0",
+      "node_id": "loja-04-entrada",
+      "x": -12,
+      "z": 10,
+      "y": 0,
+      "width": 9,
+      "depth": 10,
+      "color": "#7796ad",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-05",
+      "name": "Casa Cerrado",
+      "category": "Casa",
+      "floor_id": "f0",
+      "node_id": "loja-05-entrada",
+      "x": 0,
+      "z": 10,
+      "y": 0,
+      "width": 9,
+      "depth": 10,
+      "color": "#ae8aab",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-06",
+      "name": "Universo Geek",
+      "category": "Tecnologia",
+      "floor_id": "f0",
+      "node_id": "loja-06-entrada",
+      "x": 12,
+      "z": 10,
+      "y": 0,
+      "width": 9,
+      "depth": 10,
+      "color": "#769e94",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-07",
+      "name": "Mesa Viva",
+      "category": "Gastronomia",
+      "floor_id": "f1",
+      "node_id": "loja-07-entrada",
+      "x": -12,
+      "z": -10,
+      "y": 9,
+      "width": 9,
+      "depth": 10,
+      "color": "#cc7b58",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-08",
+      "name": "Livraria Horizonte",
+      "category": "Livros",
+      "floor_id": "f1",
+      "node_id": "loja-08-entrada",
+      "x": 0,
+      "z": -10,
+      "y": 9,
+      "width": 9,
+      "depth": 10,
+      "color": "#8caa84",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-09",
+      "name": "Ateliê Íris",
+      "category": "Arte",
+      "floor_id": "f1",
+      "node_id": "loja-09-entrada",
+      "x": 12,
+      "z": -10,
+      "y": 9,
+      "width": 9,
+      "depth": 10,
+      "color": "#d6ac65",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-10",
+      "name": "Sabor de Casa",
+      "category": "Gastronomia",
+      "floor_id": "f1",
+      "node_id": "loja-10-entrada",
+      "x": -12,
+      "z": 10,
+      "y": 9,
+      "width": 9,
+      "depth": 10,
+      "color": "#7796ad",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-11",
+      "name": "Pausa Verde",
+      "category": "Bem-estar",
+      "floor_id": "f1",
+      "node_id": "loja-11-entrada",
+      "x": 0,
+      "z": 10,
+      "y": 9,
+      "width": 9,
+      "depth": 10,
+      "color": "#ae8aab",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    },
+    {
+      "id": "loja-12",
+      "name": "Pequenos Mundos",
+      "category": "Infantil",
+      "floor_id": "f1",
+      "node_id": "loja-12-entrada",
+      "x": 12,
+      "z": 10,
+      "y": 9,
+      "width": 9,
+      "depth": 10,
+      "color": "#769e94",
+      "description": "Estabelecimento fictício para explorar o protótipo Viva Capim.",
+      "website": null,
+      "phone": null,
+      "hours": "Horário não informado — demonstração",
+      "review_count": 0,
+      "rating": null,
+      "facade_url": null,
+      "demo": true
+    }
+  ],
+  "anchors": [
+    {
+      "id": "totem-principal",
+      "node_id": "f0-c2",
+      "label": "Totem central — origem demonstrativa"
+    },
+    {
+      "id": "entrada-oeste",
+      "node_id": "f0-c0",
+      "label": "Entrada oeste — ponto demonstrativo"
+    },
+    {
+      "id": "entrada-leste",
+      "node_id": "f0-c4",
+      "label": "Entrada leste — ponto demonstrativo"
+    },
+    {
+      "id": "piso-superior",
+      "node_id": "f1-c4",
+      "label": "Elevador do piso superior — ponto demonstrativo"
+    }
+  ],
+  "places": [
+    {
+      "id": "praca-a",
+      "name": "Praça A",
+      "event_location": "Praça A",
+      "floor_id": "f0",
+      "node_id": "f0-c0"
+    },
+    {
+      "id": "praca-b",
+      "name": "Praça B",
+      "event_location": "Praça B",
+      "floor_id": "f0",
+      "node_id": "f0-c4"
+    },
+    {
+      "id": "praca-c",
+      "name": "Praça C",
+      "event_location": "Praça C",
+      "floor_id": "f1",
+      "node_id": "f1-c2"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+VIVA CAPIM | EQUIPE ONIX - 35
+Registro do laboratório — ciclo de implementação iniciado em 13/11/2026
+
+OBJETIVO DO CICLO
+Entregar uma fatia demonstrável: buscar loja/evento → consultar detalhes → calcular percurso → visualizar em 2D/3D → continuar por link/QR. Preservar os fluxos de agenda, participação voluntária e avaliação existentes. LGPD permanece a prática escolhida.
+
+STATUS DESTE REGISTRO
+Em implementação. Este documento define processo, contratos e critérios; não comprova testes concluídos. O relatório de QA e as evidências de execução devem completar o registro. Não houve reunião humana, piloto físico, validação no shopping ou configuração de Confluence declarados nesta atividade.
+
+INVENTÁRIO E FRONTEIRAS
+Baseline inspecionada: Python 3.10+ com biblioteca padrão, HTTPServer, SQLite, HTML/CSS/JavaScript; server.py, test_server.py, test_privacy.py e static/. A demo existente contém agenda, busca, detalhes, avaliações, direitos por token e gestão local. Código presente não equivale a nova validação desses fluxos.
+Incremento em implementação: módulo navigation.py, catálogo/grafo demonstrativo, endpoint de rotas, experiência explorar, renderização Three.js local, QR local e testes de navegação. A implementação pode mudar; contratos devem ser reconciliados antes de Done.
+Planejado para piloto: HTTPS, gestão de frota, contas administrativas individuais, dispositivo autenticado, implantação em rede autorizada, PostgreSQL/FastAPI se o piloto justificar, backup e restauração ensaiados.
+Dependente de campo: planta pública validada, lojas/horários/fachadas autorizados, entradas reais, conexões acessíveis, rotas aprovadas, equipamento touch e posicionamento indoor.
+Fora desta demonstração: promessa de localização contínua, navegação de emergência, fotos/avaliações reais copiadas de terceiros, conformidade certificada, integração Jira/Confluence inexistente.
+
+FONTE OFICIAL POR TIPO DE INFORMAÇÃO
+GitHub: código, Issues, PRs, testes e histórico quando publicados. docs/: decisões e conhecimento técnico versionado enquanto Confluence não estiver provisionado. Não manter Jira e GitHub como dois backlogs independentes. A entrega da Missão 1 é preservada e não é reclassificada como implementação final.
+
+PROCESSO ADAPTADO À EXECUÇÃO ATUAL
+O ciclo atual é uma sessão de execução com objetivo explícito, não uma simulação de cerimônias humanas. Planning: dividir a fatia por contratos e capacidade. Acompanhamento: registrar avanço, próximo passo e impedimento. Review: demonstrar o incremento e conferir evidências. Retrospectiva: identificar uma melhoria aplicável ao próximo ciclo.
+Quadro proposto: Backlog → Ready → In progress → Review → Done. Impedido é uma marca adicional com responsável e próximo passo. Uma tarefa principal por executor. Integração sequencial e um dono por arquivo durante cada onda.
+Definition of Ready: problema e público claros; aceite testável; dados/fontes definidos; contrato disponível; tarefa pequena; dependências conhecidas. Hipóteses não bloqueantes são registradas, não tratadas como fatos.
+Definition of Done: aceite atendido; código/artefato disponível; testes pertinentes executados e aprovados; revisão independente; documentação atualizada; limites conhecidos; ausência de segredos; execução reproduzível. Um item de pesquisa pode concluir com hipótese rejeitada, desde que a evidência exista.
+
+PAPÉIS HUMANOS E APOIO DE AGENTES
+Helder Filgueira: frontend e liderança. Gabriel Schimit: backend. Luis: QA. Robson: integração e operação.
+Os agentes especialistas apoiam os integrantes, não substituem pessoas inscritas. PO prioriza requisitos e organiza Issues; Scrum Master facilita fluxo; arquiteto resolve contratos; UX/3D/frontend cuidam da experiência; backend e navegação cuidam das regras; QA revisa; DevOps prepara execução; pesquisador verifica fontes. Claude só pode executar no Opus 5.5 confirmado, sem fallback.
+
+MATRIZ RACI
+R = executa; A = responsável final pelo resultado; C = consultado; I = informado. Cada linha tem um único A.
+Atividade                           | Helder | Gabriel | Luis | Robson
+Objetivo, escopo e prioridades      | A/R    | C       | C    | C
+UX, frontend e integração 3D        | A/R    | C       | C    | I
+API, grafo e dados                  | C      | A/R     | C    | C
+Estratégia e evidências de QA       | C      | C       | A/R  | C
+Ambiente e operação                 | C      | C       | C    | A/R
+Revisão de privacidade do incremento| A      | R       | R    | C
+Integração e pacote                 | A      | C       | C    | R
+Decisão de publicação da equipe    | A/R    | C       | C    | C
+Esta matriz atribui responsabilidades de projeto; não nomeia controlador legal, encarregado ou responsável institucional do shopping.
+
+METAS DO CICLO — AINDA NÃO MEDIDAS
+Fluxo principal sem cadastro; rotas respeitam arestas, pisos e restrições; fallback útil sem WebGL; nenhum marcador afirma movimento medido sem sensor; QR contém somente IDs públicos; nenhum dado de visitante no catálogo ou logs. Metas de 30 FPS, conteúdo útil em 3 s e rota p95 <500 ms são hipóteses de engenharia do prompt mestre, a medir no dispositivo de referência.
+Teste com 10 participantes, mapa real e validação física não foram realizados. Não usar testes automatizados como substitutos dessas evidências.
+
+REGISTRO DE IMPEDIMENTOS
+I01: faltam dados espaciais públicos validados → responsável Robson, apoio Gabriel; seguir com grafo fictício rotulado.
+I02: faltam fotos/contatos/avaliações autorizados → responsável Helder; mostrar ausência de dados, sem fabricar reputação.
+I03: servidor local não está acessível ao celular externo → responsável Robson; QR demonstra o formato, implantação HTTPS permanece etapa futura.
+I04: hardware touch/IPS não disponível para validação → responsável Robson; verificar desktop/mobile em navegador e declarar limite.
+
+RASTREABILIDADE
+P0-01 → este registro, ADR e inventário → inspeção de arquivos.
+P0-02 → navigation.py e navigation-data.json → test_navigation.py.
+P0-03 → explorar.* e /api/routes → teste ponta a ponta de busca/rota.
+P0-04 → map3d.js e alternativa SVG → seleção sincronizada e fallback.
+P0-05 → geração QR e parâmetros públicos → testar link e origem rotulada.
+P0-06 → places/event_location e agenda existente → evento→local→rota.
+P0-07 → reset e inatividade → dois atendimentos consecutivos.
+P0-08 → relatório QA e comandos reais → revisão independente.
+
+COMANDOS DE VALIDAÇÃO PLANEJADOS
+No diretório sistema: python -m unittest -v test_server.py test_privacy.py test_navigation.py
+Iniciar servidor local conforme README; testar explorar.html em navegador desktop e viewport mobile. Registrar porta, navegador, versão, build e erros. Não publicar banco ou segredo administrativo.
+
+ARTEFATOS VISUAIS
+ARQUITETURA.svg e FLUXO_VISITANTE.svg: SVG editável produzido em código, com texto selecionável. Representam arquitetura do incremento e fluxo proposto, não instalação no shopping.

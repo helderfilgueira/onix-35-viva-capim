@@ -1,0 +1,37 @@
+EQUIPE ONIX - 35 | RESULTADO REAL DA EXECUÇÃO
+Data: 13/11/2026. Estado: incremento verificado em demonstração local.
+
+ABRIR
+Execute ABRIR_LABORATORIO.cmd na pasta sistema. Requer Python 3.10+. O navegador abre em http://127.0.0.1:8878/explorar.html. Bibliotecas gráficas estão no pacote; não há instalação npm para usar. Fechar o terminal encerra o servidor. Não expõe a aplicação ao celular ou internet.
+Na sessão de desenvolvimento também foi iniciado http://127.0.0.1:8877/explorar.html, usando banco em memória sem credencial publicada.
+
+ENTREGUE
+Catálogo de 12 lojas fictícias e 3 praças, busca, categorias e lista progressiva; dois pavimentos; maquete 3D procedural com seleção por toque/clique; alternativa SVG 2D/lista; detalhes com dados ausentes explícitos; cálculo de rotas no servidor por corredores e portas; escada/elevador e preferência sem escadas; QR local; confirmação de origem do link; integração evento→praça e praça→evento; redução de movimento; reset e inatividade do explorador.
+Malha fonte: static/map3d.js e static/navigation-data.json. Exportação glTF 2.0 em assets/shopping-demo.gltf contém volumes das lojas e metadados; é um modelo esquemático editável, não uma reprodução do shopping. Blender não foi utilizado. Imagens de fachada, telefones, sites e avaliações reais não foram inventados.
+
+AGENTES E CLAUDE
+Coordenação/integração/gráficos; agente backend/navegação e revisão QA; agente frontend/UX; agente PO/processo/docs. Perfis do prompt foram agrupados em ondas conforme capacidade. Não foram criados 17 processos simultâneos nem agentes ilimitados.
+Claude Code foi executado no terminal com ID fixo claude-opus-5-5, allowlist exclusiva e fallback vazio. O relatório modelUsage retornou somente esse modelo, canonicalModel claude-opus-5-5, provider firstParty. Duas chamadas: confirmação e revisão independente do contrato. Não foram usados outros modelos Claude. Revisão em CLAUDE_REVIEW.txt; não confundir essa revisão contratual com execução de testes pelo Claude.
+Achados aplicados: integridade de âncoras/pisos/portas, tipos estritos, validação de mapa no início, resposta de versão incompatível e ausência de fallback indevido para escadas. Uma estimativa ilustrativa do Claude usava centro de loja; foi rejeitada para nosso contrato de entrada pela porta.
+
+EVIDÊNCIAS
+python -m unittest -v test_server.py test_privacy.py test_navigation.py
+Resultado confirmado pela coordenação: 33 testes aprovados, 13,223 s. Preservados os 21 testes anteriores; adicionados 12 de navegação.
+node --check em app.js, explorar.js e map3d.js: aprovado.
+Playwright + Chrome headless Windows/SwiftShader: 15 verificações em E2E_RESULTADO.json, mais 2 em E2E_COMPLEMENTAR.txt. Desktop 1440x1100, celular simulado 390x844; sem overflow no celular; sem exceções JavaScript no fluxo desktop. Screenshots preview-desktop.png e preview-mobile.png.
+Verificações: busca, detalhes, rota, QR, reset, elevador, pisos/2D, redução movimento, origem recebida, integração eventos, privacidade, viewport celular, fallback sem WebGL, inatividade inclusive modal aberto, clique real no canvas e falha de rede sem sucesso falso.
+Defeito real corrigido: SVG não refletia a propriedade hidden; substituído por controle explícito do atributo. Também corrigidos foco perdido, corrida de resposta, inicialização duplicada e link legado de privacidade.
+Modelo glTF exportado com 12 nós/lojas e buffer embutido. Diagramas SVG de arquitetura e fluxo mantêm fonte editável.
+
+STATUS DO BACKLOG
+P0-01 a P0-06 e P0-08: evidências da fatia demonstrativa disponíveis; revisão em GitHub. P0-05 comprova geração/formato/abertura no mesmo host, não transferência para celular externo.
+P0-07: reset do explorador verificado. Isolamento completo do fluxo legado de participação em totem compartilhado permanece pendente: sessionStorage da avaliação e retomada pelo histórico precisam de desenho de sessão dedicado antes do piloto. Portanto o sistema NÃO está liberado como quiosque público.
+P1/P2 permanecem backlog: administração do catálogo/mapa, bloqueios operacionais, dados reais autorizados, orientação por fotos, testes com participantes, infraestrutura indoor, implantação HTTPS e operação física.
+
+GITHUB E PROCESSO
+Oito Issues P0 criadas no repositório da equipe; links em GITHUB_ISSUES.txt. GitHub Projects não configurado: credencial não possui read:project. Não houve configuração de Jira/Confluence, reunião humana simulada ou submissão ao hackathon. docs/ é a fonte técnica atual.
+O incremento é separado do planejamento da Missão 1. Código proposto em branch/PR de revisão, preservando os arquivos entregues anteriormente.
+
+LIMITAÇÕES E PRÓXIMO CICLO
+Mapa fictício, origem manual/confirmada e distâncias esquemáticas; sem rastreamento indoor. Não há implantação física, auditoria de acessibilidade de campo, avaliação jurídica concluída ou dados comerciais validados. QR loopback não abre em outro celular. O teste de 10 participantes e as metas de desempenho em hardware real não foram medidos.
+Próximo ciclo: fechar sessão de quiosque em todas as jornadas; validar dados espaciais autorizados e operação; só então preparar hospedagem e piloto. Melhoria de processo: testar troca 3D/2D e falha de WebGL no início, não apenas após polimento visual.

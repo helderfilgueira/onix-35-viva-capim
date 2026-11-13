@@ -1,0 +1,57 @@
+BACKLOG | EQUIPE ONIX - 35
+Ciclo atual: navegação demonstrativa integrada. Estado inicial dos P0: Em implementação; encerramento depende de evidências.
+Prioridades e critérios são proposta de execução, não resultados já medidos.
+
+P0-01 | Inventariar baseline e registrar contratos
+Responsável: Helder Filgueira; executor: PO / arquiteto; dependências: Nenhuma.
+Dado o código e os artefatos existentes, quando o inventário for concluído, então cada capacidade terá estado atual/proposto/pendente e a Missão 1 será preservada.
+Evidência: docs/LABORATORIO.txt; docs/ADR_001_STACK_E_MAPA.txt.
+
+P0-02 | Implementar catálogo e grafo demonstrativo
+Responsável: Gabriel Schimit; executor: Backend / navegação indoor; dependências: P0-01.
+Dado um grafo com dois pisos, quando solicitar rota válida, então o caminho usará apenas arestas existentes; escadas serão excluídas no perfil sem escadas; IDs e versão inválidos serão rejeitados.
+Evidência: navigation.py; navigation-data.json; test_navigation.py.
+
+P0-03 | Integrar busca, detalhes e rota 2D/lista
+Responsável: Helder Filgueira; executor: Frontend / full stack; dependências: P0-02.
+Dado um visitante sem cadastro, quando selecionar uma loja e origem, então verá detalhes e instruções de rota; vazio, falha de rede e ausência de caminho terão mensagens claras.
+Evidência: static/explorar.*; API /api/routes; evidências de navegador.
+
+P0-04 | Adicionar mapa 3D com fallback acessível
+Responsável: Helder Filgueira; executor: 3D / motion / acessibilidade; dependências: P0-03.
+Dado o mapa carregado, quando selecionar loja por toque ou lista, então a seleção e rota permanecerão sincronizadas; sem WebGL haverá alternativa SVG/lista; redução de movimento será respeitada.
+Evidência: static/map3d.js; testar seleção, pisos e fallback.
+
+P0-05 | Gerar QR e continuação por IDs públicos
+Responsável: Robson; executor: Integração / frontend; dependências: P0-03.
+Dada uma rota calculada, quando gerar link/QR, então conterá somente origem/destino/versão públicos; abertura identifica último ponto confirmado e nunca posição contínua; loopback terá limitação explícita.
+Evidência: geração QR local; inspeção da URL; teste de abertura.
+
+P0-06 | Conectar eventos às praças do mapa
+Responsável: Helder Filgueira; executor: Full stack / conteúdo; dependências: P0-02, P0-03.
+Dado evento em Praça A/B/C, quando solicitar seu local, então o destino corresponderá ao place.event_location; participação e avaliação permanecerão vinculadas ao evento.
+Evidência: contrato places; agenda existente; teste evento→rota.
+
+P0-07 | Verificar reset e privacidade no totem
+Responsável: Luis; executor: QA / privacidade; dependências: P0-03, P0-05.
+Dado visitante A que buscou e abriu uma rota, quando finalizar ou encerrar por inatividade, então B não recuperará busca/rota/QR anteriores; aviso permitirá extensão; nenhum token será levado ao link.
+Evidência: teste dois atendimentos, voltar/recarregar e inspeção de URL.
+
+P0-08 | Validar incremento e registrar evidências
+Responsável: Luis; executor: QA independente / DevOps; dependências: P0-01 a P0-07.
+Dada a integração final, quando executar regressão e jornada no navegador, então resultados, comandos, ambiente e limitações serão registrados; defeitos críticos impedem Done.
+Evidência: test_server.py; test_privacy.py; test_navigation.py; relatório real de QA.
+
+P1 — APÓS A FATIA PRINCIPAL
+P1-01 Administração/publicação versionada: Robson + Gabriel. Aceite: rascunho validado, publicação atômica e rollback reproduzível.
+P1-02 Bloqueios temporários: Gabriel. Aceite: aresta bloqueada nunca aparece em nova rota; origem antiga requer reconfirmação.
+P1-03 Marcos visuais autorizados: Helder. Aceite: imagens têm fonte/licença e alternativa textual.
+P1-04 Preferências de rota: Gabriel + Luis. Aceite: atributos físicos são rastreáveis e nenhuma rota é rotulada acessível só por aparência.
+P1-05 Usabilidade: Luis. Aceite: roteiro, consentimento apropriado, participantes e resultados reais; não inferir validação de amostra inexistente.
+
+P2 — DEPENDENTES DE CAMPO
+P2-01 Piloto IPS: Robson. Aceite: fornecedor/infraestrutura definidos, calibração local, métricas de precisão/idade e alternativa manual.
+P2-02 Recomendações por intenção: Helder. Aceite: catálogo validado, resposta explicável, benefício demonstrado frente a filtros simples.
+P2-03 Roteiro multidestino: Gabriel. Aceite: restrições respeitadas e estimativas transparentes.
+
+Sem estimativa de prazo rígido enquanto capacidade, dados e hardware não forem confirmados. Tamanhos relativos: P0-01 S; P0-02 M; P0-03 M; P0-04 M; P0-05 S; P0-06 S; P0-07 M; P0-08 M.

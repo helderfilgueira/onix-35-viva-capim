@@ -1,0 +1,10 @@
+{
+  "name": "onix35-viva-capim-laboratorio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Testes de navegador opcionais; aplicação roda com Python e dependências gráficas locais",
+  "scripts": {
+    "test:e2e": "node docs/e2e.cjs && node docs/check-3d.cjs"
+  },
+  "devDependencies": { "playwright": "1.65.0" }
+}

@@ -1,0 +1,133 @@
+MODELO VERIFICADO: claude-opus-5-5
+Tarefa: revisão independente do contrato, sem inspeção de código.
+
+# Revisão do contrato: navegação do shopping demonstrativo (Onix35)
+
+Esta revisão se baseia só no contrato descrito. Não inspecionei código nem executei testes.
+
+## 1. Riscos concretos, por prioridade
+
+### P0: bloqueiam a correção ou ferem as premissas
+
+1. **Rota acessível usando escada.** O contrato não diz o que fazer quando o elevador está indisponível ou não há caminho acessível. Se o algoritmo tentar de novo sem restrição, a rota com `accessible=true` passa pela escada.
+2. **Booleano mal validado.** Se o backend aceitar `"false"` (string) ou `0`, `bool("false")` em Python vira `True`. Faltam regras de tipo e de campo obrigatório. JSON malformado ou sem `Content-Length` pode gerar 500 e expor stack trace.
+3. **Divergência de `map_version` sem semântica definida.** Não está dito se a API rejeita, recalcula ou ignora. O cliente pode desenhar rota calculada em um grafo sobre outro.
+4. **Integridade referencial.** Arestas podem apontar para nós inexistentes, e anchors, places ou eventos podem apontar para `place_id` ou `node_id` órfãos. Há duplicidade `stores` × `places` sem fonte de verdade. O grafo pode ser desconexo entre pisos.
+5. **Vazamento de privacidade indireto.** Logs com origem, destino, IP e horário permitem reconstruir trajetos. Outros pontos de vazamento:
+   - QR com parâmetros de sessão ou URL externa;
+   - "último ponto" guardado em `localStorage` e persistindo entre usuários do totem.
+
+   Na prática, isso é rastreamento, mesmo sem GPS.
+
+### P1: correção funcional e integração
+
+6. **Custo vertical indefinido.** O desnível de 9 m não diz qual peso têm as arestas de escada e elevador. Sem regra de desempate determinística, empates geram caminhos diferentes entre execuções.
+7. **Convenções de coordenadas.** O Three.js usa y para cima. No SVG, z precisa virar o eixo vertical, que cresce para baixo. Isso pode espelhar as lojas de z+ e z− e inverter "esquerda/direita" nas instruções.
+8. **Geometria implícita.** Os pontos abaixo precisam ser verificados por teste:
+   - Loja em z=±10 com profundidade 10 ocupa z de ±5 a ±15, então a porta em ±5 fica na fachada.
+   - Lojas com largura 9 em x = −12/0/12 deixam vãos de 3 m entre si.
+   - O z do elevador e da escada não foi especificado.
+   - Falta definir se a rota termina na porta ou no centro da loja.
+9. **`distance` inconsistente com o `path`.** Pode haver arredondamento ou peso euclidiano diferente do peso declarado na aresta.
+10. **`HTTPServer` monothread.** Uma requisição lenta bloqueia as demais. Bind em `0.0.0.0` expõe o demo na rede, e falta limite de tamanho do corpo.
+
+### P2: experiência e rotulagem
+
+11. **Conteúdo fictício sem rótulo visível.** Isso vale para todas as superfícies (3D, SVG, instruções, eventos). Nomes de marcas reais também são um risco.
+12. **Three.js via CDN.** Se o totem estiver offline, a tela fica em branco, a menos que a detecção de WebGL leve corretamente ao SVG.
+13. **Totem sem reset por inatividade.** A rota e a origem do usuário anterior continuam na tela para o próximo.
+
+## 2. Casos de teste (Given / When / Then)
+
+1. **Mesmo piso**
+   - Given: grafo v1 e origem no centro da loja (x=−12, z=+10, y=0).
+   - When: POST com destino na loja (x=12, z=−10, y=0), `accessible=false`.
+   - Then:
+     - 200, com `path` passando pela porta z=+5, pelo corredor z=0 e pela porta z=−5;
+     - `distance` igual à soma dos pesos das arestas (44 m, se o peso for euclidiano);
+     - `version` igual a `"v1"`.
+2. **Entre pisos, acessível**
+   - Given: origem em y=0 e destino em y=9.
+   - When: POST com `accessible=true`.
+   - Then: o `path` contém os nós do elevador (x=24) e nenhum nó de escada; as instruções citam o elevador e o piso de destino.
+3. **Entre pisos, não acessível**
+   - Given: origem na loja x=−12, y=0, e destino na loja x=−12, y=9.
+   - When: POST com `accessible=false`.
+   - Then: o `path` usa a escada (x=−24), se ela for mais curta pela regra de custo vertical documentada, e o resultado é idêntico em 10 execuções.
+4. **Sem rota acessível**
+   - Given: fixture com as arestas do elevador removidas.
+   - When: POST entre pisos com `accessible=true`.
+   - Then: erro definido (ex.: 422, `code="no_accessible_route"`), sem nenhuma rota pela escada.
+5. **Versão desatualizada**
+   - Given: servidor em v2.
+   - When: POST com `map_version="v1"`.
+   - Then: 409 com `version="v2"`; o frontend recarrega `/api/navigation` e não desenha a rota antiga.
+6. **Payload inválido**
+   - Given: servidor ativo.
+   - When: POST com cada uma destas variações:
+     - `accessible:"false"`;
+     - campo ausente;
+     - JSON malformado;
+     - corpo acima do limite;
+     - `origin` inexistente.
+   - Then: 400 (ou 404 para nó inexistente) com envelope de erro padrão; nunca 500 nem stack trace.
+7. **Origem igual ao destino**
+   - Given: um nó válido.
+   - When: POST com `origin == destination`.
+   - Then: 200, `path=[nó]`, `distance=0` e uma instrução do tipo "Você já está no destino".
+8. **Integridade do GET**
+   - Given: resposta de `/api/navigation`.
+   - When: o validador roda.
+   - Then:
+     - toda aresta referencia nós existentes, com peso maior que 0;
+     - anchors, places e eventos resolvem para nós válidos;
+     - todos os nós são alcançáveis;
+     - nenhuma loja se sobrepõe a outra;
+     - cada porta fica na fachada da sua loja;
+     - o y de cada nó pertence a `floors`.
+9. **Fallback SVG**
+   - Given: WebGL indisponível ou Three.js sem carregar.
+   - When: o usuário pede a mesma rota do caso 1.
+   - Then:
+     - o SVG desenha a mesma sequência de nós, sem espelhamento em z;
+     - a lista textual de instruções é idêntica;
+     - o rótulo "demonstrativo" fica visível.
+10. **Privacidade, QR e totem**
+    - Given: QR com `node_id` desconhecido ou URL externa.
+    - When: o QR é lido.
+    - Then:
+      - a leitura é rejeitada e a origem não muda;
+      - com QR válido, a origem só é definida após confirmação;
+      - não há cookie nem identificador persistente;
+      - após o tempo de inatividade, o totem limpa origem e rota;
+      - os logs não guardam o par origem/destino com IP e horário.
+
+## 3. Critérios de integração
+
+- **Schema congelado e documentado:**
+  - nomes e tipos dos campos;
+  - `application/json` em UTF-8;
+  - IDs de nó estáveis entre versões.
+- **Envelope de erro único:** `{error:{code,message}, version}`, com status 400/404/409/422.
+- **Invariantes de rota:**
+  - `version` da resposta igual ao `map_version` aceito;
+  - `distance` igual à soma das arestas do `path`, com tolerância documentada;
+  - arestas consecutivas existem no grafo;
+  - com `accessible=true`, nenhuma aresta do caminho é não acessível.
+- **Determinismo:** mesma entrada e mesma versão dão o mesmo `path`, com desempate por `node_id`.
+- **Convenção espacial escrita:** metros, y para cima, sinal de z, mapeamento para o SVG, se a rota termina na porta ou no centro da loja, e pesos verticais.
+- **Cálculo de rota só no backend:** o frontend apenas renderiza.
+- **Operação local e offline:** Three.js empacotado localmente, bind em `127.0.0.1` e `ThreadingHTTPServer`.
+- **Rotulagem e privacidade:** rótulo "demonstrativo/fictício" em todas as superfícies; nenhuma API de geolocalização, BLE ou Wi-Fi; nenhum cadastro.
+
+## 4. Três melhorias reversíveis prioritárias
+
+1. **Envelope de erro e semântica explícita.** Retornar 409 para versão divergente e 422 para `no_accessible_route`, e validar tipos de forma estrita (`type(x) is bool`). A mudança é aditiva e pode ficar atrás de uma flag `STRICT_API` para reverter.
+2. **Validação do grafo na inicialização e metadados nas arestas.** Acrescentar às arestas `kind` (corredor/porta/escada/elevador) e `accessible: bool`. O validador do caso 8 roda no boot e falha cedo, com desempate determinístico. Os campos novos são ignorados por clientes antigos e a validação pode ser desligada por flag.
+3. **Endurecimento de privacidade no totem:**
+   - QR aceita só `node_id` da lista do grafo;
+   - origem guardada só em memória, com confirmação explícita;
+   - reset após 90 s de inatividade;
+   - logs sem corpo das requisições.
+
+   É só configuração e tela, sem mudar o contrato, e cada item pode ser desfeito sozinho.

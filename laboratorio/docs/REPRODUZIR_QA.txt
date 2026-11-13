@@ -1,0 +1,11 @@
+Backend: na pasta sistema, python -m unittest -v test_server.py test_privacy.py test_navigation.py
+Frontend sintaxe: node --check static/explorar.js; node --check static/map3d.js; node --check static/app.js
+
+Browser: Windows com Google Chrome instalado no caminho C:/Program Files/Google/Chrome/Application/chrome.exe.
+Na pasta sistema: npm install (somente para QA; não necessário para executar a aplicação).
+Em um terminal PowerShell: $env:VIVA_PORT='8877'; python server.py
+Em outro, na mesma pasta: npm run test:e2e
+Se a porta 8877 estiver ocupada pela demonstração desta sessão, use essa instância ou encerre-a antes de iniciar outra.
+As capturas e resultados são escritos em docs/. Os testes usam dados sintéticos e não enviam localização ou dados pessoais a serviços externos. Não usar banco com dados reais.
+Chrome headless usa SwiftShader para compatibilidade; o teste não mede FPS de hardware de totem.
+Artefatos: E2E_RESULTADO.json (15 checks), E2E_COMPLEMENTAR.txt (2 checks), preview-desktop.png, preview-mobile.png.
