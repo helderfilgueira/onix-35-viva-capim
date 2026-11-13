@@ -1,0 +1,26 @@
+VIVA CAPIM — EQUIPE ONIX 35
+Entrega executável: logomarcas e interiores | 13/11/2026
+
+ESTADO ATUAL
+26 logomarcas verificadas, exibidas com o nome nas fachadas, rótulos 3D e cartões. Fontes e hashes em FONTES_LOGOMARCAS.txt e static/logo-manifest.json. Stilo A e Mundo Imersivo permanecem sem logo confirmado. Posições com nome apenas numérico não foram atribuídas a marcas por suposição.
+Interiores ilustrativos distintos: moda com araras e caixas; cinema com telas, salas e poltronas; alimentação com balcões, mesas e cabines; brinquedos com torres e ilhas; casa com sofás e conjuntos; academia com equipamentos. Distribuição estável por loja e contenção geométrica dentro dos polígonos. O mobiliário não participa do cálculo das rotas.
+Zoom e giro para a entrada ao selecionar, visão geral, alternância coberturas/interiores, movimento reduzido e enquadramento do percurso preservados.
+
+EVIDÊNCIAS
+41 testes Python aprovados, incluindo acesso público a logos sem criar sessão e bloqueio de caminhos indevidos.
+10 verificações de design e câmera: QA_DESIGN.json.
+7 verificações de identidades e rotas em cinco lojas: QA_IDENTIDADES.json.
+26 logos: HTTP 200, decodificação, renderização e associação ao catálogo: QA_LOGOS.json.
+Capturas identity-*.png e design-*.png foram inspecionadas visualmente. Hashes sozinhos não provam a qualidade visual. Medições em Chrome/SwiftShader não são benchmark do totem real.
+
+COMO EXECUTAR
+Extraia o ZIP. Com Python 3.10+, abra sistema/ABRIR_LABORATORIO.cmd. O navegador abre http://127.0.0.1:8878/explorar.html. O link funciona no computador que executa o servidor. Nenhuma conta, chave ou instalação npm é necessária para a demonstração. npm é opcional para testes de navegador, com Chrome instalado.
+A sessão de demonstração do assistente usa http://127.0.0.1:8877/explorar.html.
+
+PRESERVAÇÃO E LIMITES
+Dataset espacial inalterado: 157 posições, 81 contornos, 77 destinos roteáveis. SHA256 2D97520F36AE84CE8A96DF5F9DDD7C0313A625DEA4E566B5940FB117C081F0DF.
+Os dois PDFs enviados são idênticos. O Google Earth foi aberto para conferência externa, mas a verificação não foi concluída por interrupção da automação. Nenhuma coordenada, orientação ou precisão foi alterada com base no Earth.
+Fachadas, alturas e interiores são ilustrações; entradas e distâncias continuam inferidas. Ligações entre pavimentos permanecem bloqueadas enquanto não confirmadas. Não é mapa oficial nem rota de emergência. Operação em totem público, isolamento integral da avaliação legada e hospedagem de produção permanecem pendentes.
+
+COLABORAÇÃO
+Claude Opus 5.5 executado no terminal com retorno bem-sucedido e modelo claude-opus-5-5 confirmado. Criou perfis visuais e mobiliário por categoria. Coordenação integrou logos de fontes oficiais e ajustou distribuição de mobiliário. Agente QA independente verificou câmera, percursos, imagens e logos. Detalhes são gerados no renderer; glTF anterior mantém apenas geometria básica.

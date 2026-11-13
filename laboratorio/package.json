@@ -5,7 +5,9 @@
   "description": "Testes de navegador opcionais; aplicaÃƒÂ§ÃƒÂ£o roda com Python e dependÃƒÂªncias grÃƒÂ¡ficas locais",
   "scripts": {
     "test:e2e": "node docs/e2e-plan.cjs",
-    "test:design": "node docs/qa-design.cjs"
+    "test:design": "node docs/qa-design.cjs",
+    "test:identidades": "node docs/qa-identidades.cjs",
+    "test:logos": "node docs/qa-logos.cjs"
   },
   "devDependencies": {
     "playwright": "1.65.0"

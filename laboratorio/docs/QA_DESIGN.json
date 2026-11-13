@@ -20,8 +20,8 @@
       361.9567327017112
     ],
     "fps": 0,
-    "drawCalls": 100,
-    "triangles": 89288
+    "drawCalls": 99,
+    "triangles": 133062
   },
   "focused": {
     "zoom": 0.010741648299633153,
@@ -30,9 +30,9 @@
       300,
       -87.20928978270344
     ],
-    "fps": 29,
+    "fps": 20,
     "drawCalls": 46,
-    "triangles": 85730
+    "triangles": 129506
   },
   "reset": {
     "zoom": 0.003542561319872412,
@@ -41,9 +41,9 @@
       300,
       361.9567327017112
     ],
-    "fps": 39,
-    "drawCalls": 100,
-    "triangles": 89288
+    "fps": 25,
+    "drawCalls": 99,
+    "triangles": 133062
   },
   "reduced": {
     "zoom": 0.010741648299633153,
@@ -52,8 +52,8 @@
       300,
       -87.20928978270344
     ],
-    "fps": 39,
+    "fps": 25,
     "drawCalls": 46,
-    "triangles": 85730
+    "triangles": 129506
   }
 }

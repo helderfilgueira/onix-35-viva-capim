@@ -1,0 +1,46 @@
+{
+  "checks": [
+    "Renner: selection, focus capture and route",
+    "Cinemark: selection, focus capture and route",
+    "Outback: selection, focus capture and route",
+    "Ri Happy: selection, focus capture and route",
+    "Subway: selection, focus capture and route",
+    "Spatial source unchanged during QA",
+    "No JavaScript exceptions"
+  ],
+  "errors": [],
+  "sourceHash": "2d97520f36ae84ce8a96df5f9ddd7c0313a625dea4e566b5940fb117c081f0df",
+  "captures": [
+    {
+      "store": "Renner",
+      "file": "outputs/sistema/docs/identity-renner.png",
+      "sha256": "96f8d9c660c9322cfe359402ef580cf454f81e27afe580115065518933520490",
+      "routeFile": "outputs/sistema/docs/identity-renner-route.png"
+    },
+    {
+      "store": "Cinemark",
+      "file": "outputs/sistema/docs/identity-cinemark.png",
+      "sha256": "b5709eddf173afaa33f2b22314e4b5c12bbb7d04bed81e981c8b6bd220bd0fc6",
+      "routeFile": "outputs/sistema/docs/identity-cinemark-route.png"
+    },
+    {
+      "store": "Outback",
+      "file": "outputs/sistema/docs/identity-outback.png",
+      "sha256": "8dcda1243559c986ebe240714b25f579f84c50bd15967a5b14af78f902ca4497",
+      "routeFile": "outputs/sistema/docs/identity-outback-route.png"
+    },
+    {
+      "store": "Ri Happy",
+      "file": "outputs/sistema/docs/identity-ri-happy.png",
+      "sha256": "440ccc0bac5668c6a34e5e5289370efd322af138eb5adb50264807ab8248bb5a",
+      "routeFile": "outputs/sistema/docs/identity-ri-happy-route.png"
+    },
+    {
+      "store": "Subway",
+      "file": "outputs/sistema/docs/identity-subway.png",
+      "sha256": "3ba983088728b5f1250d4000c4a00d2fd44b899bcc2845ad7663ac80b8c65a45",
+      "routeFile": "outputs/sistema/docs/identity-subway-route.png"
+    }
+  ],
+  "visualReview": "Screenshots require human/agent visual inspection; hashes alone do not validate identities."
+}

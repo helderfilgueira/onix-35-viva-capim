@@ -1,3 +1,4 @@
+import {drawBrandLogo,getBrand} from './brand-logos.js';
 import * as T from './vendor/three.module.js';
 
 /*
@@ -93,6 +94,150 @@ const insetSmooth = (p, d) => insetPoly(p, d) || insetPoly(simplifyPoly(p, Math.
 function hashStr(s) { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
 function rng(seed) { let a = seed || 1; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const angDiff = (a, b) => ((((b - a + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)) - Math.PI;
+
+// ---------- Store identities + interiors ----------
+// INVENTED ILLUSTRATIVE INTERIORS: palettes are loose interpretations (not authorised brand artwork) and every fitting
+// layout is a deterministic miniature typology seeded by the store id, NOT a survey of the real shop.
+const BRANDS = [ // [match, typology, fascia, sign foreground, accent, font weight]
+  [/renner/i, 'fashion', '#c8102e', '#ffffff', '#e8475a', 900], [/c\s*&\s*a/i, 'fashion', '#1c2d6b', '#ffffff', '#d8232a', 900],
+  [/riachuelo/i, 'fashion', '#141414', '#ffffff', '#9a9a9a', 800], [/marisa/i, 'fashion', '#d9007a', '#ffffff', '#ff8cc6', 800],
+  [/cinemark/i, 'cinema', '#2a2a2f', '#ff3347', '#b5121b', 900], [/centauro/i, 'sports', '#d50f25', '#ffffff', '#151515', 900],
+  [/ri\s*happy/i, 'toys', '#ffd200', '#0f4da2', '#0f4da2', 900], [/outback/i, 'food', '#5c1a1e', '#f3e0bd', '#8a5a32', 800],
+  [/subway/i, 'food', '#008c45', '#ffc20e', '#ffc20e', 900], [/mc\s*donald/i, 'food', '#d8231c', '#ffc72c', '#ffc72c', 900],
+];
+const TYPE_HINTS = [[/vaga/i, 'vacant'], [/eventos|imersivo/i, 'generic'], [/camicado|biglar/i, 'home'], [/fit/i, 'fitness'], [/play|park/i, 'toys'], [/pernambucanas|avenida|stilo/i, 'fashion']];
+function storeProfile(s) {
+  const name = String(s.name || ''), h = hashStr(name + '|' + s.id), b = BRANDS.find(([re]) => re.test(name));
+  const type = b ? b[1] : (TYPE_HINTS.find(([re]) => re.test(name)) || [])[1] || (s.category === 'Alimentação' ? 'food' : 'generic');
+  const hue = (h % 360) / 360, hsl = (u, sa, l) => new T.Color().setHSL(((u % 1) + 1) % 1, sa, l, T.SRGBColorSpace);
+  const fascia = b ? new T.Color(b[2]) : hsl(hue, .5, .3), fg = new T.Color(b ? b[3] : '#fff6e2');
+  const accent = b ? new T.Color(b[4]) : hsl(hue + .1 + ((h >>> 9) % 3) * .14, .6, .52);
+  const goods = [accent, fascia.clone().lerp(WHITE, .12), hsl(hue + .5, .55, .55), hsl(hue + .27, .5, .62), new T.Color('#efe7d8'), new T.Color('#33404f')];
+  return { type, brand: Boolean(b), fascia, fg, accent, goods, weight: b ? b[5] : 700, seed: h, floor: accent.clone().lerp(CREAM, .84), wall: fascia.clone().lerp(CREAM, .62) };
+}
+const COLS = new Map(), col = c => typeof c === 'string' ? (COLS.get(c) || COLS.set(c, new T.Color(c)).get(c)) : c;
+const MAX_FIT_PARTS = 1400, MAX_FLOOR_FITTINGS = 14000;
+// Unit makers in unit space: x along the unit (length L), z across it (half-depth d). Parts: [x, z, yCentre, sx, sy, sz, colour].
+const U_ = {
+  rail(L, P, R) { const p = [[-L / 2, 0, .66, .05, 1.32, .05, '#4a4f55'], [L / 2, 0, .66, .05, 1.32, .05, '#4a4f55'], [0, 0, 1.32, L, .045, .045, '#6b7077']], n = Math.floor(L / .17), o = Math.floor(R() * 4);
+    for (let k = 0; k < n; k++) p.push([-L / 2 + .12 + k * (L - .24) / Math.max(1, n - 1), 0, .9, .07, .74, .44, P[(k + o) % 4]]); return { L, d: .25, p }; },
+  shelf(L, P) { const p = [[0, .04, .95, L, 1.9, .2, '#e9e2d4']];
+    for (let r = 0; r < 3; r++) for (let k = 0; k < 3; k++) p.push([-L / 3 + k * L / 3, -.06, .45 + r * .5, L / 3 - .08, .22, .26, P[(k + r) % 4]]); return { L, d: .2, p }; },
+  counter(L, P) { return { L, d: .38, p: [[0, 0, .47, L, .94, .6, P[1]], [0, 0, .97, L + .1, .06, .72, '#f3eee4'], [L * .3, .05, 1.12, .32, .26, .3, '#2b2f33']] }; },
+  island(L, P, R) { const p = [[0, 0, .2, L, .4, 1.1, '#f1ebdf']], n = Math.max(2, Math.floor(L / .7));
+    for (let k = 0; k < n; k++) { const x = -L / 2 + (k + .5) * L / n; p.push(R() < .5 ? [x, 0, 1.15, .22, 1.5, .22, P[k % 4]] : [x, 0, .52, .45, .24, .4, P[(k + 1) % 4]]); } return { L, d: .6, p }; },
+  plinth(L, P) { return { L: 1.1, d: .55, p: [[0, 0, .15, 1.1, .3, 1.1, '#e8e4dc'], [0, 0, .5, .75, .4, .75, P[1]], [0, 0, .86, .36, .32, .36, P[0]]] }; },
+  equip(L, P) { const p = [[0, 0, .3, L, .6, .55, '#2c2f33'], [-L / 2 + .1, 0, .9, .06, 1.2, .06, '#5b6066'], [L / 2 - .1, 0, .9, .06, 1.2, .06, '#5b6066'], [0, 0, 1.5, L, .05, .05, '#5b6066']], n = Math.floor(L / .45);
+    for (let k = 0; k < n; k++) p.push([-L / 2 + .25 + k * (L - .5) / Math.max(1, n - 1), 0, .74, .3, .28, .34, P[k % 3]]); return { L, d: .3, p }; },
+  tower(L, P, R) { const p = [[0, 0, .2, 1.3, .4, 1.3, P[2]]]; let y = .4, w = 1;
+    for (let k = 0, n = 3 + Math.floor(R() * 2); k < n; k++) { const ht = .35 + R() * .25; p.push([(R() - .5) * .2, (R() - .5) * .2, y + ht / 2, w, ht, w, P[k % 4]]); y += ht; w *= .78; } return { L: 1.3, d: .65, p }; },
+  lowIsland(L, P) { const p = [[0, 0, .22, L, .44, 1, P[3]]]; for (let k = 0; k < 4; k++) p.push([-L / 2 + (k + .5) * L / 4, (k % 2 - .5) * .4, .6, .36, .32 + (k % 3) * .12, .3, P[k % 4]]); return { L, d: .5, p }; },
+  sofa(L, P) { return { L: 3, d: 1.15, p: [[0, 0, .015, 3, .03, 2.3, P[3]], [0, -.62, .22, 2.1, .44, .8, P[0]], [0, -.95, .62, 2.1, .5, .18, P[0]], [-1.08, -.62, .4, .18, .62, .8, P[1]], [1.08, -.62, .4, .18, .62, .8, P[1]], [0, .25, .2, 1, .38, .55, '#8a6a4d'], [1, .7, .25, .8, .5, .7, P[2]]] }; },
+  dining(L, P) { const p = [[0, 0, .72, 1.8, .06, .9, '#a57b55'], [0, 0, .36, .16, .7, .5, '#6d5038']]; for (const x of [-.5, .5]) for (const z of [-.7, .7]) p.push([x, z, .25, .42, .5, .42, P[1]]); return { L: 1.9, d: 1, p }; },
+  tread(L, P) { const p = []; for (let k = 0; k < 3; k++) { const x = -1.1 + k * 1.1; p.push([x, 0, .12, .72, .24, 1.7, '#2a2d31'], [x, .1, .26, .5, .04, 1.3, '#62676d'], [x, -.8, .75, .62, 1.1, .08, '#3c4046'], [x, -.7, 1.32, .6, .1, .3, P[0]]); } return { L: 3.2, d: .9, p }; },
+  rack(L, P) { const p = [[0, 0, 1, L, .06, .5, '#3c4046'], [-L / 2 + .04, 0, .55, .08, 1.1, .5, '#3c4046'], [L / 2 - .04, 0, .55, .08, 1.1, .5, '#3c4046']]; for (let k = 0; k < 5; k++) p.push([-L / 2 + .3 + k * (L - .6) / 4, 0, .55, .08, .44, .44, k % 2 ? '#1e2023' : P[0]]); return { L, d: .3, p }; },
+  bench(L, P) { return { L: 2.4, d: 1, p: [[0, 0, .01, 2.4, .02, 2, P[3]], [-.4, 0, .25, 1.2, .2, .35, '#2a2d31'], [.55, 0, .6, .1, 1.2, .1, '#5b6066'], [.55, 0, 1.15, .1, .1, 1.6, '#5b6066']] }; },
+  service(L, P) { const p = [[0, -.55, .47, L, .94, .55, P[0]], [0, -.55, .97, L + .08, .06, .66, '#f3eee4'], [-L * .25, -.55, 1.15, L * .35, .3, .45, '#f6d9a8']], n = Math.max(2, Math.floor(L / .95));
+    for (let k = 0; k < n; k++) { const x = -L / 2 + (k + .5) * L / n; p.push([x, .5, .45, L / n - .1, .9, .6, k % 2 ? '#c9cdd0' : '#9fa6ab']); if (k % 2 === 0) p.push([x, .5, 2.05, L / n - .1, .32, .62, '#6f767c']); } return { L, d: .85, p }; },
+  table(L, P, R) { const four = R() < .5, t = four ? .95 : .72, o = t / 2 + .28, p = [[0, 0, .74, t, .06, t, '#b48a5e'], [0, 0, .37, .12, .7, .12, '#5b4632']];
+    for (const [x, z] of four ? [[-o, 0], [o, 0], [0, -o], [0, o]] : [[-o, 0], [o, 0]]) p.push([x, z, .24, .38, .48, .38, P[1]]); return { L: 2 * o + .4, d: four ? o + .2 : t / 2 + .05, p }; },
+  booth(L, P) { return { L: 1.5, d: 1.02, p: [[0, 0, .74, 1.3, .06, .7, '#a57b55'], [0, -.72, .24, 1.4, .48, .5, P[0]], [0, -.95, .62, 1.4, .8, .12, P[0]], [0, .72, .24, 1.4, .48, .5, P[0]], [0, .95, .62, 1.4, .8, .12, P[0]]] }; },
+  screen(L) { return { L, d: .12, p: [[0, .04, 1.55, L + .2, 1.95, .06, '#2a2a2f'], [0, -.03, 1.55, L, 1.7, .1, '#f4f6f7']] }; },
+  divider(L) { return { L, d: .08, p: [[0, 0, 1.1, L, 2.2, .14, '#3a3438']] }; },
+};
+const GENERIC_POOL = ['rail', 'island', 'plinth', 'lowIsland', 'equip', 'dining'];
+// Lays out composites in a local frame (u along the facade or longest edge, w inward). Each composite's padded footprint and
+// then every component box are validated (corners in polygon, no polygon edge crossing it, door/entry clearance) before any push.
+function layoutInterior(body, sgn, fac, door, prof, out) {
+  if (prof.type === 'vacant' || out.length >= MAX_FLOOR_FITTINGS) return { comps: 0, parts: 0 };
+  const area = Math.abs(polyArea(body)), R = rng(prof.seed ^ 0x5bd1e995);
+  let O = body[0], Ux = 1, Uz = 0;
+  if (fac) { O = fac.a; Ux = fac.ux; Uz = fac.uz; } else { let best = 0; body.forEach((a, k) => { const b = body[(k + 1) % body.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L > best) { best = L; O = a; Ux = (b[0] - a[0]) / L; Uz = (b[1] - a[1]) / L; } }); }
+  const Nx = -Uz * sgn, Nz = Ux * sgn, rot = Math.atan2(-Uz, Ux);
+  const toL = (x, z) => [(x - O[0]) * Ux + (z - O[1]) * Uz, (x - O[0]) * Nx + (z - O[1]) * Nz];
+  const BL = body.map(p => toL(p[0], p[1])), us = BL.map(p => p[0]), ws = BL.map(p => p[1]);
+  const u0 = Math.min(...us), u1 = Math.max(...us), w0 = Math.min(...ws), w1 = Math.max(...ws), Lu = u1 - u0, D = w1 - w0;
+  const dL = door ? toL(door.x, door.z) : null, eu = fac ? fac.ud : dL ? dL[0] : (u0 + u1) / 2, entryW = fac || dL ? Math.min(D * .45, 6) : 0;
+  const aisle = area < 120 ? .7 : 1.2, doorClr = area < 120 ? 1.6 : 2.2, capC = area < 250 ? clamp(Math.round(area / 15), 2, 8) : clamp(Math.round(area / 70), 12, prof.type === 'cinema' ? 64 : 40);
+  const placed = []; let comps = 0, parts = 0;
+  const okRect = (cu, cw, hu, hw, clr) => { // rect (+clr) fully inside BL and away from the door node
+    const a = cu - hu - clr, b = cu + hu + clr, c = cw - hw - clr, d = cw + hw + clr, E = [[a, c], [b, c], [b, d], [a, d]];
+    if (!E.every(p => pointInPoly(p[0], p[1], BL))) return false;
+    for (let k = 0; k < 4; k++) for (let j = 0; j < BL.length; j++) if (segCross(E[k], E[(k + 1) % 4], BL[j], BL[(j + 1) % BL.length])) return false;
+    if (BL.some(p => p[0] > a && p[0] < b && p[1] > c && p[1] < d)) return false;
+    return !dL || Math.hypot(Math.max(Math.abs(cu - dL[0]) - hu, 0), Math.max(Math.abs(cw - dL[1]) - hw, 0)) > doorClr;
+  };
+  const place = (kind, cu, cw, swap, clr = .45, len = 2) => { // emit one composite, all-or-nothing
+    if (comps >= capC || out.length >= MAX_FLOOR_FITTINGS) return false;
+    const unit = (typeof kind === 'function' ? kind : U_[kind])(len, prof.goods, R);
+    const detailScale=prof.type==='cinema'?1:clamp(Math.sqrt(area/900),1,1.9);
+    unit.L*=detailScale;unit.d*=detailScale;unit.p=unit.p.map(p=>p.map((v,i)=>i<6?v*detailScale:v));
+    const hu = swap ? unit.d : unit.L / 2, hw = swap ? unit.L / 2 : unit.d;
+    if (parts + unit.p.length > MAX_FIT_PARTS) return false;
+    if (entryW && Math.abs(cu - eu) < hu + aisle && cw - hw < w0 + entryW) return false; // keep the entry aisle clear
+    if (placed.some(q => cu - hu < q[1] + .45 && cu + hu > q[0] - .45 && cw - hw < q[3] + .45 && cw + hw > q[2] - .45)) return false;
+    if (!okRect(cu, cw, hu, hw, clr)) return false;
+    const P = unit.p.map(([x, z, y, sx, sy, sz, c]) => swap ? [cu + z, cw + x, y, sz, sy, sx, c] : [cu + x, cw + z, y, sx, sy, sz, c]);
+    if (!P.every(p => okRect(p[0], p[1], p[3] / 2, p[5] / 2, .1))) return false;
+    for (const [pu, pw, y, su, sy, sw, c] of P) out.push({ x: O[0] + Ux * pu + Nx * pw, y, z: O[1] + Uz * pu + Nz * pw, sx: su, sy, sz: sw, r: rot, c: col(c) });
+    placed.push([cu - hu, cu + hu, cw - hw, cw + hw]); comps++; parts += P.length; return true;
+  };
+  const wallRun = (kind, len, side) => { // hug the back wall (side 0) or the left/right walls (side -1/+1)
+    const step = len + .55, wallStop = Math.min(capC, comps + (area > 250 ? 6 : 2));
+    if (!side) { for (let u = u0 + len / 2 + .4; u < u1 - len / 2 - .3; u += step) for (let w = w1 - .45; w > w0 + D * .45; w -= .25) if (comps>=wallStop)return; else if (place(kind, u, w, false, .2, len)) break; return; }
+    for (let w = w0 + entryW * .7 + len / 2; w < w1 - len / 2 - .3; w += step) for (let k = 0; k < Lu * .3 / .25; k++) if (comps>=wallStop)return; else if (place(kind, side < 0 ? u0 + .45 + k * .25 : u1 - .45 - k * .25, w, true, .2, len)) break;
+  };
+  const front = (kind, len, swap = false) => { const sd = R() < .5 ? 1 : -1; for (const du of [3, -3, 5, -5, 7, -7]) for (const w of [2, 2.6, 3.4]) if (place(kind, eu + du * sd, w0 + w, swap, .45, len)) return true; return false; };
+  const grid = (kinds, pu, pw, len, swap, clr = .45) => {
+    const ju = (R() - .5) * pu * .4, jw = (R() - .5) * pw * .3;
+    const candidates=[];
+    for (let w = w0 + entryW * .6 + pw / 2 + jw, i = 0; w < w1 - 1.2; w += pw, i++) for (let u = u0 + pu * .6 + ju, j = 0; u < u1 - 1; u += pu, j++) candidates.push({u,w,kind:kinds[(i+j+(prof.seed>>>5))%kinds.length],rank:hashStr(`${prof.seed}:${i}:${j}`)});
+    candidates.sort((a,b)=>a.rank-b.rank);for(const q of candidates){if(comps>=capC)break;place(q.kind,q.u,q.w,swap,clr,len);}
+  };
+  const swap = R() < .5 && D > 8, big = area > 250;
+  switch (prof.type) {
+    case 'cinema': { // grouped auditoria: light screen at the back, rows of dark-red seats with a centre aisle
+      const nA = clamp(Math.round(Lu / 13), 2, 5), bw = Lu / nA;
+      front('counter', 3.2);
+      for (let a = 0; a < nA; a++) {
+        const uc = u0 + bw * (a + .5); let ws = null;
+        for (let w = w1 - .5; w > w0 + D * .5 && ws === null; w -= .3) for (const L of [bw * .7, bw * .5]) if (ws === null && place('screen', uc, w, false, .2, Math.min(L, 9))) ws = w;
+        if (ws === null) continue;
+        for (let r = 0; r < 10; r++) for (const hu of [bw * .42, bw * .32, bw * .22]) {
+          const n = Math.max(3, Math.floor(hu * 2 / .62)), row = [];
+          for (let k = 0; k < n; k++) { if (n > 7 && k === n >> 1) continue; const x = -hu + .31 + k * (hu * 2 - .62) / (n - 1); row.push([x, 0, .21, .5, .42, .5, '#8e1b25'], [x, -.24, .55, .5, .62, .1, '#5e1219']); }
+          if (place(() => ({ L: hu * 2, d: .32, p: row }), uc, ws - 2.4 - r * Math.max(1.05, D * .025), false, .35)) break;
+        }
+      }
+      for (let a = 1; a < nA; a++) for (let w = w0 + D * .62; w > w0 + D * .45; w -= .4) if (place('divider', u0 + bw * a, w, true, .2, D * .45)) break;
+      break;
+    }
+    case 'food':
+      for (const L of [Math.min(Lu * .7, 5.5), Math.min(Lu * .5, 3.2), 2]) { let done = false; for (let w = w1 - .5; w > w0 + 1 && !done; w -= .25) done = place('service', (u0 + u1) / 2, w, false, .2, L); if (done) break; }
+      if (big) { wallRun('booth', 1.5, -1); wallRun('booth', 1.5, 1); }
+      grid(['table', 'table', 'booth'], 2.8, 2.8, 1, false); break;
+    case 'fashion':
+      front('counter', 2.6); if (big) { front('island', 2.4); front('island', 2.4); }
+      wallRun('shelf', 2.4, 0); grid(['rail', 'rail', 'island', 'rail'], swap ? 2.4 : 3.2, swap ? 3.2 : 2.4, 2, swap); wallRun('shelf', 2.4, -1); wallRun('shelf', 2.4, 1); break;
+    case 'sports':
+      front('counter', 2.6); front('plinth', 1); front('plinth', 1); wallRun('shelf', 2.4, 0); grid(['equip', 'equip', 'plinth'], 4.4, 2.6, 3.6, false); wallRun('equip', 3, -1); break;
+    case 'toys':
+      front('counter', 2.2); wallRun('shelf', 2.2, 0); grid(['tower', 'lowIsland', 'tower', 'lowIsland'], 3, 3, 2.4, swap); wallRun('shelf', 2.2, 1); break;
+    case 'home':
+      front('counter', 2.2); wallRun('shelf', 2.6, 0); grid(['sofa', 'dining', 'sofa'], 4.4, 3.8, 2, false); wallRun('shelf', 2.6, -1); break;
+    case 'fitness':
+      front('counter', 2.4); wallRun('rack', 2.4, -1); wallRun('rack', 2.4, 1); grid(['tread', 'bench', 'tread'], 4, 3, 2, false); wallRun('tread', 2, 0); break;
+    default: { // unknown shops: 3-4 deterministic generic typologies, no invented business
+      const pool = GENERIC_POOL.slice().sort((a, b) => hashStr(a + prof.seed) - hashStr(b + prof.seed)).slice(0, 3 + (prof.seed & 1));
+      front('counter', clamp(Lu * .25, 1.4, 2.6));
+      if (area > 45) wallRun('shelf', clamp(Lu * .35, 1.4, 2.4), 0);
+      grid(pool, 3.4, 2.8, 2, swap);
+    }
+  }
+  // small shops: denser fallback pass so even ~25 m2 units read as furnished (still fully validated)
+  if (comps < 2 && prof.type !== 'cinema') { grid(prof.type === 'food' ? ['table'] : ['plinth', 'lowIsland'], 1.9, 1.9, 1.2, !swap, .3); if (comps < 2) wallRun('shelf', 1.2, R() < .5 ? -1 : 1); }
+  return { comps, parts };
+}
 
 // ---------- three.js geometry helpers ----------
 function shapeOf(points, hole) {
@@ -230,7 +375,7 @@ export function createPlanScene(container, data, onSelect) {
 
   function addLabel(o) {
     measure.font = `600 30px ${FONT}`;
-    const tw = Math.min(560, measure.measureText(o.text).width), cw = Math.ceil(tw + 70), ch = 72;
+    const tw = Math.min(560, measure.measureText(o.text).width), cw = Math.ceil(tw + 112), ch = 72;
     const sp = new T.Sprite(new T.SpriteMaterial({ depthTest: false, depthWrite: false, transparent: true, toneMapped: false }));
     sp.center.set(.5, -.12); sp.renderOrder = 20; sp.visible = false; sp.position.set(o.x, o.y, o.z);
     floorGroups.get(o.floor).add(sp);
@@ -242,9 +387,9 @@ export function createPlanScene(container, data, onSelect) {
     c.shadowColor = 'rgba(23,60,50,.22)'; c.shadowBlur = 6; c.shadowOffsetY = 2;
     roundRect(c, 4, 3, l.cw - 8, 60, 18); c.fillStyle = S[0]; c.fill();
     c.shadowColor = 'transparent'; c.lineWidth = style === 'selected' ? 3 : 2; c.strokeStyle = S[2]; c.stroke();
-    c.beginPath(); c.arc(30, 33, 8.5, 0, 7); c.fillStyle = style === 'anchor' ? '#d9f57c' : style === 'pin' ? '#c48a3f' : l.color || '#5a8a6f'; c.fill();
-    c.lineWidth = 2.5; c.strokeStyle = style === 'anchor' ? '#173c32' : '#fffef9'; c.stroke();
-    c.font = `600 30px ${FONT}`; c.fillStyle = S[1]; c.textBaseline = 'middle'; c.fillText(l.text, 48, 34, l.cw - 60);
+    const hasLogo=drawBrandLogo(c,l.text,13,10,60,45);
+    if(!hasLogo){c.beginPath();c.arc(30,33,8.5,0,7);c.fillStyle=style==='anchor'?'#d9f57c':style==='pin'?'#c48a3f':l.color||'#5a8a6f';c.fill();c.lineWidth=2.5;c.strokeStyle=style==='anchor'?'#173c32':'#fffef9';c.stroke();}
+    c.font=`600 30px ${FONT}`;c.fillStyle=S[1];c.textBaseline='middle';c.fillText(l.text,hasLogo?84:48,34,l.cw-(hasLogo?96:60));
   }
   function ensureLabel(l) {
     if (l.tex) return;
@@ -298,7 +443,7 @@ export function createPlanScene(container, data, onSelect) {
     return { i: best.i, a, L: best.L, ux, uz, nx: -uz * sgn, nz: ux * sgn, ud: clamp((door.x - a[0]) * ux + (door.z - a[1]) * uz, 0, best.L) };
   }
   // Storefront: glazing + mullions + door + canopy + fascia sign, all inside the recessed strip of the polygon.
-  function facadeDecor(s, fac, poly, h, fascia, inst, signs) {
+  function facadeDecor(s, fac, poly, h, fascia, inst, signs, prof) {
     const { a, L, ux, uz, nx, nz, r } = fac;
     const P = (u, w) => [a[0] + ux * u + nx * w, a[1] + uz * u + nz * w];
     const inside = u => [.03, r * .5, r + .12].every(w => { const p = P(u, w); return pointInPoly(p[0], p[1], poly); });
@@ -326,7 +471,7 @@ export function createPlanScene(container, data, onSelect) {
     box(inst.fascia, uc, r - .09, fy0 + fh / 2, span, .12, fh, fascia);
     if (span > 3.6) for (const u of [s0 + .24, s1 - .24]) { if (Math.abs(u - du) < dw / 2 + .3) continue; const p = P(u, .16); inst.plant.push({ x: p[0], y: .15, z: p[1], sx: .12, sy: .15, sz: .12, r: 0 }); }
     const A = 256 / 48, sh = Math.min(fh * .72, span * .84 / A), sw = sh * A;
-    if (sw > .55) { const c = P(uc, r - .152); signs.push({ index: signEntries.push({ text: s.name, color: fascia }) - 1, x: c[0], y: fy0 + fh / 2, z: c[1], nx, nz, sw, sh }); }
+    if (sw > .55) { const c = P(uc, r - .152); signs.push({ index: signEntries.push({ text: s.name, color: fascia, fg: prof.fg, accent: prof.accent, weight: prof.weight }) - 1, x: c[0], y: fy0 + fh / 2, z: c[1], nx, nz, sw, sh }); }
     return true;
   }
   function roofDecor(s, inner, h, area, inst) {
@@ -375,29 +520,20 @@ export function createPlanScene(container, data, onSelect) {
         if(isSimple(moved)){body=moved;fac.r=r;}else fac=null;
       }else fac=null;
     }
-    const fascia = color.clone().lerp(DARK, .42);
-    if (fac && !facadeDecor(s, fac, poly, h, fascia, inst, signs)) { body = poly; fac = null; }
+    const prof = storeProfile(s), fascia = prof.fascia;
+    if (fac && !facadeDecor(s, fac, poly, h, fascia, inst, signs, prof)) { body = poly; fac = null; }
     const inner = insetSmooth(body, clamp(Math.sqrt(area) * .03, .18, .42));
-    const wall = color.clone().lerp(CREAM, .52), roof = color.clone().lerp(ROOF, inner ? .3 : .12), crown = color.clone().lerp(DARK, .1);
+    const wall = prof.wall, roof = color.clone().lerp(ROOF, inner ? .3 : .12), crown = color.clone().lerp(DARK, .1);
     // Dollhouse view: floor and side walls preserve the exact footprint; roof is independently switchable.
     const shell = extrude(body, h), caps = shell.groups.find(q => q.materialIndex === 0);
     if (caps) for (let k = caps.start; k < caps.start + caps.count; k++) if (shell.attributes.position.getY(k) > h * .5) shell.attributes.position.setY(k, .075);
     shell.attributes.position.needsUpdate = true;
-    const mesh = new T.Mesh(paintGroups(shell, [color.clone().lerp(CREAM,.9), wall]), M.body);
+    const mesh = new T.Mesh(paintGroups(shell, [prof.floor, wall]), M.body);
     const roofGeo = new T.ShapeGeometry(shapeOf(body)); roofGeo.rotateX(-Math.PI/2);
     const roofMesh = new T.Mesh(roofGeo, own(new T.MeshStandardMaterial({color:roof,roughness:.85,side:T.DoubleSide})));
     roofMesh.position.y=h; roofMesh.visible=!cutaway; roofMesh.receiveShadow=true; roofMesh.userData.store=s.id; g.add(roofMesh); roofViews.push(roofMesh); hitObjects.push(roofMesh);
-    // Fictional retail fittings, always contained in the shop. Never used for routing.
-    const xs=body.map(p=>p[0]), zs=body.map(p=>p[1]), minX=Math.min(...xs), maxX=Math.max(...xs), minZ=Math.min(...zs), maxZ=Math.max(...zs);
-    const spacing=Math.max(3.4,Math.sqrt(area/34)), food=s.floor_id==='f1', rr=rng(hashStr(s.id));
-    const fits=(x,z,w,d)=>[[0,0],[-w/2,-d/2],[w/2,-d/2],[w/2,d/2],[-w/2,d/2]].every(([a,b])=>pointInPoly(x+a,z+b,body)&&body.every((q,k)=>segDist(x+a,z+b,q,body[(k+1)%body.length])>.7));
-    for(let x=minX+spacing*.7;x<maxX-spacing*.3;x+=spacing) for(let z=minZ+spacing*.7;z<maxZ-spacing*.3;z+=spacing){
-      const w=food?1.4:spacing*.55,d=food?1.4:Math.min(1.7,spacing*.28); if(!fits(x,z,w,d)||rr()<.18)continue;
-      if(doorNode&&Math.hypot(x-doorNode.x,z-doorNode.z)<4)continue;
-      inst.fittings.push({x,y:food?.8:.68,z,sx:w,sy:food?.14:1.2,sz:d,r:0,c:new T.Color(food?'#ae8057':'#d7c5a7')});
-      if(food){for(const dx of [-1,1])inst.fittings.push({x:x+dx*.9,y:.4,z,sx:.35,sy:.7,sz:.45,r:0,c:color});}
-      else {for(let j=0;j<3;j++)inst.fittings.push({x:x-w*.32+j*w*.32,y:1.38,z,sx:w*.22,sy:.2+rr()*.3,sz:d*.7,r:0,c:new T.Color(['#db6d4c','#467b8b','#d9b84d','#ede1cb'][Math.floor(rr()*4)])});}
-    }
+    // Invented, illustrative per-profile interior typologies, contained in the shop body. Never used for routing.
+    layoutInterior(body, Math.sign(polyArea(body)) || 1, fac, doorNode && doorNode.floor_id === f.id ? doorNode : null, prof, inst.fittings);
     mesh.castShadow = mesh.receiveShadow = true; mesh.userData.store = s.id; g.add(mesh); hitObjects.push(mesh);
     let top = h;
     if (inner) { const pg = extrude(body, .36, inner); pg.translate(0, h, 0); parapets.push({ geo: paintGroups(pg, [crown.clone().lerp(WHITE, .14), crown]) }); top = h + .36; }
@@ -446,8 +582,12 @@ export function createPlanScene(container, data, onSelect) {
       const x = (i % cols) * cw, y = Math.floor(i / cols) * chh;
       c.fillStyle = e.color.getStyle(); c.fillRect(x, y, cw, chh);
       c.fillStyle = 'rgba(255,255,255,.16)'; c.fillRect(x, y + 3, cw, 2);
-      c.font = `700 24px ${FONT}`; c.fillStyle = '#fff4dc'; c.textAlign = 'center'; c.textBaseline = 'middle';
-      c.fillText(String(e.text).toUpperCase(), x + cw / 2, y + chh / 2 + 1, cw - 22);
+      c.fillStyle = e.accent.getStyle(); c.fillRect(x + 6, y + chh - 9, cw - 12, 3); // profile accent stripe
+      const hasLogo=drawBrandLogo(c,e.text,x+7,y+5,50,37);
+      const txt = String(e.text).toUpperCase(); let fs = hasLogo?22:27;
+      do { c.font = `${e.weight} ${fs}px ${FONT}`; } while (c.measureText(txt).width > cw - (hasLogo?76:24) && --fs > 15);
+      c.fillStyle = e.fg.getStyle(); c.textAlign = 'center'; c.textBaseline = 'middle';
+      c.fillText(txt, x + (hasLogo?158:cw/2), y + chh / 2 - 1, cw - (hasLogo?76:22));
     });
     M.sign = own(new T.MeshBasicMaterial({ map: own(canvasTex(cv, aniso)), toneMapped: false, side: T.DoubleSide }));
     for (const [fid, info] of floorInfo) {
@@ -498,7 +638,7 @@ export function createPlanScene(container, data, onSelect) {
     } else { const m = new T.Mesh(new T.RingGeometry(1.4, 1.9, 40), M.selRing); m.rotation.x = -Math.PI / 2; m.position.set(t.x, .09, t.z); selGroup.add(m); }
     selGroup.visible = t.floor === floor;
     Object.assign(selLabel, { text: t.kind === 'pin' ? `${t.name} · conferir` : t.name, color: t.color ? '#' + t.color.getHexString() : '#d9f57c', x: t.x, y: t.top + (t.kind === 'pin' ? .9 : .3), z: t.z, floor: t.floor });
-    measure.font = `600 30px ${FONT}`; selLabel.cw = Math.ceil(Math.min(560, measure.measureText(selLabel.text).width) + 70); selLabel.aspect = selLabel.cw / selLabel.ch;
+    measure.font = `600 30px ${FONT}`; selLabel.cw = Math.ceil(Math.min(560, measure.measureText(selLabel.text).width) + 112); selLabel.aspect = selLabel.cw / selLabel.ch;
     paintLabel(selLabel.canvas, selLabel, 'selected');
     selLabel.tex?.dispose(); selLabel.tex = canvasTex(selLabel.canvas); selLabel.sprite.material.map = selLabel.tex; selLabel.sprite.material.needsUpdate = true;
     selLabel.sprite.position.set(selLabel.x, selLabel.y, selLabel.z);
@@ -699,7 +839,7 @@ export function createPlanScene(container, data, onSelect) {
     for (const l of labelsByFloor.get(floor) || []) {
       l.sprite.visible = false;
       if (shown >= 48 || l.id === selected || l.kind === 'pin') continue;
-      if (l.kind === 'store' && !l.featured && !zoomed) continue;
+      if (l.kind === 'store' && !l.featured && !getBrand(l.text) && !zoomed) continue;
       if (place(l, l.sprite, false)) { ensureLabel(l); shown++; }
     }
   }

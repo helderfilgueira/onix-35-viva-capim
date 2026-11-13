@@ -1,0 +1,236 @@
+[
+  {
+    "name": "Avenida",
+    "path": "/logos/avenida.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "BIG",
+    "path": "/logos/big.jpg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Biglar",
+    "path": "/logos/biglar.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "C&A",
+    "path": "/logos/ca.jpg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Camicado",
+    "path": "/logos/camicado.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Centauro",
+    "path": "/logos/centauro.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Cinemark",
+    "path": "/logos/cinemark.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Divino Fogão",
+    "path": "/logos/divinofogao.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Dona Maria Express",
+    "path": "/logos/donamariaexpress.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Express Grill",
+    "path": "/logos/expressgrill.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Giraffas",
+    "path": "/logos/giraffas.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Kin Sui",
+    "path": "/logos/kinsui.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Marisa",
+    "path": "/logos/marisa.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "McDonald's",
+    "path": "/logos/mcdonalds.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "MoroFit",
+    "path": "/logos/morofit.jpeg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Outback",
+    "path": "/logos/outback.jpeg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Pernambucanas",
+    "path": "/logos/pernambucanas.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Pizza Hut",
+    "path": "/logos/pizzahut.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Renner",
+    "path": "/logos/renner.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Ri Happy",
+    "path": "/logos/rihappy.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Riachuelo",
+    "path": "/logos/riachuelo.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "STZ",
+    "path": "/logos/stz.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Spoleto",
+    "path": "/logos/spoleto.svg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Subway",
+    "path": "/logos/subway.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Wow Park",
+    "path": "/logos/wowpark.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  },
+  {
+    "name": "Zig Zag Play",
+    "path": "/logos/zigzagplay.jpg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
+  }
+]

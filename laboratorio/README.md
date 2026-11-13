@@ -1,3 +1,5 @@
+> **Versão atual:** [logomarcas e interiores](docs/ATUALIZACAO_LOGOS_INTERIORES.txt). Abra `ABRIR_LABORATORIO.cmd` após extrair o pacote.
+
 > **Mapa atualizado pela planta:** leia [reconstrução e limites](docs/PLANTA_RECONSTRUIDA.txt). São 157 posições, 81 contornos e 77 destinos com rota. O restante deste README descreve a demonstração anterior.
 
 # Viva Capim

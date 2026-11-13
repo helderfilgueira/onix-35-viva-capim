@@ -136,6 +136,18 @@ class NavigationHTTPTests(unittest.TestCase):
         self.assertEqual(status,200); self.assertTrue(route['demo'])
         self.assertEqual(self.store.db.execute('SELECT count(*) FROM sessions').fetchone()[0],0)
 
+    def test_brand_assets_are_public_and_paths_are_restricted(self):
+        for path, mime in (('/logos/renner.png', 'image/png'), ('/logos/spoleto.svg', 'image/svg+xml'), ('/brand-logos.js', 'text/javascript')):
+            conn=http.client.HTTPConnection('127.0.0.1',self.server.server_port,timeout=5)
+            conn.request('GET',path)
+            res=conn.getresponse(); raw=res.read()
+            self.assertEqual(res.status,200)
+            self.assertTrue(res.getheader('Content-Type').startswith(mime))
+            self.assertGreater(len(raw),50); conn.close()
+        for path in ('/logos/../server.py','/logos/not-found.png','/logos/nested/renner.png','/logo-manifest.json'):
+            self.assertEqual(self.req(path)[0],404)
+        self.assertEqual(self.store.db.execute('SELECT count(*) FROM sessions').fetchone()[0],0)
+
     def test_http_rejects_bad_payload_and_private_files(self):
         self.assertEqual(self.req('/api/routes',{'origin':[]})[0],400)
         for path in ('/navigation.py','/navigation-data.json','/vendor/../server.py'):
