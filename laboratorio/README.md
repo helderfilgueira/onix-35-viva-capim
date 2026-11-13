@@ -1,6 +1,8 @@
+> **Auditoria atual:** Madero EXT 01 incluído; acesso externo pendente. Ainda faltam 50 ocorrências de quiosques (49 códigos) e quatro unidades em outros pisos. Consulte [auditoria de realidade](docs/AUDITORIA_REALIDADE.txt).
+
 > **Versão atual:** [logomarcas e interiores](docs/ATUALIZACAO_LOGOS_INTERIORES.txt). Abra `ABRIR_LABORATORIO.cmd` após extrair o pacote.
 
-> **Mapa atualizado pela planta:** leia [reconstrução e limites](docs/PLANTA_RECONSTRUIDA.txt). São 157 posições, 81 contornos e 77 destinos com rota. O restante deste README descreve a demonstração anterior.
+> **Mapa atualizado pela planta:** leia [reconstrução e limites](docs/PLANTA_RECONSTRUIDA.txt). São 158 posições, 82 contornos e 77 destinos com rota inferida. O restante deste README descreve a demonstração anterior.
 
 # Viva Capim
 

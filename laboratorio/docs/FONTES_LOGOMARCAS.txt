@@ -135,3 +135,7 @@ SHA256: 11b59bc4f66b423ed0efc773828c8ae69101e8051c339f4e4854846974e00293
 PENDENTES: Mundo Imersivo, Stilo A
 As posições ainda identificadas apenas por número na planta não receberam marcas inventadas.
 Stilo A: imagem genérica do shopping descartada. Spoleto: usado SVG do site oficial, pois diretório trazia placeholder.
+Madero
+https://www.capimdouradosc.com.br/lojas/
+https://www.intranetmall.com/esperienza/imgShopping/48/loja/147-29-4-2024-F8GUNWVNBR.png?v=4PD19
+SHA256: c26c70d90ae42b21c6d9d9bea656fdfcb1a5e827b8693243ebb0e51c005d3966

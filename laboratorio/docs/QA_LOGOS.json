@@ -232,5 +232,14 @@
     "rendered": true,
     "matchedStore": true,
     "matchedModule": true
+  },
+  {
+    "name": "Madero",
+    "path": "/logos/madero.png",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
   }
 ]

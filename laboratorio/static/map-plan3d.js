@@ -98,7 +98,7 @@ const angDiff = (a, b) => ((((b - a + Math.PI) % (Math.PI * 2)) + Math.PI * 2) %
 // ---------- Store identities + interiors ----------
 // INVENTED ILLUSTRATIVE INTERIORS: palettes are loose interpretations (not authorised brand artwork) and every fitting
 // layout is a deterministic miniature typology seeded by the store id, NOT a survey of the real shop.
-const BRANDS = [ // [match, typology, fascia, sign foreground, accent, font weight]
+const BRANDS = [ [/madero/i, 'food', '#171717', '#ffffff', '#9d7749', 800], // [match, typology, fascia, sign foreground, accent, font weight]
   [/renner/i, 'fashion', '#c8102e', '#ffffff', '#e8475a', 900], [/c\s*&\s*a/i, 'fashion', '#1c2d6b', '#ffffff', '#d8232a', 900],
   [/riachuelo/i, 'fashion', '#141414', '#ffffff', '#9a9a9a', 800], [/marisa/i, 'fashion', '#d9007a', '#ffffff', '#ff8cc6', 800],
   [/cinemark/i, 'cinema', '#2a2a2f', '#ff3347', '#b5121b', 900], [/centauro/i, 'sports', '#d50f25', '#ffffff', '#151515', 900],

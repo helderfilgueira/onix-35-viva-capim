@@ -1,5 +1,5 @@
 {
-  "version": "capim-planta-2026-11-v2",
+  "version": "capim-planta-2026-11-v3-auditoria",
   "demo": true,
   "geometry_source": "pdf-vector",
   "units": "metres_estimated_from_plan",
@@ -9033,6 +9033,59 @@
       "geometry_status": "manual_trace",
       "route_status": "plan_inferred",
       "description": "LOJA 215 · folha 2/2 da planta de novembro/2026. Contorno conferido por traçado visual; entrada inferida."
+    },
+    {
+      "id": "f0-ext-01",
+      "name": "Madero",
+      "category": "Alimentação",
+      "floor_id": "f0",
+      "x": 28.8397,
+      "z": 113.2523,
+      "y": 0,
+      "width": 18.766499999999997,
+      "depth": 13.94210000000001,
+      "polygon": [
+        [
+          22.4978,
+          104.6869
+        ],
+        [
+          41.2643,
+          104.6869
+        ],
+        [
+          41.2643,
+          107.0769
+        ],
+        [
+          34.8023,
+          107.0769
+        ],
+        [
+          34.8023,
+          118.629
+        ],
+        [
+          22.4978,
+          118.629
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "unavailable",
+      "node_id": null,
+      "source_label": "EXT 01",
+      "source_page": 2,
+      "source_position_px": [
+        920.845,
+        758.205
+      ],
+      "area_m2": 181.28,
+      "external": true,
+      "featured": true,
+      "color": "#45433d",
+      "description": "Madero · unidade externa EXT 01, 181,28 m². Contorno conferido nos vetores da planta. Porta e percurso externo ainda não confirmados. Fachada e interior ilustrativos.",
+      "hours": "Horário não verificado",
+      "review_count": 0
     }
   ],
   "nodes": [
@@ -13535,6 +13588,7 @@
       2,
       3
     ],
-    "raw_pdf_published": false
+    "raw_pdf_published": false,
+    "audit_note": "EXT 01/Madero added from page 2 vector outlines; external entrance pending."
   }
 }

@@ -10,13 +10,21 @@ class PlanTests(unittest.TestCase):
         return calculate_route({'origin':origin,'destination':s['node_id'],'accessible':True,'map_version':self.data['version']},self.data)
     def test_source_and_positions(self):
         self.assertEqual(self.data['geometry_source'],'pdf-vector')
-        self.assertEqual(len(self.data['stores']),157)
+        self.assertEqual(len(self.data['stores']),158)
         names={s['name']:s for s in self.data['stores']}
         self.assertLess(names['Renner']['x'],names['Riachuelo']['x'])
         self.assertLess(names['Riachuelo']['x'],names['Cinemark']['x'])
         self.assertLess(names['C&A']['z'],names['Riachuelo']['z'])
         self.assertLess(names['Riachuelo']['z'],names['Marisa']['z'])
         self.assertTrue(all(s['source_page'] in (2,3) for s in self.data['stores']))
+    def test_external_madero_is_present_without_unverified_route(self):
+        s=next(s for s in self.data['stores'] if s['name']=='Madero')
+        self.assertEqual(s['source_label'],'EXT 01')
+        self.assertEqual(s['source_page'],2)
+        self.assertAlmostEqual(s['area_m2'],181.28)
+        self.assertTrue(s['external']); self.assertEqual(len(s['polygon']),6)
+        self.assertIsNone(s['node_id']); self.assertEqual(s['route_status'],'unavailable')
+
     def test_main_routes(self):
         for name in ['Renner','C&A','Riachuelo','Cinemark','Marisa','Centauro','Camicado','Outback','Pernambucanas']:
             r=self.route('g-south-entrance',name)
