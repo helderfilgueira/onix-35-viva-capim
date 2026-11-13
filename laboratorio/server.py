@@ -212,7 +212,7 @@ class Handler(BaseHTTPRequestHandler):
                     eid=secrets.token_hex(6)
                     with db: db.execute('INSERT INTO events VALUES(?,?,?,?,?,?,?)',(eid,data['title'],data['category'],data['location'],start.isoformat(),end.isoformat(),data['description']))
                     return self.reply(201,{'id':eid})
-            if method=='GET' and path in ('/','/index.html','/app.js','/style.css','/modern.css','/explorar.html','/explorar.css','/explorar.js','/map3d.js','/vendor/three.module.js','/vendor/three.core.js','/vendor/qrcode.js'):
+            if method=='GET' and path in ('/','/index.html','/app.js','/style.css','/modern.css','/explorar.html','/explorar.css','/explorar.js','/map3d.js','/map-plan3d.js','/vendor/three.module.js','/vendor/three.core.js','/vendor/qrcode.js'):
                 name='index.html' if path=='/' else path[1:]
                 mime={'html':'text/html; charset=utf-8','js':'text/javascript; charset=utf-8','css':'text/css; charset=utf-8'}[name.rsplit('.',1)[1]]
                 file = ROOT/'static'/name

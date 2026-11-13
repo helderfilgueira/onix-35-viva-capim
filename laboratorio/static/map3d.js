@@ -1,7 +1,9 @@
 import * as THREE from './vendor/three.module.js';
+import {createPlanScene} from './map-plan3d.js';
 
 // Procedural, editable demonstration model. Coordinates come from the route graph.
 export function createMallScene(container, data, onSelect) {
+  if(data.geometry_source==='pdf-vector') return createPlanScene(container,data,onSelect);
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#e8eee7');
   const renderer = new THREE.WebGLRenderer({antialias:true,alpha:false});

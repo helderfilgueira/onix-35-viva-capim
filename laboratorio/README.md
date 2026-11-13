@@ -1,3 +1,5 @@
+> **Mapa atualizado pela planta:** leia [reconstrução e limites](docs/PLANTA_RECONSTRUIDA.txt). São 157 posições, 81 contornos e 77 destinos com rota. O restante deste README descreve a demonstração anterior.
+
 # Viva Capim
 
 > **Laboratório 3D:** a evolução atual está documentada em [README_LAB.txt](README_LAB.txt) e [resultado do ciclo](docs/RESULTADO_CICLO_1.txt). Use `ABRIR_LABORATORIO.cmd` para abrir o explorador. O texto abaixo registra a baseline original; as limitações antigas sobre ausência de QR/mapa 3D foram superadas no explorador, enquanto produção e totem público continuam pendentes.

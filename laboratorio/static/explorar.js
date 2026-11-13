@@ -28,47 +28,49 @@ function selectStore(id){
 }
 function renderDetail(){
  const s=state.selected;if(!s)return;
- $('destination').innerHTML=`<div class="detail-head"><div class="facade" aria-label="Ilustração conceitual, fotografia de fachada indisponível"><span class="facade-mark" aria-hidden="true">${s.event_id?'✳':esc(s.name.charAt(0))}</span><span>VIVA CAPIM</span><small>ILUSTRAÇÃO · NÃO É FOTO</small></div><div class="detail-title"><p class="eyebrow">${esc(s.category)} · ${esc(floorName(s.floor_id))}</p><h2>${esc(s.name)}</h2><p>${esc(s.hours||'Horário não informado')}</p><p>Sem avaliações publicadas</p></div></div><p class="detail-description">${esc(s.description||'Estabelecimento fictício para demonstração da navegação.')}</p><div class="detail-meta"><span>Site: ${s.website?'disponível no cadastro':'não informado'}</span><span>Telefone: ${esc(s.phone||'não informado')}</span><span>Conteúdo demonstrativo</span></div><div class="detail-actions"><button id="route-button" class="primary">Traçar percurso <span aria-hidden="true">↗</span></button><button id="share-button" class="quiet">Continuar no celular</button>${s.event_id?`<a class="quiet" href="/?event=${esc(s.event_id)}">Ver evento e avaliar ↗</a>`:''}</div><div id="route-result"></div>`;
- $('route-button').addEventListener('click',calculateRoute);$('share-button').addEventListener('click',share);
+ $('destination').innerHTML=`<div class="detail-head"><div class="facade" aria-label="Ilustração conceitual, fotografia de fachada indisponível"><span class="facade-mark" aria-hidden="true">${s.event_id?'✳':esc(s.name.charAt(0))}</span><span>VIVA CAPIM</span><small>ILUSTRAÇÃO · NÃO É FOTO</small></div><div class="detail-title"><p class="eyebrow">${esc(s.category)} · ${esc(floorName(s.floor_id))}</p><h2>${esc(s.name)}</h2><p>${esc(s.hours||'Horário não informado')}</p><p>Sem avaliações publicadas</p></div></div><p class="detail-description">${esc(s.description||'Posição reconstruída da planta enviada. Cadastro comercial não verificado.')}</p><div class="detail-meta"><span>Site: ${s.website?'disponível no cadastro':'não informado'}</span><span>Telefone: ${esc(s.phone||'não informado')}</span><span>${esc(s.source_label||'Conteúdo demonstrativo')}</span></div><div class="detail-actions"><button id="route-button" class="primary">Traçar percurso <span aria-hidden="true">↗</span></button><button id="share-button" class="quiet">Continuar no celular</button>${s.event_id?`<a class="quiet" href="/?event=${esc(s.event_id)}">Ver evento e avaliar ↗</a>`:''}</div><div id="route-result"></div>`;
+ if(!s.node_id){$('route-button').disabled=true;$('route-button').textContent='Entrada a conferir';$('share-button').disabled=true;} $('route-button').addEventListener('click',calculateRoute);$('share-button').addEventListener('click',share);
  if(state.route)renderRoute();
 }
 async function calculateRoute(){
- if(!state.selected)return;if(state.positionSource==='qr'){status('Confirme o ponto de partida recebido no link ou selecione outra origem antes de traçar o percurso.');$('confirm-origin').focus();return;}const ticket=++state.request;status();$('route-button').disabled=true;$('route-button').textContent='Calculando percurso…';state.route=null;state.scene?.setRoute([]);$('route-result').replaceChildren();render2d();
+ if(!state.selected)return;if(!state.selected.node_id){status('Entrada pública ainda não confirmada no desenho. Consulte a posição da loja; percurso indisponível.');return;}if(state.positionSource==='qr'){status('Confirme o ponto de partida recebido no link ou selecione outra origem antes de traçar o percurso.');$('confirm-origin').focus();return;}const ticket=++state.request;status();$('route-button').disabled=true;$('route-button').textContent='Calculando percurso…';state.route=null;state.scene?.setRoute([]);$('route-result').replaceChildren();render2d();
  try{
   const response=await fetch('/api/routes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({origin:$('origin').value,destination:state.selected.node_id,accessible:$('accessible').checked,map_version:state.data.version})});
   const result=await response.json();if(ticket!==state.request)return;if(!response.ok)throw new Error(result.error||'Não foi possível calcular o percurso.');
-  state.route=result;state.arrival=true;document.body.classList.add('arrival-mode');state.scene?.setRoute(result.path);changeFloor(originNode().floor_id);renderRoute();render2d();status('Percurso demonstrativo calculado. A linha indica o caminho, não sua posição em movimento.');
+  state.route=result;state.arrival=true;document.body.classList.add('arrival-mode');state.scene?.setRoute(result.path);changeFloor(originNode().floor_id);renderRoute();render2d();status('Percurso calculado sobre a planta. A linha indica o caminho, não sua posição em movimento.');
  }catch(error){if(ticket===state.request)status(error.message==='Failed to fetch'?'Sem conexão com o servidor. Nenhum percurso foi confirmado.':error.message);}
  finally{if(ticket===state.request&&$('route-button')){$('route-button').disabled=false;$('route-button').innerHTML='Recalcular percurso <span aria-hidden="true">↗</span>';}}
 }
 function renderRoute(){
  const r=state.route;if(!r||!$('route-result'))return;
- $('route-result').innerHTML=`<div class="route-box"><div class="route-summary"><strong>${esc(Math.round(r.distance))} m · percurso ilustrativo</strong><button id="arrival-toggle" class="quiet">${state.arrival?'Voltar a explorar':'Modo chegar'}</button></div><ol>${r.instructions.map(i=>`<li>${esc(i)}</li>`).join('')}</ol><p class="fine">Origem selecionada, sem acompanhamento contínuo. ${$('accessible').checked?'Percurso sem escadas no grafo demonstrativo; acessibilidade física não validada.':''} Use o seletor de pavimento para acompanhar todos os trechos.</p></div>`;
+ $('route-result').innerHTML=`<div class="route-box"><div class="route-summary"><strong>${esc(Math.round(r.distance))} m · estimativa da planta</strong><button id="arrival-toggle" class="quiet">${state.arrival?'Voltar a explorar':'Modo chegar'}</button></div><ol>${r.instructions.map(i=>`<li>${esc(i)}</li>`).join('')}</ol><p class="fine">Origem selecionada, sem acompanhamento contínuo. ${$('accessible').checked?'Sem escadas neste grafo; acessibilidade física não validada.':''} Use o seletor de pavimento para acompanhar todos os trechos.</p></div>`;
  $('arrival-toggle').addEventListener('click',()=>{state.arrival=!state.arrival;document.body.classList.toggle('arrival-mode',state.arrival);renderRoute();});
 }
 function render2d(){
  if(!state.data)return;
- const ns='http://www.w3.org/2000/svg';const svg=$('map2d');svg.setAttribute('viewBox','-34 -23 68 46');svg.replaceChildren();
+ const ns='http://www.w3.org/2000/svg',svg=$('map2d'),f=state.data.floors.find(f=>f.id===state.floor),b=f.bounds||{minX:-34,maxX:34,minZ:-23,maxZ:23};
+ svg.setAttribute('viewBox',`${b.minX-3} ${b.minZ-3} ${b.maxX-b.minX+6} ${b.maxZ-b.minZ+6}`);svg.replaceChildren();
  const add=(tag,attrs,text)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));if(text!==undefined)e.textContent=text;svg.append(e);return e;};
- add('rect',{x:-30,y:-19,width:60,height:38,rx:2,fill:'#fafbf3',stroke:'#d3dbc5','stroke-width':.3});
- state.data.edges.forEach(e=>{const a=node(e.from),b=node(e.to);if(a?.floor_id===state.floor&&b?.floor_id===state.floor)add('line',{x1:a.x,y1:a.z,x2:b.x,y2:b.z,stroke:'#dce4ce','stroke-width':2.6,'stroke-linecap':'round'});});
+ if(f.floorplate)add('polygon',{points:f.floorplate.map(p=>p.join(',')).join(' '),fill:'#fafbf3',stroke:'#c8d3be','stroke-width':.3});
+ state.data.edges.forEach(e=>{const a=node(e.from),n=node(e.to);if(a?.floor_id===state.floor&&n?.floor_id===state.floor)add('line',{x1:a.x,y1:a.z,x2:n.x,y2:n.z,stroke:'#dce4ce','stroke-width':1.6,'stroke-linecap':'round'});});
  destinations().filter(s=>s.floor_id===state.floor).forEach(s=>{
-  const selected=s.id===state.selected?.id;
-  const e=add('rect',{x:s.x-s.width/2,y:s.z-s.depth/2,width:s.width,height:s.depth,rx:.6,fill:selected?'#d6ef89':s.color||'#c4d3b0',stroke:selected?'#385b29':'#9bae86','stroke-width':selected?.55:.2,tabindex:0,role:'button','aria-label':s.name,class:'map-store'});
+  const sel=s.id===state.selected?.id,poly=s.polygon||[[s.x-s.width/2,s.z-s.depth/2],[s.x+s.width/2,s.z-s.depth/2],[s.x+s.width/2,s.z+s.depth/2],[s.x-s.width/2,s.z+s.depth/2]];
+  const attrs={fill:sel?'#d6ef89':s.color||'#c4d3b0',stroke:sel?'#345c24':'#829279','stroke-width':sel?.65:.2,tabindex:0,role:'button','aria-label':s.name,class:'map-store'};
+  const e=state.data.geometry_source&&!s.polygon?.length ? add('circle',{...attrs,cx:s.x,cy:s.z,r:.8,fill:'#bd8a46'}) : add('polygon',{...attrs,points:poly.map(p=>p.join(',')).join(' ')});
   e.addEventListener('click',()=>selectStore(s.id));e.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();selectStore(s.id);}});
-  const words=s.name.split(' ');add('text',{x:s.x,y:s.z-.3,'text-anchor':'middle','font-size':1.25,fill:'#254135'},words.slice(0,2).join(' '));if(words.length>2)add('text',{x:s.x,y:s.z+1.3,'text-anchor':'middle','font-size':1.1,fill:'#254135'},words.slice(2).join(' '));
+  if(sel||s.featured||!state.data.geometry_source)add('text',{x:s.x,y:s.z,'text-anchor':'middle','font-size':Math.max(1,Math.min(3,s.width/8)),fill:'#183c2e','pointer-events':'none'},s.name);
  });
- if(state.route){const path=state.route.path;for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i];if(a.floor_id===state.floor&&b.floor_id===state.floor)add('line',{x1:a.x,y1:a.z,x2:b.x,y2:b.z,stroke:'#426820','stroke-width':.75,'stroke-linecap':'round'});}}
- const o=originNode();if(o?.floor_id===state.floor){add('circle',{cx:o.x,cy:o.z,r:1.2,fill:'#fff'});add('circle',{cx:o.x,cy:o.z,r:.75,fill:'#376df4'});}
+ if(state.route){const p=state.route.path;for(let i=1;i<p.length;i++){const a=p[i-1],n=p[i];if(a.floor_id===state.floor&&n.floor_id===state.floor)add('line',{x1:a.x,y1:a.z,x2:n.x,y2:n.z,stroke:'#426820','stroke-width':.65,'stroke-linecap':'round'});}}
+ const o=originNode();if(o?.floor_id===state.floor){add('circle',{cx:o.x,cy:o.z,r:1.3,fill:'#fff'});add('circle',{cx:o.x,cy:o.z,r:.8,fill:'#376df4'});}
 }
 async function setView(view){
  state.view=view;$('view3d').setAttribute('aria-pressed',view==='3d');$('view2d').setAttribute('aria-pressed',view==='2d');$('scene3d').hidden=view!=='3d';$('map2d').toggleAttribute('hidden',view!=='2d');
- if(view==='2d'){$('map-state').textContent='Mapa esquemático · 2D';return;}
- try{if(!state.scene){$('map-state').textContent='Carregando cena 3D…';if(!state.scenePromise)state.scenePromise=import('/map3d.js').then(module=>module.createMallScene($('scene3d'),state.data,selectStore));state.scene=await state.scenePromise;state.scene.setReducedMotion(state.reduced);state.scene.setFloor(state.floor);state.scene.setOrigin(originNode());if(state.selected)state.scene.selectStore(state.selected.id);if(state.route)state.scene.setRoute(state.route.path);}if(state.view==='3d')$('map-state').textContent='Maquete ilustrativa · 3D';}
+ if(view==='2d'){$('map-state').textContent='Planta reconstruída · 2D';return;}
+ try{if(!state.scene){$('map-state').textContent='Carregando cena 3D…';if(!state.scenePromise)state.scenePromise=import('/map3d.js').then(module=>module.createMallScene($('scene3d'),state.data,selectStore));state.scene=await state.scenePromise;state.scene.setReducedMotion(state.reduced);state.scene.setFloor(state.floor);state.scene.setOrigin(originNode());if(state.selected)state.scene.selectStore(state.selected.id);if(state.route)state.scene.setRoute(state.route.path);}if(state.view==='3d')$('map-state').textContent='Planta reconstruída · 3D';}
  catch(error){state.scene=null;state.scenePromise=null;await setView('2d');status('O mapa 3D não está disponível neste dispositivo. Continue pela versão 2D ou pela lista.');}
 }
 function share(){
- if(!state.selected)return;const url=new URL('/explorar.html',location.origin);url.searchParams.set('origin',$('origin').value);url.searchParams.set('destination',state.selected.id);url.searchParams.set('version',state.data.version);$('share-url').value=url.href;$('qrcode').replaceChildren();$('copy-link').textContent='Copiar link';
+ if(!state.selected||!state.selected.node_id){status('Percurso indisponível até conferir a entrada desta loja.');return;}const url=new URL('/explorar.html',location.origin);url.searchParams.set('origin',$('origin').value);url.searchParams.set('destination',state.selected.id);url.searchParams.set('version',state.data.version);$('share-url').value=url.href;$('qrcode').replaceChildren();$('copy-link').textContent='Copiar link';
  const local=['127.0.0.1','localhost','[::1]'].includes(location.hostname);
  $('share-warning').textContent=local?'Demonstração local: este endereço não abre em outro celular. O QR permite testar o formato; acesso externo exige hospedagem HTTPS.':'Ao abrir, confirme seu ponto de partida. O link não acompanha o deslocamento.';
  if(window.QRCode)new window.QRCode($('qrcode'),{text:url.href,width:180,height:180,colorDark:'#173c32',colorLight:'#fffef9',correctLevel:window.QRCode.CorrectLevel.M});else $('qrcode').textContent='QR indisponível. Use o link abaixo.';
@@ -90,7 +92,7 @@ $('confirm-origin').addEventListener('click',()=>{state.positionSource='confirme
 function motion(){document.body.classList.toggle('reduced-motion',state.reduced);$('reduce-motion').setAttribute('aria-pressed',state.reduced);$('reduce-motion').textContent=state.reduced?'Movimento reduzido':'Reduzir movimento';state.scene?.setReducedMotion(state.reduced);}
 $('reduce-motion').addEventListener('click',()=>{state.reduced=!state.reduced;motion();});motion();
 async function init(){
- try{const response=await fetch('/api/navigation');if(!response.ok)throw new Error('Catálogo indisponível.');state.data=await response.json();state.floor=state.data.floors[0].id;
+ try{const response=await fetch('/api/navigation');if(!response.ok)throw new Error('Catálogo indisponível.');state.data=await response.json();state.data.stores.sort((a,b)=>Number(b.featured)-Number(a.featured)||a.name.localeCompare(b.name));state.floor=state.data.floors[0].id;
  $('floor').innerHTML=state.data.floors.map(f=>`<option value="${esc(f.id)}">${esc(f.name||f.label||f.id)}</option>`).join('');
  $('origin').innerHTML=state.data.anchors.map(a=>`<option value="${esc(a.node_id)}">${esc(a.label)}</option>`).join('');
  $('category').innerHTML='<option value="">Todas as categorias</option>'+[...new Set(destinations().map(s=>s.category))].map(c=>`<option>${esc(c)}</option>`).join('');

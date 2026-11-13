@@ -3,6 +3,7 @@ import http.client
 import json
 import threading
 import unittest
+from pathlib import Path
 
 from navigation import NavigationError, calculate_route, load_navigation, validate_graph
 from server import AppServer, Store
@@ -10,7 +11,7 @@ from server import AppServer, Store
 
 class GraphTests(unittest.TestCase):
     def setUp(self):
-        self.data = load_navigation()
+        self.data = json.loads((Path(__file__).parent/'tests'/'demo-graph.json').read_text(encoding='utf-8'))
 
     def route(self, start='f0-c0', end='loja-07-entrada', accessible=False, data=None):
         return calculate_route({'origin': start, 'destination': end, 'accessible': accessible,
@@ -105,7 +106,7 @@ class GraphTests(unittest.TestCase):
         self.data['version']=''
         with self.assertRaises(ValueError):
             validate_graph(self.data)
-        self.data=load_navigation()
+        self.setUp()
         with self.assertRaises(NavigationError) as error:
             self.route(accessible='false')
         self.assertEqual(error.exception.status,400)
@@ -129,8 +130,9 @@ class NavigationHTTPTests(unittest.TestCase):
 
     def test_public_catalog_and_route_need_no_session(self):
         status,data=self.req('/api/navigation')
-        self.assertEqual(status,200); self.assertEqual(len(data['stores']),12)
-        status,route=self.req('/api/routes',{'origin':'f0-c2','destination':'loja-07-entrada','accessible':True,'map_version':data['version']})
+        self.assertEqual(status,200); self.assertGreater(len(data['stores']),12)
+        target=next(s for s in data['stores'] if s['name']=='Renner')
+        status,route=self.req('/api/routes',{'origin':data['anchors'][0]['node_id'],'destination':target['node_id'],'accessible':True,'map_version':data['version']})
         self.assertEqual(status,200); self.assertTrue(route['demo'])
         self.assertEqual(self.store.db.execute('SELECT count(*) FROM sessions').fetchone()[0],0)
 

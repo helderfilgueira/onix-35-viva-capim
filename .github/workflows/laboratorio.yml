@@ -16,4 +16,4 @@ jobs:
           python-version: '3.12'
       - name: Contratos, privacidade e rotas
         working-directory: laboratorio
-        run: python -m unittest -v test_server.py test_privacy.py test_navigation.py
+        run: python -m unittest -v test_server.py test_privacy.py test_navigation.py test_plan.py
