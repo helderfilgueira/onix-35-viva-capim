@@ -1,0 +1,27 @@
+EQUIPE ONIX - 35 | VIVA CAPIM
+SERVIÇOS E CIRCULAÇÃO — 13/11/2026
+
+CORREÇÃO
+A extração focada em operações comerciais omitiu a infraestrutura. Foram incorporados 44 serviços e equipamentos: sanitários, sanitários acessíveis, Espaço Família, vestiários, elevadores, possíveis elevadores, escadas, rolantes, esteiras e uma rampa de motos. A contagem inclui representações do mesmo equipamento em pisos diferentes. Um volume ocupado sem código também foi representado e excluído dos percursos.
+
+COMO ENCONTRAR
+A lateral do mapa oferece atalhos para Banheiros, Elevadores, Escadas e rampas, Família e Todos os destinos. Busca, símbolos 2D/3D, seleção e zoom funcionam para os serviços. Seus detalhes não exibem fachada comercial nem avaliações de loja.
+
+ACESSOS
+Nove sanitários públicos e um Espaço Família têm trajetos locais inferidos pelas polilinhas dos vestíbulos da planta. Equipamentos restritos ou de uso incerto aparecem sem trajeto público. A rampa de motos não é rota de pedestres.
+Nenhuma ligação entre pisos está habilitada. Três correspondências documentais de escadas e rolantes foram registradas; elas ainda exigem confirmação dos patamares e das condições operacionais. Possíveis elevadores do Subsolo 2 e do detalhe L2 estão sinalizados como incertos.
+
+ESTADO ATUAL
+211 unidades do inventário comercial e de lojistas, 44 serviços/equipamentos e uma área ocupada não identificada: 256 destinos, com 253 contornos.
+Continuam três marcadores sem contorno inequívoco: as duas LOJA 81 e Chopp Brahma. Há 207 destinos com percurso inferido.
+Outback e Madero mantêm acesso externo, com o percurso externo pendente de levantamento. Vivara corresponde à LOJA 29, com logo verificada, seleção e zoom.
+
+VALIDAÇÃO
+48 testes Python aprovados, incluindo rotas aos dez serviços públicos e bloqueio de atalhos não confirmados. Nenhuma sobreposição de contornos maior que 0,3 m² e nenhum polígono inválido.
+O elevador da fachada da Renner ocupa um recorte no polígono da âncora. Esse espaço também é respeitado pelos interiores 3D.
+QA_SERVICOS.json e as capturas servico-*.png documentam atalhos, seleção, detalhes, percursos e visualização 2D. QA_GEOMETRIA_SERVICOS.json registra a conferência geométrica.
+
+FONTES E LIMITES
+Os arquivos FONTES_SANITARIOS_ELEVADORES.json e FONTES_ESCADAS_ROLANTES.json registram a página, posição, contorno e grau de confirmação de cada elemento. Contornos manuais estão identificados como tais.
+Fachadas, interiores e volumetria de escadas são ilustrativos. Não há rastreamento de localização indoor; a escala é estimada e a acessibilidade não é certificada. O GLTF contém extrusões básicas em cenas independentes por piso, sem afirmar alinhamento geográfico entre plantas auxiliares.
+A planta bruta e os overlays de conferência permanecem privados. Agentes Codex realizaram a auditoria e integração; Claude Opus 5.5 contribuiu com a representação 3D dos serviços. Relatórios anteriores registram etapas históricas.

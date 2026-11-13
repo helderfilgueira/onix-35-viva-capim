@@ -1,3 +1,5 @@
+ESTADO ATUAL: consulte docs/SERVICOS_PLANTA.txt. Atalhos para banheiros, elevadores, escadas e família; 48 testes aprovados. O restante deste arquivo registra etapas anteriores.
+
 ATUALIZAÇÃO: revisão integral disponível em docs/REVISAO_INTEGRAL.txt. Estado atual: 211 unidades, 208 contornos, 196 percursos inferidos. O conteúdo abaixo registra ciclos anteriores.
 
 ATUALIZAÇÃO: revisão integral disponível em docs/REVISAO_INTEGRAL.txt. Estado atual: 211 unidades, 208 contornos, 197 percursos inferidos. O conteúdo abaixo registra ciclos anteriores.

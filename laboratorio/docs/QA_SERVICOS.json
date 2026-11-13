@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "id": "f0-wc-ca-f",
+      "filter": "toilets",
+      "route": true,
+      "selected": true
+    },
+    {
+      "id": "f0-stairs-ca",
+      "filter": "stairs",
+      "route": false,
+      "selected": true
+    },
+    {
+      "id": "f0-lift-panoramic",
+      "filter": "elevators",
+      "route": false,
+      "selected": true
+    },
+    {
+      "id": "f0-family-ca",
+      "filter": "family",
+      "route": true,
+      "selected": true
+    },
+    {
+      "id": "ss2-elevator-candidate-1",
+      "filter": "elevators",
+      "route": false,
+      "selected": true
+    }
+  ],
+  "errors": [],
+  "toiletFilterCount": 9,
+  "twoDimensionalView": true
+}

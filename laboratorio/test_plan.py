@@ -24,7 +24,7 @@ class PlanTests(unittest.TestCase):
         q30=[s for s in kiosks if s['source_label']=='Q 30']
         self.assertEqual(len(q30),2)
         self.assertEqual(len({s['id'] for s in q30}),2)
-        names={s['name'] for s in self.data['stores'] if s['source_page']==1}
+        names={s['name'] for s in self.data['stores'] if s['source_page']==1 and s.get('unit_type')!='facility'}
         self.assertEqual(names,{'Maria Express','Colégio Interação','IOA','Unicesumar'})
         self.assertTrue(all(s['node_id'] is None for s in self.data['stores'] if s['source_page']==1))
     def test_small_units_are_not_erased_by_anchor_outlines(self):
@@ -34,6 +34,34 @@ class PlanTests(unittest.TestCase):
         for sid in ['f0-loja-03','f0-loja-04','f0-loja-05']:
             shop=byid[sid];self.assertGreater(len(shop['polygon']),2)
             self.assertFalse(inside((shop['x'],shop['z']),anchor['polygon']),sid)
+
+    def test_anchor_void_does_not_cover_lift_cabin(self):
+        from plan_geometry import inside
+        renner=next(s for s in self.data['stores'] if s['name']=='Renner')
+        lift=next(s for s in self.data['stores'] if s['id']=='f0-lift-panoramic')
+        self.assertTrue(renner.get('holes'))
+        self.assertTrue(any(inside((lift['x'],lift['z']),hole) for hole in renner['holes']))
+        outer=[[0,0],[10,0],[10,10],[0,10]];hole=[[4,4],[6,4],[6,6],[4,6]]
+        self.assertFalse(crosses_interior((4.2,5),(5.8,5),outer,[hole]))
+        self.assertTrue(crosses_interior((3,5),(7,5),outer,[hole]))
+
+    def test_public_toilets_and_family_room_are_routable(self):
+        public=[s for s in self.data['stores'] if s.get('unit_type')=='facility' and s.get('public_access') is True]
+        self.assertEqual(len(public),10)
+        for s in public:
+            self.assertTrue(s['polygon']);self.assertTrue(s['node_id'],s['name'])
+            origin='g-south-entrance' if s['floor_id']=='f0' else 'u-west-entry'
+            r=calculate_route({'origin':origin,'destination':s['node_id'],'accessible':True,'map_version':self.data['version']},self.data)
+            self.assertGreater(len(r['path']),1)
+    def test_restricted_and_unconfirmed_facilities_do_not_create_public_shortcuts(self):
+        facilities=[s for s in self.data['stores'] if s.get('unit_type')=='facility']
+        self.assertEqual(len(facilities),44)
+        for s in facilities:
+            if not s.get('route_enabled'):self.assertIsNone(s['node_id'],s['id'])
+        byid={s['id']:s for s in facilities}
+        for sid in ['f0-stairs-ca','f0-lift-panoramic','f0-escalator-up','ss2-elevator-candidate-1','ss1-motorcycle-ramp']:
+            self.assertTrue(byid[sid]['polygon']);self.assertIsNone(byid[sid]['node_id'])
+        self.assertEqual(self.data['interfloor_status'],'unconfirmed')
 
     def test_external_restaurants_have_no_internal_entry(self):
         for name in ['Madero','Outback']:

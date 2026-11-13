@@ -1,0 +1,421 @@
+{
+  "version": "capim-planta-2026-11-v6-servicos",
+  "retail_units": 211,
+  "facilities": 44,
+  "unidentified_occupied_areas": 1,
+  "total_destinations": 256,
+  "total_footprints": 253,
+  "public_facilities_routed": 10,
+  "routable_destinations": 207,
+  "public_wc": 9,
+  "family_room": 1,
+  "tests_passed": 48,
+  "geometry_checks": {
+    "overlaps_above_0_3_m2": [],
+    "invalid_polygons": []
+  },
+  "interfloor_status": "unconfirmed",
+  "source_pages": [
+    1,
+    2,
+    3
+  ],
+  "facilities_inventory": [
+    {
+      "id": "f0-stairs-ca",
+      "name": "Escada do núcleo C&A / UZÔ",
+      "type": "stairs",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f0-stairs-west",
+      "name": "Escada do corredor oeste",
+      "type": "stairs",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f0-stairs-east",
+      "name": "Escada do corredor leste",
+      "type": "stairs",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f0-escalator-up",
+      "name": "Escada rolante — sobe à praça",
+      "type": "escalator",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f0-public-stairs",
+      "name": "Escada fixa — praça de alimentação",
+      "type": "stairs",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f0-escalator-down",
+      "name": "Escada rolante — desce da praça",
+      "type": "escalator",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f1-escalator-up",
+      "name": "Escada rolante — chegada do térreo",
+      "type": "escalator",
+      "floor": "f1",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f1-public-stairs",
+      "name": "Escada fixa — térreo",
+      "type": "stairs",
+      "floor": "f1",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f1-escalator-down",
+      "name": "Escada rolante — saída para térreo",
+      "type": "escalator",
+      "floor": "f1",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f1-stairs-service",
+      "name": "Escada no núcleo de serviço da praça",
+      "type": "stairs",
+      "floor": "f1",
+      "public_access": null,
+      "access_status": "service",
+      "routable": false
+    },
+    {
+      "id": "f0-travelator-big-a",
+      "name": "Esteira rolante — BIG (faixa1)",
+      "type": "moving_walkway",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "f0-travelator-big-b",
+      "name": "Esteira rolante — BIG (faixa2)",
+      "type": "moving_walkway",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "ss1-travelator-a",
+      "name": "Esteira rolante — Subsolo1 (faixa1)",
+      "type": "moving_walkway",
+      "floor": "inset-subsolo1",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "ss1-travelator-b",
+      "name": "Esteira rolante — Subsolo1 (faixa2)",
+      "type": "moving_walkway",
+      "floor": "inset-subsolo1",
+      "public_access": null,
+      "access_status": "public",
+      "routable": false
+    },
+    {
+      "id": "ss1-motorcycle-ramp",
+      "name": "Rampa de motos",
+      "type": "vehicle_ramp",
+      "floor": "inset-subsolo1",
+      "public_access": null,
+      "access_status": "vehicle_only",
+      "routable": false
+    },
+    {
+      "id": "a8-stairs-a",
+      "name": "Escada A8 — núcleo oeste",
+      "type": "stairs",
+      "floor": "inset-a8",
+      "public_access": null,
+      "access_status": "restricted",
+      "routable": false
+    },
+    {
+      "id": "a8-stairs-b",
+      "name": "Escada A8 — núcleo leste",
+      "type": "stairs",
+      "floor": "inset-a8",
+      "public_access": null,
+      "access_status": "restricted",
+      "routable": false
+    },
+    {
+      "id": "l2-stairs",
+      "name": "Escada do piso L2",
+      "type": "stairs",
+      "floor": "inset-l2",
+      "public_access": null,
+      "access_status": "restricted",
+      "routable": false
+    },
+    {
+      "id": "ss2-stairs-north",
+      "name": "Escada Subsolo2 — núcleo norte",
+      "type": "stairs",
+      "floor": "inset-subsolo2",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "ss2-stairs-west",
+      "name": "Escada Subsolo2 — lado oeste",
+      "type": "stairs",
+      "floor": "inset-subsolo2",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "ss2-stairs-east",
+      "name": "Escada Subsolo2 — lado leste",
+      "type": "stairs",
+      "floor": "inset-subsolo2",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "ss2-elevator-candidate-1",
+      "name": "Possível elevador 1 — Subsolo 2",
+      "type": "elevator",
+      "floor": "inset-subsolo2",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "ss2-elevator-candidate-2",
+      "name": "Possível elevador 2 — Subsolo 2",
+      "type": "elevator",
+      "floor": "inset-subsolo2",
+      "public_access": null,
+      "access_status": "unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f0-wc-ca-f",
+      "name": "Sanitário feminino · C&A",
+      "type": "toilet",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-wc-ca-m",
+      "name": "Sanitário masculino · C&A",
+      "type": "toilet",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-wc-ca-pcd",
+      "name": "Sanitário acessível · C&A",
+      "type": "accessible_toilet",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-family-ca",
+      "name": "Espaço Família · C&A",
+      "type": "family_room",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-wc-east-m",
+      "name": "Sanitário masculino · leste",
+      "type": "toilet",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-wc-east-f",
+      "name": "Sanitário feminino · leste",
+      "type": "toilet",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-wc-east-pcd",
+      "name": "Sanitário acessível · leste",
+      "type": "accessible_toilet",
+      "floor": "f0",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-staff-changing-f",
+      "name": "Vestiário feminino · equipe",
+      "type": "staff_toilet",
+      "floor": "f0",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f0-staff-changing-m",
+      "name": "Vestiário masculino · equipe",
+      "type": "staff_toilet",
+      "floor": "f0",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f1-wc-m",
+      "name": "Sanitário masculino · alimentação",
+      "type": "toilet",
+      "floor": "f1",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f1-wc-f",
+      "name": "Sanitário feminino · alimentação",
+      "type": "toilet",
+      "floor": "f1",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f1-wc-pcd",
+      "name": "Sanitário acessível · alimentação",
+      "type": "accessible_toilet",
+      "floor": "f1",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "routable": true
+    },
+    {
+      "id": "f0-lift-east",
+      "name": "Elevador · núcleo leste",
+      "type": "elevator",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f0-lift-panoramic",
+      "name": "Elevador · fachada Renner",
+      "type": "elevator",
+      "floor": "f0",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f1-lift-panoramic",
+      "name": "Elevador · fachada alimentação",
+      "type": "elevator",
+      "floor": "f1",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f1-lift-service-n1",
+      "name": "Elevador 1 · circulação de serviço norte",
+      "type": "service_elevator",
+      "floor": "f1",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f1-lift-service-n2",
+      "name": "Elevador 2 · circulação de serviço norte",
+      "type": "service_elevator",
+      "floor": "f1",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "f1-lift-service-s",
+      "name": "Elevador · circulação de serviço sul",
+      "type": "service_elevator",
+      "floor": "f1",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "inset-a8-lift",
+      "name": "Elevador · detalhe A8",
+      "type": "elevator",
+      "floor": "inset-a8",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "inset-l2-lift1",
+      "name": "Equipamento a confirmar 1 · detalhe L2",
+      "type": "elevator_candidate",
+      "floor": "inset-l2",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    },
+    {
+      "id": "inset-l2-lift2",
+      "name": "Equipamento a confirmar 2 · detalhe L2",
+      "type": "elevator_candidate",
+      "floor": "inset-l2",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "routable": false
+    }
+  ]
+}

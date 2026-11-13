@@ -148,7 +148,7 @@ const U_ = {
 const GENERIC_POOL = ['rail', 'island', 'plinth', 'lowIsland', 'equip', 'dining'];
 // Lays out composites in a local frame (u along the facade or longest edge, w inward). Each composite's padded footprint and
 // then every component box are validated (corners in polygon, no polygon edge crossing it, door/entry clearance) before any push.
-function layoutInterior(body, sgn, fac, door, prof, out) {
+function layoutInterior(body, sgn, fac, door, prof, out, holes=[]) {
   if (prof.type === 'vacant' || out.length >= MAX_FLOOR_FITTINGS) return { comps: 0, parts: 0 };
   const area = Math.abs(polyArea(body)), R = rng(prof.seed ^ 0x5bd1e995);
   let O = body[0], Ux = 1, Uz = 0;
@@ -159,10 +159,12 @@ function layoutInterior(body, sgn, fac, door, prof, out) {
   const u0 = Math.min(...us), u1 = Math.max(...us), w0 = Math.min(...ws), w1 = Math.max(...ws), Lu = u1 - u0, D = w1 - w0;
   const dL = door ? toL(door.x, door.z) : null, eu = fac ? fac.ud : dL ? dL[0] : (u0 + u1) / 2, entryW = fac || dL ? Math.min(D * .45, 6) : 0;
   const aisle = area < 120 ? .7 : 1.2, doorClr = area < 120 ? 1.6 : 2.2, capC = area < 250 ? clamp(Math.round(area / 15), 2, 8) : clamp(Math.round(area / 70), 12, prof.type === 'cinema' ? 64 : 40);
+  const HL=holes.map(h=>h.map(p=>toL(p[0],p[1])));
   const placed = []; let comps = 0, parts = 0;
   const okRect = (cu, cw, hu, hw, clr) => { // rect (+clr) fully inside BL and away from the door node
     const a = cu - hu - clr, b = cu + hu + clr, c = cw - hw - clr, d = cw + hw + clr, E = [[a, c], [b, c], [b, d], [a, d]];
     if (!E.every(p => pointInPoly(p[0], p[1], BL))) return false;
+    for(const h of HL){if(E.some(p=>pointInPoly(p[0],p[1],h))||h.some(p=>p[0]>=a&&p[0]<=b&&p[1]>=c&&p[1]<=d))return false;for(let k=0;k<4;k++)for(let j=0;j<h.length;j++)if(segCross(E[k],E[(k+1)%4],h[j],h[(j+1)%h.length]))return false;}
     for (let k = 0; k < 4; k++) for (let j = 0; j < BL.length; j++) if (segCross(E[k], E[(k + 1) % 4], BL[j], BL[(j + 1) % BL.length])) return false;
     if (BL.some(p => p[0] > a && p[0] < b && p[1] > c && p[1] < d)) return false;
     return !dL || Math.hypot(Math.max(Math.abs(cu - dL[0]) - hu, 0), Math.max(Math.abs(cw - dL[1]) - hw, 0)) > doorClr;
@@ -247,7 +249,7 @@ function layoutInterior(body, sgn, fac, door, prof, out) {
 function shapeOf(points, hole) {
   const sh = new T.Shape();
   points.forEach((p, i) => i ? sh.lineTo(p[0], -p[1]) : sh.moveTo(p[0], -p[1])); sh.closePath();
-  if (hole) { const h = new T.Path(); hole.forEach((p, i) => i ? h.lineTo(p[0], -p[1]) : h.moveTo(p[0], -p[1])); h.closePath(); sh.holes.push(h); }
+  if (hole?.length) for(const ring of (Array.isArray(hole[0][0])?hole:[hole])){const h=new T.Path();ring.forEach((p,i)=>i?h.lineTo(p[0],-p[1]):h.moveTo(p[0],-p[1]));h.closePath();sh.holes.push(h);}
   return sh;
 }
 function extrude(points, depth, hole) {
@@ -283,6 +285,80 @@ function canvasTex(cv, aniso = 1, repeat = false) {
   if (repeat) t.wrapS = t.wrapT = T.RepeatWrapping; return t;
 }
 function roundRect(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+
+// ---------- Facility helpers (unit_type 'facility') ----------
+// Semantic service types. Signs and badges are plain text (no pictogram/brand assets). Forms are illustrative.
+const FACILITY = {
+  unidentified_area: {badge:'ÁREA',sign:'ÁREA OCUPADA',form:'room',body:'#b2aa99'},
+  vehicle_ramp: {badge:'MOTOS',sign:'RAMPA DE MOTOS',form:'ramp',body:'#9aa9ae'},
+  toilet: { badge: 'WC', sign: 'WC', form: 'room', body: '#8fb0cf' },
+  accessible_toilet: { badge: 'PCD', sign: 'WC PCD', form: 'room', body: '#7ea4cc' },
+  family_room: { badge: 'FAM', sign: 'FAM', form: 'room', body: '#9cb4ca' },
+  elevator: { badge: '▲▼', sign: '▲▼ ELEVADOR', form: 'lift', body: '#6f8fb0' },
+  stairs: { badge: 'ESCADA', sign: 'ESCADA', form: 'stairs', body: '#b9c2c9' },
+  escalator: { badge: 'ROLANTE', sign: 'ESCADA ROLANTE', form: 'escalator', body: '#a7b5c1' },
+  moving_walkway: { badge: 'ESTEIRA', sign: 'ESTEIRA', form: 'walkway', body: '#a7b5c1' },
+  ramp: { badge: 'RAMPA', sign: 'RAMPA', form: 'ramp', body: '#c2cbc6' },
+};
+const FACILITY_OTHER = { badge: 'i', sign: 'SERVIÇO', form: 'room', body: '#a3b4c4' };
+const facilityCfg = s => FACILITY[s.service_type] || FACILITY_OTHER;
+// Largest centred oriented rectangle (aligned to the longest outline edge) whose sampled outline stays inside poly
+// with the given margin and contains no outline vertex. Returns local frame helpers, or null.
+function fitRect(poly, margin) {
+  const n = poly.length; let best = 0, ux = 1, uz = 0;
+  for (let k = 0; k < n; k++) { const a = poly[k], b = poly[(k + 1) % n], L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L > best) { best = L; ux = (b[0] - a[0]) / L; uz = (b[1] - a[1]) / L; } }
+  let wx = -uz, wz = ux, u0 = Infinity, u1 = -Infinity, w0 = Infinity, w1 = -Infinity;
+  const loc = p => [p[0] * ux + p[1] * uz, p[0] * wx + p[1] * wz];
+  for (const p of poly) { const [u, w] = loc(p); u0 = Math.min(u0, u); u1 = Math.max(u1, u); w0 = Math.min(w0, w); w1 = Math.max(w1, w); }
+  const xz = (u, w) => [ux * u + wx * w, uz * u + wz * w];
+  const ok = (cu, cw, hu, hw) => {
+    if (hu < .25 || hw < .25) return false;
+    const C = [[cu - hu, cw - hw], [cu + hu, cw - hw], [cu + hu, cw + hw], [cu - hu, cw + hw]];
+    for (let e = 0; e < 4; e++) {
+      const a = C[e], b = C[(e + 1) % 4], steps = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / .2));
+      for (let t = 0; t <= steps; t++) {
+        const q = xz(a[0] + (b[0] - a[0]) * t / steps, a[1] + (b[1] - a[1]) * t / steps);
+        if (!pointInPoly(q[0], q[1], poly)) return false;
+        for (let k = 0; k < n; k++) if (segDist(q[0], q[1], poly[k], poly[(k + 1) % n]) < margin) return false;
+      }
+    }
+    return poly.every(p => { const [u, w] = loc(p); return Math.abs(u - cu) >= hu + margin * .5 || Math.abs(w - cw) >= hw + margin * .5; });
+  };
+  let sa = 0, cx = 0, cz = 0; for (let k = 0, j = n - 1; k < n; j = k++) { const c = poly[j][0] * poly[k][1] - poly[k][0] * poly[j][1]; sa += c; cx += (poly[j][0] + poly[k][0]) * c; cz += (poly[j][1] + poly[k][1]) * c; }
+  // Candidate centres: area centroid, bbox centre, then a 5x5 grid (handles L-shaped / concave footprints).
+  const centres = [[(u0 + u1) / 2, (w0 + w1) / 2]];
+  if (Math.abs(sa) > 1e-6 && pointInPoly(cx / (3 * sa), cz / (3 * sa), poly)) centres.unshift(loc([cx / (3 * sa), cz / (3 * sa)]));
+  for (let i = 1; i <= 5; i++) for (let j = 1; j <= 5; j++) centres.push([u0 + (u1 - u0) * i / 6, w0 + (w1 - w0) * j / 6]);
+  let bestFit = null;
+  for (const [cu0, cw0] of centres) {
+    const q = xz(cu0, cw0); if (!pointInPoly(q[0], q[1], poly)) continue;
+    for (const [au, aw] of [[1, 1], [1, .4], [.4, 1]]) {
+      let hu = ((u1 - u0) / 2 - margin) * au, hw = ((w1 - w0) / 2 - margin) * aw;
+      for (let it = 0; it < 70 && hu >= .25 && hw >= .25; it++, hu *= .95, hw *= .95) {
+        if (hu * hw <= (bestFit ? bestFit[2] * bestFit[3] : 0)) break;
+        if (ok(cu0, cw0, hu, hw)) { bestFit = [cu0, cw0, hu, hw]; break; }
+      }
+    }
+  }
+  if (!bestFit) return null;
+  let [cu, cw, hu, hw] = bestFit;
+  if (hw > hu) { [ux, uz, wx, wz] = [wx, wz, -ux, -uz]; [hu, hw] = [hw, hu]; [cu, cw] = [cw, -cu]; } // long axis = u
+  return { ux, uz, wx, wz, hu, hw, rot: Math.atan2(-uz, ux), P: (u, w) => [ux * (cu + u) + wx * (cw + w), uz * (cu + u) + wz * (cw + w)] };
+}
+// Vertex-coloured, non-indexed box (top colour on +y face) for the merged facility mesh; pitch tilts it along local x.
+function boxPart(x, y, z, sx, sy, sz, rot, top, side, pitch = 0) {
+  const g = paintGroups(new T.BoxGeometry(sx, sy, sz).toNonIndexed(), [side, side, top, side, side, side]);
+  if (pitch) g.rotateZ(pitch); g.rotateY(rot); g.translate(x, y, z); return { geo: g };
+}
+// Graded wedge: rises from 0 at local x=-hu to `rise` at x=+hu; bottom face omitted (sits on the slab).
+function wedgePart(x, z, hu, hw, rise, rot, top, side) {
+  const A = [-hu, 0, -hw], B = [hu, 0, -hw], C = [hu, 0, hw], D = [-hu, 0, hw], E = [hu, rise, -hw], F = [hu, rise, hw];
+  const tris = [[A, D, F, top], [A, F, E, top], [B, E, F, side], [B, F, C, side], [A, E, B, side], [D, C, F, side]];
+  const pos = [], colr = [];
+  for (const [a, b, c, k] of tris) for (const p of [a, b, c]) { pos.push(...p); colr.push(k.r, k.g, k.b); }
+  const g = new T.BufferGeometry(); g.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); g.setAttribute('color', new T.Float32BufferAttribute(colr, 3));
+  g.computeVertexNormals(); g.rotateY(rot); g.translate(x, 0, z); return { geo: g };
+}
 
 export function createPlanScene(container, data, onSelect) {
   const scene = new T.Scene(); scene.background = new T.Color('#e7ecdf');
@@ -377,20 +453,29 @@ export function createPlanScene(container, data, onSelect) {
   const measure = document.createElement('canvas').getContext('2d');
   const tmp = new T.Object3D();
 
+  function labelWidth(text, badge) { // badge = short plain-text service code (WC, PCD, FAM...) drawn as a pill
+    measure.font = `800 24px ${FONT}`; const bw = badge ? Math.ceil(measure.measureText(badge).width + 22) : 0;
+    measure.font = `600 30px ${FONT}`; const tw = Math.min(560, measure.measureText(text).width);
+    return { cw: Math.ceil(tw + (bw ? bw + 80 : 112)), bw };
+  }
   function addLabel(o) {
-    measure.font = `600 30px ${FONT}`;
-    const tw = Math.min(560, measure.measureText(o.text).width), cw = Math.ceil(tw + 112), ch = 72;
+    const { cw, bw } = labelWidth(o.text, o.badge), ch = 72;
     const sp = new T.Sprite(new T.SpriteMaterial({ depthTest: false, depthWrite: false, transparent: true, toneMapped: false }));
     sp.center.set(.5, -.12); sp.renderOrder = 20; sp.visible = false; sp.position.set(o.x, o.y, o.z);
     floorGroups.get(o.floor).add(sp);
-    const l = { ...o, sprite: sp, cw, ch, aspect: cw / ch, tex: null }; labels.push(l); return l;
+    const l = { ...o, sprite: sp, cw, bw, ch, aspect: cw / ch, tex: null }; labels.push(l); return l;
   }
   function paintLabel(cv, l, style) {
     cv.width = l.cw; cv.height = l.ch; const c = cv.getContext('2d');
-    const S = { store: ['#fffef9', '#173c32', 'rgba(23,60,50,.16)'], pin: ['#fff6e6', '#6b4a17', 'rgba(150,100,30,.3)'], anchor: ['#173c32', '#fffef9', 'rgba(0,0,0,0)'], selected: ['#d9f57c', '#173c32', '#173c32'] }[style] || ['#fffef9', '#173c32', '#ccc'];
+    const S = { store: ['#fffef9', '#173c32', 'rgba(23,60,50,.16)'], facility: ['#eef4fa', '#163a5c', 'rgba(31,95,153,.35)'], pin: ['#fff6e6', '#6b4a17', 'rgba(150,100,30,.3)'], anchor: ['#173c32', '#fffef9', 'rgba(0,0,0,0)'], selected: ['#d9f57c', '#173c32', '#173c32'] }[style] || ['#fffef9', '#173c32', '#ccc'];
     c.shadowColor = 'rgba(23,60,50,.22)'; c.shadowBlur = 6; c.shadowOffsetY = 2;
     roundRect(c, 4, 3, l.cw - 8, 60, 18); c.fillStyle = S[0]; c.fill();
     c.shadowColor = 'transparent'; c.lineWidth = style === 'selected' ? 3 : 2; c.strokeStyle = S[2]; c.stroke();
+    if (l.badge && l.bw) { // service code as plain text in a blue pill; never a brand logo
+      roundRect(c, 14, 14, l.bw, 38, 10); c.fillStyle = '#1f5f99'; c.fill();
+      c.font = `800 24px ${FONT}`; c.fillStyle = '#ffffff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(l.badge, 14 + l.bw / 2, 34);
+      c.textAlign = 'left'; c.font = `600 30px ${FONT}`; c.fillStyle = S[1]; c.fillText(l.text, l.bw + 28, 34, l.cw - l.bw - 44); return;
+    }
     const hasLogo=drawBrandLogo(c,l.text,13,10,60,45);
     if(!hasLogo){c.beginPath();c.arc(30,33,8.5,0,7);c.fillStyle=style==='anchor'?'#d9f57c':style==='pin'?'#c48a3f':l.color||'#5a8a6f';c.fill();c.lineWidth=2.5;c.strokeStyle=style==='anchor'?'#173c32':'#fffef9';c.stroke();}
     c.font=`600 30px ${FONT}`;c.fillStyle=S[1];c.textBaseline='middle';c.fillText(l.text,hasLogo?84:48,34,l.cw-(hasLogo?96:60));
@@ -558,17 +643,105 @@ export function createPlanScene(container, data, onSelect) {
     addLabel({ id: s.id, floor: f.id, kind: 'store', text: s.name, color: '#' + color.getHexString(), featured: Boolean(s.featured), x: s.x, y: signTop + .3, z: s.z, area });
     return true;
   }
+  // Facility (unit_type 'facility'): semantic service volume on the ACTUAL footprint polygon, never a retail shell.
+  // No facade, glazing, roof units or invented fixture layout. Elevators/stairs/escalators/ramps are illustrative
+  // forms with a modest rise and make NO claim about operational floor links. Every part lies inside the polygon
+  // (insetPoly / fitRect validation). Facilities pending a polygon never reach this function: they stay honest pins.
+  function buildFacility(s, f, g, poly, inst, signs) {
+    const signed = polyArea(poly), area = Math.abs(signed); if (!(area > .2) || !isSimple(poly)) return false;
+    const cfg = facilityCfg(s), color = new T.Color(cfg.body), parts = [];
+    const plateTop = color.clone().lerp(WHITE, .72), plateSide = color.clone().lerp(DARK, .2);
+    parts.push({ geo: paintGroups(extrude(poly, .06), [plateTop, plateSide]) }); // footprint marker = exact polygon
+    const doorNode = nodeById.get(s.node_id), door = doorNode && doorNode.floor_id === f.id ? doorNode : nearestCorridorNode(f.id, s.x, s.z);
+    const signBg = new T.Color('#1f5f99'), signFg = WHITE, signAccent = new T.Color('#9cc3e6');
+    const signIndex = () => signEntries.push({ text: cfg.sign, color: signBg, fg: signFg, accent: signAccent, weight: 800, plain: true }) - 1;
+    const A = 256 / 48, viewUp = [-Math.sin(DEFAULT_ANGLE), -Math.cos(DEFAULT_ANGLE)];
+    // Flat roof sign along the long axis, text "up" pointing away from the default camera; contained in rect R.
+    const flatSign = (R, y, maxW) => {
+      const up = R.wx * viewUp[0] + R.wz * viewUp[1] >= 0 ? [R.wx, R.wz] : [-R.wx, -R.wz];
+      let sw = Math.min(maxW, R.hu * 2 * .86), sh = sw / A; if (sh > R.hw * 2 * .8) { sh = R.hw * 2 * .8; sw = sh * A; }
+      if (sw < .5) return false;
+      const c = R.P(0, 0); inst.fascia.push({ x: c[0], y: y - .012, z: c[1], sx: sw + .1, sy: .024, sz: sh + .1, r: R.rot, c: signBg });
+      signs.push({ index: signIndex(), flat: true, x: c[0], y: y + .004, z: c[1], nx: up[0], nz: up[1], sw, sh }); return true;
+    };
+    const faceToward = (R, hu, hw) => { // shaft face nearest the access node: {u, w, du, dw, len}
+      const faces = [{ u: 0, w: -hw, du: 0, dw: -1, len: hu * 2 }, { u: 0, w: hw, du: 0, dw: 1, len: hu * 2 }, { u: -hu, w: 0, du: -1, dw: 0, len: hw * 2 }, { u: hu, w: 0, du: 1, dw: 0, len: hw * 2 }];
+      if (!door) return faces[1];
+      return faces.map(q => { const p = R.P(q.u, q.w); return { ...q, d: Math.hypot(p[0] - door.x, p[1] - door.z) }; }).sort((p, q) => p.d - q.d)[0];
+    };
+    // Bottom end of a run = end nearer the access node (illustrative only; not a claim about real floor links).
+    const runDir = R => { if (!door) return 1; const a = R.P(-R.hu, 0), b = R.P(R.hu, 0); return Math.hypot(a[0] - door.x, a[1] - door.z) <= Math.hypot(b[0] - door.x, b[1] - door.z) ? 1 : -1; };
+    let form = cfg.form, R = form === 'room' ? null : fitRect(poly, .06), top = .06, ringY = .06;
+    if (form !== 'room' && !R) form = 'room';
+    if (form === 'lift' && (R.hu - .12 < .45 || R.hw - .12 < .45)) form = 'room';
+    if (form === 'room') { // WC / PCD / family room: low neutral blue block, prominent text sign, no fixture layout
+      const RH = 1.15, outer = insetSmooth(poly, .1) || poly;
+      parts.push({ geo: paintGroups(extrude(outer, RH), [color.clone().lerp(WHITE, .5), color]) });
+      top = ringY = RH;
+      const Rr = fitRect(outer, .08); if (Rr && flatSign(Rr, RH + .03, 3.2)) top = RH + .05;
+    } else if (form === 'lift') { // small shaft + door leaves + text lift symbol; no floor-link claim
+      const SH = 3, hu = R.hu - .12, hw = R.hw - .12, c = R.P(0, 0);
+      const shaftSide = color, shaftTop = color.clone().lerp(WHITE, .45), steel = new T.Color('#cdd6de'), dark = new T.Color('#2e3a38');
+      parts.push(boxPart(c[0], SH / 2, c[1], hu * 2, SH, hw * 2, R.rot, shaftTop, shaftSide));
+      parts.push(boxPart(c[0], SH + .09, c[1], hu * 1.5, .18, hw * 1.5, R.rot, shaftTop.clone().lerp(DARK, .08), shaftSide.clone().lerp(DARK, .15)));
+      const fc = faceToward(R, hu, hw), along = fc.du ? R.rot + Math.PI / 2 : R.rot;
+      const dw = Math.min(1.1, fc.len * .6), dh = Math.min(2.1, SH * .7), at = off => R.P(fc.u + fc.du * off, fc.w + fc.dw * off);
+      let p = at(.03); parts.push(boxPart(p[0], (dh + .08) / 2, p[1], dw + .16, dh + .08, .06, along, dark, dark));
+      for (const e of [-1, 1]) { // two door leaves with a visible centre gap
+        const t = e * (dw / 4 + .01), q = at(.065), ox = fc.du ? R.wx * t : R.ux * t, oz = fc.du ? R.wz * t : R.uz * t;
+        parts.push(boxPart(q[0] + ox, dh / 2 + .02, q[1] + oz, dw / 2 - .02, dh - .04, .03, along, steel, steel));
+      }
+      const sw = Math.min(fc.len * .7, 1.6), sh = sw / A, sy = dh + .2 + sh / 2;
+      if (sy + sh / 2 < SH - .05) { p = at(.03); inst.fascia.push({ x: p[0], y: sy, z: p[1], sx: sw + .08, sy: sh + .06, sz: .06, r: along, c: signBg }); const q = at(.064); signs.push({ index: signIndex(), x: q[0], y: sy, z: q[1], nx: -(R.ux * fc.du + R.wx * fc.dw), nz: -(R.uz * fc.du + R.wz * fc.dw), sw, sh }); }
+      flatSign({ ...R, hu: hu * .75, hw: hw * .75 }, SH + .19, 2.4); // sits on the lid
+      top = SH + .22; ringY = SH + .18;
+    } else if (form === 'ramp') { // simple graded platform with side curbs; modest illustrative rise
+      const dir = runDir(R), rise = Math.min(.55, R.hu * 2 * .06), c = R.P(0, 0), rot = dir > 0 ? R.rot : R.rot + Math.PI;
+      const curb = R.hw > .7 ? .1 : 0, hw = R.hw - curb, deck = new T.Color('#d9ddd6'), deckSide = color.clone().lerp(DARK, .15);
+      parts.push(wedgePart(c[0], c[1], R.hu, hw, rise, rot, deck, deckSide));
+      const pitch = Math.atan2(rise, R.hu * 2), len = R.hu * 2 / Math.cos(pitch) - .1;
+      if (curb) for (const e of [-1, 1]) { const q = R.P(0, e * (R.hw - curb / 2)); parts.push(boxPart(q[0], rise / 2 + .06, q[1], len, .14, curb, rot, color, deckSide, pitch)); }
+      top = rise + .2; ringY = rise + .04;
+    } else { // stairs / escalator / moving walkway: treads inside rect R, illustrative rise
+      const dir = runDir(R), esc = form === 'escalator' || form === 'walkway', walk = form === 'walkway';
+      const bal = esc && R.hw * 2 >= 1.2 ? .14 : 0, tw = R.hw * 2 - 2 * bal - (esc ? .04 : 0), L = R.hu * 2;
+      const N = walk ? 1 : clamp(Math.round(L / .6), 3, 16), rise = walk ? .1 : Math.min(1.5, .16 * N, L * .25), depth = L / N;
+      const rot = dir > 0 ? R.rot : R.rot + Math.PI, treadTop = esc ? new T.Color('#c3ccd3') : new T.Color('#ecebe5'), treadTop2 = esc ? new T.Color('#aeb8c0') : new T.Color('#dedcd3'), riser = esc ? new T.Color('#6f7b84') : color.clone().lerp(DARK, .22);
+      for (let k = 0; k < N; k++) {
+        const hk = walk ? .1 : rise * (k + 1) / N, q = R.P(dir * (-R.hu + depth * (k + .5)), 0);
+        parts.push(boxPart(q[0], hk / 2, q[1], depth - (walk ? 0 : .02), hk, tw, rot, k % 2 ? treadTop2 : treadTop, riser));
+      }
+      if (bal) { // paired balustrades + handrails following the illustrative incline, kept inside the rect
+        const pitch = walk ? 0 : Math.atan2(rise, L), len = (L - .3) / Math.cos(pitch), glass = new T.Color('#d7e6ef'), rail = new T.Color('#33414a');
+        for (const e of [-1, 1]) {
+          const q = R.P(0, e * (R.hw - bal / 2)), yc = rise / 2 + .45;
+          parts.push(boxPart(q[0], yc, q[1], len, .9, .06, rot, glass, glass, pitch));
+          parts.push(boxPart(q[0], yc + .48, q[1], len, .07, .1, rot, rail, rail, pitch));
+        }
+        top = rise + 1.05;
+      } else top = rise + .1;
+      ringY = rise + .02;
+    }
+    const mesh = new T.Mesh(merge(parts), M.body);
+    mesh.castShadow = mesh.receiveShadow = true; mesh.userData.store = s.id; g.add(mesh); hitObjects.push(mesh);
+    const pts = []; for (const p of poly) pts.push([p[0], 0, p[1]], [p[0], top + 1.5, p[1]]);
+    meta.set(s.id, { id: s.id, name: s.name, floor: f.id, kind: 'poly', unitType: 'facility', serviceType: s.service_type || null, badge: cfg.badge, x: s.x, z: s.z, top, ringY, body: poly, mesh, color, pts, facadeAngle: door ? Math.atan2(door.x - s.x, door.z - s.z) : DEFAULT_ANGLE });
+    addLabel({ id: s.id, floor: f.id, kind: 'facility', text: s.name, badge: cfg.badge, color: '#' + color.getHexString(), featured: false, x: s.x, y: top + .3, z: s.z, area });
+    return true;
+  }
   function buildStore(s, i, f, g, inst, parapets, signs, pins) {
     const color = new T.Color(s.color || PALETTE[i % 5]);
     const poly = cleanPoly(s.polygon);
     const doorNode = nodeById.get(s.node_id);
     const door = s.external ? null : (doorNode && doorNode.floor_id === f.id ? doorNode : nearestCorridorNode(f.id, s.x, s.z));
-    if (poly.length < 3) {
+    const facility = s.unit_type === 'facility' || s.unit_type === 'structure';
+    const asPin = () => {
       pins.push(s);
-      meta.set(s.id, { id: s.id, name: s.name, floor: f.id, kind: 'pin', x: s.x, z: s.z, top: 1.7, color, pts: [[s.x - 5, 0, s.z - 5], [s.x + 5, 0, s.z + 5], [s.x - 5, 0, s.z + 5], [s.x + 5, 3, s.z - 5]] });
+      meta.set(s.id, { id: s.id, name: s.name, floor: f.id, kind: 'pin', badge: facility ? facilityCfg(s).badge : undefined, x: s.x, z: s.z, top: 1.7, color, pts: [[s.x - 5, 0, s.z - 5], [s.x + 5, 0, s.z + 5], [s.x - 5, 0, s.z + 5], [s.x + 5, 3, s.z - 5]] });
       addLabel({ id: s.id, floor: f.id, kind: 'pin', text: `${s.name} · conferir`, x: s.x, y: 2, z: s.z, area: 0 });
-      return;
-    }
+    };
+    if (poly.length < 3) { asPin(); return; }
+    if (facility) { if (!buildFacility(s, f, g, poly, inst, signs)) asPin(); return; } // never falls through to a retail shell
     if (s.unit_type === 'kiosk' && buildKiosk(s, i, f, g, poly, color, inst, signs)) return;
     const area = Math.abs(polyArea(poly)), sgn = Math.sign(polyArea(poly)) || 1;
     const h = area > 700 ? 5.2 : area > 250 ? 4.1 : area > 90 ? 3.4 : 2.8;
@@ -586,19 +759,19 @@ export function createPlanScene(container, data, onSelect) {
     const inner = insetSmooth(body, clamp(Math.sqrt(area) * .03, .18, .42));
     const wall = prof.wall, roof = color.clone().lerp(ROOF, inner ? .3 : .12), crown = color.clone().lerp(DARK, .1);
     // Dollhouse view: floor and side walls preserve the exact footprint; roof is independently switchable.
-    const shell = extrude(body, h), caps = shell.groups.find(q => q.materialIndex === 0);
+    const shell = extrude(body, h, s.holes), caps = shell.groups.find(q => q.materialIndex === 0);
     if (caps) for (let k = caps.start; k < caps.start + caps.count; k++) if (shell.attributes.position.getY(k) > h * .5) shell.attributes.position.setY(k, .075);
     shell.attributes.position.needsUpdate = true;
     const mesh = new T.Mesh(paintGroups(shell, [prof.floor, wall]), M.body);
-    const roofGeo = new T.ShapeGeometry(shapeOf(body)); roofGeo.rotateX(-Math.PI/2);
+    const roofGeo = new T.ShapeGeometry(shapeOf(body,s.holes)); roofGeo.rotateX(-Math.PI/2);
     const roofMesh = new T.Mesh(roofGeo, own(new T.MeshStandardMaterial({color:roof,roughness:.85,side:T.DoubleSide})));
     roofMesh.position.y=h; roofMesh.visible=!cutaway; roofMesh.receiveShadow=true; roofMesh.userData.store=s.id; g.add(roofMesh); roofViews.push(roofMesh); hitObjects.push(roofMesh);
     // Invented, illustrative per-profile interior typologies, contained in the shop body. Never used for routing.
-    layoutInterior(body, Math.sign(polyArea(body)) || 1, fac, doorNode && doorNode.floor_id === f.id ? doorNode : null, prof, inst.fittings);
+    layoutInterior(body, Math.sign(polyArea(body)) || 1, fac, doorNode && doorNode.floor_id === f.id ? doorNode : null, prof, inst.fittings,s.holes||[]);
     mesh.castShadow = mesh.receiveShadow = true; mesh.userData.store = s.id; g.add(mesh); hitObjects.push(mesh);
     let top = h;
     if (inner) { const pg = extrude(body, .36, inner); pg.translate(0, h, 0); parapets.push({ geo: paintGroups(pg, [crown.clone().lerp(WHITE, .14), crown]) }); top = h + .36; }
-    roofDecor(s, inner, h, area, inst);
+    if(!s.holes?.length)roofDecor(s, inner, h, area, inst);
     if (doorNode && doorNode.floor_id === f.id) inst.mat.push({ x: doorNode.x, y: .065, z: doorNode.z, sx: .8, sy: .03, sz: .8, r: fac ? Math.atan2(-fac.uz, fac.ux) : 0 });
     const pts = []; for (const p of body) pts.push([p[0], 0, p[1]], [p[0], top + 1.5, p[1]]);
     meta.set(s.id, { id: s.id, name: s.name, floor: f.id, kind: 'poly', x: s.x, z: s.z, top, body, mesh, color, pts, facadeAngle: door ? Math.atan2(door.x-s.x,door.z-s.z) : DEFAULT_ANGLE });
@@ -632,7 +805,7 @@ export function createPlanScene(container, data, onSelect) {
       pins.forEach((s, k) => Object.assign(meta.get(s.id), { pinMesh: pm, pinIndex: k }));
     }
     for (const a of data.anchors) { const n = nodeById.get(a.node_id); if (n?.floor_id === f.id) addLabel({ id: 'anchor:' + a.node_id, floor: f.id, kind: 'anchor', text: a.short_label || a.label, x: n.x, y: .6, z: n.z, area: 0 }); }
-    const rank = l => l.kind === 'anchor' ? 0 : l.featured ? 1 : l.kind === 'store' ? 2 : 3;
+    const rank = l => l.kind === 'anchor' ? 0 : l.featured ? 1 : l.kind === 'facility' ? 1.5 : l.kind === 'store' ? 2 : 3;
     labelsByFloor.set(f.id, labels.filter(l => l.floor === f.id).sort((p, q) => rank(p) - rank(q) || q.area - p.area));
   }
   // Facade sign atlas: one texture, one merged quad mesh per floor.
@@ -644,7 +817,7 @@ export function createPlanScene(container, data, onSelect) {
       c.fillStyle = e.color.getStyle(); c.fillRect(x, y, cw, chh);
       c.fillStyle = 'rgba(255,255,255,.16)'; c.fillRect(x, y + 3, cw, 2);
       c.fillStyle = e.accent.getStyle(); c.fillRect(x + 6, y + chh - 9, cw - 12, 3); // profile accent stripe
-      const hasLogo=drawBrandLogo(c,e.text,x+7,y+5,50,37);
+      const hasLogo=!e.plain&&drawBrandLogo(c,e.text,x+7,y+5,50,37);
       const txt = String(e.text).toUpperCase(); let fs = hasLogo?22:27;
       do { c.font = `${e.weight} ${fs}px ${FONT}`; } while (c.measureText(txt).width > cw - (hasLogo?76:24) && --fs > 15);
       c.fillStyle = e.fg.getStyle(); c.textAlign = 'center'; c.textBaseline = 'middle';
@@ -658,7 +831,11 @@ export function createPlanScene(container, data, onSelect) {
         const col = s.index % cols, row = Math.floor(s.index / cols);
         const u0 = (col * cw + 3) / W, u1 = ((col + 1) * cw - 3) / W, vt = 1 - (row * chh + 3) / H, vb = 1 - ((row + 1) * chh - 3) / H;
         const rx = -s.nz * s.sw / 2, rz = s.nx * s.sw / 2, y0 = s.y - s.sh / 2, y1 = s.y + s.sh / 2;
-        const BL = [s.x - rx, y0, s.z - rz], BR = [s.x + rx, y0, s.z + rz], TR = [s.x + rx, y1, s.z + rz], TL = [s.x - rx, y1, s.z - rz];
+        let BL = [s.x - rx, y0, s.z - rz], BR = [s.x + rx, y0, s.z + rz], TR = [s.x + rx, y1, s.z + rz], TL = [s.x - rx, y1, s.z - rz];
+        if (s.flat) { // horizontal roof sign: (nx, nz) = in-plane "text up" direction, right = up rotated clockwise from above
+          const vx = s.nx * s.sh / 2, vz = s.nz * s.sh / 2;
+          BL = [s.x - rx - vx, s.y, s.z - rz - vz]; BR = [s.x + rx - vx, s.y, s.z + rz - vz]; TR = [s.x + rx + vx, s.y, s.z + rz + vz]; TL = [s.x - rx + vx, s.y, s.z - rz + vz];
+        }
         pos.push(...BL, ...BR, ...TR, ...BL, ...TR, ...TL); uv.push(u0, vb, u1, vb, u1, vt, u0, vb, u1, vt, u0, vt);
       }
       const geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); geo.computeBoundingSphere();
@@ -698,8 +875,8 @@ export function createPlanScene(container, data, onSelect) {
       else selGroup.add(new T.LineLoop(new T.BufferGeometry().setFromPoints(t.body.map(p => new T.Vector3(p[0], (t.ringY ?? t.top) + .03, p[1]))), M.selLine));
     } else { const m = new T.Mesh(new T.RingGeometry(1.4, 1.9, 40), M.selRing); m.rotation.x = -Math.PI / 2; m.position.set(t.x, .09, t.z); selGroup.add(m); }
     selGroup.visible = t.floor === floor;
-    Object.assign(selLabel, { text: t.kind === 'pin' ? `${t.name} · conferir` : t.name, color: t.color ? '#' + t.color.getHexString() : '#d9f57c', x: t.x, y: t.top + (t.kind === 'pin' ? .9 : .3), z: t.z, floor: t.floor });
-    measure.font = `600 30px ${FONT}`; selLabel.cw = Math.ceil(Math.min(560, measure.measureText(selLabel.text).width) + 112); selLabel.aspect = selLabel.cw / selLabel.ch;
+    Object.assign(selLabel, { text: t.kind === 'pin' ? `${t.name} · conferir` : t.name, badge: t.badge || null, color: t.color ? '#' + t.color.getHexString() : '#d9f57c', x: t.x, y: t.top + (t.kind === 'pin' ? .9 : .3), z: t.z, floor: t.floor });
+    Object.assign(selLabel, labelWidth(selLabel.text, selLabel.badge)); selLabel.aspect = selLabel.cw / selLabel.ch;
     paintLabel(selLabel.canvas, selLabel, 'selected');
     selLabel.tex?.dispose(); selLabel.tex = canvasTex(selLabel.canvas); selLabel.sprite.material.map = selLabel.tex; selLabel.sprite.material.needsUpdate = true;
     selLabel.sprite.position.set(selLabel.x, selLabel.y, selLabel.z);

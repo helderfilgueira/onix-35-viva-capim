@@ -17,16 +17,17 @@ def inside(point,poly):
         if (a[1]>y)!=(b[1]>y) and x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0]:result=not result
     return result
 
-def crosses_interior(a,b,poly):
+def crosses_interior(a,b,poly,holes=()):
     # Find every intersection parameter, then inspect each intervening interval.
     dx,dy=b[0]-a[0],b[1]-a[1];ts=[0.,1.]
-    for c,d in zip(poly,poly[1:]+poly[:1]):
+    ring_edges=[edge for ring in [poly,*holes] for edge in zip(ring,ring[1:]+ring[:1])]
+    for c,d in ring_edges:
         ex,ey=d[0]-c[0],d[1]-c[1];den=dx*ey-dy*ex
         if abs(den)<1e-10:continue
         qx,qy=c[0]-a[0],c[1]-a[1];t=(qx*ey-qy*ex)/den;u=(qx*dy-qy*dx)/den
         if 0<t<1 and 0<=u<=1:ts.append(t)
     ts.sort()
-    return any(inside((a[0]+dx*(lo+hi)/2,a[1]+dy*(lo+hi)/2),poly) for lo,hi in zip(ts,ts[1:]) if hi-lo>1e-8)
+    return any(inside((a[0]+dx*(lo+hi)/2,a[1]+dy*(lo+hi)/2),poly) and not any(inside((a[0]+dx*(lo+hi)/2,a[1]+dy*(lo+hi)/2),h) for h in holes) for lo,hi in zip(ts,ts[1:]) if hi-lo>1e-8)
 
 def validate_plan(data,nodes):
     footprints=[]
@@ -47,4 +48,4 @@ def validate_plan(data,nodes):
         for s,box in footprints:
             if s['floor_id']!=a['floor_id']:continue
             if seg_bounds[2]<box[0] or seg_bounds[0]>box[2] or seg_bounds[3]<box[1] or seg_bounds[1]>box[3]:continue
-            if crosses_interior(p,q,s['polygon']):raise ValueError('Route crosses retail interior: '+s['id'])
+            if crosses_interior(p,q,s['polygon'],s.get('holes',[])):raise ValueError('Route crosses retail interior: '+s['id'])

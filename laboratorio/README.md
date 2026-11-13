@@ -1,4 +1,4 @@
-> **Versão atual — revisão das três páginas:** 211 unidades, 208 contornos, 196 destinos com percurso inferido. Leia [revisão integral](docs/REVISAO_INTEGRAL.txt) e abra `ABRIR_LABORATORIO.cmd`. Há três contornos e 15 acessos pendentes; o mapa não é levantamento certificado.
+> **Versão atual:** [serviços e circulação](docs/SERVICOS_PLANTA.txt). 211 unidades + 44 serviços/equipamentos + 1 área ocupada. Atalhos para banheiros, elevadores, escadas e família. 48 testes aprovados; ligações entre pisos e acessos externos permanecem pendentes. Abra `ABRIR_LABORATORIO.cmd`.
 
 # Viva Capim
 

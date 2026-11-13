@@ -1,0 +1,1373 @@
+{
+  "source": "2026_11_CDS_MIX.pdf",
+  "source_pages_checked": [
+    1,
+    2,
+    3
+  ],
+  "coordinate_system": "image width1800 px per page",
+  "services": [
+    {
+      "id": "f0-wc-ca-f",
+      "name": "Sanitário feminino · C&A",
+      "service_type": "toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Sanitário feminino · C&A",
+      "polygon_px": [
+        [
+          711.545,
+          437.753
+        ],
+        [
+          737.669,
+          416.309
+        ],
+        [
+          742.955,
+          422.803
+        ],
+        [
+          718.34,
+          444.246
+        ]
+      ],
+      "source_position_px": [
+        727.378,
+        430.456
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Texto SANIT. FEMIN. 65,38m²; porta para circulação social.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 65.38,
+      "entry_point_px": [
+        713.659,
+        441.528
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          741.143,
+          480.791
+        ],
+        [
+          733.441,
+          470.975
+        ],
+        [
+          708.826,
+          443.793
+        ],
+        [
+          713.659,
+          441.528
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-wc-ca-m",
+      "name": "Sanitário masculino · C&A",
+      "service_type": "toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Sanitário masculino · C&A",
+      "polygon_px": [
+        [
+          728.609,
+          454.364
+        ],
+        [
+          753.374,
+          433.524
+        ],
+        [
+          742.955,
+          422.803
+        ],
+        [
+          723.1803,
+          443.587
+        ],
+        [
+          725.891,
+          446.813
+        ],
+        [
+          724.4833,
+          447.9794
+        ]
+      ],
+      "source_position_px": [
+        737.353,
+        438.418
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Texto SANIT. MASCULINO 57,65m². Revisão: recorte do canto contíguo ao PNE6,16m² para separar os dois recintos; porta PNE preservada.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 57.65,
+      "entry_point_px": [
+        726.948,
+        455.421
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          741.143,
+          480.791
+        ],
+        [
+          733.441,
+          470.975
+        ],
+        [
+          723.776,
+          457.988
+        ],
+        [
+          726.948,
+          455.421
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-wc-ca-pcd",
+      "name": "Sanitário acessível · C&A",
+      "service_type": "accessible_toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Sanitário acessível · C&A",
+      "polygon_px": [
+        [
+          717.585,
+          446.964
+        ],
+        [
+          722.719,
+          443.038
+        ],
+        [
+          725.891,
+          446.813
+        ],
+        [
+          720.605,
+          451.193
+        ]
+      ],
+      "source_position_px": [
+        721.693,
+        447.04
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. PNE 6,16m². Sala vizinha identificada DML excluída do inventário de banheiros.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 6.16,
+      "entry_point_px": [
+        718.944,
+        449.682
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          741.143,
+          480.791
+        ],
+        [
+          733.441,
+          470.975
+        ],
+        [
+          717.283,
+          452.099
+        ],
+        [
+          718.944,
+          449.682
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-family-ca",
+      "name": "Espaço Família · C&A",
+      "service_type": "family_room",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Espaço Família · C&A",
+      "polygon_px": [
+        [
+          763.643,
+          446.058
+        ],
+        [
+          753.525,
+          433.524
+        ],
+        [
+          728.609,
+          454.364
+        ],
+        [
+          737.367,
+          468.408
+        ],
+        [
+          747.3005,
+          459.9587
+        ],
+        [
+          744.104,
+          456.052
+        ],
+        [
+          747.125,
+          453.409
+        ],
+        [
+          747.125,
+          453.787
+        ],
+        [
+          745.693,
+          455.014
+        ],
+        [
+          744.482,
+          456.052
+        ],
+        [
+          747.6959,
+          459.6224
+        ]
+      ],
+      "source_position_px": [
+        745.796,
+        450.685
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. ESPAÇO FAMÍLIA 93,77m². Desenho inclui sanitários internos e bancadas; não afirmar equipamento de fraldário específico sem verificação. Revisão: pequeno excesso de traçado no limite com LOJA137 removido usando o contorno CAD do lote; parede compartilhada preservada.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 93.77,
+      "entry_point_px": [
+        731.931,
+        459.8
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          741.143,
+          480.791
+        ],
+        [
+          733.441,
+          470.975
+        ],
+        [
+          730.119,
+          461.914
+        ],
+        [
+          731.931,
+          459.8
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-wc-east-m",
+      "name": "Sanitário masculino · leste",
+      "service_type": "toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Sanitário masculino · leste",
+      "polygon_px": [
+        [
+          917.853,
+          606.125
+        ],
+        [
+          949.867,
+          606.125
+        ],
+        [
+          949.867,
+          618.961
+        ],
+        [
+          917.853,
+          618.961
+        ]
+      ],
+      "source_position_px": [
+        933.86,
+        612.543
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. SANIT. MASC. 60,63m² em circulação social, próximo Colégio Interação.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 60.63,
+      "entry_point_px": [
+        948.659,
+        617.3
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          953.0,
+          679.0
+        ],
+        [
+          953.0,
+          670.0
+        ],
+        [
+          952.8,
+          650.0
+        ],
+        [
+          952.434,
+          643.424
+        ],
+        [
+          952.283,
+          626.058
+        ],
+        [
+          952.283,
+          617.451
+        ],
+        [
+          948.659,
+          617.3
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal. Extensão confirmada em renderização6x: corredor estreito entre Constance a oeste e Footwear/Hering a leste, saindo no corredor principal sul antes do quiosque retangular sem código. Primeiro ponto [953,679] está na faixa livre entre fachadas e quiosques; não conectar por linha que atravesse o retângulo de quiosque ao sul.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-wc-east-f",
+      "name": "Sanitário feminino · leste",
+      "service_type": "toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Sanitário feminino · leste",
+      "polygon_px": [
+        [
+          917.853,
+          618.961
+        ],
+        [
+          949.867,
+          618.961
+        ],
+        [
+          949.867,
+          631.193
+        ],
+        [
+          917.853,
+          631.193
+        ]
+      ],
+      "source_position_px": [
+        933.86,
+        625.077
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. SANIT. FEM. 71,20m².",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 71.2,
+      "entry_point_px": [
+        948.659,
+        622.585
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          953.0,
+          679.0
+        ],
+        [
+          953.0,
+          670.0
+        ],
+        [
+          952.8,
+          650.0
+        ],
+        [
+          952.434,
+          643.424
+        ],
+        [
+          952.283,
+          626.058
+        ],
+        [
+          948.659,
+          622.585
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal. Extensão confirmada em renderização6x: corredor estreito entre Constance a oeste e Footwear/Hering a leste, saindo no corredor principal sul antes do quiosque retangular sem código. Primeiro ponto [953,679] está na faixa livre entre fachadas e quiosques; não conectar por linha que atravesse o retângulo de quiosque ao sul.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-wc-east-pcd",
+      "name": "Sanitário acessível · leste",
+      "service_type": "accessible_toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Sanitário acessível · leste",
+      "polygon_px": [
+        [
+          944.732,
+          631.344
+        ],
+        [
+          949.867,
+          631.344
+        ],
+        [
+          949.867,
+          640.706
+        ],
+        [
+          944.732,
+          640.706
+        ]
+      ],
+      "source_position_px": [
+        947.299,
+        636.025
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. PNE 3,50m². Porta voltada para vestíbulo inferior.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 3.5,
+      "entry_point_px": [
+        947.3,
+        640.253
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          953.0,
+          679.0
+        ],
+        [
+          953.0,
+          670.0
+        ],
+        [
+          952.8,
+          650.0
+        ],
+        [
+          952.434,
+          643.424
+        ],
+        [
+          947.3,
+          642.82
+        ],
+        [
+          947.3,
+          640.253
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal. Extensão confirmada em renderização6x: corredor estreito entre Constance a oeste e Footwear/Hering a leste, saindo no corredor principal sul antes do quiosque retangular sem código. Primeiro ponto [953,679] está na faixa livre entre fachadas e quiosques; não conectar por linha que atravesse o retângulo de quiosque ao sul.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-staff-changing-f",
+      "name": "Vestiário feminino · equipe",
+      "service_type": "staff_toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Vestiário feminino · equipe",
+      "polygon_px": [
+        [
+          1162.754,
+          567.333
+        ],
+        [
+          1175.439,
+          567.333
+        ],
+        [
+          1175.439,
+          591.948
+        ],
+        [
+          1162.754,
+          591.948
+        ]
+      ],
+      "source_position_px": [
+        1169.097,
+        579.64
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. VESTIÁRIO FEMININO na CIRC.SERV.; apoio operacional, não sanitário público.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 47.58,
+      "entry_point_px": [
+        1167.888,
+        591.042
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f0-staff-changing-m",
+      "name": "Vestiário masculino · equipe",
+      "service_type": "staff_toilet",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Vestiário masculino · equipe",
+      "polygon_px": [
+        [
+          1175.439,
+          567.333
+        ],
+        [
+          1187.217,
+          567.333
+        ],
+        [
+          1187.217,
+          591.948
+        ],
+        [
+          1175.439,
+          591.948
+        ]
+      ],
+      "source_position_px": [
+        1181.328,
+        579.64
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. VESTIÁRIO MASCULINO na CIRC.SERV.; apoio operacional.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 47.58,
+      "entry_point_px": [
+        1181.479,
+        591.042
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f1-wc-m",
+      "name": "Sanitário masculino · alimentação",
+      "service_type": "toilet",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Sanitário masculino · alimentação",
+      "polygon_px": [
+        [
+          1147.0,
+          221.0
+        ],
+        [
+          1231.0,
+          221.0
+        ],
+        [
+          1231.0,
+          343.0
+        ],
+        [
+          1181.0,
+          343.0
+        ],
+        [
+          1147.0,
+          239.0
+        ]
+      ],
+      "source_position_px": [
+        1195.394,
+        276.51
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. WC. MASC.46,72m²; envoltória externa inclui nichos das bancadas; traçado aproximado em parede interna.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 46.72,
+      "entry_point_px": [
+        1199.0,
+        343.0
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          1196.0,
+          360.0
+        ],
+        [
+          1197.0,
+          351.0
+        ],
+        [
+          1199.0,
+          343.0
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f1-wc-f",
+      "name": "Sanitário feminino · alimentação",
+      "service_type": "toilet",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Sanitário feminino · alimentação",
+      "polygon_px": [
+        [
+          1189.0,
+          778.0
+        ],
+        [
+          1230.0,
+          778.0
+        ],
+        [
+          1230.0,
+          920.0
+        ],
+        [
+          1157.0,
+          920.0
+        ],
+        [
+          1157.0,
+          882.0
+        ],
+        [
+          1187.0,
+          802.0
+        ],
+        [
+          1194.0,
+          802.0
+        ],
+        [
+          1194.0,
+          787.0
+        ],
+        [
+          1189.0,
+          787.0
+        ]
+      ],
+      "source_position_px": [
+        1199.23,
+        857.867
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. WC.FEM.39,97m²; porta e circulações sociais adjacentes visíveis. Verificar ponto de entrada antes de habilitar rota.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 39.97,
+      "entry_point_px": [
+        1194.0,
+        794.0
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          1190.0,
+          781.0
+        ],
+        [
+          1186.0,
+          790.0
+        ],
+        [
+          1194.0,
+          794.0
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f1-wc-pcd",
+      "name": "Sanitário acessível · alimentação",
+      "service_type": "accessible_toilet",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Sanitário acessível · alimentação",
+      "polygon_px": [
+        [
+          1133.0,
+          882.0
+        ],
+        [
+          1157.0,
+          882.0
+        ],
+        [
+          1157.0,
+          920.0
+        ],
+        [
+          1133.0,
+          920.0
+        ]
+      ],
+      "source_position_px": [
+        1145.0,
+        901.0
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": true,
+      "access_status": "plan_inferred",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. PNE4,14m² em circulação social. Não confundir com BRIGADA8,40m².",
+      "route_status": "unavailable",
+      "node_id": null,
+      "area_m2": 4.14,
+      "entry_point_px": [
+        1143.0,
+        882.0
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "access_polyline_px": [
+        [
+          1193.0,
+          781.0
+        ],
+        [
+          1174.0,
+          833.0
+        ],
+        [
+          1154.0,
+          876.0
+        ],
+        [
+          1143.0,
+          882.0
+        ]
+      ],
+      "access_polyline_status": "visual_plan_inferred",
+      "access_polyline_note": "Percurso visual no vestíbulo, não anexar automaticamente ao grafo sem checar paredes e ligação ao corredor principal.",
+      "route_enabled": false,
+      "route_eligible_after_graph_validation": true,
+      "route_disabled_reason": "Aguardando ligação do primeiro ponto da polilinha ao corredor principal e validação de obstáculos."
+    },
+    {
+      "id": "f0-lift-east",
+      "name": "Elevador · núcleo leste",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Elevador · núcleo leste",
+      "polygon_px": [
+        [
+          950.235,
+          593.138
+        ],
+        [
+          955.068,
+          593.138
+        ],
+        [
+          955.068,
+          597.819
+        ],
+        [
+          950.235,
+          597.819
+        ]
+      ],
+      "source_position_px": [
+        952.651,
+        595.478
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal junto circulação social; função/capacidade e destinos não rotulados.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        952.652,
+        598.121
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f0-lift-panoramic",
+      "name": "Elevador · fachada Renner",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "source_page": 2,
+      "floor_id": "f0",
+      "source_label": "Elevador · fachada Renner",
+      "polygon_px": [
+        [
+          401.661,
+          689.682
+        ],
+        [
+          406.493,
+          689.682
+        ],
+        [
+          406.493,
+          696.478
+        ],
+        [
+          401.661,
+          696.478
+        ]
+      ],
+      "source_position_px": [
+        404.077,
+        693.08
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Símbolo de cabine com diagonal na fachada curva. Correspondência com panorâmico da alimentação provável, não habilitada.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        406.644,
+        692.854
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f1-lift-panoramic",
+      "name": "Elevador · fachada alimentação",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Elevador · fachada alimentação",
+      "polygon_px": [
+        [
+          300.252,
+          557.232
+        ],
+        [
+          332.115,
+          557.232
+        ],
+        [
+          332.115,
+          600.572
+        ],
+        [
+          300.252,
+          600.572
+        ]
+      ],
+      "source_position_px": [
+        316.183,
+        578.902
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal na fachada curva. Destinos/capacidade e operação a confirmar.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        332.417,
+        578.675
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f1-lift-service-n1",
+      "name": "Elevador 1 · circulação de serviço norte",
+      "service_type": "service_elevator",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Elevador 1 · circulação de serviço norte",
+      "polygon_px": [
+        [
+          599.078,
+          177.133
+        ],
+        [
+          615.69,
+          163.844
+        ],
+        [
+          629.432,
+          180.757
+        ],
+        [
+          613.122,
+          194.197
+        ]
+      ],
+      "source_position_px": [
+        614.304,
+        178.989
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal junto CIRC.SERV.; não oferecer como rota acessível pública.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        622.032,
+        171.546
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f1-lift-service-n2",
+      "name": "Elevador 2 · circulação de serviço norte",
+      "service_type": "service_elevator",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Elevador 2 · circulação de serviço norte",
+      "polygon_px": [
+        [
+          619.918,
+          202.503
+        ],
+        [
+          636.529,
+          189.365
+        ],
+        [
+          650.271,
+          206.278
+        ],
+        [
+          633.811,
+          219.416
+        ]
+      ],
+      "source_position_px": [
+        635.12,
+        204.387
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Segunda cabine no mesmo núcleo de serviço; capacidade/função não rotuladas.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        643.627,
+        196.764
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "f1-lift-service-s",
+      "name": "Elevador · circulação de serviço sul",
+      "service_type": "service_elevator",
+      "unit_type": "facility",
+      "source_page": 3,
+      "floor_id": "f1",
+      "source_label": "Elevador · circulação de serviço sul",
+      "polygon_px": [
+        [
+          1060.521,
+          897.534
+        ],
+        [
+          1082.266,
+          897.534
+        ],
+        [
+          1082.266,
+          916.863
+        ],
+        [
+          1060.521,
+          916.863
+        ]
+      ],
+      "source_position_px": [
+        1071.393,
+        907.199
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": false,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine com diagonal ao final da CIRC.SERV.; quadrado menor tracejado adjacente não contado como elevador.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        1071.243,
+        916.863
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "inset-a8-lift",
+      "name": "Elevador · detalhe A8",
+      "service_type": "elevator",
+      "unit_type": "facility",
+      "source_page": 1,
+      "floor_id": "inset-a8",
+      "source_label": "Elevador · detalhe A8",
+      "polygon_px": [
+        [
+          86.762,
+          389.983
+        ],
+        [
+          92.501,
+          389.983
+        ],
+        [
+          92.501,
+          395.571
+        ],
+        [
+          86.762,
+          395.571
+        ]
+      ],
+      "source_position_px": [
+        89.632,
+        392.777
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Cabine diagonal junto escadas. Geometria semelhante ao núcleo leste do térreo; vínculo entre níveis não confirmado.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        89.631,
+        396.024
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "inset-l2-lift1",
+      "name": "Equipamento a confirmar 1 · detalhe L2",
+      "service_type": "elevator_candidate",
+      "unit_type": "facility",
+      "source_page": 1,
+      "floor_id": "inset-l2",
+      "source_label": "Cabine 1 · detalhe L2",
+      "polygon_px": [
+        [
+          143.222,
+          569.933
+        ],
+        [
+          149.716,
+          569.933
+        ],
+        [
+          149.716,
+          576.427
+        ],
+        [
+          143.222,
+          576.427
+        ]
+      ],
+      "source_position_px": [
+        146.469,
+        573.18
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Dois compartimentos com limiar/porta junto CIRC.SOCIAL. Possíveis elevadores; sem legenda explícita. Não habilitar navegação vertical.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        146.243,
+        569.631
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    },
+    {
+      "id": "inset-l2-lift2",
+      "name": "Equipamento a confirmar 2 · detalhe L2",
+      "service_type": "elevator_candidate",
+      "unit_type": "facility",
+      "source_page": 1,
+      "floor_id": "inset-l2",
+      "source_label": "Cabine 2 · detalhe L2",
+      "polygon_px": [
+        [
+          150.773,
+          569.933
+        ],
+        [
+          157.266,
+          569.933
+        ],
+        [
+          157.266,
+          576.427
+        ],
+        [
+          150.773,
+          576.427
+        ]
+      ],
+      "source_position_px": [
+        154.019,
+        573.18
+      ],
+      "geometry_status": "manual_trace",
+      "public_access": null,
+      "access_status": "restricted_or_unconfirmed",
+      "evidence": "Contorno traçado visualmente sobre PDF ampliado; não levantamento presencial. Segundo compartimento ao lado da escada; confirmar função antes de rotular elevador operacional.",
+      "route_status": "unavailable",
+      "node_id": null,
+      "entry_point_px": [
+        153.944,
+        569.631
+      ],
+      "entry_evidence": "Abertura/porta visível na planta; largura/acessibilidade operacional não verificada.",
+      "route_enabled": false
+    }
+  ],
+  "interfloor_links": [],
+  "possible_correspondences": [
+    {
+      "from": "f0-lift-panoramic",
+      "to": "f1-lift-panoramic",
+      "status": "unconfirmed",
+      "reason": "Mesmo símbolo e localização na fachada curva; cotas/floors de operação ausentes."
+    },
+    {
+      "from": "f0-lift-east",
+      "to": "inset-a8-lift",
+      "status": "unconfirmed",
+      "reason": "Núcleo arquitetônico semelhante; não há identificação unívoca do elevador por pavimento."
+    }
+  ],
+  "excluded": [
+    {
+      "label": "DML",
+      "reason": "Depósito de material de limpeza junto PNE C&A, não banheiro."
+    },
+    {
+      "label": "SOB ESCADA",
+      "reason": "Área sob escada, não novo sanitário/elevador."
+    },
+    {
+      "label": "Vagas PNE",
+      "reason": "Estacionamento acessível, não sanitário."
+    }
+  ],
+  "limitations": [
+    "Contornos manuais precisam de conferência CAD final antes de uso como obstáculo milimétrico.",
+    "Acesso público indicado pelo contexto CIRC.SOCIAL; não comprova disponibilidade atual.",
+    "Nenhuma conexão vertical habilitada; não converter proximidade entre desenhos em conexão entre pisos.",
+    "Fraldário específico não explicitamente rotulado: Espaço Família preservado sem inventar equipamentos.",
+    "Subsolo2: auditoria de circulação fornece cabines e escadas em arquivo separado."
+  ],
+  "public_access_spines": [
+    {
+      "id": "ca-social",
+      "floor_id": "f0",
+      "source_page": 2,
+      "points_px": [
+        [
+          741.14,
+          480.79
+        ],
+        [
+          733.44,
+          470.98
+        ],
+        [
+          708.83,
+          443.8
+        ]
+      ],
+      "serves": [
+        "f0-wc-ca-f",
+        "f0-wc-ca-m",
+        "f0-wc-ca-pcd",
+        "f0-family-ca"
+      ],
+      "status": "visually_traced_social_circulation"
+    },
+    {
+      "id": "east-social",
+      "floor_id": "f0",
+      "source_page": 2,
+      "points_px": [
+        [
+          952.43,
+          643.42
+        ],
+        [
+          952.28,
+          626.06
+        ],
+        [
+          952.28,
+          617.45
+        ]
+      ],
+      "serves": [
+        "f0-wc-east-m",
+        "f0-wc-east-f",
+        "f0-wc-east-pcd"
+      ],
+      "status": "visually_traced_social_circulation"
+    },
+    {
+      "id": "food-north-social",
+      "floor_id": "f1",
+      "source_page": 3,
+      "points_px": [
+        [
+          1196,
+          360
+        ],
+        [
+          1197,
+          351
+        ],
+        [
+          1199,
+          343
+        ]
+      ],
+      "serves": [
+        "f1-wc-m"
+      ],
+      "status": "visually_traced_social_circulation"
+    },
+    {
+      "id": "food-south-social",
+      "floor_id": "f1",
+      "source_page": 3,
+      "points_px": [
+        [
+          1190,
+          781
+        ],
+        [
+          1186,
+          790
+        ],
+        [
+          1174,
+          833
+        ],
+        [
+          1154,
+          876
+        ]
+      ],
+      "serves": [
+        "f1-wc-f",
+        "f1-wc-pcd"
+      ],
+      "status": "visually_traced_social_circulation"
+    }
+  ],
+  "counts": {
+    "public_facilities": 10,
+    "restricted_staff": 5,
+    "unconfirmed_access": 6,
+    "total": 21
+  },
+  "review_note": "Overlay visual dos núcleos C&A,leste,alimentação confrontado com PDF; entrada do WC masculino alimentação corrigida para porta sul. Portas/polylines representam intenção da planta; validação física pendente."
+}
