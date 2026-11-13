@@ -1,0 +1,1988 @@
+{
+  "coordinate_system": "page raster normalized to width1800; source_position_px and polygon_px per source_page",
+  "floors": [
+    {
+      "id": "inset-subsolo1",
+      "label": "Subsolo 1 · detalhe da planta",
+      "source_page": 1,
+      "center_px": [
+        522,
+        244
+      ],
+      "bounds_px": [
+        500,
+        220,
+        540,
+        265
+      ],
+      "metres_per_pixel": 0.3374110498052934,
+      "scale_evidence": "Estimativa por área declarada / área do contorno traçado; não levantamento métrico",
+      "interfloor_status": "unconfirmed"
+    },
+    {
+      "id": "inset-a8",
+      "label": "Colégio Interação · detalhe A8",
+      "source_page": 1,
+      "center_px": [
+        132,
+        425
+      ],
+      "bounds_px": [
+        40,
+        385,
+        225,
+        455
+      ],
+      "metres_per_pixel": 0.33410078407386107,
+      "scale_evidence": "Estimativa por área declarada / área do contorno traçado; não levantamento métrico",
+      "interfloor_status": "unconfirmed"
+    },
+    {
+      "id": "inset-l2",
+      "label": "Piso L2 · detalhe da planta",
+      "source_page": 1,
+      "center_px": [
+        135,
+        553
+      ],
+      "bounds_px": [
+        30,
+        510,
+        245,
+        595
+      ],
+      "metres_per_pixel": 0.339001152604171,
+      "scale_evidence": "Estimativa por área declarada / área do contorno traçado; não levantamento métrico",
+      "interfloor_status": "unconfirmed"
+    }
+  ],
+  "stores": [
+    {
+      "id": "f0-q-2b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 2B",
+      "source_position_px": [
+        591.335,
+        697.994
+      ],
+      "name": "Chopp Brahma",
+      "category": "Quiosques",
+      "polygon_px": [],
+      "geometry_status": "position_only",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Área comercial 101,63m² entre escadas rolantes; limite exclusivo de ocupação não inequívoco para extrusão única. Não extrudar escadas como loja.",
+      "area_m2": 101.63,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-11",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 11",
+      "source_position_px": [
+        1035.275,
+        693.389
+      ],
+      "name": "McDonald's",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1037.696,
+          684.431
+        ],
+        [
+          1032.694,
+          684.431
+        ],
+        [
+          1032.694,
+          691.933
+        ],
+        [
+          1037.696,
+          691.933
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 52052.",
+      "drawing_index": 52052,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-18",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 18",
+      "source_position_px": [
+        1075.723,
+        443.207
+      ],
+      "name": "McDonald's",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1078.577,
+          434.14
+        ],
+        [
+          1073.576,
+          434.14
+        ],
+        [
+          1073.576,
+          441.751
+        ],
+        [
+          1078.577,
+          441.751
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 52036.",
+      "drawing_index": 52036,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-12-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 12 A",
+      "source_position_px": [
+        1072.449,
+        694.377
+      ],
+      "name": "Quiosque Q 12 A",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1076.185,
+          683.126
+        ],
+        [
+          1068.575,
+          683.126
+        ],
+        [
+          1068.575,
+          693.238
+        ],
+        [
+          1076.185,
+          693.238
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51720.",
+      "drawing_index": 51720,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-12",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 12",
+      "source_position_px": [
+        1053.345,
+        693.629
+      ],
+      "name": "Bubble Mix",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1057.267,
+          684.431
+        ],
+        [
+          1049.656,
+          684.431
+        ],
+        [
+          1049.656,
+          691.933
+        ],
+        [
+          1057.267,
+          691.933
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51119.",
+      "drawing_index": 51119,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-10",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 10",
+      "source_position_px": [
+        1021.467,
+        693.389
+      ],
+      "name": "My Case",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1025.192,
+          685.627
+        ],
+        [
+          1017.581,
+          685.627
+        ],
+        [
+          1017.581,
+          690.737
+        ],
+        [
+          1025.192,
+          690.737
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53524.",
+      "drawing_index": 53524,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-9-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 9 A",
+      "source_position_px": [
+        992.337,
+        692.197
+      ],
+      "name": "New Era",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          996.923,
+          685.736
+        ],
+        [
+          986.811,
+          685.736
+        ],
+        [
+          986.811,
+          690.846
+        ],
+        [
+          996.923,
+          690.846
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 52072.",
+      "drawing_index": 52072,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-16",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 16",
+      "source_position_px": [
+        1075.723,
+        414.504
+      ],
+      "name": "Rei da Paçoca",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1078.251,
+          405.654
+        ],
+        [
+          1073.25,
+          405.654
+        ],
+        [
+          1073.25,
+          413.264
+        ],
+        [
+          1078.251,
+          413.264
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51662.",
+      "drawing_index": 51662,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-3c",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 3C",
+      "source_position_px": [
+        717.146,
+        697.13
+      ],
+      "name": "Toca da Pipoca",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          721.299,
+          689.541
+        ],
+        [
+          712.274,
+          689.541
+        ],
+        [
+          712.274,
+          695.847
+        ],
+        [
+          721.299,
+          695.847
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51837.",
+      "drawing_index": 51837,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-12b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 12B",
+      "source_position_px": [
+        1074.416,
+        645.556
+      ],
+      "name": "Monkey Shop",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1076.729,
+          636.265
+        ],
+        [
+          1071.728,
+          636.265
+        ],
+        [
+          1071.728,
+          643.767
+        ],
+        [
+          1076.729,
+          643.767
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51982.",
+      "drawing_index": 51982,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-13",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 13",
+      "source_position_px": [
+        1074.309,
+        608.8
+      ],
+      "name": "Goold Spell",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1076.512,
+          599.95
+        ],
+        [
+          1071.51,
+          599.95
+        ],
+        [
+          1071.51,
+          607.561
+        ],
+        [
+          1076.512,
+          607.561
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 57723.",
+      "drawing_index": 57723,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-30-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 30",
+      "source_position_px": [
+        729.31,
+        535.038
+      ],
+      "name": "Panda Pool",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          720.537,
+          530.253
+        ],
+        [
+          726.578,
+          525.119
+        ],
+        [
+          732.014,
+          531.008
+        ],
+        [
+          725.974,
+          536.294
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Dois volumes distintos na planta com mesmo código Q30; preservados separadamente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-29",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 29",
+      "source_position_px": [
+        785.445,
+        486.654
+      ],
+      "name": "Fun Photo",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          776.562,
+          483.893
+        ],
+        [
+          780.338,
+          481.175
+        ],
+        [
+          785.321,
+          486.46
+        ],
+        [
+          781.244,
+          489.782
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-3b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 3B",
+      "source_position_px": [
+        699.255,
+        696.912
+      ],
+      "name": "Dinos",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          704.011,
+          689.541
+        ],
+        [
+          695.204,
+          689.541
+        ],
+        [
+          695.204,
+          695.847
+        ],
+        [
+          704.011,
+          695.847
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 52002.",
+      "drawing_index": 52002,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-2",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 2",
+      "source_position_px": [
+        552.328,
+        656.091
+      ],
+      "name": "Giraffas",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          549.074,
+          654.966
+        ],
+        [
+          555.38,
+          654.966
+        ],
+        [
+          555.38,
+          646.485
+        ],
+        [
+          549.074,
+          646.485
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51874.",
+      "drawing_index": 51874,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-32",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 32",
+      "source_position_px": [
+        605.91,
+        548.13
+      ],
+      "name": "Kekala",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          610.831,
+          541.781
+        ],
+        [
+          600.829,
+          541.781
+        ],
+        [
+          600.829,
+          546.782
+        ],
+        [
+          610.831,
+          546.782
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51911.",
+      "drawing_index": 51911,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-27",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 27",
+      "source_position_px": [
+        871.639,
+        501.367
+      ],
+      "name": "Gelatos Sorveteria",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          878.41,
+          499.051
+        ],
+        [
+          872.213,
+          493.723
+        ],
+        [
+          870.147,
+          496.224
+        ],
+        [
+          870.473,
+          496.55
+        ],
+        [
+          869.277,
+          497.963
+        ],
+        [
+          875.148,
+          502.856
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51948.",
+      "drawing_index": 51948,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-25",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 25",
+      "source_position_px": [
+        1036.628,
+        549.911
+      ],
+      "name": "Quiosque Q 25",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1040.523,
+          540.584
+        ],
+        [
+          1033.021,
+          540.584
+        ],
+        [
+          1033.021,
+          548.087
+        ],
+        [
+          1040.523,
+          548.087
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51766.",
+      "drawing_index": 51766,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-6a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 6A",
+      "source_position_px": [
+        881.114,
+        676.312
+      ],
+      "name": "Aromaah",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          878.301,
+          672.58
+        ],
+        [
+          884.934,
+          677.799
+        ],
+        [
+          888.848,
+          672.797
+        ],
+        [
+          882.215,
+          667.687
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51785.",
+      "drawing_index": 51785,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-25a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 25A",
+      "source_position_px": [
+        1018.525,
+        549.264
+      ],
+      "name": "Empório Essenza",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1021.822,
+          540.584
+        ],
+        [
+          1014.319,
+          540.584
+        ],
+        [
+          1014.319,
+          548.195
+        ],
+        [
+          1021.822,
+          548.195
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 52121.",
+      "drawing_index": 52121,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-26",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 26",
+      "source_position_px": [
+        938.617,
+        550.74
+      ],
+      "name": "ProntoFibra",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          946.8,
+          539.388
+        ],
+        [
+          931.686,
+          539.388
+        ],
+        [
+          931.686,
+          549.391
+        ],
+        [
+          946.8,
+          549.391
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53631.",
+      "drawing_index": 53631,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-29-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 29-A",
+      "source_position_px": [
+        778.832,
+        494.033
+      ],
+      "name": "Quiosque Q 29-A",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          768.559,
+          490.688
+        ],
+        [
+          776.26,
+          484.195
+        ],
+        [
+          781.395,
+          489.933
+        ],
+        [
+          773.24,
+          496.729
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-27-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 27-A",
+      "source_position_px": [
+        913.34,
+        538.591
+      ],
+      "name": "Salve Club",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          910.688,
+          534.329
+        ],
+        [
+          915.974,
+          528.591
+        ],
+        [
+          922.316,
+          533.876
+        ],
+        [
+          917.182,
+          539.615
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-28",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 28",
+      "source_position_px": [
+        853.748,
+        487.634
+      ],
+      "name": "Pop Corn",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          854.272,
+          485.242
+        ],
+        [
+          857.099,
+          487.743
+        ],
+        [
+          860.361,
+          483.829
+        ],
+        [
+          857.534,
+          481.437
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 54781.",
+      "drawing_index": 54781,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-1",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 1",
+      "source_position_px": [
+        552.219,
+        625.539
+      ],
+      "name": "Acrílicos e Cia",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          554.728,
+          616.15
+        ],
+        [
+          549.618,
+          616.15
+        ],
+        [
+          549.618,
+          623.761
+        ],
+        [
+          554.728,
+          623.761
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53877.",
+      "drawing_index": 53877,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-32a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 32A",
+      "source_position_px": [
+        626.019,
+        548.545
+      ],
+      "name": "Havanna",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          630.511,
+          540.911
+        ],
+        [
+          621.487,
+          540.911
+        ],
+        [
+          621.487,
+          547.217
+        ],
+        [
+          630.511,
+          547.217
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53457.",
+      "drawing_index": 53457,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-29b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 29B",
+      "source_position_px": [
+        743.484,
+        523.57
+      ],
+      "name": "Quiosque Q 29B",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          745.545,
+          520.035
+        ],
+        [
+          740.652,
+          514.272
+        ],
+        [
+          734.89,
+          519.056
+        ],
+        [
+          739.674,
+          524.928
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53490.",
+      "drawing_index": 53490,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-26-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 26-A",
+      "source_position_px": [
+        958.348,
+        549.334
+      ],
+      "name": "USE AO",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          961.913,
+          540.367
+        ],
+        [
+          954.411,
+          540.367
+        ],
+        [
+          954.411,
+          547.978
+        ],
+        [
+          961.913,
+          547.978
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53123.",
+      "drawing_index": 53123,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-32b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 32B",
+      "source_position_px": [
+        617.864,
+        526.474
+      ],
+      "name": "We Pink",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          621.161,
+          518.839
+        ],
+        [
+          614.311,
+          518.839
+        ],
+        [
+          614.311,
+          525.036
+        ],
+        [
+          621.161,
+          525.036
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53600.",
+      "drawing_index": 53600,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-7",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 7",
+      "source_position_px": [
+        926.351,
+        696.647
+      ],
+      "name": "Oakberry",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          931.143,
+          690.194
+        ],
+        [
+          921.14,
+          690.194
+        ],
+        [
+          921.14,
+          695.304
+        ],
+        [
+          931.143,
+          695.304
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53671.",
+      "drawing_index": 53671,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-15",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 15",
+      "source_position_px": [
+        1073.548,
+        532.908
+      ],
+      "name": "Touti",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1076.077,
+          524.058
+        ],
+        [
+          1071.075,
+          524.058
+        ],
+        [
+          1071.075,
+          531.56
+        ],
+        [
+          1076.077,
+          531.56
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51984.",
+      "drawing_index": 51984,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-31",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 31",
+      "source_position_px": [
+        677.014,
+        549.524
+      ],
+      "name": "MilkMoo",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          680.743,
+          540.584
+        ],
+        [
+          673.132,
+          540.584
+        ],
+        [
+          673.132,
+          548.195
+        ],
+        [
+          680.743,
+          548.195
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 53211.",
+      "drawing_index": 53211,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-14",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 14",
+      "source_position_px": [
+        1073.439,
+        561.394
+      ],
+      "name": "Acium",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1071.141,
+          550.962
+        ],
+        [
+          1076.276,
+          550.962
+        ],
+        [
+          1076.276,
+          559.72
+        ],
+        [
+          1071.141,
+          559.72
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-2a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 2A",
+      "source_position_px": [
+        557.412,
+        699.734
+      ],
+      "name": "Bistrô 81",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          567.014,
+          677.255
+        ],
+        [
+          547.769,
+          677.255
+        ],
+        [
+          547.769,
+          708.677
+        ],
+        [
+          567.014,
+          708.677
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51627.",
+      "drawing_index": 51627,
+      "area_m2": 78.36,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-4a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 4A",
+      "source_position_px": [
+        758.072,
+        677.036
+      ],
+      "name": "Super Soft",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          754.461,
+          678.234
+        ],
+        [
+          760.223,
+          673.45
+        ],
+        [
+          755.439,
+          667.687
+        ],
+        [
+          749.677,
+          672.471
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 60637.",
+      "drawing_index": 60637,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-15-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 15 A",
+      "source_position_px": [
+        1074.08,
+        509.757
+      ],
+      "name": "Quiosque Q 15 A",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1076.077,
+          499.268
+        ],
+        [
+          1071.075,
+          499.268
+        ],
+        [
+          1071.075,
+          506.879
+        ],
+        [
+          1076.077,
+          506.879
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 54550.",
+      "drawing_index": 54550,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-3",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 3",
+      "source_position_px": [
+        682.891,
+        696.907
+      ],
+      "name": "Fini",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          688.245,
+          690.52
+        ],
+        [
+          679.439,
+          690.52
+        ],
+        [
+          679.439,
+          695.521
+        ],
+        [
+          688.245,
+          695.521
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 52170.",
+      "drawing_index": 52170,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-29c",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 29C",
+      "source_position_px": [
+        758.753,
+        510.808
+      ],
+      "name": "Nutty Bavarian",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          755.983,
+          511.228
+        ],
+        [
+          759.788,
+          508.075
+        ],
+        [
+          754.895,
+          502.204
+        ],
+        [
+          751.09,
+          505.465
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 54631.",
+      "drawing_index": 54631,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-19-a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 19-A",
+      "source_position_px": [
+        1062.074,
+        402.769
+      ],
+      "name": "American Cookies",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1065.204,
+          406.197
+        ],
+        [
+          1057.593,
+          406.197
+        ],
+        [
+          1057.593,
+          413.699
+        ],
+        [
+          1065.204,
+          413.699
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 54719.",
+      "drawing_index": 54719,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-2c",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 2C",
+      "source_position_px": [
+        556.846,
+        722.422
+      ],
+      "name": "Mini Cars",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          563.1,
+          715.418
+        ],
+        [
+          551.792,
+          715.418
+        ],
+        [
+          551.792,
+          720.529
+        ],
+        [
+          563.1,
+          720.529
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 54754.",
+      "drawing_index": 54754,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-34",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 34",
+      "source_position_px": [
+        572.644,
+        568.61
+      ],
+      "name": "Buriti",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          553.398,
+          561.863
+        ],
+        [
+          564.849,
+          550.537
+        ],
+        [
+          577.182,
+          561.989
+        ],
+        [
+          565.73,
+          573.44
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-5",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 5",
+      "source_position_px": [
+        784.876,
+        663.822
+      ],
+      "name": "Vivance",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          788.166,
+          659.641
+        ],
+        [
+          779.359,
+          647.355
+        ],
+        [
+          770.335,
+          653.77
+        ],
+        [
+          779.142,
+          666.056
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 57663.",
+      "drawing_index": 57663,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-4",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 4",
+      "source_position_px": [
+        771.418,
+        667.553
+      ],
+      "name": "Quiosque Q 4",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          769.9,
+          658.663
+        ],
+        [
+          764.137,
+          663.555
+        ],
+        [
+          767.725,
+          667.796
+        ],
+        [
+          773.488,
+          662.903
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 60085.",
+      "drawing_index": 60085,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-28a",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 28A",
+      "source_position_px": [
+        860.858,
+        491.705
+      ],
+      "name": "Grua Chaves",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          858.73,
+          488.83
+        ],
+        [
+          861.122,
+          491.005
+        ],
+        [
+          864.275,
+          487.417
+        ],
+        [
+          861.992,
+          485.351
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 59389.",
+      "drawing_index": 59389,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-15-b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 15 B",
+      "source_position_px": [
+        1073.536,
+        487.577
+      ],
+      "name": "Fini Pocket",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1072.048,
+          478.93
+        ],
+        [
+          1075.37,
+          478.93
+        ],
+        [
+          1075.37,
+          485.876
+        ],
+        [
+          1072.048,
+          485.876
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-9",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 9",
+      "source_position_px": [
+        973.637,
+        694.366
+      ],
+      "name": "Artes Jalapão",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          977.352,
+          684.54
+        ],
+        [
+          969.85,
+          684.54
+        ],
+        [
+          969.85,
+          692.151
+        ],
+        [
+          977.352,
+          692.151
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 51138.",
+      "drawing_index": 51138,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-20",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 20",
+      "source_position_px": [
+        1077.353,
+        359.813
+      ],
+      "name": "Tropimanga",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1074.917,
+          349.061
+        ],
+        [
+          1080.202,
+          349.061
+        ],
+        [
+          1080.202,
+          356.913
+        ],
+        [
+          1074.917,
+          356.913
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-6b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 6B",
+      "source_position_px": [
+        866.654,
+        666.418
+      ],
+      "name": "Quiosque Q 6B",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          867.646,
+          658.989
+        ],
+        [
+          864.493,
+          662.903
+        ],
+        [
+          870.473,
+          667.578
+        ],
+        [
+          873.626,
+          663.664
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 60595.",
+      "drawing_index": 60595,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-19",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 19",
+      "source_position_px": [
+        1076.375,
+        390.801
+      ],
+      "name": "Chute Play",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          1077.382,
+          376.623
+        ],
+        [
+          1073.576,
+          376.623
+        ],
+        [
+          1073.576,
+          389.236
+        ],
+        [
+          1077.382,
+          389.236
+        ]
+      ],
+      "geometry_status": "cad_extracted",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Contorno fechado camada QUIOSQUES, drawing 60761.",
+      "drawing_index": 60761,
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "f0-q-30-b",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "Q 30",
+      "source_position_px": [
+        720.72,
+        542.432
+      ],
+      "name": "Comodato",
+      "category": "Quiosques",
+      "polygon_px": [
+        [
+          713.893,
+          536.898
+        ],
+        [
+          719.027,
+          532.82
+        ],
+        [
+          724.615,
+          538.861
+        ],
+        [
+          716.46,
+          544.599
+        ]
+      ],
+      "geometry_status": "manual_trace",
+      "evidence": "Rótulo e posição diretamente do PDF; nome comercial transcrito quando presente. Dois volumes distintos na planta com mesmo código Q30; preservados separadamente. Traçado visual em renderização ampliada; coordenadas referidas à página inteira de largura1800.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "inset-subsolo1-maria",
+      "floor_id": "inset-subsolo1",
+      "source_page": 1,
+      "source_label": "QSUB1",
+      "source_position_px": [
+        521.867,
+        247.738
+      ],
+      "name": "Maria Express",
+      "category": "Alimentação",
+      "polygon_px": [
+        [
+          506.644,
+          236.158
+        ],
+        [
+          535.336,
+          236.158
+        ],
+        [
+          535.336,
+          251.863
+        ],
+        [
+          506.644,
+          251.863
+        ]
+      ],
+      "area_m2": 51.3,
+      "geometry_status": "manual_trace",
+      "evidence": "Traçado visual do inset ampliado; limites de áreas comuns aproximados. Inset sem alinhamento físico com térreo confirmado; não inventar acesso entre pisos.",
+      "unit_type": "kiosk"
+    },
+    {
+      "id": "inset-a8-colegio",
+      "floor_id": "inset-a8",
+      "source_page": 1,
+      "source_label": "A 8",
+      "source_position_px": [
+        133.176,
+        425.333
+      ],
+      "name": "Colégio Interação",
+      "category": "Serviços",
+      "polygon_px": [
+        [
+          46.007,
+          400.99
+        ],
+        [
+          48.876,
+          398.272
+        ],
+        [
+          68.508,
+          398.272
+        ],
+        [
+          68.508,
+          389.514
+        ],
+        [
+          76.511,
+          389.514
+        ],
+        [
+          76.511,
+          403.709
+        ],
+        [
+          87.686,
+          403.709
+        ],
+        [
+          87.686,
+          411.41
+        ],
+        [
+          109.13,
+          411.41
+        ],
+        [
+          109.13,
+          404.162
+        ],
+        [
+          114.264,
+          404.162
+        ],
+        [
+          114.264,
+          394.346
+        ],
+        [
+          214.686,
+          394.346
+        ],
+        [
+          214.686,
+          424.397
+        ],
+        [
+          202.454,
+          424.397
+        ],
+        [
+          202.454,
+          450.069
+        ],
+        [
+          46.007,
+          450.069
+        ]
+      ],
+      "area_m2": 950,
+      "geometry_status": "manual_trace",
+      "evidence": "Traçado visual do inset ampliado; limites de áreas comuns aproximados. Inset sem alinhamento físico com térreo confirmado; não inventar acesso entre pisos.",
+      "unit_type": "store"
+    },
+    {
+      "id": "inset-l2-unicesumar",
+      "floor_id": "inset-l2",
+      "source_page": 1,
+      "source_label": "LOJA L202",
+      "source_position_px": [
+        93.416,
+        540.673
+      ],
+      "name": "Unicesumar",
+      "category": "Serviços",
+      "polygon_px": [
+        [
+          36.04,
+          534.786
+        ],
+        [
+          51.595,
+          515.909
+        ],
+        [
+          111.848,
+          515.909
+        ],
+        [
+          111.848,
+          515.003
+        ],
+        [
+          142.805,
+          515.003
+        ],
+        [
+          142.805,
+          557.437
+        ],
+        [
+          110.489,
+          557.437
+        ],
+        [
+          110.489,
+          585.676
+        ],
+        [
+          97.2,
+          585.676
+        ]
+      ],
+      "area_m2": 526.93,
+      "geometry_status": "manual_trace",
+      "evidence": "Traçado visual do inset ampliado; limites de áreas comuns aproximados. Inset sem alinhamento físico com térreo confirmado; não inventar acesso entre pisos.",
+      "unit_type": "store"
+    },
+    {
+      "id": "inset-l2-ioa",
+      "floor_id": "inset-l2",
+      "source_page": 1,
+      "source_label": "LOJA L2",
+      "source_position_px": [
+        194.36,
+        559.143
+      ],
+      "name": "IOA",
+      "category": "Serviços",
+      "polygon_px": [
+        [
+          148.996,
+          527.99
+        ],
+        [
+          235.827,
+          527.99
+        ],
+        [
+          235.827,
+          585.827
+        ],
+        [
+          110.64,
+          585.827
+        ],
+        [
+          110.64,
+          577.069
+        ],
+        [
+          165.305,
+          577.069
+        ],
+        [
+          165.305,
+          557.588
+        ],
+        [
+          155.641,
+          557.588
+        ],
+        [
+          155.641,
+          549.283
+        ],
+        [
+          148.996,
+          549.283
+        ]
+      ],
+      "area_m2": 606.37,
+      "geometry_status": "manual_trace",
+      "evidence": "Traçado visual do inset ampliado; limites de áreas comuns aproximados. Inset sem alinhamento físico com térreo confirmado; não inventar acesso entre pisos.",
+      "unit_type": "store"
+    }
+  ],
+  "counts": {
+    "kiosk_occurrences": 50,
+    "distinct_kiosk_labels": 49,
+    "inset_stores": 4
+  },
+  "limitations": [
+    "Nomes transcritos do documento, não verificação atual de operação.",
+    "Logos não adicionadas por este suplemento.",
+    "Chopp Brahma mantém apenas posição por limite de ocupação compartilhada com escadas.",
+    "Os dois Q30 são preservados como operações distintas conforme desenho."
+  ],
+  "overlap_report": []
+}

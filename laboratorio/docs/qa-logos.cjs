@@ -2,7 +2,7 @@ const {chromium}=require('playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
 (async()=>{let b;try{
  const manifest=JSON.parse(fs.readFileSync('static/logo-manifest.json','utf8')).logos;
- assert.equal(Object.keys(manifest).length,27);
+ assert.equal(Object.keys(manifest).length,28);
  b=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
  const p=await b.newPage({viewport:{width:1300,height:1150}});
  await p.goto('http://127.0.0.1:8877/');
@@ -21,5 +21,5 @@ const assert=require('node:assert/strict'),fs=require('node:fs');
  await p.locator('canvas').screenshot({path:'docs/logos-contact.png'});
  fs.writeFileSync('docs/QA_LOGOS.json',JSON.stringify(results,null,2));
  for(const r of results){assert.equal(r.status,200,r.name+' HTTP');assert(r.decoded,r.name+' decode');assert(r.rendered,r.name+' renderer');assert(r.matchedStore,r.name+' dataset');assert(r.matchedModule,r.name+' module');}
- console.log('PASS 27 logos: HTTP, decode, drawBrandLogo, dataset and module association');
+ console.log('PASS 28 logos: HTTP, decode, drawBrandLogo, dataset and module association');
 }finally{await b?.close()}})().catch(e=>{console.error(e);process.exitCode=1});

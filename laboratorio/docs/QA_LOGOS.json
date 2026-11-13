@@ -241,5 +241,14 @@
     "rendered": true,
     "matchedStore": true,
     "matchedModule": true
+  },
+  {
+    "name": "Vivara",
+    "path": "/logos/vivara.jpg",
+    "status": 200,
+    "decoded": true,
+    "rendered": true,
+    "matchedStore": true,
+    "matchedModule": true
   }
 ]

@@ -24,6 +24,7 @@ const stores=[['Renner','renner','g-south-entrance'],['Cinemark','cinemark','g-s
       await page.mouse.move(1,1);await page.waitForTimeout(400);
       const file=`docs/identity-${slug}.png`;
       const pixels=await page.locator('#scene3d').screenshot({path:file});
+      if(name==='Outback'){assert(await page.locator('#route-button').isDisabled());captures.push({store:name,file,sha256:hash(pixels),access:'external_only'});pass('Outback: external-only access, no fabricated internal route');continue;}
       await page.locator('#route-button').click();await page.locator('#route-result li').first().waitFor();
       assert(await page.locator('#route-result li').count()>1);
       assert.match(await page.locator('#route-result').innerText(),/estimativa da planta/);

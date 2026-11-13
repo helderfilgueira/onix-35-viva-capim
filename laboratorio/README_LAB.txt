@@ -1,3 +1,7 @@
+ATUALIZAÇÃO: revisão integral disponível em docs/REVISAO_INTEGRAL.txt. Estado atual: 211 unidades, 208 contornos, 196 percursos inferidos. O conteúdo abaixo registra ciclos anteriores.
+
+ATUALIZAÇÃO: revisão integral disponível em docs/REVISAO_INTEGRAL.txt. Estado atual: 211 unidades, 208 contornos, 197 percursos inferidos. O conteúdo abaixo registra ciclos anteriores.
+
 VERSÃO ATUAL: docs/ATUALIZACAO_LOGOS_INTERIORES.txt — logos, nomes e interiores variados.
 
 ATUALIZAÇÃO VISUAL: veja docs/DESIGN_MAQUETE.txt. Seleção com aproximação, fachadas e interiores ilustrativos, coberturas alternáveis e rotas preservadas.

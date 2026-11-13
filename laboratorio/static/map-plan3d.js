@@ -98,7 +98,7 @@ const angDiff = (a, b) => ((((b - a + Math.PI) % (Math.PI * 2)) + Math.PI * 2) %
 // ---------- Store identities + interiors ----------
 // INVENTED ILLUSTRATIVE INTERIORS: palettes are loose interpretations (not authorised brand artwork) and every fitting
 // layout is a deterministic miniature typology seeded by the store id, NOT a survey of the real shop.
-const BRANDS = [ [/madero/i, 'food', '#171717', '#ffffff', '#9d7749', 800], // [match, typology, fascia, sign foreground, accent, font weight]
+const BRANDS = [ [/vivara/i, 'jewelry', '#c66c36', '#ffffff', '#c9aa69', 700], [/madero/i, 'food', '#171717', '#ffffff', '#9d7749', 800], // [match, typology, fascia, sign foreground, accent, font weight]
   [/renner/i, 'fashion', '#c8102e', '#ffffff', '#e8475a', 900], [/c\s*&\s*a/i, 'fashion', '#1c2d6b', '#ffffff', '#d8232a', 900],
   [/riachuelo/i, 'fashion', '#141414', '#ffffff', '#9a9a9a', 800], [/marisa/i, 'fashion', '#d9007a', '#ffffff', '#ff8cc6', 800],
   [/cinemark/i, 'cinema', '#2a2a2f', '#ff3347', '#b5121b', 900], [/centauro/i, 'sports', '#d50f25', '#ffffff', '#151515', 900],
@@ -216,6 +216,10 @@ function layoutInterior(body, sgn, fac, door, prof, out) {
       for (const L of [Math.min(Lu * .7, 5.5), Math.min(Lu * .5, 3.2), 2]) { let done = false; for (let w = w1 - .5; w > w0 + 1 && !done; w -= .25) done = place('service', (u0 + u1) / 2, w, false, .2, L); if (done) break; }
       if (big) { wallRun('booth', 1.5, -1); wallRun('booth', 1.5, 1); }
       grid(['table', 'table', 'booth'], 2.8, 2.8, 1, false); break;
+    case 'jewelry': { // Illustrative jewelry showcases; no clothing rails.
+      const showcase = () => ({L:1.7,d:.38,p:[[0,0,.4,1.7,.8,.76,'#e2d4bd'],[0,0,.86,1.66,.12,.72,'#d4e6e5'],[-.45,0,.97,.28,.1,.28,'#282725'],[.45,0,.97,.28,.1,.28,'#282725'],[-.45,0,1.03,.12,.03,.12,'#d8b65c'],[.45,0,1.03,.12,.03,.12,'#d8b65c']]});
+      front('counter',2.2);grid([showcase],2.5,2.5,1.7,false,.5);break;
+    }
     case 'fashion':
       front('counter', 2.6); if (big) { front('island', 2.4); front('island', 2.4); }
       wallRun('shelf', 2.4, 0); grid(['rail', 'rail', 'island', 'rail'], swap ? 2.4 : 3.2, swap ? 3.2 : 2.4, 2, swap); wallRun('shelf', 2.4, -1); wallRun('shelf', 2.4, 1); break;
@@ -498,17 +502,74 @@ export function createPlanScene(container, data, onSelect) {
       inst.roofUnit.push({ x: cx, y: h + sy / 2, z: cz, sx, sy, sz, r: rot });
     }
   }
+  // Verified kiosk (unit_type 'kiosk' + recovered polygon): a low open counter that follows the real outline.
+  // No walls or roof; plinth, counter, worktop, sign and fittings are all validated inside the footprint.
+  // Kiosks still pending a polygon never reach this function: they keep the honest "conferir" pin.
+  function buildKiosk(s, i, f, g, poly, color, inst, signs) {
+    const signed = polyArea(poly), area = Math.abs(signed); if (!(area > .2) || !isSimple(poly)) return false;
+    const prof = storeProfile(s), CH = .95, WT = .05, PL = .08;
+    const cd = clamp(Math.sqrt(area) * .12, .3, .55);
+    const within = (q, ref) => q && q.every(p => pointInPoly(p[0], p[1], ref)) ? q : null;
+    const outer = insetSmooth(poly, .04) || poly, inner = within(insetSmooth(poly, .04 + cd), outer), lip = inner && (within(insetSmooth(poly, .1 + cd), inner) || inner);
+    const counterCol = prof.fascia.clone().lerp(CREAM, .45), worktop = new T.Color('#f3eee4');
+    const parts = [{ geo: paintGroups(extrude(poly, PL), [prof.floor, prof.wall.clone().lerp(DARK, .18)]) }];
+    const ctr = extrude(outer, CH - PL, inner || undefined); ctr.translate(0, PL, 0); parts.push({ geo: paintGroups(ctr, [counterCol, counterCol]) });
+    const top = extrude(outer, WT, lip || undefined); top.translate(0, CH, 0); parts.push({ geo: paintGroups(top, [worktop, worktop.clone().lerp(DARK, .12)]) });
+    const mesh = new T.Mesh(merge(parts), M.body);
+    mesh.castShadow = mesh.receiveShadow = true; mesh.userData.store = s.id; g.add(mesh); hitObjects.push(mesh);
+    const counterTop = CH + WT;
+    // Long axis = longest outline edge; centre = area centroid when it lies inside the footprint.
+    let best = 0, ux = 1, uz = 0; poly.forEach((a, k) => { const b = poly[(k + 1) % poly.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L > best) { best = L; ux = (b[0] - a[0]) / L; uz = (b[1] - a[1]) / L; } });
+    const nx = -uz, nz = ux, rot = Math.atan2(-uz, ux);
+    let cx = 0, cz = 0; for (let k = 0, j = poly.length - 1; k < poly.length; j = k++) { const c = poly[j][0] * poly[k][1] - poly[k][0] * poly[j][1]; cx += (poly[j][0] + poly[k][0]) * c; cz += (poly[j][1] + poly[k][1]) * c; }
+    cx /= 6 * signed; cz /= 6 * signed;
+    if (!pointInPoly(cx, cz, outer)) { cx = s.x; cz = s.z; }
+    const safe = (x, z) => pointInPoly(x, z, outer) && poly.every((p, k) => segDist(x, z, p, poly[(k + 1) % poly.length]) > .03);
+    // Two-faced name sign on slim posts, ~2 m high: readable over the counter without becoming a wall.
+    const A = 256 / 48; let signTop = counterTop;
+    if (safe(cx, cz)) {
+      let pw = Math.min(2.6, best * .8);
+      const ok = w => [-1, 1].every(e => [-1, 1].every(n => safe(cx + ux * e * w / 2 + nx * n * .06, cz + uz * e * w / 2 + nz * n * .06)));
+      while (pw > .7 && !ok(pw)) pw -= .1;
+      if (pw > .7) {
+        const sh = Math.min(.4, (pw - .08) / A), sw = sh * A, ph = sh + .08, y = 1.9 + ph / 2;
+        inst.fascia.push({ x: cx, y, z: cz, sx: sw + .08, sy: ph, sz: .06, r: rot, c: prof.fascia });
+        for (const e of [-1, 1]) inst.frame.push({ x: cx + ux * e * (sw / 2 - .02), y: (y - ph / 2) / 2, z: cz + uz * e * (sw / 2 - .02), sx: .05, sy: y - ph / 2, sz: .05, r: rot });
+        const index = signEntries.push({ text: s.name, color: prof.fascia, fg: prof.fg, accent: prof.accent, weight: prof.weight }) - 1;
+        for (const e of [-1, 1]) signs.push({ index, x: cx - nx * e * .034, y, z: cz - nz * e * .034, nx: nx * e, nz: nz * e, sw, sh });
+        signTop = y + ph / 2;
+      }
+    }
+    // Restrained worktop detail: a till plus a few small goods on the counter band (instanced fittings, footprint-checked).
+    if (inner && inst.fittings.length < MAX_FLOOR_FITTINGS - 8) {
+      const mid = insetSmooth(poly, .04 + cd / 2);
+      const onBand = (x, z, hx, hz, r) => { const c = Math.cos(r), sn = Math.sin(r); return [[1, 1], [1, -1], [-1, 1], [-1, -1]].every(([a, b]) => { const px = x + c * hx * a + sn * hz * b, pz = z - sn * hx * a + c * hz * b; return pointInPoly(px, pz, outer) && !pointInPoly(px, pz, inner); }); };
+      const R = rng(prof.seed ^ 0x2c1b3c6d), spots = [];
+      if (mid) mid.forEach((a, k) => { const b = mid[(k + 1) % mid.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]); if (L > .9) spots.push({ x: (a[0] + b[0]) / 2, z: (a[1] + b[1]) / 2, r: Math.atan2(-(b[1] - a[1]), b[0] - a[0]), L }); });
+      spots.sort((p, q) => q.L - p.L);
+      spots.slice(0, 4).forEach((p, k) => {
+        const [sx, sy, sz, c] = k === 0 ? [.34, .2, .26, col('#2b2f33')] : [.22 + R() * .12, .12 + R() * .16, .18, prof.goods[(k + (prof.seed & 3)) % 4]];
+        if (onBand(p.x, p.z, sx / 2, sz / 2, p.r)) inst.fittings.push({ x: p.x, y: counterTop + sy / 2, z: p.z, sx, sy, sz, r: p.r, c });
+      });
+    }
+    const doorNode = nodeById.get(s.node_id), door = doorNode && doorNode.floor_id === f.id ? doorNode : nearestCorridorNode(f.id, s.x, s.z);
+    const pts = []; for (const p of poly) pts.push([p[0], 0, p[1]], [p[0], signTop + 1.5, p[1]]);
+    meta.set(s.id, { id: s.id, name: s.name, floor: f.id, kind: 'poly', unitType: 'kiosk', x: s.x, z: s.z, top: signTop, ringY: counterTop, body: poly, mesh, color, pts, facadeAngle: door ? Math.atan2(door.x - s.x, door.z - s.z) : DEFAULT_ANGLE });
+    addLabel({ id: s.id, floor: f.id, kind: 'store', text: s.name, color: '#' + color.getHexString(), featured: Boolean(s.featured), x: s.x, y: signTop + .3, z: s.z, area });
+    return true;
+  }
   function buildStore(s, i, f, g, inst, parapets, signs, pins) {
     const color = new T.Color(s.color || PALETTE[i % 5]);
     const poly = cleanPoly(s.polygon);
     const doorNode = nodeById.get(s.node_id);
-    const door = doorNode && doorNode.floor_id === f.id ? doorNode : nearestCorridorNode(f.id, s.x, s.z);
+    const door = s.external ? null : (doorNode && doorNode.floor_id === f.id ? doorNode : nearestCorridorNode(f.id, s.x, s.z));
     if (poly.length < 3) {
       pins.push(s);
       meta.set(s.id, { id: s.id, name: s.name, floor: f.id, kind: 'pin', x: s.x, z: s.z, top: 1.7, color, pts: [[s.x - 5, 0, s.z - 5], [s.x + 5, 0, s.z + 5], [s.x - 5, 0, s.z + 5], [s.x + 5, 3, s.z - 5]] });
       addLabel({ id: s.id, floor: f.id, kind: 'pin', text: `${s.name} · conferir`, x: s.x, y: 2, z: s.z, area: 0 });
       return;
     }
+    if (s.unit_type === 'kiosk' && buildKiosk(s, i, f, g, poly, color, inst, signs)) return;
     const area = Math.abs(polyArea(poly)), sgn = Math.sign(polyArea(poly)) || 1;
     const h = area > 700 ? 5.2 : area > 250 ? 4.1 : area > 90 ? 3.4 : 2.8;
     let body = poly, fac = door ? pickFacade(poly, door, sgn) : null;
@@ -633,8 +694,8 @@ export function createPlanScene(container, data, onSelect) {
     if (t.kind === 'pin' && t.pinMesh) { setPin(t, true); lastPin = t; }
     if (t.kind === 'poly') {
       const inner = insetSmooth(t.body, .3);
-      if (inner) { const geo = new T.ShapeGeometry(shapeOf(t.body, inner)); geo.rotateX(-Math.PI / 2); const m = new T.Mesh(geo, M.selRing); m.position.y = t.top + .02; m.renderOrder = 2; selGroup.add(m); }
-      else selGroup.add(new T.LineLoop(new T.BufferGeometry().setFromPoints(t.body.map(p => new T.Vector3(p[0], t.top + .03, p[1]))), M.selLine));
+      if (inner) { const geo = new T.ShapeGeometry(shapeOf(t.body, inner)); geo.rotateX(-Math.PI / 2); const m = new T.Mesh(geo, M.selRing); m.position.y = (t.ringY ?? t.top) + .02; m.renderOrder = 2; selGroup.add(m); }
+      else selGroup.add(new T.LineLoop(new T.BufferGeometry().setFromPoints(t.body.map(p => new T.Vector3(p[0], (t.ringY ?? t.top) + .03, p[1]))), M.selLine));
     } else { const m = new T.Mesh(new T.RingGeometry(1.4, 1.9, 40), M.selRing); m.rotation.x = -Math.PI / 2; m.position.set(t.x, .09, t.z); selGroup.add(m); }
     selGroup.visible = t.floor === floor;
     Object.assign(selLabel, { text: t.kind === 'pin' ? `${t.name} · conferir` : t.name, color: t.color ? '#' + t.color.getHexString() : '#d9f57c', x: t.x, y: t.top + (t.kind === 'pin' ? .9 : .3), z: t.z, floor: t.floor });

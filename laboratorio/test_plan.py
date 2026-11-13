@@ -10,13 +10,39 @@ class PlanTests(unittest.TestCase):
         return calculate_route({'origin':origin,'destination':s['node_id'],'accessible':True,'map_version':self.data['version']},self.data)
     def test_source_and_positions(self):
         self.assertEqual(self.data['geometry_source'],'pdf-vector')
-        self.assertEqual(len(self.data['stores']),158)
+        self.assertGreaterEqual(len(self.data['stores']),210)
         names={s['name']:s for s in self.data['stores']}
         self.assertLess(names['Renner']['x'],names['Riachuelo']['x'])
         self.assertLess(names['Riachuelo']['x'],names['Cinemark']['x'])
         self.assertLess(names['C&A']['z'],names['Riachuelo']['z'])
         self.assertLess(names['Riachuelo']['z'],names['Marisa']['z'])
-        self.assertTrue(all(s['source_page'] in (2,3) for s in self.data['stores']))
+        self.assertTrue(all(s['source_page'] in (1,2,3) for s in self.data['stores']))
+    def test_all_audited_kiosks_and_insets_are_present(self):
+        kiosks=[s for s in self.data['stores'] if s.get('unit_type')=='kiosk' and s['floor_id']=='f0']
+        self.assertEqual(len(kiosks),50)
+        self.assertEqual(sum(bool(s['polygon']) for s in kiosks),49)
+        q30=[s for s in kiosks if s['source_label']=='Q 30']
+        self.assertEqual(len(q30),2)
+        self.assertEqual(len({s['id'] for s in q30}),2)
+        names={s['name'] for s in self.data['stores'] if s['source_page']==1}
+        self.assertEqual(names,{'Maria Express','Colégio Interação','IOA','Unicesumar'})
+        self.assertTrue(all(s['node_id'] is None for s in self.data['stores'] if s['source_page']==1))
+    def test_small_units_are_not_erased_by_anchor_outlines(self):
+        from plan_geometry import inside
+        byid={s['id']:s for s in self.data['stores']}
+        anchor=next(s for s in self.data['stores'] if s['name']=='Renner')
+        for sid in ['f0-loja-03','f0-loja-04','f0-loja-05']:
+            shop=byid[sid];self.assertGreater(len(shop['polygon']),2)
+            self.assertFalse(inside((shop['x'],shop['z']),anchor['polygon']),sid)
+
+    def test_external_restaurants_have_no_internal_entry(self):
+        for name in ['Madero','Outback']:
+            s=next(s for s in self.data['stores'] if s['name']==name)
+            self.assertTrue(s['external']);self.assertEqual(s['access_type'],'external_only')
+            self.assertIsNone(s['node_id']);self.assertEqual(s['route_status'],'unavailable')
+        vivara=next(s for s in self.data['stores'] if s['name']=='Vivara')
+        self.assertEqual(vivara['source_label'],'LOJA 29');self.assertTrue(vivara['polygon']);self.assertTrue(vivara['featured'])
+
     def test_external_madero_is_present_without_unverified_route(self):
         s=next(s for s in self.data['stores'] if s['name']=='Madero')
         self.assertEqual(s['source_label'],'EXT 01')
@@ -26,7 +52,7 @@ class PlanTests(unittest.TestCase):
         self.assertIsNone(s['node_id']); self.assertEqual(s['route_status'],'unavailable')
 
     def test_main_routes(self):
-        for name in ['Renner','C&A','Riachuelo','Cinemark','Marisa','Centauro','Camicado','Outback','Pernambucanas']:
+        for name in ['Renner','C&A','Riachuelo','Cinemark','Marisa','Centauro','Camicado','Pernambucanas']:
             r=self.route('g-south-entrance',name)
             self.assertGreater(r['distance'],0)
             self.assertAlmostEqual(r['distance'],sum(s['distance'] for s in r['segments']),delta=.06)

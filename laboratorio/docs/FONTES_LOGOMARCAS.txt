@@ -139,3 +139,8 @@ Madero
 https://www.capimdouradosc.com.br/lojas/
 https://www.intranetmall.com/esperienza/imgShopping/48/loja/147-29-4-2024-F8GUNWVNBR.png?v=4PD19
 SHA256: c26c70d90ae42b21c6d9d9bea656fdfcb1a5e827b8693243ebb0e51c005d3966
+
+Vivara
+https://capimdouradosc.com.br/loja/?loja=vivara
+https://www.intranetmall.com/esperienza/imgShopping/48/loja/vivara.jpg?v=4PD19
+SHA256: 8770eaa9bbf21b8f2392149e53dfe55e056f09ea742fa560f60a3b14005f09fe

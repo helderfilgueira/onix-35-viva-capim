@@ -1,0 +1,10 @@
+{
+  "checks": [
+    {
+      "name": "Vivara",
+      "floor": "f0",
+      "selected": true
+    }
+  ],
+  "errors": []
+}

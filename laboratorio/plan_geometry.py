@@ -34,7 +34,7 @@ def validate_plan(data,nodes):
         poly=s.get('polygon',[])
         if poly:
             if len(poly)<3 or any(len(p)!=2 or any(type(x) not in (int,float) or not math.isfinite(x) for x in p) for p in poly):raise ValueError('Invalid footprint')
-            footprints.append(s)
+            footprints.append((s,(min(p[0] for p in poly),min(p[1] for p in poly),max(p[0] for p in poly),max(p[1] for p in poly))))
         if s.get('node_id'):
             n=nodes[s['node_id']]
             if not poly or not point_on_boundary((n['x'],n['z']),poly):raise ValueError('Entrance not on plan facade')
@@ -43,5 +43,8 @@ def validate_plan(data,nodes):
         a,b=nodes[e['from']],nodes[e['to']]
         if a['floor_id']!=b['floor_id'] and data.get('interfloor_status')=='unconfirmed':raise ValueError('Unconfirmed vertical link')
         p=(a['x'],a['z']);q=(b['x'],b['z'])
-        for s in footprints:
-            if s['floor_id']==a['floor_id'] and crosses_interior(p,q,s['polygon']):raise ValueError('Route crosses retail interior: '+s['id'])
+        seg_bounds=(min(p[0],q[0]),min(p[1],q[1]),max(p[0],q[0]),max(p[1],q[1]))
+        for s,box in footprints:
+            if s['floor_id']!=a['floor_id']:continue
+            if seg_bounds[2]<box[0] or seg_bounds[0]>box[2] or seg_bounds[3]<box[1] or seg_bounds[1]>box[3]:continue
+            if crosses_interior(p,q,s['polygon']):raise ValueError('Route crosses retail interior: '+s['id'])

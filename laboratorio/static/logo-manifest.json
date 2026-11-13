@@ -215,6 +215,14 @@
       "official_name": "MADERO",
       "retrieved": "2026-11-13",
       "sha256": "c26c70d90ae42b21c6d9d9bea656fdfcb1a5e827b8693243ebb0e51c005d3966"
+    },
+    "Vivara": {
+      "path": "/logos/vivara.jpg",
+      "source": "https://capimdouradosc.com.br/loja/?loja=vivara",
+      "asset_url": "https://www.intranetmall.com/esperienza/imgShopping/48/loja/vivara.jpg?v=4PD19",
+      "official_name": "VIVARA",
+      "retrieved": "2026-11-13",
+      "sha256": "8770eaa9bbf21b8f2392149e53dfe55e056f09ea742fa560f60a3b14005f09fe"
     }
   },
   "pending": [
