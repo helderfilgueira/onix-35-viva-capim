@@ -1,6 +1,6 @@
 VIVA CAPIM | LABORATÓRIO ONIX - 35
 
-Este incremento evolui a demonstração local existente. Leia README.md para executar o servidor e para os limites da baseline. A experiência de navegação será acessível em /explorar.html quando a integração estiver concluída.
+Este incremento evolui a demonstração local existente. Abra ABRIR_LABORATORIO.cmd com Python 3.10+ instalado: o explorador abre em http://127.0.0.1:8878/explorar.html. Para o estado atual, leia docs/RESULTADO_CICLO_1.txt. Código 3D/2D, rotas e QR estão integrados e verificados em demonstração local.
 
 Documentação do incremento:
 - docs/LABORATORIO.txt: objetivo, inventário, processo, RACI e rastreabilidade.
@@ -9,6 +9,6 @@ Documentação do incremento:
 - docs/PESQUISA_E_PRIVACIDADE.txt: referências, dados e controles.
 - docs/ARQUITETURA.svg e docs/FLUXO_VISITANTE.svg: diagramas editáveis.
 
-Estado na criação deste registro: EM IMPLEMENTAÇÃO. Evidências posteriores da coordenação/QA determinam o que foi verificado. Não houve declaração de implantação no shopping, mapa oficial, teste com visitantes, localização contínua ou Confluence configurado.
+Estado atual: VERIFICADO EM DEMO — 33 testes Python e 17 verificações de navegador aprovados. Veja docs/E2E_RESULTADO.json e E2E_COMPLEMENTAR.txt. O reset do explorador está verificado; isolamento completo do fluxo legado de avaliação em totem público continua pendente. Não houve implantação no shopping, mapa oficial, teste com visitantes, localização contínua ou Confluence configurado.
 
 Regra Claude: somente Opus 5.5, verificado pela ferramenta, sem fallback. Assistência de IA deve ser declarada. Equipe humana: Helder Filgueira (frontend/líder), Gabriel Schimit (backend), Luis (QA), Robson (integração/operação).
