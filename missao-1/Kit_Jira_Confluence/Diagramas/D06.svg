@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+<title>Planejamento e avaliação de eventos</title>
+<desc>O gestor publica após validar o intervalo e usa os resultados agregados para propor uma ação revisável.</desc>
+<rect x="0" y="0" width="1200" height="560" rx="20" fill="#F5F8F7"/>
+<g font-family="Arial, sans-serif">
+<text x="24" y="33" fill="#45565A" font-size="22" font-weight="700" text-anchor="start">D06 / Publicação, evidências e decisão da gestão</text>
+<polyline points="282,129 322,129" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="322.0,129.0 310.7,122.5 310.7,135.5" fill="#45616A"/>
+<polyline points="580,129 620,129" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="620.0,129.0 608.7,122.5 608.7,135.5" fill="#45616A"/>
+<polyline points="878,129 918,129" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="918.0,129.0 906.7,122.5 906.7,135.5" fill="#45616A"/>
+<polyline points="1047,191 1047,303" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1047.0,303.0 1053.5,291.7 1040.5,291.7" fill="#45616A"/>
+<polyline points="918,365 878,365" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="878.0,365.0 889.3,371.5 889.3,358.5" fill="#45616A"/>
+<polyline points="620,365 580,365" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="580.0,365.0 591.3,371.5 591.3,358.5" fill="#45616A"/>
+<polyline points="322,365 282,365" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="282.0,365.0 293.3,371.5 293.3,358.5" fill="#45616A"/>
+<polyline points="451,191 451,227 153,227 153,191" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="153.0,191.0 146.5,202.3 159.5,202.3" fill="#AB7600"/>
+<text x="215" y="256" fill="#AB7600" font-size="20" font-weight="700" text-anchor="start">Choque de horário: ajustar</text>
+<rect x="24" y="67" width="258" height="124" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="40" y="102" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Definir evento</text>
+<text x="40" y="133" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Objetivo, local</text>
+<text x="40" y="160" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Data e horário</text>
+<rect x="322" y="67" width="258" height="124" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="102" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Checar conflito</text>
+<text x="338" y="133" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Mesmo local e faixa</text>
+<text x="338" y="160" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Validar no servidor</text>
+<rect x="620" y="67" width="258" height="124" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="102" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Publicar</text>
+<text x="636" y="133" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Gestor autorizado</text>
+<text x="636" y="160" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Catálogo atualizado</text>
+<rect x="918" y="67" width="258" height="124" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="102" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Receber retorno</text>
+<text x="934" y="133" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Participação declarada</text>
+<text x="934" y="160" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Avaliação voluntária</text>
+<rect x="918" y="303" width="258" height="124" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="338" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Agregar</text>
+<text x="934" y="369" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Amostra e período</text>
+<text x="934" y="396" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Ocultar base pequena</text>
+<rect x="620" y="303" width="258" height="124" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="338" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Interpretar</text>
+<text x="636" y="369" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Tema citado e limite</text>
+<text x="636" y="396" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Não inferir causa</text>
+<rect x="322" y="303" width="258" height="124" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="338" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Decidir</text>
+<text x="338" y="369" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Manter, investigar</text>
+<text x="338" y="396" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">ou melhorar</text>
+<rect x="24" y="303" width="258" height="124" rx="12" fill="#173A35"/>
+<text x="40" y="338" fill="#FFFFFF" font-size="25" font-weight="700" text-anchor="start">Revisar a ação</text>
+<text x="40" y="369" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Responsável, data</text>
+<text x="40" y="396" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Evidência de revisão</text>
+<rect x="24" y="482" width="1152" height="44" rx="9" fill="#EEF3DE"/>
+<text x="42" y="511" fill="#1B282D" font-size="21" font-weight="700" text-anchor="start">Sem amostra suficiente, registrar a dúvida e uma forma de investigá-la.</text>
+</g></svg>

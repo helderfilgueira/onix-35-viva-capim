@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="568" viewBox="0 0 1200 568" role="img">
+<title>Ciclo de trabalho da equipe</title>
+<desc>O Jira registra execução; o Confluence preserva decisões, planos, evidências e a ata de review.</desc>
+<rect x="0" y="0" width="1200" height="568" rx="20" fill="#F5F8F7"/>
+<g font-family="Arial, sans-serif">
+<text x="24" y="33" fill="#45565A" font-size="22" font-weight="700" text-anchor="start">D05 / Da especificação ao review de sprint</text>
+<polyline points="282,140 322,140" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="322.0,140.0 310.7,133.5 310.7,146.5" fill="#45616A"/>
+<polyline points="580,140 620,140" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="620.0,140.0 608.7,133.5 608.7,146.5" fill="#45616A"/>
+<polyline points="878,140 918,140" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="918.0,140.0 906.7,133.5 906.7,146.5" fill="#45616A"/>
+<polyline points="1047,205 1047,332" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1047.0,332.0 1053.5,320.7 1040.5,320.7" fill="#45616A"/>
+<polyline points="918,397 878,397" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="878.0,397.0 889.3,403.5 889.3,390.5" fill="#45616A"/>
+<polyline points="620,397 580,397" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="580.0,397.0 591.3,403.5 591.3,390.5" fill="#45616A"/>
+<polyline points="322,397 282,397" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="282.0,397.0 293.3,403.5 293.3,390.5" fill="#45616A"/>
+<polyline points="152,332 152,265 451,265 451,205" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="451.0,205.0 444.5,216.3 457.5,216.3" fill="#AB7600"/>
+<text x="174" y="249" fill="#AB7600" font-size="20" font-weight="700" text-anchor="start">Ajustar prioridades</text>
+<rect x="24" y="75" width="258" height="130" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="40" y="110" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Especificar</text>
+<text x="40" y="141" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Confluence</text>
+<text x="40" y="168" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">RF, fluxos e decisões</text>
+<rect x="322" y="75" width="258" height="130" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="110" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Refinar</text>
+<text x="338" y="141" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Jira</text>
+<text x="338" y="168" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Prioridade e aceites</text>
+<rect x="620" y="75" width="258" height="130" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="110" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Planejar sprint</text>
+<text x="636" y="141" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Jira + Confluence</text>
+<text x="636" y="168" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Meta e capacidade</text>
+<rect x="918" y="75" width="258" height="130" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="110" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Executar</text>
+<text x="934" y="141" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Jira</text>
+<text x="934" y="168" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Status e impedimentos</text>
+<rect x="24" y="332" width="258" height="130" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="40" y="367" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Repriorizar</text>
+<text x="40" y="398" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Jira</text>
+<text x="40" y="425" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Pendências com dono</text>
+<rect x="322" y="332" width="258" height="130" rx="12" fill="#173A35"/>
+<text x="338" y="367" fill="#FFFFFF" font-size="25" font-weight="700" text-anchor="start">Registrar review</text>
+<text x="338" y="398" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Confluence</text>
+<text x="338" y="425" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Evidência e decisões</text>
+<rect x="620" y="332" width="258" height="130" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="367" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Relatar</text>
+<text x="636" y="398" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Jira → Confluence</text>
+<text x="636" y="425" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Lista e contagem</text>
+<rect x="918" y="332" width="258" height="130" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="367" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Validar</text>
+<text x="934" y="398" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Jira + Confluence</text>
+<text x="934" y="425" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">QA e aceite</text>
+<rect x="24" y="493" width="1152" height="44" rx="9" fill="#EEF3DE"/>
+<text x="42" y="522" fill="#1B282D" font-size="21" font-weight="700" text-anchor="start">A equipe registra a versão e as evidências no Confluence; o status vem do Jira.</text>
+</g></svg>

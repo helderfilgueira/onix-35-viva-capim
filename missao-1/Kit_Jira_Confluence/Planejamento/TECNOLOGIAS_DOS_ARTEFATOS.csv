@@ -1,0 +1,9 @@
+﻿Artefato;Tecnologia usada;Aplicação
+Protótipo visual web;"HTML5, CSS3 e JavaScript; captura no navegador";Abertura, filtros, motion design e rolagem progressiva com dados fictícios.
+Wireframes de tela touch;Python e Pillow;"Desenhos de baixa fidelidade; alternativa textual no documento."
+Diagramas D01 a D06;"Python, SVG e Sharp; SVG editável e PNG renderizado";Fluxos técnicos, de produto e de trabalho da equipe.
+Protótipo local de referência;Python 3, SQLite e JavaScript;"Ambiente local; não equivale ao piloto FastAPI/PostgreSQL."
+Documento e matrizes;Python, ReportLab, pypdf, Poppler e módulo csv;PDF paginado, tabelas de apoio, revisão visual e exportação UTF-8.
+Kit de gestão;"CSV, HTML e JQL; destinos Jira Cloud e Confluence Cloud";"Carga e páginas preparadas; a equipe ativa quadro, páginas e macros no ambiente real."
+Contratos de totem;JSON v1.1;Especificação de 16 rotas propostas, com geração, reset, estados e direitos.
+Apoio à autoria;Codex, com revisão e decisão da equipe;"Síntese, organização e geração de artefatos; fontes e limites rastreados."

@@ -1,0 +1,25 @@
+CONSULTAS PARA JIRA E CONFLUENCE
+Substituir ONIX35 pela chave real. Usar somente após importar as etiquetas.
+
+escopo | Backlog da equipe
+project = ONIX35 AND labels = onix35 ORDER BY Rank ASC
+Uso: Tabela com chave, resumo, prioridade, responsável e status.
+
+sprint | Sprint em andamento
+project = ONIX35 AND labels = onix35 AND sprint in openSprints() ORDER BY Rank ASC
+Uso: Tabela de execução e contagem de todos os itens da sprint aberta.
+
+concluidos | Concluídos na sprint
+project = ONIX35 AND labels = onix35 AND sprint in openSprints() AND statusCategory = Done
+Uso: Contagem de itens concluídos; exige coluna final mapeada.
+
+pendentes | Pendentes na sprint
+project = ONIX35 AND labels = onix35 AND sprint in openSprints() AND statusCategory != Done
+Uso: Contagem de itens que ainda não estão concluídos.
+
+impedimentos | Impedimentos na sprint
+project = ONIX35 AND labels = onix35 AND sprint in openSprints() AND Flagged = Impediment AND statusCategory != Done
+Uso: Lista de bloqueios em aberto; registrar causa, responsável e próximo passo.
+
+SPRINT ENCERRADA
+Use sprint = ID_REAL em vez de sprint in openSprints(). Na ata, registre data/hora, valores e evidências do encerramento.

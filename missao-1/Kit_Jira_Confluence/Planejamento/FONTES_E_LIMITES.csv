@@ -1,0 +1,30 @@
+﻿ID;Fonte;URL;Uso e limite
+R01;HackaRun. Regulamento oficial 2026, itens 3 a 9 e 11 a 13.;https://hackarun.com.br/regulamento-hackarun-2026.pdf;"Missões, composição, avaliação, fontes e proteção de dados; PDF oficial reconferido."
+R02;Capim Dourado Shopping / Soul Malls. Eventos e Novidades.;https://www.capimdouradosc.com.br/eventos/;"Confirma agenda pública; não mede demanda nem os sistemas internos."
+R03;Capim Dourado Shopping / Soul Malls. Lojas.;https://capimdouradosc.com.br/lojas/;"Diretório público; não comprova coordenadas e rotas acessíveis."
+R04;Capim Dourado Shopping. Ficha do aplicativo na App Store, descrição do desenvolvedor.;https://apps.apple.com/br/app/capim-dourado-shopping/id6474587476;"Anuncia localização e eventos; aplicativo não instalado nem auditado nesta pesquisa."
+R05;Sympla. Como controlar a entrada de participantes no dia do evento?;https://ajuda.sympla.com.br/hc/pt-br/articles/204767355-Como-controlar-a-entrada-de-participantes-no-dia-do-evento;"Benchmark documental de check-in e QR; não há integração implementada."
+R06;Eventbrite. Understanding ratings on Eventbrite.;https://www.eventbrite.com/help/sv/articles/659993/understanding-ratings-on-eventbrite/;"Benchmark de notas e aspectos; escopo geográfico e elegibilidade limitados na página."
+R07;Câmara dos Deputados. Lei 13.709/2018, texto atualizado.;https://www2.camara.leg.br/legin/fed/lei/2018/lei-13709-14-agosto-2018-787077-normaatualizada-pl.html;Princípios, bases, direitos e segurança. Não é certificação da solução.
+R08;ANPD. Guia orientativo de segurança da informação para agentes de pequeno porte.;https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/processo-guia-orientativo-sobre-seguranca-da-informacao-para-agentes-de-tratamento-de-pequeno-porte.pdf;"Referência de controles; não presume enquadramento do shopping como pequeno porte."
+R09;ANPD. Lançamento do guia sobre legítimo interesse, 2024.;https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-lanca-guia-orientativo-sobre-legitimo-interesse;"Apoio à análise da hipótese legal; não autoriza sua adoção automática."
+R10;ANPD. Enunciado sobre dados de crianças e adolescentes, 2023.;https://www.gov.br/anpd/pt-br/assuntos/noticias/anpd-divulga-enunciado-sobre-o-tratamento-de-dados-pessoais-de-criancas-e-adolescentes;"Melhor interesse; referência parcial, não revisão exaustiva do regime de menores em 2026."
+R11;W3C. Web Content Accessibility Guidelines 2.2.;https://www.w3.org/TR/WCAG22/;"Critérios de acessibilidade digital, inclusive para quiosques; não certifica o gabinete físico."
+R12;W3C. Understanding SC 2.5.8: Target Size (Minimum).;https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html;"Tamanho mínimo AA e exceções; meta própria de 48 CSS px para o projeto."
+R13;W3C. Understanding SC 2.2.1: Timing Adjustable.;https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html;"Ajustar/estender limites; referência para aviso e continuidade no totem."
+R14;Microsoft Learn. Assigned Access overview.;https://learn.microsoft.com/en-us/windows/configuration/assigned-access/;Quiosque gerenciado, edições e reinício do aplicativo.
+R15;Microsoft Learn. Configure Microsoft Edge kiosk mode.;https://learn.microsoft.com/deployedge/microsoft-edge-configure-kiosk-mode;Limitações do modo kiosk, InPrivate e temporizador.
+R16;Python. http.server.;https://docs.python.org/3/library/http.server.html;Módulo não recomendado para produção.
+R17;FastAPI. Deployments Concepts.;https://fastapi.tiangolo.com/deployment/concepts/;Referência para HTTPS, inicialização e recuperação operacional.
+R18;SQLite. Appropriate Uses For SQLite.;https://www.sqlite.org/whentouse.html;"Banco local simples e diferenças para banco cliente/servidor; não impõe migração por um limite arbitrário."
+R19;OWASP. Application Security Verification Standard.;https://asvs.owasp.org/;"ASVS 5.0.0 como referência de requisitos verificáveis; nenhuma auditoria integral alegada."
+R20;OWASP. Session Management Cheat Sheet.;https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html;Ciclo de sessão, segredo e expiração no servidor.
+R21;Strategyzer. The Business Model Canvas.;https://www.strategyzer.com/library/the-business-model-canvas;"Referência dos nove blocos; conteúdo preenchido pela equipe como hipótese de negócio."
+R22;Atlassian Support. Importar itens CSV para um espaço Jira Cloud existente.;https://support.atlassian.com/jira-software-cloud/docs/import-issues-into-an-existing-space-in-jira-using-csv/;Campos, prioridades e status precisam ser compatíveis com o ambiente.
+R23;Atlassian Support. Criar itens com o importador CSV.;https://support.atlassian.com/jira-software-cloud/docs/create-issues-using-the-csv-importer/;Summary obrigatório, mapeamento de Labels, codificação e validação antes de importar.
+R24;Atlassian Support. Exibir itens do Jira no Confluence.;https://support.atlassian.com/confluence-cloud/docs/insert-the-jira-issues-macro/;"Macro Jira work items com lista ou contagem a partir de JQL; requer conexão e acesso."
+R25;Atlassian Support. Sprint Report no Jira Cloud.;https://support.atlassian.com/jira-software-cloud/docs/view-and-understand-the-sprint-report/;Relatório específico do quadro Scrum com gerenciamento pela empresa.
+R26;Atlassian Support. Funções de JQL.;https://support.atlassian.com/jira-software-cloud/docs/jql-functions/;openSprints() limita a visão operacional aos sprints abertos.
+R27;Atlassian Support. Sinalizar um item bloqueado no Jira.;https://support.atlassian.com/jira-software-cloud/docs/flag-an-issue/;Flagged = Impediment identifica itens sinalizados.
+R28;Atlassian Support. Criar, organizar e publicar conteúdo no Confluence.;https://support.atlassian.com/confluence-cloud/docs/create-edit-and-publish-a-page/;Criação de páginas, hierarquia, publicação e permissões.
+R29;Atlassian Support. Gadgets dos painéis Jira.;https://support.atlassian.com/jira-cloud-administration/docs/use-dashboard-gadgets/;Lista de resultados de filtro e visão por responsável e status, quando disponíveis.

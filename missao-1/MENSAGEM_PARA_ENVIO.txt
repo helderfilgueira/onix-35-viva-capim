@@ -1,0 +1,13 @@
+Assunto: HackaRun 2026 | Missão 1 | Equipe Onix - 35 | Viva Capim
+
+Olá, organização do HackaRun.
+
+Encaminhamos o planejamento técnico do Viva Capim para o desafio 10, Eventos, entretenimento e experiências. Escolhemos LGPD como prática do projeto. O material inclui problema, público, proposta de valor, Canvas, estrutura das telas, fluxos, arquitetura dos totens, matriz RACI, backlog e plano de acompanhamento no Jira e no Confluence.
+
+Equipe: Equipe Onix - 35
+Integrantes: Helder Filgueira (frontend e líder), Gabriel Schimit (backend), Luis (QA) e Robson (integração e operação).
+Anexo principal: ONIX_35_VIVA_CAPIM_MISSAO_1.pdf
+
+Atenciosamente,
+Helder Filgueira
+Equipe Onix - 35

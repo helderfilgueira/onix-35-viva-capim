@@ -1,0 +1,273 @@
+Summary,WorkType,Description,Priority,ProjectLabel,PhaseLabel,BacklogLabel,PriorityLabel
+[B01] Consolidar escopo e evidências da Missão 1,Task,"Como equipe, queremos delimitar o problema, o público e o valor para priorizar a solução.
+
+ID: B01 | Fase: M1 · Planejamento | Prioridade: P0 | Esforço: P
+
+Responsável planejado: Helder Filgueira (atribuir à conta real após a importação).
+
+Depende de: Nenhum item.
+
+Requisitos: Gestão da entrega.
+
+Critérios de aceite: A matriz cobre a foto e o regulamento; Canvas tem nove blocos; hipóteses e fatos estão distinguidos.
+
+Testes e validação: Conferência da evidência abaixo.
+
+Evidência esperada: Seções 1 a 4 do planejamento; matriz de cobertura e referências.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m1,b01,p0
+[B02] Explorar agenda e localizar o evento,Story,"Como visitante, quero encontrar uma atividade e saber onde ela acontece.
+
+ID: B02 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Helder Filgueira (atribuir à conta real após a importação).
+
+Depende de: B01
+
+Requisitos: RF01, RF02
+
+Critérios de aceite: Consulta sem conta; busca e filtro; detalhe com local textual; navegação por teclado, rolagem progressiva com fim e botão alternativo.
+
+Testes e validação: Q01, Q08
+
+Evidência esperada: Teste de busca, filtro, vazio, erro, fim da agenda e alternativa textual.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b02,p0
+[B03] Mostrar aviso e permitir recusa da coleta,Story,"Como visitante, quero entender a finalidade e poder continuar consultando sem avaliar.
+
+ID: B03 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Gabriel Schimit (atribuir à conta real após a importação).
+
+Depende de: B01
+
+Requisitos: RF05
+
+Critérios de aceite: Aviso versionado precede coleta; recusa mantém consulta e não cria participação ou avaliação; nenhum dado extra é exigido.
+
+Testes e validação: Q03, Q08
+
+Evidência esperada: Teste do caminho de recusa e evidência do aviso exibido.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b03,p0
+[B04] Registrar participação e avaliação sem duplicidade,Story,"Como visitante, quero enviar minha opinião e receber confirmação confiável.
+
+ID: B04 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Gabriel Schimit (atribuir à conta real após a importação).
+
+Depende de: B02, B03
+
+Requisitos: RF03, RF04
+
+Critérios de aceite: Nota 1 a 5; aspecto fechado; vínculo à participação; clique repetido não duplica; timeout indica estado desconhecido até reconciliação.
+
+Testes e validação: Q02, Q07
+
+Evidência esperada: Teste de validação, transação, repetição e perda de resposta.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b04,p0
+[B05] Permitir acesso e exclusão dos próprios registros,Story,"Como titular, quero consultar ou excluir o registro ligado ao meu comprovante.
+
+ID: B05 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Gabriel Schimit (atribuir à conta real após a importação).
+
+Depende de: B03, B04
+
+Requisitos: RF05
+
+Critérios de aceite: Acesso não atravessa usuários; exclusão é verificável. No piloto físico, o recibo privado sobrevive ao reset e a sessão de tela não.
+
+Testes e validação: Q03, Q05
+
+Evidência esperada: Teste de acesso e exclusão com dados fictícios; no piloto, teste de recibo após reset.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b05,p0
+[B06] Cadastrar evento sem choque de horário,Story,"Como gestor, quero cadastrar um evento em local e intervalo disponíveis.
+
+ID: B06 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Gabriel Schimit (atribuir à conta real após a importação).
+
+Depende de: B01
+
+Requisitos: RF06
+
+Critérios de aceite: Apenas gestor autorizado publica; o servidor rejeita conflito no mesmo local, inclusive sob concorrência.
+
+Testes e validação: Q02
+
+Evidência esperada: Teste com duas publicações sobrepostas; captura do estado de conflito.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b06,p0
+[B07] Exibir indicadores por evento e amostra,Story,"Como gestor, quero ver o volume e a distribuição das avaliações para interpretar o retorno.
+
+ID: B07 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Gabriel Schimit (atribuir à conta real após a importação).
+
+Depende de: B04
+
+Requisitos: RF07
+
+Critérios de aceite: Mostrar n e período; denominador zero vira sem base; ocultar recortes pequenos; nenhuma resposta individual no painel.
+
+Testes e validação: Q04
+
+Evidência esperada: Relatório sintético com base suficiente, pequena e zero.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b07,p0
+[B08] Isolar atendimentos sucessivos do totem,Story,"Como próximo visitante, quero receber uma tela limpa, sem dados de quem usou antes.
+
+ID: B08 | Fase: Piloto físico | Prioridade: P0 | Esforço: G
+
+Responsável planejado: Helder Filgueira (atribuir à conta real após a importação).
+
+Depende de: B03, B04, B05
+
+Requisitos: RF08
+
+Critérios de aceite: Reset impede Voltar/recarregar de recuperar dados; aviso aos 90 s, encerramento aos 120 s e extensão preservam a tarefa; sem rede não grava.
+
+Testes e validação: Q05, Q06, Q07, Q10
+
+Evidência esperada: Dois atendimentos no touch; timeout, resposta tardia, rede e revogação registrados.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,piloto,b08,p0
+[B09] Oferecer QR público e áudio opcional,Story,"Como visitante, quero levar o evento ao meu celular ou ouvir as instruções quando precisar.
+
+ID: B09 | Fase: M2 · Sprint 1 | Prioridade: P1 | Esforço: P
+
+Responsável planejado: Helder Filgueira (atribuir à conta real após a importação).
+
+Depende de: B02
+
+Requisitos: RF09
+
+Critérios de aceite: QR abre URL pública sem transferir sessão; texto equivalente; iniciar/parar áudio pelo usuário.
+
+Testes e validação: Q08
+
+Evidência esperada: Teste de leitura da URL e alternativa textual.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P1,onix35,m2,b09,p1
+[B10] Testar cartão de aprendizagem do evento,Story,"Como gestor, quero decidir o que manter, investigar ou melhorar e registrar um próximo passo.
+
+ID: B10 | Fase: M3 · Sprint 2 | Prioridade: P1 | Esforço: M
+
+Responsável planejado: Helder Filgueira (atribuir à conta real após a importação).
+
+Depende de: B06, B07
+
+Requisitos: RF10
+
+Critérios de aceite: Preencher evidência, limite, decisão, responsável e revisão; tema citado não é tratado como causa. Ficha manual basta nesta fase.
+
+Testes e validação: V04
+
+Evidência esperada: Cartão sintético e registro de avaliação com gestão, se autorizada.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P1,onix35,m3,b10,p1
+[B11] Revisar o pacote e registrar protocolo da Missão 1,Task,"Como equipe, queremos uma versão única do planejamento para revisar e enviar.
+
+ID: B11 | Fase: M1 · Planejamento | Prioridade: P0 | Esforço: P
+
+Responsável planejado: Robson (atribuir à conta real após a importação).
+
+Depende de: B01
+
+Requisitos: Gestão da entrega.
+
+Critérios de aceite: Nome, sumário, diagramas, RACI, backlog, tecnologias de prototipação e referências conferidos; Helder guarda protocolo quando houver submissão.
+
+Testes e validação: Conferência da evidência abaixo.
+
+Evidência esperada: PDF versionado, kit de apoio e protocolo real quando disponível.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m1,b11,p0
+"[B12] Investigar NFC, lojas, benefícios e mapa 3D",Task,"Como operação, queremos testar se recursos extras justificam custo e esforço.
+
+ID: B12 | Fase: Evolução | Prioridade: P2 | Esforço: G
+
+Responsável planejado: Robson (atribuir à conta real após a importação).
+
+Depende de: B08, B10
+
+Requisitos: RF11
+
+Critérios de aceite: Escolher hipótese, fonte autorizada, custo e teste; decidir avançar ou adiar cada item sem coleta adicional injustificada.
+
+Testes e validação: V05
+
+Evidência esperada: Decisão registrada com evidência e impacto esperado a validar.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P2,onix35,evolucao,b12,p2
+[B13] Configurar quadro Scrum e importar backlog no Jira,Task,"Como equipe, queremos acompanhar responsáveis, prioridades, dependências e status no Jira.
+
+ID: B13 | Fase: M1 · Planejamento | Prioridade: P0 | Esforço: P
+
+Responsável planejado: Robson (atribuir à conta real após a importação).
+
+Depende de: B01
+
+Requisitos: Gestão da entrega.
+
+Critérios de aceite: Um item por B01 a B16; prioridades mapeadas; donos escolhidos entre membros reais; dependências ligadas; quadro e filtro conferidos.
+
+Testes e validação: Conferência da evidência abaixo.
+
+Evidência esperada: Resumo do importador, filtro do projeto e chaves reais dos itens.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m1,b13,p0
+[B14] Montar base no Confluence e conectar relatório Jira,Task,"Como equipe, queremos uma base de conhecimento com planejamento, decisões, especificação técnica e review.
+
+ID: B14 | Fase: M1 · Planejamento | Prioridade: P0 | Esforço: P
+
+Responsável planejado: Robson (atribuir à conta real após a importação).
+
+Depende de: B01, B13
+
+Requisitos: Gestão da entrega.
+
+Critérios de aceite: Páginas de referência com links para Jira; macro lista e conta itens com os mesmos filtros; acesso verificado com membro da equipe.
+
+Testes e validação: Conferência da evidência abaixo.
+
+Evidência esperada: URL das páginas e conferência do relatório contra o Jira.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m1,b14,p0
+[B15] Integrar e revisar o fluxo da Missão 2,Task,"Como equipe, queremos demonstrar o fluxo principal e corrigir falhas antes da revisão.
+
+ID: B15 | Fase: M2 · Sprint 1 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Robson (atribuir à conta real após a importação).
+
+Depende de: B02, B03, B04, B05, B06, B07
+
+Requisitos: Gestão da entrega.
+
+Critérios de aceite: Versão executável e rastreável; Luis confere evidências dos itens selecionados; falhas remanescentes têm dono e estado no Jira.
+
+Testes e validação: Q01, Q02, Q03, Q04, Q08
+
+Evidência esperada: Execução versionada, registros de QA e ata de review no Confluence.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m2,b15,p0
+[B16] Consolidar a entrega final da Missão 3,Task,"Como equipe, queremos publicar a versão final exigida na missão correspondente.
+
+ID: B16 | Fase: M3 · Sprint 2 | Prioridade: P0 | Esforço: M
+
+Responsável planejado: Helder Filgueira (atribuir à conta real após a importação).
+
+Depende de: B15
+
+Requisitos: Gestão da entrega.
+
+Critérios de aceite: Documentação, execução, repositório e pitch de 1min15s a 2min revisados após liberação oficial; não declarar concluído antes da evidência.
+
+Testes e validação: Conferência da evidência abaixo.
+
+Evidência esperada: Links reais, evidências e protocolo da entrega final.
+
+Confluence: vincular a página correspondente depois que o espaço da equipe estiver disponível.",P0,onix35,m3,b16,p0

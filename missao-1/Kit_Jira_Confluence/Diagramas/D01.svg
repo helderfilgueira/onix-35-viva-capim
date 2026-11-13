@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="546" viewBox="0 0 1200 546" role="img">
+<title>Jornada do visitante</title>
+<desc>A agenda permanece aberta quando a pessoa recusa a avaliação. Só a resposta confirmada encerra o envio como recebido.</desc>
+<rect x="0" y="0" width="1200" height="546" rx="20" fill="#F5F8F7"/>
+<g font-family="Arial, sans-serif">
+<text x="24" y="33" fill="#45565A" font-size="22" font-weight="700" text-anchor="start">D01 / Da descoberta à avaliação voluntária</text>
+<polyline points="282,128 322,128" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="322.0,128.0 310.7,121.5 310.7,134.5" fill="#45616A"/>
+<polyline points="580,128 620,128" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="620.0,128.0 608.7,121.5 608.7,134.5" fill="#45616A"/>
+<polyline points="878,128 918,128" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="918.0,128.0 906.7,121.5 906.7,134.5" fill="#45616A"/>
+<polyline points="1047,192 1047,288" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1047.0,288.0 1053.5,276.7 1040.5,276.7" fill="#45616A"/>
+<text x="1059" y="242" fill="#45565A" font-size="20" font-weight="700" text-anchor="start">Aceita</text>
+<polyline points="975,192 975,226 749,226 749,288" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="749.0,288.0 755.5,276.7 742.5,276.7" fill="#AB7600"/>
+<text x="765" y="258" fill="#AB7600" font-size="20" font-weight="700" text-anchor="start">Recusa</text>
+<polyline points="322,352 282,352" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="282.0,352.0 293.3,358.5 293.3,345.5" fill="#45616A"/>
+<rect x="24" y="64" width="258" height="128" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="40" y="99" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Entrada</text>
+<text x="40" y="130" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Celular ou totem</text>
+<text x="40" y="157" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Sem cadastro</text>
+<rect x="322" y="64" width="258" height="128" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="99" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Agenda</text>
+<text x="338" y="130" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Buscar e filtrar</text>
+<text x="338" y="157" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Ver eventos disponíveis</text>
+<rect x="620" y="64" width="258" height="128" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="99" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Detalhe e local</text>
+<text x="636" y="130" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Ver mapa ou texto</text>
+<text x="636" y="157" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Levar QR público</text>
+<rect x="918" y="64" width="258" height="128" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="99" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Aviso de coleta</text>
+<text x="934" y="130" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Se quiser avaliar</text>
+<text x="934" y="157" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Entender finalidade</text>
+<rect x="918" y="288" width="258" height="128" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="323" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Avaliar</text>
+<text x="934" y="354" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Participação e nota</text>
+<text x="934" y="381" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Confirmar envio</text>
+<rect x="620" y="288" width="258" height="128" rx="12" fill="#FCF3DA" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="323" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Continuar</text>
+<text x="636" y="354" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Voltar à consulta</text>
+<text x="636" y="381" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Recusa não coleta</text>
+<polyline points="1047,416 1047,452 451,452 451,416" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="451.0,416.0 444.5,427.3 457.5,427.3" fill="#45616A"/>
+<text x="697" y="479" fill="#45565A" font-size="20" font-weight="700" text-anchor="start">Confirmar gravação no servidor</text>
+<rect x="322" y="288" width="258" height="128" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="323" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Recebida</text>
+<text x="338" y="354" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Mostrar confirmação</text>
+<text x="338" y="381" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Recibo só se pedido</text>
+<rect x="24" y="288" width="258" height="128" rx="12" fill="#173A35"/>
+<text x="40" y="323" fill="#FFFFFF" font-size="25" font-weight="700" text-anchor="start">Finalizar</text>
+<text x="40" y="354" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Limpar o atendimento</text>
+<text x="40" y="381" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Voltar ao início</text>
+<rect x="24" y="490" width="1152" height="44" rx="9" fill="#EEF3DE"/>
+<text x="42" y="519" fill="#1B282D" font-size="21" font-weight="700" text-anchor="start">Acesso à agenda, ao local e ao QR público não depende de avaliação.</text>
+</g></svg>

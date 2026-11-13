@@ -1,0 +1,552 @@
+{
+  "titulo": "Viva Capim - contratos propostos dos totens físicos",
+  "versao": "1.1",
+  "data": "2026-11-13",
+  "estado": "Especificação para implementação. Nenhuma destas rotas v1 foi implementada na demo atual. Não é um documento OpenAPI.",
+  "autoridade": "Contrato técnico canônico proposto; detalha o Anexo A do planejamento. Rotas de configuração, reset e recibo complementam o resumo da arquitetura. Não representa implementação.",
+  "origens": {
+    "kiosk": "Origem HTTPS exclusiva gerenciada pela TI; frontend e /v1/kiosk no mesmo domínio.",
+    "publico": "Origem HTTPS pública separada para catálogo e portal de direitos. Não exige certificado do totem.",
+    "admin": "Origem administrativa separada; identidade humana individual, MFA, RBAC.",
+    "interno": "Gateway para API em rede privada autenticada; PostgreSQL somente interno."
+  },
+  "seguranca": {
+    "dispositivo": "mTLS individual gerenciado no SO. Gateway valida cadeia, finalidade, validade e revogação, remove cabeçalhos externos e encaminha device_id/credential_id por canal interno autenticado. API verifica Device e DeviceCredential ativos, inclusive em conexões já abertas. Nenhuma credencial de frota no JavaScript. Upstream não aceita acesso direto externo.",
+    "cookie": {
+      "nome": "__Host-viva",
+      "valor": "Segredo aleatório de 256 bits; somente verificador no banco.",
+      "atributos": [
+        "Secure",
+        "HttpOnly",
+        "SameSite=Strict",
+        "Path=/",
+        "sem Domain"
+      ],
+      "validacao": "Vínculo obrigatório a dispositivo e geração; expiração/revogação checadas pelo servidor a cada operação."
+    },
+    "csrf": {
+      "bootstrap_e_saude": "reset, sessions e heartbeat: certificado/dispositivo ativos, Origin exato da origem kiosk, application/json e X-Kiosk-Request: 1. Sem CORS externo; Origin ausente/null falha para chamadas de navegador. Não exigir sessão/CSRF de visitante.",
+      "sessao": "activity, participations, reviews, rights-receipts e end: controles do canal kiosk mais cookie atual e X-CSRF-Token aleatório vinculado à sessão/geração; entregue na criação. SameSite é defesa adicional. End aceita credencial reconhecida da própria sessão encerrada para retry inofensivo.",
+      "direitos": "Portal pessoal: Origin público exato, application/json, segredo no corpo e sem autenticação por cookie do kiosk. Não exigir CSRF de atendimento inexistente. Nenhum CORS para terceiros.",
+      "gestao": "Sessão humana individual/MFA/papel e token CSRF próprio da gestão, origem administrativa exata. Certificado do totem não concede gestão."
+    },
+    "cache": "Cache-Control: no-store em configuração autenticada, sessões, envios, direitos e gestão. Apenas catálogo público/ativos aprovados são cacheáveis.",
+    "logs": "Não registrar cookies, segredos, chaves privadas, corpos de requisição ou notas individuais. Metadados mínimos: horário, classe de erro, latência, versão e identificadores técnicos estritamente necessários, com acesso restrito e prazo aprovado; identificadores pseudônimos não são anônimos. Filtrar também logs do gateway, traces e ferramentas de monitoramento.",
+    "erros": {
+      "400": "Formato inválido ou campos desconhecidos.",
+      "401": "Credencial/sessão ausente, inválida, expirada ou encerrada.",
+      "403": "Dispositivo bloqueado, origem/CSRF inválidos ou papel insuficiente.",
+      "404": "Objeto não acessível neste escopo; não revelar existência em outro atendimento.",
+      "409": "Conflito de estado, duplicidade de domínio ou chave idempotente reutilizada com corpo diferente.",
+      "422": "Regra de domínio inválida.",
+      "429": "Limite de tentativas; informar Retry-After.",
+      "503": "Dependência indisponível; não confirmar gravação."
+    }
+  },
+  "parametros_propostos": {
+    "aviso_inatividade_s": 90,
+    "expiracao_inatividade_s": 120,
+    "janela_aviso_s": 30,
+    "extensoes_minimas": 10,
+    "heartbeat_s": 60,
+    "alerta_heartbeats_ausentes": 3,
+    "catalogo_atualizacao_s": 60,
+    "catalogo_aviso_desatualizado_min": 15,
+    "catalogo_validade_max_h": 24,
+    "retencao_bruta": "Referência de até 30 dias após fim do evento; justificar e aprovar antes da coleta real. Não é prazo imposto pela LGPD."
+  },
+  "idempotencia": {
+    "escopo": [
+      "device_id",
+      "generation_id",
+      "session_id",
+      "submission_id"
+    ],
+    "chave": "Idempotency-Key UUID aleatório por operação; mesmo valor do submission_id. Gerado uma vez e mantido apenas em memória durante o atendimento.",
+    "integridade": "submission_id único em toda a sessão; operation é campo imutável, não parte que permita reutilizar a chave. Reserva, hash canônico do corpo, escrita e resultado na mesma transação. Outra operação/corpo com a chave retorna409. Índice único sessão/evento em participação e avaliação. Repetição idêntica retorna resultado original; duplicidade de domínio com chave nova retorna409 already_submitted.",
+    "timeout": "Resultado desconhecido. Consultar/repetir com mesma chave enquanto sessão estiver ativa; não gerar novo identificador nem prometer sucesso. Nova pessoa não recupera status anterior.",
+    "retencao": "Resultado idempotente não inclui segredo de direitos. Expurgar com os registros associados; depois de expirar sessão rejeitar repetição, mesmo que chave exista."
+  },
+  "rotas": [
+    {
+      "metodo": "GET",
+      "rota": "/v1/kiosk/catalog",
+      "auth": "Dispositivo no canal gerenciado; conteúdo exclusivamente público.",
+      "entrada": "If-None-Match opcional",
+      "saida": {
+        "status": [
+          200,
+          304
+        ],
+        "campos": [
+          "version",
+          "generated_at",
+          "valid_until",
+          "events[]",
+          "public_locations[]",
+          "public_map"
+        ]
+      },
+      "regras": [
+        "Sem infraestrutura interna da planta.",
+        "Mesmo DTO público pode ser exposto em GET /v1/public/catalog sem identidade de dispositivo.",
+        "Event DTO: id,title,start_at,end_at,status,location_id,public_url,version; datas com fuso. Detalhe e filtros podem usar o catálogo no piloto sem nova rota.",
+        "Location e map somente versão aprovada. public_url canônica do evento em domínio público permitido; nenhum segredo em QR/URL.",
+        "generated_at representa publicação; cliente mantém last_successful_validation_at separado. 304 não prolonga valid_until salvo novo limite explicitamente enviado pelo servidor.",
+        "Falha de rede não renova validade. Cache expirado não permite agenda ou orientação potencialmente falsa; mostrar indisponibilidade e ajuda básica."
+      ]
+    },
+    {
+      "metodo": "GET",
+      "rota": "/v1/kiosk/config",
+      "auth": "Dispositivo ativo",
+      "saida": {
+        "status": [
+          200
+        ],
+        "campos": [
+          "device_id",
+          "public_location_id",
+          "app_version",
+          "idle_warning_seconds",
+          "idle_expiry_seconds",
+          "notice_version",
+          "support_text",
+          "generation_id",
+          "privacy_notice{version,text,purpose,controller_contact,retention_text}"
+        ]
+      },
+      "regras": [
+        "Sem segredos de dispositivo.",
+        "Informar local só após cadastro aprovado.",
+        "Config contém somente metadados de dispositivo e aviso vigente; não retorna dados/segredo da sessão anterior. Se aviso/controlador/canal/prazo não estiverem aprovados, coleta real permanece desabilitada."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/reset",
+      "auth": "Dispositivo ativo + origem/header bootstrap validados",
+      "entrada": {
+        "reason": "boot | recovery | abandoned",
+        "operation_id": "UUID único da operação de controle",
+        "expected_generation": "geração observada em config"
+      },
+      "saida": {
+        "status": [
+          200,
+          409
+        ],
+        "headers": [
+          "Set-Cookie: __Host-viva=; Max-Age=0; Secure; HttpOnly; SameSite=Strict; Path=/"
+        ],
+        "campos": [
+          "generation_id",
+          "operation_id",
+          "state=clean"
+        ]
+      },
+      "regras": [
+        "Aplicar controle_de_geracao: lock Device, verificar geração e operation_id; encerrar sessões anteriores e avançar geração uma única vez.",
+        "Expirar cookie apenas para reset aplicado/repetição ainda atual. Requisição obsoleta não emite Set-Cookie nem afeta geração nova.",
+        "Executar online no arranque/recuperação antes de habilitar coleta. Falha mantém consulta pública e tela limpa; não afirmar revogação remota concluída."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/sessions",
+      "auth": "Dispositivo ativo + origem/header bootstrap validados",
+      "entrada": {
+        "notice_version": "versão vigente",
+        "purpose": "event_feedback",
+        "accepted": true,
+        "operation_id": "UUID único da operação de controle",
+        "expected_generation": "geração resultante de reset confirmado"
+      },
+      "saida": {
+        "status": [
+          201,
+          409
+        ],
+        "campos": [
+          "generation_id",
+          "expires_at",
+          "server_now",
+          "csrf_token"
+        ],
+        "headers": [
+          "Set-Cookie: __Host-viva=<segredo>; Secure; HttpOnly; SameSite=Strict; Path=/"
+        ]
+      },
+      "regras": [
+        "Sem aceite não criar sessão de coleta; consulta continua livre.",
+        "Bloquear Device durante transação; revogar sessão anterior e criar uma geração ativa.",
+        "Rejeitar aviso desatualizado e apresentar versão nova. Consentimento não é base automática para todas as finalidades.",
+        "Aplicar controle_de_geracao, sem retry automático que recrie/revogue sessões. Servidor guarda apenas hash, portanto não recupera cookie perdido; recuperação exige reset confirmado e novo aceite."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/session/activity",
+      "auth": "Dispositivo + sessão + CSRF",
+      "entrada": {
+        "interaction": "touch | key | assistive_action"
+      },
+      "saida": {
+        "status": [
+          200
+        ],
+        "campos": [
+          "expires_at",
+          "server_now"
+        ]
+      },
+      "regras": [
+        "Apenas ação explícita renova; heartbeat/polling não chama esta rota.",
+        "Servidor prevalece; sessão já expirada não ressuscita.",
+        "Permitir ao menos dez extensões; nenhum limite absoluto que cancele tarefa ativa em contradição.",
+        "Validar sob locks comuns; expira quando server_now >= last_activity + idle_expiry_seconds. Cliente calcula aviso usando server_now/expires_at e relógio monotônico; interação real renova com antecedência, heartbeat não renova."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/participations",
+      "auth": "Dispositivo + sessão + CSRF + Idempotency-Key",
+      "entrada": {
+        "submission_id": "UUID",
+        "event_id": "UUID",
+        "participation_type": "self_declared"
+      },
+      "saida": {
+        "status": [
+          201,
+          200
+        ],
+        "campos": [
+          "submission_id",
+          "status=committed",
+          "participation_id"
+        ]
+      },
+      "regras": [
+        "Participação voluntariamente declarada, não prova de presença nem de pessoa única.",
+        "Um registro por sessão/evento; validar evento elegível."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/reviews",
+      "auth": "Dispositivo + sessão + CSRF + Idempotency-Key",
+      "entrada": {
+        "submission_id": "UUID",
+        "event_id": "UUID",
+        "score": "inteiro de 1 a 5",
+        "aspect": "organization | accessibility | programming | location"
+      },
+      "saida": {
+        "status": [
+          201,
+          200
+        ],
+        "campos": [
+          "submission_id",
+          "status=committed",
+          "review_id"
+        ]
+      },
+      "regras": [
+        "Exigir participação correspondente, aviso vigente aceito e evento elegível.",
+        "Sem texto livre, nome, CPF, telefone ou e-mail.",
+        "Só responder sucesso após commit; mesmo envio não duplica."
+      ]
+    },
+    {
+      "metodo": "GET",
+      "rota": "/v1/kiosk/submissions/{id}",
+      "auth": "Dispositivo + sessão válida",
+      "saida": {
+        "status": [
+          200,
+          404
+        ],
+        "campos": [
+          "submission_id",
+          "status=committed",
+          "record_id",
+          "operation"
+        ]
+      },
+      "regras": [
+        "Buscar submission_id único somente na própria sessão/geração; resultado inclui operation imutável. Não permitir consulta por outra sessão.",
+        "404 não prova que uma requisição em andamento jamais fará commit. Repetir mesma chave reconcilia.",
+        "Não consultar após fim/reset para o próximo visitante."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/rights-receipts",
+      "auth": "Dispositivo + sessão + CSRF",
+      "entrada": {
+        "record_ids": [
+          "{type: participation | review, id: UUID} — lista não vazia; somente registros committed da própria sessão"
+        ],
+        "explicit_request": true
+      },
+      "saida": {
+        "status": [
+          201
+        ],
+        "campos": [
+          "rights_secret",
+          "expires_at",
+          "scope_summary"
+        ]
+      },
+      "regras": [
+        "Gerar segredo criptográfico independente de 256 bits e guardar somente hash e escopo.",
+        "Exibir em fluxo privado opcional; quem fotografar pode acessar/excluir aqueles registros.",
+        "Nunca embutir no QR público, URL, log ou cache. Não mostrar avaliação junto ao segredo.",
+        "Uma nova emissão para mesmo escopo revoga recibo anterior, com aviso ao visitante; não reproduzir segredo perdido pelo servidor.",
+        "Validade acompanha retenção dos registros, independente da sessão de totem.",
+        "Não repetir automaticamente após timeout. Informar emissão não confirmada; reemissão exige nova ação explícita e aviso de revogação do recibo anterior.",
+        "Expiração por registro: eliminar cada alvo no seu prazo; access retorna só alvos ainda retidos. Recibo pode durar até o último alvo expirar, sem prolongar retenção de nenhum registro."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/kiosk/session/end",
+      "auth": "Dispositivo ativo + origem/header + credencial reconhecida da própria sessão + seu CSRF, inclusive retry de sessão já encerrada",
+      "saida": {
+        "status": [
+          204
+        ],
+        "headers": [
+          "Set-Cookie: __Host-viva=; Max-Age=0; Secure; HttpOnly; SameSite=Strict; Path=/"
+        ]
+      },
+      "regras": [
+        "Idempotente; encerrar não apaga avaliação confirmada.",
+        "Bloquear/serializar com envios em andamento: ou commit anterior ao encerramento, ou envio rejeitado.",
+        "UI limpa memória, campos, áudio, recibo e histórico de fluxo; descarta respostas de geração antiga.",
+        "Sem conexão limpar localmente e bloquear coleta até reset confirmado.",
+        "Retry da própria sessão encerrada retorna204 sem afetar geração posterior; se geração mudou, não emitir Set-Cookie que apague cookie novo. Credencial desconhecida não autoriza reset.",
+        "Sem cookie/CSRF recuperável, usar reset com precondição de geração. Locks e expiração seguem controle_de_geracao.",
+        "Preservar todos os envios com commit, inclusive quando a confirmação se perdeu; encerrar acesso não desfaz gravação confirmada no banco."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/rights/access",
+      "auth": "Portal pessoal separado; rights_secret no corpo HTTPS, nunca cookie do totem",
+      "entrada": {
+        "rights_secret": "segredo de 256 bits"
+      },
+      "saida": {
+        "status": [
+          200,
+          401
+        ],
+        "campos": [
+          "records[]",
+          "retention_information",
+          "controller_contact"
+        ]
+      },
+      "regras": [
+        "Limitar tentativas e padronizar falhas para impedir enumeração.",
+        "Retornar apenas registros do escopo do recibo.",
+        "Portal não carrega terceiros nem analytics no fluxo de segredo; corpo não é logado."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/rights/delete",
+      "auth": "Portal pessoal separado; rights_secret no corpo HTTPS",
+      "entrada": {
+        "rights_secret": "segredo de 256 bits",
+        "confirm": true,
+        "deletion_request_id": "UUID mantido em memória no dispositivo pessoal para repetir o mesmo pedido"
+      },
+      "saida": {
+        "status": [
+          200,
+          401
+        ],
+        "campos": [
+          "deletion_status",
+          "backup_policy"
+        ]
+      },
+      "regras": [
+        "Apagar registros elegíveis, vínculos e resultados idempotentes em transação; revogar recibo. Guardar apenas tombstone mínimo de confirmação de exclusão, sem conteúdo apagado, por janela técnica aprovada.",
+        "Retenção excepcional, se aplicável e justificada, deve ser informada; não alegar exclusão total antes de concluída.",
+        "Backups obedecem prazo aprovado; restauração reaplica exclusões antes de exposição.",
+        "Sem segredo oferecer canal humano, sem prometer recuperar registro não associável.",
+        "Se resposta se perder, mesmo segredo + deletion_request_id consultam tombstone e retornam estado anterior durante a janela. Nova chave não dá acesso a dados excluídos; depois da janela, falha padronizada não afirma exclusão verificável.",
+        "Retorno distingue exclusão operacional concluída, retenção excepcional justificada e ciclo de backup; não alegar eliminação instantânea de cópias. RestoreSuppression reaplica exclusões antes de acesso a banco restaurado."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/devices/heartbeat",
+      "auth": "Dispositivo/credencial ativos + Origin kiosk + JSON + X-Kiosk-Request: 1; sem sessão de visitante",
+      "entrada": {
+        "app_version": "string",
+        "catalog_version": "string",
+        "health": "ok | degraded",
+        "error_class": "enum sem dados de visitante"
+      },
+      "saida": {
+        "status": [
+          204
+        ]
+      },
+      "regras": [
+        "Não renovar atendimento.",
+        "Sem screenshot, nota, corpo, segredo ou identificação de visitante."
+      ]
+    },
+    {
+      "metodo": "GET",
+      "rota": "/v1/admin/metrics",
+      "auth": "Humano MFA + papel analyst/admin",
+      "saida": {
+        "status": [
+          200
+        ],
+        "campos": [
+          "batch_id",
+          "generated_at",
+          "aggregates[]{event_id,participation_count,review_count,response_rate,score_distribution,suppressed}"
+        ]
+      },
+      "regras": [
+        "Fora da origem do totem.",
+        "Não expor respostas individuais; grupos pequenos suprimidos e agregação em lotes.",
+        "Definir estratégia contra inferência por diferenças antes do piloto.",
+        "Denominador da taxa: participações declaradas elegíveis do mesmo evento/lote, nunca público total. Denominador zero é sem base. Limiar e política contra inferência entre lotes devem ser definidos antes do piloto; supressão não prova anonimização."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/admin/events",
+      "auth": "Humano MFA + papel editor/admin + CSRF",
+      "entrada": {
+        "title": "texto limitado",
+        "location_id": "UUID aprovado",
+        "start_at": "ISO8601 com fuso",
+        "end_at": "ISO8601 com fuso"
+      },
+      "saida": {
+        "status": [
+          201,
+          409
+        ],
+        "campos": [
+          "event_id",
+          "version"
+        ]
+      },
+      "regras": [
+        "Validar intervalo, local e conflito sob transação.",
+        "Publicação e alterações auditadas; sem dados de resposta nos logs.",
+        "Intervalo [start_at,end_at), end_at > start_at; conflitos só entre eventos não cancelados no mesmo local. Concorrência validada no banco.",
+        "Contrato atual cobre criação. Edição/cancelamento/publicação avançada e histórico completo são expansão editorial explicitada em cobertura_rf; não declarar CRUD completo no piloto."
+      ]
+    },
+    {
+      "metodo": "POST",
+      "rota": "/v1/admin/devices/{id}/revoke",
+      "auth": "Humano MFA + papel device_admin + CSRF",
+      "entrada": {
+        "reason": "motivo técnico controlado"
+      },
+      "saida": {
+        "status": [
+          204
+        ]
+      },
+      "regras": [
+        "Bloquear dispositivo e sessões em transação; propagar revogação de certificado ao gateway.",
+        "Certificado de dispositivo nunca concede esse papel.",
+        "Bloquear Device e credenciais, encerrar sessões sob mesmos locks; negar operações mesmo com conexão TLS já aberta. Provisionamento posterior exige TI e nova credencial validada."
+      ]
+    }
+  ],
+  "maquina_estados": {
+    "estados": [
+      "BOOT",
+      "RESETTING",
+      "START",
+      "BROWSING",
+      "PRIVACY",
+      "ACTIVE",
+      "SUBMITTING",
+      "RESULT",
+      "IDLE_WARNING",
+      "CLEANING",
+      "PUBLIC_OFFLINE",
+      "UNAVAILABLE"
+    ],
+    "regras": [
+      "BOOT exige RESETTING online antes de coleta.",
+      "BROWSING não exige consentimento.",
+      "ACTIVE exige sessão nova; cada chamada carrega generation_id interno de UI.",
+      "SUBMITTING mantém mesma chave; timeout deixa resultado desconhecido.",
+      "IDLE_WARNING preserva formulário; continuar renova prazo.",
+      "CLEANING oculta dados imediatamente; no retorno START nenhum estado de visitante persiste.",
+      "PUBLIC_OFFLINE usa apenas cache público válido; jamais registra participação ou avaliação.",
+      "Cold boot offline não é garantido por Edge InPrivate; componente local adicional seria fase posterior."
+    ]
+  },
+  "aceite": [
+    "Dois visitantes sucessivos não compartilham dados.",
+    "Voltar/recarregar/reiniciar não restaura respostas.",
+    "Resposta tardia da geração A é descartada na B.",
+    "Dispositivo revogado não escreve.",
+    "Repetição do envio não duplica.",
+    "Timeout não gera falso sucesso.",
+    "Aviso e dez extensões funcionam no touch real.",
+    "Segredo de direitos funciona após reset e não permite acesso cruzado.",
+    "Nenhum dado pessoal permanece em cache/log.",
+    "Teste físico de alcance, toque, quiosque, energia e rede registrado.",
+    "Retry de reset/criação antigos não encerra geração nova; cookie atrasado inválido nunca recupera dados.",
+    "End/revoke/reset/activity/envio concorrentes respeitam a mesma ordem de locks.",
+    "Revogar certificado antigo bloqueia sua escrita, inclusive conexão previamente estabelecida.",
+    "Timeout ao emitir recibo não gira segredo automaticamente; timeout ao excluir pode ser reconciliado na janela aprovada.",
+    "304/cache não prolonga validade por falha; aviso completo disponível antes de coleta."
+  ],
+  "exclusoes": [
+    "Pagamento e emissão de ingressos",
+    "Validação biométrica ou identidade civil",
+    "Benefício automático por nota positiva",
+    "3D ou navegação acessível sem mapa validado",
+    "Coleta offline de visitantes",
+    "Compra/configuração de equipamento nesta entrega"
+  ],
+  "controle_de_geracao": {
+    "transacao": "Toda mutação bloqueia Device e depois KioskSession quando aplicável, na mesma ordem. Validar estado de dispositivo/credencial, geração, expiração e consentimento dentro da transação. Revogação de dispositivo usa a mesma serialização.",
+    "precondicao": "reset e sessions recebem operation_id UUID único e expected_generation obtida de config ou do último controle confirmado. Sob lock, aplicar apenas se geração coincide e operação ainda não aplicada. Estado obsoleto retorna 409 stale_generation sem mutação nem Set-Cookie.",
+    "retry": "Reset com mesma operation_id e corpo pode devolver resultado já aplicado somente enquanto a geração resultante continua atual; não executar outra vez. Se já existe geração posterior, 409 sem cookie. Criação de sessão NÃO reemite segredo: retry cuja resposta/cookie se perdeu retorna 409 session_creation_uncertain; recuperar por config + reset confirmado + novo aceite.",
+    "cliente": "Uma operação de controle em voo por instância. Bloquear nova coleta enquanto reset/criação estiver indeterminado. Resposta velha não preenche UI; eventual cookie antigo recebido é negado por geração no backend e exige recuperação limpa. Config nunca retoma atendimento nem retorna segredo.",
+    "limite": "Controles técnicos não identificam a pessoa física diante da tela. Nenhuma geração anterior autoriza dados da seguinte."
+  },
+  "modelo_complementar": {
+    "Device": "id, location_id, state, current_generation, last_seen",
+    "DeviceCredential": "id, device_id, fingerprint, issuer, serial, not_before, not_after, state, revoked_at; vínculo único à credencial validada. Provisionamento/rotação pela TI, sem API pública de matrícula.",
+    "KioskSession": "id, device_id, generation_id, token_hash, csrf_verifier, notice_version, purpose, last_activity, revoked_at; uma sessão ativa por dispositivo.",
+    "ControlOperation": "device_id, operation_id, operation, body_hash, expected_generation, resulting_generation, outcome; sem segredo. Retenção técnica curta aprovada; geração monotônica nunca reutilizada.",
+    "DeletionTombstone": "hash do recibo, deletion_request_id, estado mínimo, expires_at; sem conteúdo apagado; janela proposta 24h para reconciliar resposta perdida, sujeita à política aprovada.",
+    "RestoreSuppression": "identificadores mínimos necessários para reaplicar exclusão em restauração, acesso restrito; reter até expiração das cópias pertinentes conforme política aprovada, sem preservar notas excluídas."
+  },
+  "cobertura_rf": {
+    "RF01_RF02": "Catálogo DTO cobre consulta, filtro e detalhe local. A distribuição pública do mesmo DTO e public_url deve existir para QR antes de ativar RF09; não criar rota privada de detalhe desnecessária.",
+    "RF03_RF04": "participations/reviews/submissions e integridade transacional; participação autodeclarada não prova pessoa única.",
+    "RF05": "Aviso completo em config, recibo opcional e portal de direitos; definição humana de controlador/canal/base/prazo é pré-requisito de coleta real.",
+    "RF06": "Piloto: criação e prevenção de conflitos. Edição/cancelamento prometidos no histórico editorial são expansão: GET admin/events e PATCH admin/events/{id} com expected_version e auditoria; não implementados nem parte das16rotas deste contrato.",
+    "RF07": "Métricas agregadas em lotes; limiar/política devem ser aprovados antes do piloto.",
+    "RF08": "Config/reset/sessions/activity/end e revoke, mais política real do SO. Nenhuma destas rotas v1 existe na demo.",
+    "RF09": "URL/QR público e áudio opcional; não transferem atendimento. Endpoint público do catálogo é distribuição futura do mesmo DTO, sem nova regra de domínio.",
+    "RF10": "Prioridade S: ficha manual por evento/lote suficiente na primeira evolução. Persistência futura GET/POST admin/events/{id}/improvements requer responsável, ação humana e estado; fora das16rotas e do piloto inicial.",
+    "RF11": "Lojas/NFC/benefício/3D continuam posteriores, dependentes de validação; sem escopo novo nesta revisão."
+  }
+}

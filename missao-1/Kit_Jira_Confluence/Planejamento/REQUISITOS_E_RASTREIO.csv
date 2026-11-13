@@ -1,0 +1,12 @@
+﻿RF;Requisito;Aceite;Backlog;QA ou validação;Diagramas
+RF01;Consultar agenda com busca e categorias;"Consulta livre; estado de erro, vazio e fim do catálogo.";B02;Q01 Q08;D01
+RF02;Ver detalhes e orientação;Data, local e alternativa textual ao mapa publicado.;B02;Q01 Q08;D01
+RF03;Registrar participação declarada;"Uma por sessão e evento; não mede presença ou pessoa única.";B04;Q02;D01 D04
+RF04;Enviar avaliação voluntária;"Nota de 1 a 5 e aspecto fechado; confirmação após gravação.";B04;Q02 Q07;D01 D03
+RF05;Entender a coleta e exercer direitos;Aviso antes do envio, recusa livre e acesso só ao próprio registro.;B03 B05;Q03 Q05;D01 D04
+RF06;Planejar e publicar evento sem conflito;"Gestor autorizado; intervalo sobreposto no mesmo local rejeitado.";B06;Q02;D06
+RF07;Ver métricas agregadas;"Amostra, período e denominador; ocultar recortes insuficientes.";B07;Q04;D04 D06
+RF08;Isolar atendimentos no totem;Reset, expiração, extensão acessível e falha sem vazamento.;B08;Q05 Q06 Q07 Q10;D02 D03
+RF09;Compartilhar link público e oferecer áudio;"URL sem segredo; áudio opcional e alternativa textual.";B09;Q08;D01
+RF10;Registrar próximo passo da gestão;Evidência, dúvida, ação humana, responsável e data de revisão.;B10;V04;D06
+RF11;Avaliar integrações e recursos adicionais;Lojas, NFC, benefício e 3D dependem de autorização e validação.;B12;V05;D02

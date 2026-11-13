@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="664" viewBox="0 0 1200 664" role="img">
+<title>Sessão e contingência do totem</title>
+<desc>A sessão é curta e descartável. A falha de rede preserva apenas consulta pública válida; o próximo atendimento começa limpo.</desc>
+<rect x="0" y="0" width="1200" height="664" rx="20" fill="#F5F8F7"/>
+<g font-family="Arial, sans-serif">
+<text x="24" y="33" fill="#45565A" font-size="22" font-weight="700" text-anchor="start">D03 / Atendimento isolado e reinício seguro</text>
+<polyline points="282,124 322,124" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="322.0,124.0 310.7,117.5 310.7,130.5" fill="#45616A"/>
+<polyline points="580,124 620,124" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="620.0,124.0 608.7,117.5 608.7,130.5" fill="#45616A"/>
+<polyline points="878,124 918,124" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="918.0,124.0 906.7,117.5 906.7,130.5" fill="#45616A"/>
+<polyline points="1047,182 1047,286" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1047.0,286.0 1053.5,274.7 1040.5,274.7" fill="#45616A"/>
+<text x="1060" y="239" fill="#45565A" font-size="20" font-weight="700" text-anchor="start">Enviar</text>
+<polyline points="918,344 878,344" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="878.0,344.0 889.3,350.5 889.3,337.5" fill="#45616A"/>
+<polyline points="1047,402 1047,495" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="1047.0,495.0 1053.5,483.7 1040.5,483.7" fill="#AB7600"/>
+<polyline points="620,344 580,344" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="580.0,344.0 591.3,350.5 591.3,337.5" fill="#45616A"/>
+<polyline points="322,344 282,344" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="282.0,344.0 293.3,350.5 293.3,337.5" fill="#45616A"/>
+<polyline points="749,182 749,231 451,231 451,182" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="451.0,182.0 444.5,193.3 457.5,193.3" fill="#AB7600"/>
+<text x="471" y="221" fill="#AB7600" font-size="20" font-weight="700" text-anchor="start">Recusa mantém consulta</text>
+<polyline points="946,182 946,265 898,265 898,466 749,466 749,495" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="749.0,495.0 755.5,483.7 742.5,483.7" fill="#AB7600"/>
+<text x="701" y="453" fill="#AB7600" font-size="20" font-weight="700" text-anchor="start">90 s sem atividade</text>
+<polyline points="620,552 580,552" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="580.0,552.0 591.3,558.5 591.3,545.5" fill="#AB7600"/>
+<polyline points="451,495 451,402" fill="none" stroke="#AB7600" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="451.0,402.0 444.5,413.3 457.5,413.3" fill="#AB7600"/>
+<polyline points="153,286 153,266 380,266 380,182" fill="none" stroke="#45616A" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<polygon points="380.0,182.0 373.5,193.3 386.5,193.3" fill="#45616A"/>
+<text x="34" y="244" fill="#45565A" font-size="20" font-weight="700" text-anchor="start">Novo início após limpar</text>
+<rect x="24" y="66" width="258" height="116" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="40" y="101" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Boot e reset</text>
+<text x="40" y="132" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Limpar interface</text>
+<text x="40" y="159" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Confirmar geração</text>
+<rect x="322" y="66" width="258" height="116" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="101" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Início e consulta</text>
+<text x="338" y="132" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Agenda e mapa</text>
+<text x="338" y="159" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Sem sessão pessoal</text>
+<rect x="620" y="66" width="258" height="116" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="101" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Escolha</text>
+<text x="636" y="132" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Aviso de privacidade</text>
+<text x="636" y="159" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Aceitar ou recusar</text>
+<rect x="918" y="66" width="258" height="116" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="101" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Sessão ativa</text>
+<text x="934" y="132" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Nova por atendimento</text>
+<text x="934" y="159" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Tempo no servidor</text>
+<rect x="918" y="286" width="258" height="116" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="321" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Envio</text>
+<text x="934" y="352" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Mesma chave no retry</text>
+<text x="934" y="379" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Sem falso sucesso</text>
+<rect x="620" y="286" width="258" height="116" rx="12" fill="#FFFFFF" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="321" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Resultado</text>
+<text x="636" y="352" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Só após confirmação</text>
+<text x="636" y="379" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Recibo opcional</text>
+<rect x="322" y="286" width="258" height="116" rx="12" fill="#E6EEF1" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="321" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Limpeza</text>
+<text x="338" y="352" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Ocultar dados e áudio</text>
+<text x="338" y="379" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Revogar atendimento</text>
+<rect x="24" y="286" width="258" height="116" rx="12" fill="#173A35"/>
+<text x="40" y="321" fill="#FFFFFF" font-size="25" font-weight="700" text-anchor="start">Tela limpa</text>
+<text x="40" y="352" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Ignorar retorno tardio</text>
+<text x="40" y="379" fill="#FFFFFF" font-size="22" font-weight="400" text-anchor="start">Sem dados anteriores</text>
+<rect x="24" y="495" width="258" height="116" rx="12" fill="#FCF3DA" stroke="#B9C8C5" stroke-width="2"/>
+<text x="40" y="530" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Sem rede</text>
+<text x="40" y="561" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Só consulta válida</text>
+<text x="40" y="588" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Sem gravar respostas</text>
+<rect x="322" y="495" width="258" height="116" rx="12" fill="#FCF3DA" stroke="#B9C8C5" stroke-width="2"/>
+<text x="338" y="530" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">120 s ou sair</text>
+<text x="338" y="561" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Finalizar ou expirar</text>
+<text x="338" y="588" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Voltar à limpeza</text>
+<rect x="620" y="495" width="258" height="116" rx="12" fill="#FCF3DA" stroke="#B9C8C5" stroke-width="2"/>
+<text x="636" y="530" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Aviso aos 90 s</text>
+<text x="636" y="561" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Continuar renova</text>
+<text x="636" y="588" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Preservar campos</text>
+<rect x="918" y="495" width="258" height="116" rx="12" fill="#FCF3DA" stroke="#B9C8C5" stroke-width="2"/>
+<text x="934" y="530" fill="#1B282D" font-size="25" font-weight="700" text-anchor="start">Resposta perdida</text>
+<text x="934" y="561" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Estado desconhecido</text>
+<text x="934" y="588" fill="#45565A" font-size="22" font-weight="400" text-anchor="start">Reconciliar se ativo</text>
+<rect x="24" y="615" width="1152" height="44" rx="9" fill="#EEF3DE"/>
+<text x="42" y="644" fill="#1B282D" font-size="21" font-weight="700" text-anchor="start">Depois do reset, a sessão anterior não pode autorizar novas gravações.</text>
+</g></svg>

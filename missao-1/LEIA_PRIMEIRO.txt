@@ -1,0 +1,15 @@
+EQUIPE ONIX - 35 | VIVA CAPIM | HACKARUN 2026
+Missão 1 — Planejamento técnico inicial | Versão 3.0 | 13/11/2026
+
+1. Para revisão e envio, abra ONIX_35_VIVA_CAPIM_MISSAO_1.pdf.
+   O PDF tem capa, sumário navegável, fluxos, RACI, backlog, tecnologias, referências e anexo técnico dos totens.
+2. Para configurar a execução, leia Kit_Jira_Confluence/GUIA_JIRA_CONFLUENCE.md.
+   Prévia com filtros: abra Jira/00_Visualizar_Backlog.html no navegador.
+   Jira: importar Jira/01_Backlog_Importacao_Jira.csv, conferir 16 itens, atribuir contas e criar os vínculos.
+   Confluence: abrir Confluence/01_Inicio.html e usar as sete páginas no espaço da equipe; anexar os PNGs e o PDF.
+   Relatório: inserir macros Jira work items usando os filtros do kit e validar a contagem com o quadro.
+3. Robson configura o ambiente; Luis confere RACI, vínculos e evidências; Helder aprova o material da equipe.
+
+Jira e Confluence: estrutura e arquivos preparados; importar/publicar no ambiente autorizado da equipe.
+Envio: o representante confirma prazo e canal com a organização. Foto: 12h; regulamento consultado: 10h, em 13/11. Guardar protocolo real de submissão.
+Entrega de planejamento, com telas e fluxos propostos para as etapas seguintes.

@@ -1,0 +1,103 @@
+Equipe Onix - 35 | Viva Capim | Missão 1 | Revisão 3.0
+
+Referência atual: PDF da Equipe Onix - 35 e Kit Jira/Confluence. Use a matriz RACI de Planejamento/MATRIZ_RACI.csv como referência de responsabilidades e o backlog B01–B16 do kit. A gestão no Jira/Confluence depende de ativação no ambiente da equipe.
+
+VIVA CAPIM - EQUIPE HUMANA E AGENTES
+HackaRun 2026 | Revisão documental 3.0 de 13/11/2026
+
+IDENTIFICAÇÃO
+Nome de trabalho do produto: Viva Capim.
+Nome oficial da equipe: Equipe Onix - 35.
+Desafio 10: eventos, entretenimento e experiências. Prática: LGPD.
+Líder: Helder Filgueira. Representante de submissão proposto: Helder Filgueira.
+Canal e prazo vigente: confirmar com a organização (regulamento 10h; foto 12h em 13/11).
+Nomes transcritos conforme a mensagem do usuário, sem incluir telefones da imagem.
+
+EQUIPE HUMANA - QUATRO INTEGRANTES
+H01 GABRIEL SCHIMIT - BACKEND
+Arquitetura do backend, API, banco de dados, contratos, regras e segurança do servidor.
+
+H02 HELDER FILGUEIRA - FRONTEND E LÍDER
+Interface, UX, acessibilidade, prioridades, coordenação da equipe e revisão final.
+
+H03 LUIS - QA
+Critérios de aceite, testes, regressão, evidências e acompanhamento de correções. Revisão técnica de privacidade não equivale a designação formal de encarregado LGPD.
+
+H04 ROBSON - INTEGRAÇÃO E OPERAÇÃO
+Integração, versionamento, empacotamento, execução, configuração autorizada e apoio à operação do piloto.
+
+RESPONSABILIDADES POR ENTREGA
+Problema, Canvas, pesquisa e pitch: atividades compartilhadas sob coordenação de Helder.
+Validação do cartão: Helder conduz; Luis registra evidência; Robson avalia aplicação operacional; Gabriel verifica dados e contratos. São responsabilidades planejadas, não entrevistas já realizadas.
+Arquitetura/API/banco: Gabriel executa; Luis verifica; Robson integra.
+Telas/UX: Helder executa; Gabriel fornece contratos; Luis verifica.
+LGPD no produto: Gabriel e Helder implementam; Luis verifica controles; papéis legais definidos antes do piloto.
+QA: Luis executa; responsáveis técnicos corrigem; Helder coordena liberação.
+Integração e pacote: Robson executa; Luis verifica; Helder revisa.
+Submissão: Helder como representante proposto; Robson confere anexos e Luis evidências. Guardar protocolo real.
+A composição inscrita deve corresponder à equipe oficial do evento. Agentes de IA não ocupam vagas humanas.
+
+MATRIZ RACI
+Consultar MATRIZ_RACI.csv e a seção 13 do PDF.
+
+BACKLOG E VERIFICAÇÃO
+B01: Helder executa; Luis revisa cobertura documental.
+B02: Helder; Q01/Q08. B03: Gabriel; Q03/Q08. B04: Gabriel; Q02/Q07.
+B05: Gabriel; Q03/Q05. B06: Gabriel; Q02. B07: Gabriel; Q04.
+B08: Helder, com servidor de Gabriel e integração de Robson; Q05/Q06/Q07/Q10.
+B09: Helder; Q08. B10: Helder; V04 e ficha com evidência, dúvida, próximo passo, dono e revisão.
+B11: Robson consolida o pacote da Missão 1; Luis confere evidências; Helder revisa e registra protocolo quando houver submissão.
+B12: evoluções P2, com Robson; validar antes de executar.
+B13 e B14: Robson organiza Jira e Confluence. B15: Robson integra e prepara a review da Missão 2. B16: Helder coordena a Missão 3.
+Os identificadores Q/V correspondem ao plano da versão 3.0. Luis verifica os aceites; não são resultados aprovados antecipadamente.
+
+PERFIS DE AGENTES DE IA
+A01 Coordenador — depende de fontes e pedido humano; entrega plano, decisões e integração; não altera cargos humanos.
+A02 Produto/ideação — entrega problema, hipóteses, Canvas e escopo; não inventa validação.
+A03 Pesquisa — entrega fontes com data/página e limites; não trata planta como relatório amostral.
+A04 Arquitetura — entrega contratos, dados, fluxos e ADRs; combina mudanças com backend/frontend.
+A05 Backend — entrega API, persistência e testes de domínio; protege dados e invariantes.
+A06 Frontend — entrega UI integrada e estados de erro; não inventa sucesso ou métricas.
+A07 UX/acessibilidade — entrega achados verificáveis de teclado/celular/clareza; não certifica WCAG sem auditoria.
+A08 LGPD/segurança — entrega matriz finalidade-dado-controle e ameaças; não chama pseudônimo de anônimo.
+A09 QA — entrega testes reais, falhas e regressão; não modifica evidência para esconder erro.
+A10 Entrega/pitch — entrega README, checklist, pacote e roteiro; não confunde roteiro com vídeo nem pacote local com submissão.
+
+AGENTES REGISTRADOS NO CICLO INICIAL E REVISÕES
+Coordenador principal: integração, pesquisa do regulamento, documentação, empacotamento e revisão no navegador.
+produto_evidencias: análise das referências, fontes, Canvas, backlog e evolução.
+privacidade_qa: análise de LGPD, diálogo com Produto, revisão de implementação e12 testes HTTP independentes.
+engenharia_mvp: backend, frontend, SQLite,9 testes de integração e README.
+revisao_entrega: comparação de requisitos, regulamento e código; revisão posterior de backlog, responsabilidades, versões e coerência entre planejamento e implementação.
+As referências a 9 testes de engenharia e 12 independentes pertencem à demonstração inicial. A revisão documental e o projeto de totens não transformam esses resultados em validação de hardware, produção ou da nova interface.
+Os dez perfis são configuração de trabalho reutilizável, não afirmação de dez processos simultâneos. A combinação de backend/frontend no agente de engenharia reduziu conflitos de arquivos nesta execução.
+
+DIÁLOGO E DECISÕES REGISTRADAS
+D01 Produto identificou que a planta não contém pesquisa/bibliografia. Coordenação separou evidência espacial de hipóteses e fontes externas.
+D02 Produto confirmou agenda/lojas existentes. Diferencial passou a ser ciclo de planejamento, participação e aprendizado com dados mínimos.
+D03 Privacidade questionou anonimato e prêmio associado à avaliação. Solução usa pseudônimos, evita marketing e adia resgate real.
+D04 Engenharia adotou Python/SQLite/JS para reprodução local. Mapa é conceitual2D; sem planta bruta ou áreas internas.
+D05 QA encontrou que expiração24h bloqueava direitos durante retenção30d. Engenharia corrigiu; acesso/exclusão permanecem disponíveis com token.12 testes independentes passaram.
+D06 Revisão final alinhou documentação ao aspecto obrigatório, aviso estático e retenção da sessão. A elegibilidade competitiva do código depende da orientação da organização sobre lançamento das missões.
+D07 A revisão de produto separou aspecto selecionado de diagnóstico: organização pode influenciar positiva ou negativamente. O cartão registra investigação ou ação humana com evidência e revisão; não infere causa.
+D08 A revisão 3.0 consolida equipe, RACI, Jira, Confluence e o vínculo B→Q. A nova direção de UI prevê hero em destaque, movimento reduzível e carregamento progressivo sem repetir eventos; verificação pendente da implementação.
+
+ONDAS PARA PRÓXIMAS ITERAÇÕES
+Onda1 A02+A03+A08: problema, fontes e privacidade. Saída: escopo e dados permitidos.
+Onda2 A04+A07: contratos e jornada. Saída: API e telas com estados.
+Onda3 A05+A06: implementação com arquivos separados. A01 integra.
+Onda4 A09+A08+A07: testes e revisão. Corrigir antes de ampliar escopo.
+Onda5 A10+A01: documentação, pitch, versão e checklist.
+Se houver limite de concorrência, executar por ondas menores; não simular agentes inexistentes.
+
+CRITÉRIO DE PRONTO POR FASE
+Missão 1: planejamento legível, requisitos/telas/Canvas/backlog rastreáveis, contratos propostos consistentes, equipe correta, fontes e IA declaradas. Não exige anexar código ou vídeo de fases seguintes.
+Missão 2, após liberação: código executável, fluxo principal, testes reais, correções e evidências ligadas à versão.
+Missão 3, após liberação: pacote final, repositório, instruções, documentação e vídeo exigido.
+Piloto físico: autorização, equipamento e isolamento de atendimento efetivamente testados. A liderança revisa canal, prazo e protocolo de cada etapa.
+
+VERSÃO DE REFERÊNCIA
+Planejamento e prompt: revisão 3.0 da Equipe Onix - 35. CONTRATOS_TOTENS.json possui versão independente e define o piloto proposto; não é o contrato da demo anterior. Robson deve registrar versões e regenerar hashes somente após consolidar e revisar todos os arquivos. O pacote da M1 não contém sistema/.
+
+PENDÊNCIAS HUMANAS
+Conferir grafia dos quatro nomes já informados e confirmar correspondência da Equipe Onix - 35 com a composição inscrita; confirmar prazo/canal vigente; revisar admissibilidade do código conforme item 5.2; publicar repositório e gravar vídeo quando a missão exigir; realizar submissão e guardar comprovante. Nenhum desses atos é presumido como concluído.

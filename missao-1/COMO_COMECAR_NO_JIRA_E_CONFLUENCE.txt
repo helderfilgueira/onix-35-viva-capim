@@ -1,0 +1,17 @@
+EQUIPE ONIX - 35 | JIRA E CONFLUENCE DO ZERO
+
+1. Crie o site do time no Jira Free:
+   https://www.atlassian.com/br/try/cloud/signup?bundle=jira-software&edition=free
+   Guarde a URL que a Atlassian gerar. Escolha o modelo Scrum e o nome Viva Capim | Equipe Onix - 35. Chave sugerida: ONIX35.
+
+2. Importe o backlog que já está pronto:
+   Kit_Jira_Confluence/Jira/01_Backlog_Importacao_Jira.csv
+   Jira: Configurações → Sistema → Importação de sistemas externos → CSV. Use vírgula e UTF-8. Confira 16 itens após importar. Robson liga dependências e atribui responsáveis.
+
+3. Adicione Confluence ao mesmo site:
+   https://www.atlassian.com/try/cloud/signup?bundle=confluence&edition=free
+   Entre com a mesma conta e escolha o site já criado, se oferecido. A página inicial está em Kit_Jira_Confluence/Confluence/01_Inicio.html. Abra no navegador, copie o conteúdo e anexe o PDF.
+
+4. Quando a página inicial estiver funcionando, adicione as demais páginas e o relatório da sprint. O passo a passo com campos do CSV, permissões e filtros está em Kit_Jira_Confluence/GUIA_JIRA_CONFLUENCE.md.
+
+Para ver o backlog antes de criar contas, abra Kit_Jira_Confluence/Jira/00_Visualizar_Backlog.html. Para enviar a Missão 1, use o PDF consolidado conforme o canal indicado pela organização.

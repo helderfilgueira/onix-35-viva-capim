@@ -1,0 +1,25 @@
+D01 | Jornada do visitante
+RF01 a RF05 e RF09 · B02 a B05 e B09
+A agenda permanece aberta quando a pessoa recusa a avaliação. Só a resposta confirmada encerra o envio como recebido.
+
+D02 | Arquitetura proposta
+RF01, RF02, RF05 a RF08 e RF11 · B02, B05 a B08 e B12
+Navegadores acessam origens separadas. O banco fica atrás da API; a identidade técnica do totem não autoriza gestão.
+
+D03 | Sessão e contingência do totem
+RF04, RF05 e RF08 · B04, B05 e B08
+A sessão é curta e descartável. A falha de rede preserva apenas consulta pública válida; o próximo atendimento começa limpo.
+
+D04 | Dados e privacidade
+RF03 a RF05, RF07 e RF08 · B03 a B05, B07 e B08
+A coleta começa após escolha informada. A gestão recebe agregados e o comprovante privado dá acesso somente ao próprio registro.
+
+D05 | Ciclo de trabalho da equipe
+B01, B11 e B13 a B16
+O Jira registra execução; o Confluence preserva decisões, planos, evidências e a ata de review.
+
+D06 | Planejamento e avaliação de eventos
+RF06, RF07 e RF10 · B06, B07 e B10
+O gestor publica após validar o intervalo e usa os resultados agregados para propor uma ação revisável.
+
+PNG: incorporar como imagem. SVG: manter como fonte editável. Produzidos em Python/SVG e renderizados com Sharp.

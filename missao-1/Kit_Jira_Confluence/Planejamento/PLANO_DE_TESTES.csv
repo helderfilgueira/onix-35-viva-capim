@@ -1,0 +1,11 @@
+﻿Caso;Tema;Aceite planejado
+Q01;Consulta e localização;"Busca/CTA funcionam; carga progressiva sem repetição, com fim e botão alternativo; erro claro."
+Q02;Validação e concorrência;"Notas fora de 1-5 falham; clique duplo/retry gera um registro; conflito de local testado em paralelo."
+Q03;Permissão e direitos;"Token/recibo A não acessa B; recusa não cria avaliação; exclusão verificada no armazenamento."
+Q04;Métricas e inferência;"Denominador zero vira sem base; recortes pequenos ocultos; lotes evitam consulta diferencial simples."
+Q05;Troca de visitante;Finalizar, voltar, recarregar e resposta tardia não revelam atendimento anterior.
+Q06;Tempo ajustável;"Aviso, continuar e ao menos dez extensões preservam formulário; relógio servidor prevalece."
+Q07;Rede, energia e identidade;"Timeout sem falso sucesso; boot limpo; dispositivo revogado falha; chave do equipamento fora do JavaScript."
+Q08;Acessibilidade digital;"Teclado, foco, contraste e ampliação; reduced-motion; CTA sem animação; alternativas a som/QR/mapa."
+Q09;Desempenho proposto;"Meta p95 da API < 1 s em ensaio com 10 clientes simultâneos por 5 min; registrar hardware, dados e erros."
+Q10;Operação física;Touch/alcance/brilho, tentativas de saída do quiosque, manutenção e restauração no equipamento real.
