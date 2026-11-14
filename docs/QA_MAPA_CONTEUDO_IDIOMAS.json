@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "en keeps active route, 2D view, category and search; translates store description/hours without renaming Vivara",
+    "es keeps active route, 2D view, category and search; translates store description/hours without renaming Vivara",
+    "pt-BR keeps active route, 2D view, category and search; translates store description/hours without renaming Vivara",
+    "Language changes issue no route requests",
+    "Facility name and description are localised in Spanish",
+    "3D floor and service filter survive language change, canvas labels refresh without JS errors",
+    "Sharing and idle dialogs use the selected language",
+    "Mobile Spanish preference and accessible search placeholder restored"
+  ],
+  "errors": []
+}

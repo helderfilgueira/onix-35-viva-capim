@@ -84,3 +84,14 @@ CI atual confirmado para o mesmo SHA: PostgreSQL **56 sem skips** e legado **66*
 - Revisão humana/aprovação do PR, teste com participantes e validação presencial da acessibilidade do shopping.
 
 Continuar com dados fictícios. O piloto sem OTP não comprova posse do telefone. Pontuação é igual para qualquer nota, resgate é assistido e nenhuma avaliação antiga gera crédito retroativo.
+
+
+## Mapa em PT / EN / ES · aplicação be2a340
+
+Botões no cabeçalho atualizam menus, categorias, informações de lojas, serviços, legendas 2D/3D e instruções entre pisos. Os 1.058 textos do catálogo têm versões EN/ES, cobrindo 1.674 ocorrências; 138 nomes comerciais foram preservados. Catálogos são servidos localmente, sem serviço externo de tradução em tempo de uso. Tradução assistida por Claude Opus 5.5, validação técnica independente; revisão por falantes nativos ainda não realizada.
+
+A troca mantém origem, destino, piso, visualização, busca, categoria e preferência acessível. Os testes compararam os segmentos desenhados antes/depois e verificaram ausência de nova requisição de rota. Não altera posições, geometria ou certeza dos acessos. Avaliações multilíngues usam o adapter do piloto Django; o formulário antigo do laboratório permanece separado. VLibras continua PT→Libras, com explicação EN/ES e ocultação do widget nesses idiomas sem perder a rota.
+
+QA local: [10 verificações de integração](QA_MAPA_IDIOMAS.json), [8 de conteúdo/estado/mobile](QA_MAPA_CONTEUDO_IDIOMAS.json), [5 de ciclo VLibras](QA_MAPA_LIBRAS_I18N_ISOLADO.json) e [cobertura do catálogo](QA_MAPA_CONTEUDO_I18N.json) aprovadas. Legado: 69 testes aprovados. Django local: 56 testes encontrados, 50 aprovados e seis ignorados por dependerem de PostgreSQL; resultado CI no banco alvo e publicação serão registrados abaixo.
+
+Publicação confirmada: `dpl_AMYG9nsriESMcnYnqdQ7hUKzuydp`, aplicação `be2a340`. CI PostgreSQL: 56 aprovados sem skips; legado: 69 aprovados. [Smoke publicado](VERCEL_MAPA_I18N.json) e [10 verificações de navegador na nuvem](QA_MAPA_IDIOMAS_CLOUD.json) passaram, incluindo tradução e preservação da rota acessível. Commits posteriores somente documentais.

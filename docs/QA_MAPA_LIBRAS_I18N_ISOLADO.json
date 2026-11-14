@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checks": [
+    "EN translated, activation disabled, shadow host hidden/inert even with display important",
+    "ES translated",
+    "PT restores native display and preserves map state",
+    "Late initialization in EN remains hidden/inert; dialog retained; activation disabled",
+    "Late-loaded widget restores when returning PT"
+  ],
+  "scope": "Isolated Playwright with mocked native shadow host; no external service requests or personal data"
+}

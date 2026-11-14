@@ -45,3 +45,17 @@ Pronto para execução: persona, resultado, aceite, dependências e dono definid
 Issues do piloto são diferentes das issues #1–#8, que registram o laboratório anterior. A lista e os links estão em [ISSUES_PILOTO.json](ISSUES_PILOTO.json). Nenhum milestone foi encerrado automaticamente.
 
 GitHub Projects não foi configurado: o token disponível não tem `read:project`. Não foi solicitado refresh de credenciais. Os quatro milestones e as issues organizam o trabalho enquanto o quadro não estiver disponível. Esse bloqueio não significa que o restante do repositório esteja bloqueado.
+
+## Incremento: mapa PT/EN/ES
+
+Prioridade: traduzir o conteúdo visível do mapa e as informações das lojas sem alterar a planta. Pesquisador mantém o catálogo local `laboratorio/static/map-content-i18n.json`; UX/Frontend integra interface e estados; Backend cobre instruções de percurso; QA confere cobertura, marcas e preservação da rota; DevOps publica somente após evidências.
+
+Critérios de aceite:
+
+- Interface, categorias, pisos, instalações, descrições, horários e fontes em PT/EN/ES; nomes comerciais e códigos preservados.
+- Nenhuma tradução automática externa em tempo de uso. Avisos de acesso não confirmado, geometrias inferidas e horários desconhecidos mantêm o mesmo sentido.
+- Trocar idioma mantém origem, destino, loja selecionada, preferência acessível e percurso ativo; não recalibra coordenadas nem inventa conexões.
+- VLibras continua somente em português, com opt-in e isolamento das páginas com dados pessoais.
+- Cobertura do catálogo e QA de interface/percurso são evidências distintas. Catálogo validado não comprova publicação nem revisão por tradutor humano.
+
+Baseline do conteúdo em 14/11/2026: 1.058 textos únicos por idioma, 1.674 ocorrências no payload de navegação e 138 nomes comerciais preservados. Tradução assistida por Claude Opus 5.5, seguida de validação independente de chaves e amostragem de avisos técnicos. A referência de cobertura está em `docs/QA_MAPA_CONTEUDO_I18N.json`; novos conteúdos exigem atualizar catálogo e cobertura.

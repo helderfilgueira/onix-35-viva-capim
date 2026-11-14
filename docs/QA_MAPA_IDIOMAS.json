@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:8879",
+  "checks": [
+    "PT EN ES menus and placeholders",
+    "active route retained without API recalculation",
+    "cross-floor directions translated",
+    "accessible preference preserved",
+    "store identity preserved",
+    "reviews translated",
+    "locale persists on navigation",
+    "VLibras PT-only explanation",
+    "mobile language controls"
+  ],
+  "errors": []
+}
