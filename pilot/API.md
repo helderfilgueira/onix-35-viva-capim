@@ -11,7 +11,7 @@ Base `/api/v2`; JSON. Todas as alterações, inclusive públicas, exigem cookie 
 
 ## Conteúdo e aprovação
 - `GET/POST /events`; POST `{organization_id?,title,description,location,starts,ends,translations?:{en:{title,description},es:{title,description}}}`. Datas ISO com fuso. GET inclui `{id,organization_id,title,description,location,starts,ends,status,translations}`.
-- `GET/POST /content`; POST `{organization_id?,kind:ad|campaign|easter_egg,title,description,starts,ends,translations?:{},theme?:string}`. Campanha/easter egg são experiências de três descobertas, sem pontos.
+- `GET/POST /content`; POST `{organization_id?,kind:ad|campaign|easter_egg,title,description,starts,ends,translations?:{},theme?:string}`. `campaign` (campanha temática) e `easter_egg` são experiências de três descobertas, sem pontos. A **campanha de interesse com 5 pontos** é outra coisa: um cartão `ad` com `reward_enabled`, creditado só no balcão (ver seção de cartões e campanhas).
 - `GET/POST /benefits`; POST `{organization_id?,title,description,points_cost:integer>=1,stock:integer>=0,translations?:{}}`.
 - `PATCH /events/<id>`, `/content/<id>`, `/benefits/<id>` campos de edição; edição por parceiro volta a pending.
 - `POST /events/<id>/approve`, `/content/<id>/approve`, `/benefits/<id>/approve` admin `{}`; `POST .../pause` admin ou parceiro próprio `{}`. Estados `pending`, `approved`, `paused`. Caixa não cria/edita.

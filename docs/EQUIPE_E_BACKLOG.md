@@ -58,7 +58,7 @@ Critérios de aceite:
 - VLibras continua PT→Libras, com opt-in e isolamento das páginas com dados pessoais; em EN/ES o widget é ocultado sem perder a rota.
 - Cobertura do catálogo e QA de interface/percurso são evidências distintas. Catálogo validado não comprova publicação nem revisão por tradutor humano.
 
-Baseline do conteúdo em 14/11/2026: 1.058 textos únicos por idioma, 1.674 ocorrências no payload de navegação e 138 nomes comerciais preservados. Tradução assistida por Claude Opus 5.5, seguida de validação independente de chaves e amostragem de avisos técnicos. A referência de cobertura está em `docs/QA_MAPA_CONTEUDO_I18N.json`; novos conteúdos exigem atualizar catálogo e cobertura.
+Baseline do conteúdo em 14/11/2026: 1.058 textos únicos por idioma, 1.674 ocorrências no payload de navegação e 138 nomes comerciais preservados. Tradução assistida por Claude Opus 5.5, seguida de validação independente de chaves e amostragem de avisos técnicos. A referência de cobertura está em `docs/evidencias/QA_MAPA_CONTEUDO_I18N.json`; novos conteúdos exigem atualizar catálogo e cobertura.
 
 ## Revisão PO/Scrum Master · 14/11/2026
 

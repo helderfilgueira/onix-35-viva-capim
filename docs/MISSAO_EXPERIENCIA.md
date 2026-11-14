@@ -1,6 +1,6 @@
 # Missão: experiência interativa, personagens, campanhas e agenda
 
-Status: **em implementação** na branch `feat/experiencia-interativa`, criada a partir de `feat/totem-mapa-primeiro`. Este documento registra a auditoria (Etapa 0), os contratos (Etapa 1) e as decisões tomadas. Nada aqui está publicado até constar em `EVIDENCIAS_PILOTO.md` com verificação real.
+Status: **na `main` (PR #20, merge `8dddd4e`) e publicado na Vercel** com a migração 0004 aplicada no build de produção (ver Evidências). Branch de origem: `feat/experiencia-interativa`. Este documento registra a auditoria (Etapa 0), os contratos (Etapa 1) e as decisões tomadas. Nada aqui está publicado até constar em `EVIDENCIAS_PILOTO.md` com verificação real.
 
 Agentes de IA auxiliam a equipe humana — Helder (frontend/liderança), Gabriel (backend), Luis (QA) e Robson (integração/operação) — e não registram aprovação em nome dela. Modelo usado: Claude Opus 5.5.
 

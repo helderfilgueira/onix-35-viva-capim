@@ -15,7 +15,7 @@ Analise:
 - Issues abertas: #1–#8 (laboratório anterior) e #10–#17 (piloto). Estão atualizadas, com labels, milestone, dependências, critérios e link para PR/commit/evidência? Alguma está obsoleta ou duplicada?
 - Milestones "Piloto 1..4": distribuição, progresso real, bloqueios externos (revisão humana, controlador de dados, backup, cron, totem).
 - Labels: faltam labels de área/estado (ex.: backend, frontend, qa, devops, bloqueado-externo, privacidade, i18n)? Proponha um conjunto pequeno.
-- PR #18 (Draft): descrição reflete o estado atual (último commit, CI, deploy be2a340, evidências)? O que falta para sair de Draft e quem precisa revisar (sem inventar handles GitHub).
+- PR #20 (mergeado na `main` em `8dddd4e`, incorpora o #18): revisão posterior pendente por Gabriel/Luis; PR #19 aguarda decisão humana (sem inventar handles GitHub).
 - Fluxo Backlog → Pronto → Em andamento → Revisão → QA → Concluído: GitHub Projects não está configurado por falta do escopo `read:project`; proponha como representar o fluxo com labels/milestones enquanto isso.
 - Branches: feat/laboratorio-mapa-3d e feat/dashboard-fidelidade versus main; riscos de integração.
 
