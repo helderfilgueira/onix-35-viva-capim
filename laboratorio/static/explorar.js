@@ -86,11 +86,13 @@ function share(){
  $('share-dialog').showModal();
 }
 function reset(){
+ const reloadForPrivacy=Boolean(document.getElementById('vlibras-script')||window.VLibrasWidget);
  window.dispatchEvent(new Event('viva:map-reset'));
  resetStoreReviewSession();mountStoreReviews(null,null);$('rate-selected').disabled=true;
  state.request++;state.selected=null;state.route=null;state.arrival=false;state.positionSource='manual';state.serviceFilter=null;document.querySelectorAll('[data-service-filter]').forEach(b=>b.setAttribute('aria-pressed','false'));state.limit=8;state.lastActivity=Date.now();state.idleStart=null;document.body.classList.remove('arrival-mode');$('search').value='';$('category').value='';$('accessible').checked=false;$('origin').selectedIndex=0;state.scene?.setRoute([]);state.scene?.selectStore(null);changeFloor(state.data.floors[0].id);updatePosition();renderList();
  $('destination').innerHTML='<div class="empty-detail"><span aria-hidden="true">↗</span><div><p class="eyebrow">UM NOVO COMEÇO</p><h2>Escolha seu próximo destino.</h2><p>O atendimento anterior foi limpo deste mapa.</p></div></div>';
  for(const dialog of [$('share-dialog'),$('idle-dialog')])if(dialog.open)dialog.close();$('qrcode').replaceChildren();$('share-url').value='';history.replaceState(null,'','/explorar.html');window.speechSynthesis?.cancel();status('Mapa reiniciado. Nenhum registro de avaliação foi apagado.');
+ if(reloadForPrivacy)location.reload();
 }
 function activity(){if(!$('idle-dialog').open)state.lastActivity=Date.now();}
 ['pointerdown','keydown'].forEach(name=>document.addEventListener(name,activity,{passive:true}));

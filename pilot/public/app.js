@@ -30,7 +30,7 @@ function bindLibras(){
   if(!$('libras-consent').checked||locale!=='pt-BR')return;
   button.disabled=true;say(t('loading'),false,'libras-status');
   script=$('vlibras-script');let finished=false;
-  const fail=(networkError=false)=>{if(finished)return;finished=true;clearInterval(timer);if(!current())return;if(networkError&&script)script.remove();say(t('librasFailed'),true,dialog.open?'libras-status':'global-status');button.disabled=false;};
+  const fail=(networkError=false)=>{if(networkError&&script){script.dataset.failed='true';script.remove();}if(finished)return;finished=true;clearInterval(timer);if(!current())return;say(t('librasFailed'),true,dialog.open?'libras-status':'global-status');button.disabled=false;};
   const ready=()=>{if(!current()){librasCleanup();return true;}const native=window.VLibrasWidget?.initBtn||$('vlibras-button');if(!native||typeof native.focus!=='function')return false;finished=true;clearInterval(timer);observer?.disconnect();launcher.hidden=true;if(dialog.open){opener=native;dialog.close();native.focus();}say(t('librasLoaded'),false,'global-status');return true;};
   if(ready())return;
   observer?.disconnect();observer=new MutationObserver(()=>ready());observer.observe(document.body,{childList:true,subtree:true});
