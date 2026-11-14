@@ -17,7 +17,7 @@ Navegação no shopping, eventos, avaliações e fidelidade. Este repositório c
 
 ## Hospedagem escolhida
 
-Vercel + Supabase PostgreSQL, mantendo Django. O provisionamento depende da liberação autorizada de quota gratuita no Supabase; nenhum projeto existente foi modificado. Veja [estado e roteiro de deploy](docs/DEPLOY_SUPABASE_VERCEL.md). Docker permanece opção portável.
+Vercel + Supabase PostgreSQL, mantendo Django. O projeto Supabase `onix35-viva-capim` foi criado no plano gratuito, na região São Paulo, após liberação de vaga explicitamente autorizada pelo usuário. Migrações e seed remoto concluídos; 22 tabelas verificadas com RLS e leitura direta negada a anon/authenticated. CI: 45 testes PostgreSQL e 65 de regressão aprovados. Publicação Vercel permanece pendente; consulte as [evidências](docs/EVIDENCIAS_PILOTO.md). Veja [estado e roteiro de deploy](docs/DEPLOY_SUPABASE_VERCEL.md). Docker permanece opção portável.
 
 ## Equipe humana
 

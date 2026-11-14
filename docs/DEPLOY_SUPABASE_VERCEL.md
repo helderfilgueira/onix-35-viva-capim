@@ -4,11 +4,11 @@
 
 Escolha explícita do usuário em 14/11/2026. Usar Django no suporte nativo da Vercel; a documentação oficial indica Vercel CLI 50.38.0 ou superior. Preservar o laboratório e servir seus assets/rotas pela integração do piloto. Docker continua alternativa portável; Render/Neon não são o destino selecionado.
 
-A organização Supabase foi identificada e a criação gratuita autorizada, mas a ferramenta informou limite de dois projetos gratuitos ativos. Nenhum projeto existente foi pausado, alterado ou removido. A decisão sobre liberar vaga está pendente do usuário. Não publicar identificadores, nomes de projetos alheios, credenciais ou URLs de conexão neste registro público. Não declarar URL do Viva Capim funcionando antes do deploy verificado.
+O usuário autorizou explicitamente a pausa de outro projeto para liberar uma vaga gratuita. A pausa e a criação do Supabase `onix35-viva-capim` foram concluídas; o novo projeto está em São Paulo e retornou `ACTIVE_HEALTHY`. Conexão, migrações e seed remoto de demonstração concluídos. As 22 tabelas verificadas pertencem a `onix_django`, têm RLS habilitada e `SELECT` negado a `anon`/`authenticated`. Security Advisors retornou apenas INFO `rls_enabled_no_policy`, intencional para acesso exclusivo pelo backend; nenhum WARNING/ERROR nessa verificação. Consulte [evidências](EVIDENCIAS_PILOTO.md). A publicação Vercel permanece pendente. Não publicar nomes/dados do outro projeto, credenciais ou URLs de conexão neste registro público. Não declarar URL do Viva Capim funcionando antes do deploy verificado.
 
 ## Configuração do banco
 
-Criar projeto isolado somente quando houver vaga autorizada. Copiar a conexão do pooler transacional disponibilizada pelo Supabase; não inferir hostname pelo nome da região. `DATABASE_URL` e senha ficam no ambiente do backend. Não usar chaves Supabase no navegador, nem adicionar SDK cliente ou Supabase Auth para este fluxo.
+O projeto isolado já foi criado. Copiar a conexão do pooler transacional disponibilizada pelo Supabase; não inferir hostname pelo nome da região. `DATABASE_URL` e senha ficam no ambiente do backend. Não usar chaves Supabase no navegador, nem adicionar SDK cliente ou Supabase Auth para este fluxo.
 
 O driver deve desativar prepared statements incompatíveis com o pooler transacional e não depender de cursores/estado de sessão entre transações. SSL obrigatório. Executar migrações em etapa operacional controlada, nunca a cada requisição. Testar créditos/resgates concorrentes no PostgreSQL de destino.
 

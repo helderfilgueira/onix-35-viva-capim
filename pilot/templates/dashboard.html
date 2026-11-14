@@ -1,0 +1,123 @@
+{% load static %}<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="same-origin">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#173b2d">
+  <title>Painel Viva Capim</title>
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+  <script src="{% static 'dashboard/i18n.js' %}" defer></script>
+  <script src="{% static 'dashboard/dashboard.js' %}" defer></script>
+</head>
+<body class="is-booting">
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Pular para o conteúdo</a>
+
+  <noscript>
+    <div class="noscript">Este painel precisa de JavaScript habilitado. / This dashboard requires JavaScript. / Este panel requiere JavaScript.</div>
+  </noscript>
+
+  <!-- Boot / loading -->
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <span class="spinner" aria-hidden="true"></span>
+    <span data-i18n="state.loadingSession">Verificando sessão…</span>
+  </div>
+
+  <!-- Login view -->
+  <div class="login-view" id="login-view" hidden>
+    <div class="login-top">
+      <a class="brand brand--dark" href="/dashboard/">
+        <span class="brand-mark" aria-hidden="true">VC</span>
+        <span class="brand-text"><strong>Viva Capim</strong><span data-i18n="brand.dashboard">Painel</span></span>
+      </a>
+      <label class="lang-picker">
+        <span class="visually-hidden" data-i18n="lang.label">Idioma</span>
+        <select class="lang-select" data-lang-select>
+          <option value="pt-BR">Português</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </label>
+    </div>
+    <main class="login-main" id="login-main">
+      <section class="login-card" aria-labelledby="login-title">
+        <h1 id="login-title" data-i18n="login.title">Acesso da equipe</h1>
+        <p class="muted" data-i18n="login.lead">Entre com seu usuário individual do shopping, da loja ou do balcão.</p>
+        <div class="alert alert--error" id="login-error" role="alert" hidden></div>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="login-username" data-i18n="login.username">Usuário</label>
+            <input id="login-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="150" aria-describedby="login-username-err">
+            <p class="field-error" id="login-username-err" hidden></p>
+          </div>
+          <div class="field">
+            <label for="login-password" data-i18n="login.password">Senha</label>
+            <div class="password-row">
+              <input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="128" aria-describedby="login-password-err">
+              <button type="button" class="btn btn--ghost" id="login-toggle-pw" aria-pressed="false" aria-controls="login-password" data-i18n="login.showPassword">Mostrar</button>
+            </div>
+            <p class="field-error" id="login-password-err" hidden></p>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block" id="login-submit" data-i18n="login.submit">Entrar</button>
+        </form>
+        <p class="login-note" data-i18n="login.note">Cada pessoa usa seu próprio acesso. Não compartilhe a senha. Esqueceu? Peça ao administrador do shopping.</p>
+        <hr>
+        <p class="login-note"><span data-i18n="login.visitor">Visitante? Não é preciso entrar.</span>
+          <a href="/participar/" data-i18n="login.visitorLink">Ver eventos e participar</a> ·
+          <a href="/explorar.html" data-i18n="nav.map">Mapa do shopping</a></p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Application view -->
+  <div class="app" id="app-view" hidden>
+    <header class="topbar">
+      <button type="button" class="btn btn--icon topbar-menu" id="menu-toggle" aria-controls="sidebar" aria-expanded="false">
+        <span class="hamburger" aria-hidden="true"></span>
+        <span class="visually-hidden" data-i18n="nav.openMenu">Abrir menu</span>
+      </button>
+      <a class="brand" href="#/">
+        <span class="brand-mark" aria-hidden="true">VC</span>
+        <span class="brand-text"><strong>Viva Capim</strong><span data-i18n="brand.dashboard">Painel</span></span>
+      </a>
+      <div class="topbar-actions">
+        <a class="btn btn--ghost-light topbar-map" href="/explorar.html" data-i18n="nav.map">Mapa do shopping</a>
+        <label class="lang-picker">
+          <span class="visually-hidden" data-i18n="lang.label">Idioma</span>
+          <select class="lang-select lang-select--dark" data-lang-select>
+            <option value="pt-BR">Português</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav class="sidebar" id="sidebar" aria-labelledby="sidebar-title">
+        <h2 class="visually-hidden" id="sidebar-title" data-i18n="nav.title">Navegação do painel</h2>
+        <div class="sidebar-user" id="sidebar-user"></div>
+        <div id="nav-groups"></div>
+        <div class="sidebar-foot">
+          <a class="sidebar-link" href="/explorar.html">
+            <span class="nav-icon" aria-hidden="true" data-icon="map"></span><span data-i18n="nav.map">Mapa do shopping</span>
+          </a>
+          <button type="button" class="sidebar-link sidebar-logout" id="logout-btn">
+            <span class="nav-icon" aria-hidden="true" data-icon="logout"></span><span data-i18n="nav.logout">Sair</span>
+          </button>
+        </div>
+      </nav>
+      <div class="scrim" id="scrim" hidden></div>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="main-inner" id="view" aria-live="off"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+  <div class="visually-hidden" id="announcer" aria-live="assertive" aria-atomic="true"></div>
+</body>
+</html>

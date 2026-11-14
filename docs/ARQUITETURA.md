@@ -27,7 +27,7 @@ Carteira global não significa acesso global ao cadastro: parceiro recebe soment
 
 Desenvolvimento local pode usar banco local conforme configuração do módulo; o piloto na internet usa PostgreSQL do Supabase, acessado somente pelo backend. Não extrapolar teste SQLite para garantir concorrência PostgreSQL. Sessões, CSRF, hashes de senha, migrações e permissões usam recursos do Django; escopo por organização deve ser aplicado explicitamente em cada consulta e mutação.
 
-O deploy escolhido usa suporte nativo Django na Vercel e Supabase PostgreSQL. Docker fica disponível como alternativa portável, não como substituição automática. Contas, serviços e endereço publicado são estados externos a confirmar. Segredos ficam no ambiente, sem defaults de produção. O servidor `runserver` é somente local. `laboratorio/` e a Missão 1 permanecem executáveis e preservados separadamente.
+O deploy escolhido usa suporte nativo Django na Vercel e Supabase PostgreSQL. Docker fica disponível como alternativa portável, não como substituição automática. O projeto Supabase já foi criado; conexão, migrações e seed foram concluídos, com 22 tabelas/RLS verificadas e leitura direta negada a anon/authenticated. Veja [evidências](EVIDENCIAS_PILOTO.md). A publicação e o endereço Vercel ainda precisam de confirmação. Segredos ficam no ambiente, sem defaults de produção. O servidor `runserver` é somente local. `laboratorio/` e a Missão 1 permanecem executáveis e preservados separadamente.
 
 ## Consequências
 
@@ -41,4 +41,4 @@ Ativar RLS nas tabelas expostas e negar acesso direto dos papéis públicos/usu�
 
 Retenção diária usa Vercel Cron e rota autenticada por segredo de cron. Ter `vercel.json` não prova execução agendada: verificar autenticação, rejeição de chamadas sem segredo e primeiro disparo real. Migrações são operação controlada antes da publicação, não por requisição web.
 
-A documentação oficial informa suporte Django pela Vercel CLI a partir de 50.38.0. Detalhes, fontes e bloqueio de quota estão em [deploy](DEPLOY_SUPABASE_VERCEL.md).
+A documentação oficial informa suporte Django pela Vercel CLI a partir de 50.38.0. Detalhes, fontes e estado do provisionamento estão em [deploy](DEPLOY_SUPABASE_VERCEL.md).

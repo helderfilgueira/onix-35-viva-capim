@@ -17,7 +17,7 @@ A fonte Planalto tentou redirecionar para desafio de acesso nesta consulta; foi 
 
 Dashboard por papel e organização; autenticação no servidor; benefício por participação sem depender da nota; carteira global com lançamentos auditáveis; dados de avaliação separados do cadastro; missão sazonal com três descobertas sem pontos; alternativa acessível à interação 3D. São decisões do projeto, não recomendações atribuídas literalmente às fontes.
 
-O usuário escolheu Vercel + Supabase; Docker permanece alternativa portável. Limites comerciais, suspensão, disponibilidade regional e retenção de backups precisam de verificação no provisionamento; este documento não fixa valores nem afirma que as contas já foram criadas.
+O usuário escolheu Vercel + Supabase; Docker permanece alternativa portável. Limites comerciais, suspensão, disponibilidade regional e retenção de backups precisam de verificação no provisionamento; este documento não fixa valores comerciais. O estado operacional confirmado é registrado separadamente no roteiro de deploy.
 
 ## Fontes da hospedagem escolhida
 
