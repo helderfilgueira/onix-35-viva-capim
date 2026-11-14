@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "url": "https://onix35-viva-capim.vercel.app",
+  "deployment": "https://onix35-viva-capim-84b8ep4jw-helder-filgueiras-projects.vercel.app",
+  "deployment_id": "dpl_AMYG9nsriESMcnYnqdQ7hUKzuydp",
+  "source_revision": "be2a3401e84faa8ade24702f68dd51b53254328c",
+  "target": "production",
+  "public_access_verified": true,
+  "verified_at": "2026-11-14T05:07:05.690881+00:00",
+  "checks": [
+    {
+      "path": "/map-i18n.js",
+      "status": 200
+    },
+    {
+      "path": "/api/v2/health",
+      "status": 200
+    },
+    {
+      "path": "/explorar.html",
+      "status": 200
+    },
+    {
+      "path": "/vlibras-accessibility.js",
+      "status": 200
+    },
+    {
+      "path": "/map-content-i18n.json",
+      "status": 200
+    },
+    {
+      "path": "/api/navigation",
+      "status": 200
+    },
+    {
+      "path": "/api/routes",
+      "status": 200
+    }
+  ],
+  "translations": {
+    "en": 1058,
+    "es": 1058
+  },
+  "map_language_buttons": true,
+  "structured_route_tokens": true,
+  "accessible_route_no_stairs": true,
+  "libras_locale_listener": true,
+  "scope": "HTTP artifacts/API smoke; interactive behavior covered separately by browser QA."
+}

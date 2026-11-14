@@ -1,0 +1,33 @@
+ADR-001 | Evolução incremental do Viva Capim
+Data: 13/11/2026. Estado: adotada para implementação demonstrativa.
+Responsáveis humanos: Helder Filgueira (liderança/frontend), Gabriel Schimit (backend).
+
+CONTEXTO
+A demo existente usa Python, SQLite e HTML/CSS/JavaScript, com fluxos de evento e privacidade. O pedido acrescenta shopping 3D, navegação e QR. Migrar toda a stack agora amplia risco sem evidência de necessidade.
+
+DECISÃO
+Preservar backend e frontend existentes. Adicionar navegação em módulo Python separado e experiência web independente, integradas por endpoints. Usar Three.js distribuído localmente para não depender de CDN durante execução. Gerar QR localmente. Manter versão e licença das dependências no pacote, sem misturar código de fornecedor com código próprio.
+Separar catálogo, grafo de circulação e malha visual. O grafo é a autoridade para percurso; a geometria apenas representa o resultado. Dijkstra é suficiente para o grafo demonstrativo e facilita testes; não usar uma reta entre centros de lojas como rota.
+Fallback SVG/lista deve continuar útil se WebGL falhar. Navegação pública não exige sessão, consentimento de participação ou nome. O 3D não introduz rastreadores.
+
+CONTRATO DO INCREMENTO
+GET /api/navigation → {version,stores,nodes,edges,anchors,floors,places}.
+Store: id,name,category,floor_id,node_id,x,z,width,depth,color,description,website,phone,hours,review_count. Valores reais desconhecidos ficam nulos/indisponíveis.
+Node: id,x,z,y,floor_id. Edge: from,to,distance,kind,accessible. Anchor: id,node_id,label. Place: id,name,node_id,floor_id,event_location.
+POST /api/routes recebe {origin,destination,accessible,map_version}; origin/destination são node_id. Responde {version,path,distance,instructions}. Tipos, IDs e versão precisam ser validados antes de calcular.
+Dois pisos demonstrativos: f0/f1, alturas y=0/9; unidades em metros do modelo fictício, sem alegar calibração do shopping. Corredores z=0; portas z=±5; lojas ao redor. Escada e elevador são arestas de mudança de piso com semântica diferente.
+Evento.location liga-se a place.event_location para Praça A/B/C. Não inferir vínculo pelo nome de loja nem duplicar nota de evento como avaliação comercial.
+
+ERROS E CONSISTÊNCIA
+Origem/destino inválido → erro explícito. Versão divergente → pedir atualização. Grafo desconexo → nenhuma rota, nunca atravessar parede. Perfil acessível → excluir escadas, sem afirmar que todos os atributos de acessibilidade física foram auditados. Resultados assincrônicos antigos não podem sobrescrever seleção nova.
+
+ALTERNATIVAS
+React/TypeScript: útil em crescimento posterior, mas não é condição para o módulo atual; exigiria migração justificada e testes de regressão.
+SDK comercial de indoor mapping: oferece recursos avançados, mas exige verificar licenciamento, custo, levantamento e compatibilidade. Não assumir conta/serviço disponível.
+Planta técnica bruta em tela: rejeitada; inclui informação interna e não resolve grafo, acessibilidade e atualização de lojas.
+
+CONSEQUÊNCIAS
+Menor custo de integração e preservação da baseline; dependências gráficas acrescentam tamanho e manutenção. Modelo procedural demonstra interação, mas não substitui modelagem a partir de planta autorizada, fonte Blender e validação física. Produção exige arquitetura própria, HTTPS, operação e observabilidade; HTTPServer local continua demonstração.
+
+FERRAMENTAS DE PROTOTIPAÇÃO
+HTML/CSS/JavaScript executável para UI; Three.js para visual 3D; SVG para alternativa/diagramas. Não declarar Figma, Blender ou outro software utilizado sem artefato correspondente. GLB/Blender permanece proposta caso não exista exportação entregue.

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checks": [
+    "UI create+approve events",
+    "UI create+approve benefits",
+    "UI create+approve ad",
+    "UI create+approve campaign",
+    "UI edit benefit resets approval; explicit reapproval",
+    "UI pause and reapprove event",
+    "UI public registration + admin activation",
+    "UI two star review + 10 points + counter redemption",
+    "UI reversal",
+    "UI ledger + close with explicit balance waiver",
+    "approved uploaded ad image and campaign visible in public catalog"
+  ],
+  "errors": [],
+  "http": [],
+  "fixturePrefix": "QAUX 739795",
+  "note": "Flow resumed after correcting a QA wait for the asynchronously loaded ledger; no product failure."
+}

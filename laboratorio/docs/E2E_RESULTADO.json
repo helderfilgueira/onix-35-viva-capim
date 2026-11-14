@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-13",
+  "environment": "Chrome headless Windows, SwiftShader; 1440x1100 e 390x844; loopback 8877",
+  "checks": [
+    "Catálogo e WebGL 3D carregados sem cadastro",
+    "Busca sem acento e detalhes de loja",
+    "Percurso integrado ao backend",
+    "QR real, URL pública e limitação loopback explícita",
+    "Reset remove busca, seleção e percurso",
+    "Percurso entre pavimentos sem escadas",
+    "Alternativa 2D e troca de pavimento",
+    "Redução de movimento",
+    "QR recebido exige confirmação antes de calcular",
+    "Evento legado abre praça no mapa novo",
+    "Link de privacidade abre tela correta",
+    "Celular 390px sem overflow e rota funcional",
+    "Sem WebGL mantém catálogo e rota em 2D",
+    "Inatividade encerra inclusive compartilhamento aberto",
+    "Sem exceções JS no fluxo desktop"
+  ],
+  "errors": [],
+  "limits": "Não mede hardware de totem, piloto físico nem acesso externo celular"
+}

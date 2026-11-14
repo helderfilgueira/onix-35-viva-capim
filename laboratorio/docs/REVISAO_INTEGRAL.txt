@@ -1,0 +1,43 @@
+ETAPA ANTERIOR À INCLUSÃO DA INFRAESTRUTURA. Consulte SERVICOS_PLANTA.txt para o estado atual.
+
+EQUIPE ONIX - 35 | VIVA CAPIM
+REVISÃO INTEGRAL DA PLANTA — 13/11/2026
+
+CORREÇÃO EFETIVA
+A primeira extração estava incompleta: ignorava camadas CAD, quiosques e detalhes da página 1. Também não fechava caminhos closePath e apagava lojas pequenas ao colidirem com âncoras aproximadas.
+
+Antes: 158 unidades, 82 contornos, 77 destinos com percurso inferido.
+Agora: 211 unidades, 208 contornos, 196 destinos com percurso inferido.
+Foram incorporados 50 quiosques do térreo e 4 estabelecimentos dos detalhes de outros pisos; recuperados 73 contornos de lojas e corrigidos 7 contornos existentes. Uma duplicata exata de LOJA 90 foi removida. Os dois Q30 são operações distintas e foram preservados. Foram revisadas 71 associações entre nome comercial e lote, usando a planta.
+
+REPRESENTAÇÃO
+Quiosques têm balcões baixos e letreiros, sem paredes de loja fechada. Contornos e posições vêm do documento; interiores e fachadas continuam ilustrativos. Escalas estimadas pelas áreas rotuladas. Pisos auxiliares aparecem em vistas independentes porque o alinhamento e os acessos verticais não foram confirmados. A base visual da maquete não é levantamento estrutural.
+
+VALIDAÇÃO
+45 testes Python aprovados. Nenhuma sobreposição entre contornos maior que 0,3 m². Percursos recalculados para evitar os novos volumes. Testes de interface e capturas em QA_REVISAO_INTEGRAL.json e revisao-*.png. Assistência: agentes Codex e Claude Opus 5.5 na representação dos quiosques. Sem uso de outro modelo Claude.
+
+ACESSOS EXTERNOS E VIVARA
+Outback e Madero têm acesso externo conforme confirmação da equipe. Entrada interna removida; trajeto externo não inventado. Vivara destacada como LOJA 29 com logo verificada no cadastro oficial do shopping.
+
+LIMITES QUE CONTINUAM VISÍVEIS
+Três unidades permanecem como marcadores: as duas LOJA 81 (área Polícia Federal/Detran) e Chopp Brahma. O desenho não determina suas divisões exclusivas com segurança. Quinze unidades não têm percurso disponível; relação abaixo. Não existe localização indoor em tempo real nem conexão entre pisos validada. Google Earth não foi usado para alegar precisão. Nomes são transcritos da planta, não confirmação atual de operação. Logos só aparecem onde há arquivo e fonte verificados.
+
+UNIDADES SEM PERCURSO
+- Piticas | LOJA 130 | f0 | contorno presente
+- Puket | LOJA 52 | f0 | contorno presente
+- Loja 81 | LOJA 81 | f0 | contorno pendente
+- Loja 81 | LOJA 81 | f0 | contorno pendente
+- Colégio Interação | LOJA 53A | f0 | contorno presente
+- BIG | LOJA PC 001C | f0 | contorno presente
+- Wow Park | LOJA PC01B | f0 | contorno presente
+- MoroFit | LOJA PC01A | f0 | contorno presente
+- Outback | LOJA 32 | f0 | contorno presente
+- Madero | EXT 01 | f0 | contorno presente
+- Chopp Brahma | Q 2B | f0 | contorno pendente
+- Maria Express | QSUB1 | inset-subsolo1 | contorno presente
+- Colégio Interação | A 8 | inset-a8 | contorno presente
+- Unicesumar | LOJA L202 | inset-l2 | contorno presente
+- IOA | LOJA L2 | inset-l2 | contorno presente
+
+EVIDÊNCIAS
+REVISAO_INTEGRAL.json, FONTES_GEOMETRIA_REVISAO.json, FONTES_QUIOSQUES_INSETS.json e NOMES_CONFERIDOS_PLANTA.json. As imagens da planta bruta permanecem privadas. AUDITORIA_REALIDADE.txt e outros relatórios anteriores são históricos, não o estado atual.

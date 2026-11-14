@@ -1,0 +1,67 @@
+EQUIPE ONIX - 35 | VIVA CAPIM
+API DE AVALIAÇÕES DE LOJAS — store-review-v1
+
+FINALIDADE E LIMITES
+Registrar uma avaliação voluntária de 1 a 5 estrelas para uma loja do catálogo, com um aspecto predefinido. São avaliações locais desta demonstração, não avaliações do Google e não prova de visita física. Não coletar nome, CPF, telefone, e-mail, localização, foto ou texto livre.
+Uma resposta por sessão e loja. Sessões não representam pessoas únicas; não existe garantia de resistência a múltiplas sessões. A supressão de amostras pequenas reduz exposição, mas não garante anonimização. Este servidor continua exclusivamente local.
+
+SESSÃO ESPECÍFICA
+POST /api/session
+Content-Type: application/json
+Corpo: {"consent":true,"notice":"store-review-v1"}
+Resposta 201: {"token":"...","expires_in":86400,"notice":"store-review-v1"}
+A interface deve obter um aceite voluntário e específico antes de criar essa sessão. Recomenda-se armazenar o token em sessionStorage com a chave viva-store-session, separada de viva-session dos eventos. O servidor armazena somente o hash do token.
+
+CONSENTIMENTO EM SESSÃO DE EVENTOS EXISTENTE — OPCIONAL
+POST /api/store-consent
+Header: X-Session-Token: token da sessão
+Corpo: {"consent":true,"notice":"store-review-v1"}
+Resposta 200: {"consented":true,"notice":"store-review-v1"}
+Um token criado para eventos não autoriza avaliações de lojas sem esse aceite separado. Um token criado apenas para lojas não autoriza check-in ou avaliação de eventos. Os eventos existentes continuam usando demo-v1.
+
+CONFIRMAÇÃO AUTODECLARADA
+POST /api/store-checkins
+Header: X-Session-Token: token
+Corpo: {"store_id":"f0-loja-29","visited":true}
+Resposta 201: {"checked_in":true,"store_id":"f0-loja-29","self_reported":true}
+O campo visited deve ser exatamente true. A interface precisa informar que esta confirmação é uma declaração do visitante e não comprova presença física. Uma segunda confirmação para a mesma sessão e loja retorna 409; a confirmação anterior permanece válida.
+
+ENVIO DAS ESTRELAS
+POST /api/store-reviews
+Header: X-Session-Token: token
+Corpo: {"store_id":"f0-loja-29","score":5,"reason":"atendimento"}
+score deve ser um inteiro entre 1 e 5; booleanos, decimais e números em texto são rejeitados.
+reason aceita somente atendimento, produtos, ambiente, acessibilidade ou outro.
+Resposta 201: {"receipt":"...","store_id":"f0-loja-29","message":"Avaliação registrada nesta demonstração. Obrigado pela participação voluntária."}
+O recibo pertence à sessão autenticada e não é publicado no agregado. Não há edição por sobrescrita: nova resposta para a mesma sessão e loja retorna 409. A exclusão da sessão remove seus registros.
+
+NOTA AGREGADA PÚBLICA
+GET /api/store-ratings?store_id=f0-loja-29
+Dispensa sessão e consentimento; consultar não cria registros de visitante.
+Resposta 200 com menos de cinco sessões avaliadoras:
+{"store_id":"f0-loja-29","average":null,"count":null,"status":"amostra_insuficiente","threshold":5,"demo":true,"source":"local_demo",...}
+Com cinco ou mais sessões, average contém a média arredondada a duas casas, count contém a quantidade e status é disponivel. Não converter valores null em zero estrelas, não inferir contagem e não fabricar avaliações iniciais.
+Somente a consulta por store_id é aceita. Não há filtros por perfil ou horário. Nenhum token, identificador de sessão, recibo, horário ou registro individual aparece na resposta pública.
+
+EXPORTAÇÃO, EXCLUSÃO E RETENÇÃO
+GET /api/me, com X-Session-Token, inclui store_consents, store_checkins e store_reviews, além das coleções de eventos já existentes. Cada sessão só acessa seus próprios registros.
+DELETE /api/me exclui a sessão e todos os registros relacionados por chaves estrangeiras com exclusão em cascata. Também permite retirar a participação voluntária.
+A autorização para novos envios expira em 24 horas. Exportação e exclusão continuam disponíveis enquanto o token for mantido e os registros estiverem dentro da retenção.
+As sessões e todos os seus registros são eliminados após 30 dias contados da criação da sessão, na próxima requisição ao servidor. Assim, a retenção de um registro pode ser menor que 30 dias. O protótipo não cria backups.
+
+VALIDAÇÃO E ERROS
+400: aceite ausente ou inválido, nota/aspecto inválido, confirmação ausente ou campos extras.
+401: token inválido, sessão encerrada ou autorização expirada para novos envios.
+403: finalidade não autorizada ou origem/host não permitido.
+404: loja desconhecida ou alvo que é infraestrutura/área ocupada, não loja.
+409: avaliação sem confirmação prévia, confirmação duplicada ou avaliação duplicada.
+Campos extras são rejeitados para impedir envio acidental de dados pessoais. IDs são conferidos no catálogo atual; sanitários, elevadores, escadas e estruturas não são alvos de avaliação de loja.
+
+PERSISTÊNCIA E MIGRAÇÃO
+Novas tabelas: store_consents, store_checkins e store_reviews. CREATE TABLE IF NOT EXISTS preserva bases locais existentes. Não foram alteradas ou apagadas tabelas de eventos. As consultas utilizam parâmetros SQL; o servidor não registra IP, token ou corpos das requisições.
+Os arquivos estáticos /store-reviews.js e /store-reviews.css são permitidos na whitelist do servidor. A interface é mantida pelo coordenador e não faz parte da implementação deste agente.
+
+TESTES
+Executar em outputs/sistema:
+python -m unittest -v test_store_reviews test_server test_privacy
+Os testes novos cobrem finalidade separada, visita autodeclarada, pontuação e motivos, bloqueio de dados extras, validação do catálogo, duplicatas, isolamento de sessões, exportação, exclusão, retenção, limiar de cinco avaliações e recalculo após exclusão.

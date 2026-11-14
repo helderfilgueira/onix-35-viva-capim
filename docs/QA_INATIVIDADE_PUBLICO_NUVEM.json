@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "name": "/participar/ five minutes without automatic modal, navigation or clearing",
+      "passed": true
+    },
+    {
+      "name": "/participar/ manual end still works",
+      "passed": true
+    },
+    {
+      "name": "/participar/cadastro/ five minutes without automatic modal, navigation or clearing",
+      "passed": true
+    },
+    {
+      "name": "/participar/cadastro/ manual end still works",
+      "passed": true
+    },
+    {
+      "name": "/participar/avaliar/ five minutes without automatic modal, navigation or clearing",
+      "passed": true
+    },
+    {
+      "name": "/participar/avaliar/ manual end still works",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

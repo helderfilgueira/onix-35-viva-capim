@@ -1,0 +1,39 @@
+Claude facilities report - map-plan3d.js (2026-11-13)
+Agent: Claude Opus 5.5 (claude-opus-5-5). No subagents and no other model were used.
+Scope: edited ONLY outputs/sistema/static/map-plan3d.js. No data, backend, test or deployment changes. Raw source plan not read, copied or published.
+
+WHAT CHANGED
+1. buildStore routing: entries with unit_type === 'facility' are handled before the ordinary retail path.
+   - If there is no polygon (fewer than 3 points), the facility becomes the existing honest pin with the label "<name> · conferir". No polygon is invented.
+   - If there is a polygon, buildFacility() runs. If it rejects the polygon (area <= 0.2 or self-intersecting), the facility becomes a pin. It never falls through to a retail shell.
+   - Stores and kiosks keep their existing code paths unchanged.
+2. buildFacility(s, f, g, poly, inst, signs), using service_type:
+   - All service types: a 0.06 footprint marker extruded from the actual polygon. No facade, glazing, canopy, roof units, parapet or interior fittings.
+   - toilet / accessible_toilet / family_room ("room" form): a low (1.15) neutral-blue block from the polygon inset by 0.1, with a flat roof sign in plain text: "WC", "WC PCD" or "FAM". No fixture layout.
+   - elevator ("lift" form): a small 3.0 shaft inside a rectangle fitted to the polygon, plus a lid. On the face nearest the access node: a dark door portal, two steel leaves with a centre gap, and a "▲▼ ELEVADOR" text sign above the door. A flat "▲▼ ELEVADOR" sign sits on the lid. It makes no claim about operational floor links.
+   - stairs: alternating-tone treads with darker risers across a fitted rectangle. The illustrative rise is at most min(1.5, 0.16*N, 0.25*L). The bottom end is the end nearer the access node, chosen for illustration only.
+   - escalator: steel-tone treads. If the fitted width is at least 1.2, it gets paired glass balustrades with dark handrails that follow the incline, otherwise treads only.
+   - moving_walkway (also present in the UI's service list): a flat belt with the same balustrades.
+   - ramp: a graded wedge whose rise is at most min(0.55, 6% of the length), with side curbs if the width allows.
+   - Unknown service_type: a neutral "room" block with the sign "SERVIÇO".
+   - If the rectangle fit fails for a non-room form, or the lift fit is too small, it falls back to the room block, which is still the actual polygon.
+3. Containment: all decorative geometry stays inside the actual polygon.
+   - fitRect(poly, margin) returns the largest centred oriented rectangle aligned to the longest edge. Its sampled outline must lie inside the polygon at >= margin from every edge, with no outline vertex inside it. It searches the centroid, the bbox centre and a 5x5 grid, at three aspect ratios, so concave and L-shaped footprints work.
+   - The room block uses insetSmooth, which validates with insetPoly.
+   - Door leaves, sign plates and balustrades sit within the 0.12 / 0.06 margins between the shaft or treads and the rectangle edge.
+4. Selection and camera contract kept: meta kind 'poly', body = actual polygon, mesh = one merged vertex-coloured mesh (M.body/M.bodySel swap works), userData.store = id, pushed to hitObjects. meta also has ringY (top of the main volume), pts, facadeAngle and the extra fields unitType 'facility', serviceType and badge. targetOf, goalFor, selectStore, route, zoom and camera code are unchanged.
+5. Labels and text (plain text only, no brand assets):
+   - New label kind 'facility' with a pale-blue style and a blue pill holding the plain-text badge (WC / PCD / FAM / ▲▼ / ESCADA / ROLANTE / ESTEIRA / RAMPA) before the name. Badge labels never call drawBrandLogo.
+   - The selected label and pending-facility pins also carry the badge.
+   - Facility labels rank after anchors and featured stores and are shown without needing zoom. Collision avoidance is unchanged.
+   - Signs use the existing facade atlas. Entries have plain:true, so drawBrandLogo is skipped. The atlas quad builder has a new 'flat' variant for horizontal roof signs; vertical signs are unchanged.
+
+VERIFICATION ACTUALLY RUN
+- node --check static/map-plan3d.js: OK.
+- fitRect isolated test in node on rectangle, rotated quad, L-shape, clockwise winding and tiny polygons: all fitted rectangle corners lie inside the polygon, the axes are orthogonal, and box-local Z matches the w axis. The tiny polygon returns null, so it uses the room fallback. The temporary test script was deleted.
+- python -m unittest test_server.py test_privacy.py: 21 tests OK. This file has no Python coverage; the run only confirms nothing else broke.
+
+NOT VERIFIED (state honestly)
+- No browser render, screenshot or Playwright e2e was run, and I did not inspect real facility entries from the coordinator's dataset. Visual scale, sign legibility, flat-sign orientation after camera rotation, draw-call and triangle impact, and z-fighting have not been checked in a browser.
+- Rises, heights, door positions and the stair/escalator direction are illustrative, not surveyed.
+- No hardware, screen-reader or kiosk-display testing. Text accessibility still depends on the existing destination list and labels; the canvas aria-label is unchanged.

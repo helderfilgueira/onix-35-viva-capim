@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "rota entre pisos",
+    "troca visual de piso",
+    "acessibilidade sem inventar acesso",
+    "elevador a partir do portal confirmado",
+    "loja abre nova avaliacao de estrelas"
+  ],
+  "errors": []
+}

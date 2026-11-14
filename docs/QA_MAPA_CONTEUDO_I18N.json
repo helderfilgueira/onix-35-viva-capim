@@ -1,0 +1,29 @@
+{
+  "expected_unique_strings": 1058,
+  "source_occurrences": 1674,
+  "preserved_commercial_names": 138,
+  "languages": {
+    "en": {
+      "entries": 1058,
+      "missing": [],
+      "extra": [],
+      "empty": [],
+      "commercial_name_changes": [],
+      "coverage_percent": 100.0
+    },
+    "es": {
+      "entries": 1058,
+      "missing": [],
+      "extra": [],
+      "empty": [],
+      "commercial_name_changes": [],
+      "coverage_percent": 100.0
+    }
+  },
+  "passed": true,
+  "source": "GET /api/navigation (local pilot)",
+  "artifact": "laboratorio/static/map-content-i18n.json",
+  "translation_model": "claude-opus-5-5",
+  "scope": "Dynamic map content only; runtime UI, route regression and deployment are separate validations.",
+  "native_speaker_review": false
+}

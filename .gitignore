@@ -3,3 +3,17 @@
 *.sqlite*
 *.db
 __pycache__/
+
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+staticfiles/
+node_modules/
+*.log
+*.zip
+!**/.env.example
+
+.local-access.txt
+.vercel/

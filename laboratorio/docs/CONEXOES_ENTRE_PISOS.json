@@ -1,0 +1,58 @@
+[
+  {
+    "id": "f0-f1-escalator-up",
+    "from_node": "portal-f0-escalator-up",
+    "to_node": "portal-f1-escalator-up",
+    "kind": "escalator",
+    "from_facility": "f0-escalator-up",
+    "to_facility": "f1-escalator-up",
+    "evidence": "Mesmo conjunto de três equipamentos, mesma relação com praça de alimentação e fachada curva; alinhamento quantitativo com panorâmico: escala5,457233 e erro máximo2,34px na folha3. Rotas refletem a planta, não disponibilidade física atual. Texto SOBE na folha2 em[596.637,680.815] identifica a unidade norte. Embarque no lado leste inferior; desembarque no lado oeste superior.",
+    "bidirectional": false,
+    "public_approach_confirmed": true,
+    "distance_status": "transfer_cost_estimate_not_surveyed_height",
+    "graph_step_free_transfer": false,
+    "physical_accessibility_verified": false
+  },
+  {
+    "id": "f0-f1-public-stairs",
+    "from_node": "portal-f0-public-stairs",
+    "to_node": "portal-f1-public-stairs",
+    "kind": "stairs",
+    "from_facility": "f0-public-stairs",
+    "to_facility": "f1-public-stairs",
+    "evidence": "Mesmo conjunto de três equipamentos, mesma relação com praça de alimentação e fachada curva; alinhamento quantitativo com panorâmico: escala5,457233 e erro máximo2,34px na folha3. Rotas refletem a planta, não disponibilidade física atual. Unidade central com degraus contínuos. Não vincular às escadasE2/E7 de outros núcleos.",
+    "bidirectional": true,
+    "public_approach_confirmed": true,
+    "distance_status": "transfer_cost_estimate_not_surveyed_height",
+    "graph_step_free_transfer": false,
+    "physical_accessibility_verified": false
+  },
+  {
+    "id": "f0-f1-escalator-down",
+    "from_node": "portal-f1-escalator-down",
+    "to_node": "portal-f0-escalator-down",
+    "kind": "escalator",
+    "from_facility": "f0-escalator-down",
+    "to_facility": "f1-escalator-down",
+    "evidence": "Mesmo conjunto de três equipamentos, mesma relação com praça de alimentação e fachada curva; alinhamento quantitativo com panorâmico: escala5,457233 e erro máximo2,34px na folha3. Rotas refletem a planta, não disponibilidade física atual. Texto DESCE na folha2 em[596.565,706.040] identifica a unidade sul; sentido permitido da alimentação para térreo.",
+    "bidirectional": false,
+    "public_approach_confirmed": true,
+    "distance_status": "transfer_cost_estimate_not_surveyed_height",
+    "graph_step_free_transfer": false,
+    "physical_accessibility_verified": false
+  },
+  {
+    "id": "f0-f1-panoramic-lift",
+    "from_node": "portal-f0-lift-panoramic",
+    "to_node": "portal-f1-lift-panoramic",
+    "kind": "elevator",
+    "from_facility": "f0-lift-panoramic",
+    "to_facility": "f1-lift-panoramic",
+    "evidence": "Cabines com símbolo diagonal, localização única na fachada curva e posição correspondente sob transformação que alinha escadas públicas. Térreo: cabine dentro do vestíbulo da fachada oeste da Renner, NÃO diretamente no corredor principal do mall. A escadaria externa é visível, mas não há rampa/caminho sem degraus inequívoco nem acesso pelo interior da Renner comprovado. Superior: acesso pelo saguão aberto em frente à cabine. Pode funcionar no protótipo a partir da origem específica porta do elevador; não inventar segmento cruzando Renner.",
+    "bidirectional": true,
+    "public_approach_confirmed": false,
+    "distance_status": "transfer_cost_estimate_not_surveyed_height",
+    "graph_step_free_transfer": true,
+    "physical_accessibility_verified": false
+  }
+]

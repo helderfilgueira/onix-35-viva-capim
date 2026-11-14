@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "section": "overview",
+      "title": "Visão geral",
+      "rendered": true
+    },
+    {
+      "section": "content",
+      "title": "Conteúdo",
+      "rendered": true
+    },
+    {
+      "section": "partners",
+      "title": "Parceiros",
+      "rendered": true
+    },
+    {
+      "section": "reviews",
+      "title": "Avaliações",
+      "rendered": true
+    },
+    {
+      "section": "counter",
+      "title": "Atendimento no balcão",
+      "rendered": true
+    },
+    {
+      "section": "benefits",
+      "title": "Benefícios",
+      "rendered": true
+    },
+    {
+      "section": "redemptions",
+      "title": "Resgates",
+      "rendered": true
+    },
+    {
+      "section": "members",
+      "title": "Membros",
+      "rendered": true
+    },
+    {
+      "section": "account",
+      "title": "Minha conta",
+      "rendered": true
+    },
+    {
+      "language": "en",
+      "rendered": true
+    },
+    {
+      "language": "es",
+      "rendered": true
+    },
+    {
+      "language": "pt-BR",
+      "rendered": true
+    },
+    {
+      "mobile390": true,
+      "menu": true
+    },
+    {
+      "logout": true
+    }
+  ],
+  "errors": [],
+  "http": [],
+  "scope": "admin navigation, languages, mobile viewport; CRUD handled separately by root"
+}

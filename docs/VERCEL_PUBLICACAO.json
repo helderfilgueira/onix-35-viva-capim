@@ -1,0 +1,96 @@
+{
+  "url": "https://onix35-viva-capim.vercel.app",
+  "deployment": "https://onix35-viva-capim-g08ysqfgy-helder-filgueiras-projects.vercel.app",
+  "target": "production",
+  "public_access": true,
+  "checks": [
+    {
+      "path": "/api/v2/health",
+      "status": 200,
+      "bytes": 12
+    },
+    {
+      "path": "/participar/",
+      "status": 200,
+      "bytes": 2406
+    },
+    {
+      "path": "/participar/cadastro/",
+      "status": 200,
+      "bytes": 2401
+    },
+    {
+      "path": "/participar/avaliar/",
+      "status": 200,
+      "bytes": 2403
+    },
+    {
+      "path": "/public/app.js",
+      "status": 200,
+      "bytes": 17066
+    },
+    {
+      "path": "/public/i18n.js",
+      "status": 200,
+      "bytes": 21471
+    },
+    {
+      "path": "/public/styles.css",
+      "status": 200,
+      "bytes": 9574
+    },
+    {
+      "path": "/dashboard/",
+      "status": 200,
+      "bytes": 6189
+    },
+    {
+      "path": "/static/dashboard/dashboard.js",
+      "status": 200,
+      "bytes": 111128
+    },
+    {
+      "path": "/static/dashboard/dashboard.css",
+      "status": 200,
+      "bytes": 30571
+    },
+    {
+      "path": "/explorar.html",
+      "status": 200,
+      "bytes": 6703
+    },
+    {
+      "path": "/vendor/three.module.js",
+      "status": 200,
+      "bytes": 603113
+    },
+    {
+      "path": "/api/navigation",
+      "status": 200,
+      "bytes": 554133
+    },
+    {
+      "path": "/store-reviews.js",
+      "status": 200,
+      "bytes": 3006
+    },
+    {
+      "path": "/api/v2/public/catalog",
+      "status": 200,
+      "bytes": 11419
+    }
+  ],
+  "admin_login_csrf": true,
+  "missing_csrf_rejected": true,
+  "session_secure_httponly": true,
+  "anonymous_admin_denied": true,
+  "maintenance_without_secret_denied": true,
+  "maintenance_authorized_executed": true,
+  "private_file_not_served": true,
+  "noncanonical_event_review_rejected": true,
+  "export_ui_asset_present": true,
+  "status": "PASS",
+  "source_branch": "feat/dashboard-fidelidade",
+  "source_head": "71088ffe50d305f7f8601cdc155659d6e4615b4e",
+  "includes_uncommitted_deployment_configuration": false
+}

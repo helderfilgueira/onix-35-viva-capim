@@ -1,0 +1,38 @@
+# Atualizações automáticas de dependências. Cada PR do Dependabot passa pelo CI
+# e pela revisão humana exigida na main; nada é mesclado automaticamente.
+version: 2
+updates:
+  # Backend Django. A raiz repete o pin do Django para a detecção da Vercel,
+  # por isso os dois diretórios são atualizados juntos no mesmo PR.
+  - package-ecosystem: pip
+    directories:
+      - "/"
+      - "/pilot"
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Sao_Paulo
+    open-pull-requests-limit: 3
+    labels: ["area:backend", "area:devops"]
+    groups:
+      python:
+        patterns: ["*"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+      timezone: America/Sao_Paulo
+    labels: ["area:devops"]
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Playwright: somente testes de navegador opcionais do laboratório.
+  - package-ecosystem: npm
+    directory: "/laboratorio"
+    schedule:
+      interval: monthly
+      timezone: America/Sao_Paulo
+    open-pull-requests-limit: 1
+    labels: ["area:qa"]

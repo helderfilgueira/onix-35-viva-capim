@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-13",
+  "checks": [
+    "Maquete da planta carrega em WebGL",
+    "Renner identificada na planta e percurso funcional",
+    "Rotas das principais âncoras",
+    "Contornos reais no mapa 2D",
+    "Ligação vertical não confirmada bloqueada",
+    "Percurso no pavimento alimentação",
+    "QR da planta mantém confirmação de origem",
+    "Entrada não confirmada não recebe rota inventada",
+    "Mobile sem overflow e rota da planta",
+    "Sem exceções JS"
+  ],
+  "errors": [],
+  "environment": "Chrome headless Windows, 1440x1100 e 390x844, SwiftShader"
+}

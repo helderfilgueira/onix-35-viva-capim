@@ -1,0 +1,88 @@
+{
+  "store": {
+    "id": "f0-ext-01",
+    "name": "Madero",
+    "category": "Alimentação",
+    "floor_id": "f0",
+    "x": 28.8397,
+    "z": 113.2523,
+    "y": 0,
+    "width": 18.766499999999997,
+    "depth": 13.94210000000001,
+    "polygon": [
+      [
+        22.4978,
+        104.6869
+      ],
+      [
+        41.2643,
+        104.6869
+      ],
+      [
+        41.2643,
+        107.0769
+      ],
+      [
+        34.8023,
+        107.0769
+      ],
+      [
+        34.8023,
+        118.629
+      ],
+      [
+        22.4978,
+        118.629
+      ]
+    ],
+    "geometry_status": "cad_extracted",
+    "route_status": "unavailable",
+    "node_id": null,
+    "source_label": "EXT 01",
+    "source_page": 2,
+    "source_position_px": [
+      920.845,
+      758.205
+    ],
+    "area_m2": 181.28,
+    "external": true,
+    "featured": true,
+    "color": "#45433d",
+    "description": "Madero · unidade externa EXT 01, 181,28 m². Contorno conferido nos vetores da planta. Porta e percurso externo ainda não confirmados. Fachada e interior ilustrativos.",
+    "hours": "Horário não verificado",
+    "review_count": 0
+  },
+  "source_polygon_image_1800": [
+    [
+      905.266,
+      737.164
+    ],
+    [
+      951.366,
+      737.164
+    ],
+    [
+      951.366,
+      743.035
+    ],
+    [
+      935.492,
+      743.035
+    ],
+    [
+      935.492,
+      771.413
+    ],
+    [
+      905.266,
+      771.413
+    ]
+  ],
+  "source_drawings": [
+    51019,
+    51024,
+    51026
+  ],
+  "reason": "EXT prefix omitted by initial LOJA/ANCORA extraction",
+  "date": "2026-11-13"
+}

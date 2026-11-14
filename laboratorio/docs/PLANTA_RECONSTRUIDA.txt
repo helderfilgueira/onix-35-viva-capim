@@ -1,0 +1,37 @@
+VIVA CAPIM — EQUIPE ONIX - 35
+Reconstrução espacial | 13/11/2026
+
+ENTREGA
+Mapa interativo baseado nas páginas 2 e 3 do arquivo 2026_11_CDS_MIX (1).pdf fornecido pela equipe: térreo e praça de alimentação. O PDF técnico bruto e suas imagens não integram o pacote público.
+157 posições de catálogo; 81 contornos modelados; 77 lojas com ponto de entrada inferido e rota disponível. As demais posições são marcadores e não volumes inventados. Nomes não identificados permanecem com a numeração da planta.
+
+COMO ABRIR
+Execute ABRIR_LABORATORIO.cmd com Python 3.10+. Busque Renner, C&A, Riachuelo, Cinemark ou Marisa, selecione a origem e calcule o percurso. Para Subway, selecione o pavimento alimentação e uma origem nesse pavimento. Arraste o mapa para girar, use a roda para zoom e alterne 2D/3D. O QR transporta a rota, solicitando confirmação de origem. Endereços localhost só funcionam no mesmo computador.
+
+MÉTODO E CONFIANÇA
+Extração dos vetores e rótulos do PDF, seguida de conferência visual dos principais contornos. Polígonos CAD que reuniam várias lojas foram omitidos quando não havia divisão confiável. Alguns contornos foram traçados manualmente sobre a planta. As coordenadas preservam posições relativas por pavimento. Alturas, cores e espessuras são ilustração, não levantamento arquitetônico.
+A escala do térreo foi estimada pela mediana de 46 relações entre área indicada e área vetorial: 0,4071 m/pixel na imagem de trabalho. Na alimentação, 13 amostras resultaram em 0,07514 m/pixel. Distâncias exibidas são estimativas.
+O grafo segue corredores interpretados visualmente. Entradas são inferidas na borda do contorno. A validação geométrica rejeita segmentos que atravessem interiores das lojas modeladas. Isso não comprova ausência de obstáculos não modelados nem acessibilidade física.
+
+LIMITES EXPLÍCITOS
+76 posições ainda precisam de contorno; 80 destinos ainda não têm rota. Não há ligação confirmada entre pisos, portanto rotas entre pisos são bloqueadas. MoroFit, Wow Park e BIG não recebem entrada inventada. Planta de novembro/2026 não confirma operação comercial atual.
+Origem selecionada ou confirmada por QR não é localização contínua. Fotos de fachadas, telefones, sites, avaliações reais, elevadores, escadas e acessibilidade exigem levantamento autorizado. O mapa não serve como rota de emergência.
+Servidor local de demonstração. Isolamento completo da avaliação legada entre usuários do totem ainda precisa de conclusão antes de uso público. A entrega de planejamento original foi preservada.
+
+ARQUITETURA
+navigation-data.json: catálogo espacial, polígonos, nós e conexões públicos.
+plan_geometry.py: validação de contornos, fachadas e cruzamentos.
+navigation.py: caminhos mínimos e bloqueio de conexões não confirmadas.
+map-plan3d.js: Three.js, extrusão dos polígonos, seleção e linha de rota.
+explorar.js: busca, detalhes, SVG 2D, origem, compartilhamento e estados de erro.
+assets/shopping-planta.gltf: maquete exportada e editável, 81 volumes.
+
+VALIDAÇÃO EXECUTADA
+40 testes Python aprovados: contratos, privacidade, grafo genérico e 7 testes específicos da planta. Testes genéricos de elevadores usam uma fixture sintética e não atestam elevadores reais do shopping.
+10 verificações Chrome aprovadas: WebGL, Renner, âncoras, polígonos 2D, bloqueio entre pisos, alimentação, QR, entrada desconhecida, mobile e ausência de exceções JavaScript. Evidências em QA_PLANTA_E2E.json e planta-*.png. Renderização testada com SwiftShader; desempenho no hardware real do totem permanece pendente.
+
+COLABORAÇÃO
+Agentes especializados em extração geométrica e planejamento de rotas produziram insumos separados. Coordenação integrou frontend, backend e QA. Claude no terminal fez revisão visual usando exclusivamente claude-opus-5-5, confirmado no retorno da execução. Assistência de IA declarada; responsabilidade e validação de campo pertencem à equipe humana.
+
+PRÓXIMA VALIDAÇÃO EM CAMPO
+Conferir os 76 contornos pendentes, portas e corredores; identificar ligações verticais; cadastrar pontos fixos dos totens; medir distâncias; coletar fachadas autorizadas e contatos; testar navegação acessível e desempenho no equipamento. Só então promover os dados inferidos a confirmados.

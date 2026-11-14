@@ -1,0 +1,152 @@
+{
+  "date": "2026-11-13",
+  "version": "capim-planta-2026-11-v5-acessos-externos",
+  "source_pages": [
+    1,
+    2,
+    3
+  ],
+  "source_sha256": "f78ffeab048bf6ea58accb83a1d85c4122e6a1ccdbcd8f871b89b4b7db81aa1e",
+  "before": {
+    "units": 158,
+    "footprints": 82,
+    "routable": 77
+  },
+  "after": {
+    "units": 211,
+    "footprints": 208,
+    "routable": 196,
+    "ground_kiosks": 50,
+    "inset_units": 4
+  },
+  "overlaps_above_0_3_m2": [],
+  "pending": [
+    {
+      "id": "f0-loja-130",
+      "name": "Piticas",
+      "label": "LOJA 130",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-loja-52",
+      "name": "Puket",
+      "label": "LOJA 52",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-loja-81",
+      "name": "Loja 81",
+      "label": "LOJA 81",
+      "floor": "f0",
+      "geometry": false,
+      "route": false
+    },
+    {
+      "id": "f0-loja-81-setor-2",
+      "name": "Loja 81",
+      "label": "LOJA 81",
+      "floor": "f0",
+      "geometry": false,
+      "route": false
+    },
+    {
+      "id": "f0-loja-53a",
+      "name": "Colégio Interação",
+      "label": "LOJA 53A",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-loja-pc-001c",
+      "name": "BIG",
+      "label": "LOJA PC 001C",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-loja-pc01b",
+      "name": "Wow Park",
+      "label": "LOJA PC01B",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-loja-pc01a",
+      "name": "MoroFit",
+      "label": "LOJA PC01A",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-loja-32",
+      "name": "Outback",
+      "label": "LOJA 32",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-ext-01",
+      "name": "Madero",
+      "label": "EXT 01",
+      "floor": "f0",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "f0-q-2b",
+      "name": "Chopp Brahma",
+      "label": "Q 2B",
+      "floor": "f0",
+      "geometry": false,
+      "route": false
+    },
+    {
+      "id": "inset-subsolo1-maria",
+      "name": "Maria Express",
+      "label": "QSUB1",
+      "floor": "inset-subsolo1",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "inset-a8-colegio",
+      "name": "Colégio Interação",
+      "label": "A 8",
+      "floor": "inset-a8",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "inset-l2-unicesumar",
+      "name": "Unicesumar",
+      "label": "LOJA L202",
+      "floor": "inset-l2",
+      "geometry": true,
+      "route": false
+    },
+    {
+      "id": "inset-l2-ioa",
+      "name": "IOA",
+      "label": "LOJA L2",
+      "floor": "inset-l2",
+      "geometry": true,
+      "route": false
+    }
+  ],
+  "removed_duplicate": "f0-loja-90-setor-2",
+  "routes": "inferred_from_plan_not_physically_validated",
+  "ai_assistance": [
+    "Codex coordinating and specialist agents",
+    "Claude Opus 5.5 kiosk rendering"
+  ],
+  "tests": "45 Python tests passed"
+}

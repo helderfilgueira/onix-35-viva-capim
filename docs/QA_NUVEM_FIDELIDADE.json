@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "CSRF and individual admin login",
+    "public pending registration",
+    "staff activation",
+    "one-star review earns ten points",
+    "staff redemption debits points",
+    "idempotent repeated redemption",
+    "admin reversal restores points",
+    "public redemption denied",
+    "test member closed"
+  ],
+  "date": "2026-11-14T03:46:01.803Z"
+}

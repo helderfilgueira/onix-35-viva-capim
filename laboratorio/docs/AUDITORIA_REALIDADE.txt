@@ -1,0 +1,259 @@
+RELATÓRIO HISTÓRICO ANTERIOR À REVISÃO INTEGRAL. Consulte REVISAO_INTEGRAL.txt para o estado atual.
+
+RELATÓRIO HISTÓRICO ANTERIOR À REVISÃO INTEGRAL. Consulte REVISAO_INTEGRAL.txt para o estado atual.
+
+EQUIPE ONIX - 35 | VIVA CAPIM
+AUDITORIA DE COMPATIBILIDADE E REALIDADE ESPACIAL
+Data: 13/11/2026
+SNAPSHOT FINAL: inclui correção Madero; SHA256 c1e027e6a006a762d4feedc97a0af559945d97e91718e2811e812ead69fdb24d
+
+RESULTADO
+A reclamação procede. Madero EXT 01 existia no PDF e faltava no inventário inicial de 157 posições. Durante a auditoria foi corrigido: snapshot final tem 158 posições,82 contornos e77 rotas. Há também omissões sistemáticas de quiosques e de estabelecimentos da primeira página.
+
+MÉTODO E LIMITES
+3 páginas; inventário textual integral e inspeção visual dirigida a âncoras, insets e omissões; identidade comercial de cada logo pequeno ainda não transcrita integralmente
+As coordenadas abaixo são de imagens de cada página com largura 1800 px; não são GPS. O PDF é referência documental de novembro/2026, não confirmação presencial de operação atual. Planta bruta não incluída nesta entrega.
+
+TOTAIS
+registered_positions: 158
+footprints: 82
+position_only: 76
+inferred_routes: 77
+unavailable_routes: 81
+omitted_external_stores: 0
+corrected_external_stores: 1
+omitted_inset_establishments: 4
+omitted_kiosk_label_occurrences: 50
+distinct_kiosk_labels: 49
+
+P0 — LOJA EXTERNA: CADASTRO E CONTORNO CORRIGIDOS
+Madero / EXT 01, página 2, [920.775,757.011], 181,28 m². Confiança alta: rótulo EXT 01 e marca MADERO no mesmo contorno. A página 1 repete o mesmo estabelecimento. Causa: filtro de extração aceitava apenas LOJA/ANCORA. Contorno recuperado das primitivas vetoriais 51019,51024,51026. Porta não verificável; manter acesso pendente.
+
+P1 — ESTABELECIMENTOS EM INSETS
+Maria Express — QSUB1; página 1; [521.867, 247.738]. Subsolo 1; usar sistema de coordenadas próprio. Confiança alta.
+Colégio Interação — A 8; página 1; [133.176, 425.333]. Inset separado; alinhamento e nível devem ser validados. Confiança alta.
+IOA — LOJA L2; página 1; [194.36, 559.143]. Inset PLANTA BAIXA L2; não transpor para térreo. Confiança alta.
+Unicesumar — LOJA L202; página 1; [93.416, 540.673]. Inset PLANTA BAIXA L2; não transpor para térreo. Confiança alta.
+
+P1 — QUIOSQUES OMITIDOS
+50 ocorrências de rótulos, 49 códigos distintos: Q 30 aparece em duas posições próximas. Não fundir automaticamente nem contar como duas operações sem revisão. Bistrô 81 (Q 2A), Chopp Brahma (Q 2B) e Mini Cars (Q 2C) confirmados visualmente. Demais nomes comerciais ficam pendentes; rótulos e posições têm confiança alta.
+P2 Q 2B | Chopp Brahma | [591.335, 697.994] | área próxima: 101,63m²
+P2 Q 11 | Nome comercial pendente | [1035.275, 693.389] | área próxima: não transcrita
+P2 Q 18 | Nome comercial pendente | [1075.723, 443.207] | área próxima: não transcrita
+P2 Q 12 A | Nome comercial pendente | [1072.449, 694.377] | área próxima: não transcrita
+P2 Q 12 | Nome comercial pendente | [1053.345, 693.629] | área próxima: não transcrita
+P2 Q 10 | Nome comercial pendente | [1021.467, 693.389] | área próxima: não transcrita
+P2 Q 9 A | Nome comercial pendente | [992.337, 692.197] | área próxima: não transcrita
+P2 Q 16 | Nome comercial pendente | [1075.723, 414.504] | área próxima: não transcrita
+P2 Q 3C | Nome comercial pendente | [717.146, 697.13] | área próxima: não transcrita
+P2 Q 12B | Nome comercial pendente | [1074.416, 645.556] | área próxima: não transcrita
+P2 Q 13 | Nome comercial pendente | [1074.309, 608.8] | área próxima: não transcrita
+P2 Q 30 | Nome comercial pendente | [729.31, 535.038] | área próxima: não transcrita
+P2 Q 29 | Nome comercial pendente | [785.445, 486.654] | área próxima: não transcrita
+P2 Q 3B | Nome comercial pendente | [699.255, 696.912] | área próxima: não transcrita
+P2 Q 2 | Nome comercial pendente | [552.328, 656.091] | área próxima: não transcrita
+P2 Q 32 | Nome comercial pendente | [605.91, 548.13] | área próxima: não transcrita
+P2 Q 27 | Nome comercial pendente | [871.639, 501.367] | área próxima: não transcrita
+P2 Q 25 | Nome comercial pendente | [1036.628, 549.911] | área próxima: não transcrita
+P2 Q 6A | Nome comercial pendente | [881.114, 676.312] | área próxima: não transcrita
+P2 Q 25A | Nome comercial pendente | [1018.525, 549.264] | área próxima: não transcrita
+P2 Q 26 | Nome comercial pendente | [938.617, 550.74] | área próxima: não transcrita
+P2 Q 29-A | Nome comercial pendente | [778.832, 494.033] | área próxima: não transcrita
+P2 Q 27-A | Nome comercial pendente | [913.34, 538.591] | área próxima: não transcrita
+P2 Q 28 | Nome comercial pendente | [853.748, 487.634] | área próxima: não transcrita
+P2 Q 1 | Nome comercial pendente | [552.219, 625.539] | área próxima: não transcrita
+P2 Q 32A | Nome comercial pendente | [626.019, 548.545] | área próxima: não transcrita
+P2 Q 29B | Nome comercial pendente | [743.484, 523.57] | área próxima: não transcrita
+P2 Q 26-A | Nome comercial pendente | [958.348, 549.334] | área próxima: não transcrita
+P2 Q 32B | Nome comercial pendente | [617.864, 526.474] | área próxima: não transcrita
+P2 Q 7 | Nome comercial pendente | [926.351, 696.647] | área próxima: não transcrita
+P2 Q 15 | Nome comercial pendente | [1073.548, 532.908] | área próxima: não transcrita
+P2 Q 31 | Nome comercial pendente | [677.014, 549.524] | área próxima: não transcrita
+P2 Q 14 | Nome comercial pendente | [1073.439, 561.394] | área próxima: não transcrita
+P2 Q 2A | Bistrô 81 | [557.412, 699.734] | área próxima: 78,36m²
+P2 Q 4A | Nome comercial pendente | [758.072, 677.036] | área próxima: não transcrita
+P2 Q 15 A | Nome comercial pendente | [1074.08, 509.757] | área próxima: não transcrita
+P2 Q 3 | Nome comercial pendente | [682.891, 696.907] | área próxima: não transcrita
+P2 Q 29C | Nome comercial pendente | [758.753, 510.808] | área próxima: não transcrita
+P2 Q 19-A | Nome comercial pendente | [1062.074, 402.769] | área próxima: não transcrita
+P2 Q 2C | Mini Cars | [556.846, 722.422] | área próxima: não transcrita
+P2 Q 34 | Nome comercial pendente | [572.644, 568.61] | área próxima: não transcrita
+P2 Q 5 | Nome comercial pendente | [784.876, 663.822] | área próxima: não transcrita
+P2 Q 4 | Nome comercial pendente | [771.418, 667.553] | área próxima: não transcrita
+P2 Q 28A | Nome comercial pendente | [860.858, 491.705] | área próxima: não transcrita
+P2 Q 15 B | Nome comercial pendente | [1073.536, 487.577] | área próxima: não transcrita
+P2 Q 9 | Nome comercial pendente | [973.637, 694.366] | área próxima: não transcrita
+P2 Q 20 | Nome comercial pendente | [1077.353, 359.813] | área próxima: não transcrita
+P2 Q 6B | Nome comercial pendente | [866.654, 666.418] | área próxima: não transcrita
+P2 Q 19 | Nome comercial pendente | [1076.375, 390.801] | área próxima: não transcrita
+P2 Q 30 | Nome comercial pendente | [720.72, 542.432] | área próxima: não transcrita
+
+P1 — CONTORNOS E ROTAS
+76 posições cadastradas não têm contorno: são omissão de geometria, não de cadastro. 81 cadastros não têm rota disponível (incluindo Madero recém-cadastrado); 77 têm rota inferida, ainda sujeita à validação. BIG, WowPark e MoroFit têm acesso incerto. Não há conexão entre pisos validada.
+LOJA 216 na praça de alimentação corresponde a recolhimento de louças; sua exclusão do catálogo comercial não é uma loja comercial esquecida. Pode virar ponto de serviço.
+
+P2 — IDENTIDADE E DUPLICIDADES
+LOJA 109, LOJA 90 e LOJA 81 aparecem duas vezes no documento e foram preservadas como setores distintos no cadastro; não é prova de duas marcas. Revisão visual de ocupação necessária. Leitura/141A e Polo Wear/147 são candidatos de associação comercial, ainda a confirmar. Não confundir LOJA 81 com Bistrô 81 (Q 2A).
+
+INVENTÁRIO INTEGRAL DOS CADASTROS AUDITADOS
+P2 LOJA 07 | Loja 07 | [550.701, 743.126] | cad_extracted | plan_inferred
+P2 LOJA 03 | Loja 03 | [528.983, 639.543] | position_only | unavailable
+P2 LOJA 05 | Loja 05 | [529.468, 711.709] | position_only | unavailable
+P2 LOJA 01 | Loja 01 | [527.496, 602.027] | position_only | unavailable
+P2 LOJA PC 07 | Loja PC 07 | [1111.14, 589.297] | cad_extracted | plan_inferred
+P2 LOJA 02 | Loja 02 | [527.388, 613.987] | cad_extracted | plan_inferred
+P2 LOJA 132 | Loja 132 | [880.093, 471.348] | position_only | unavailable
+P2 LOJA 141A | Loja 141A | [920.878, 481.614] | position_only | unavailable
+P2 LOJA 130 | Loja 130 | [913.183, 509.452] | position_only | unavailable
+P2 LOJA 127 | Loja 127 | [951.55, 524.341] | cad_extracted | plan_inferred
+P2 LOJA 121 | Loja 121 | [1050.495, 512.513] | cad_extracted | plan_inferred
+P2 LOJA 114-B | Loja 114-B | [1046.84, 588.514] | position_only | unavailable
+P2 LOJA 112 | Loja 112 | [1022.77, 582.86] | position_only | unavailable
+P2 LOJA 110 | Loja 110 | [988.196, 573.279] | position_only | unavailable
+P2 LOJA 109 | Loja 109 | [974.821, 574.162] | position_only | unavailable
+P2 LOJA 104 | Loja 104 | [930.181, 578.37] | cad_extracted | plan_inferred
+P2 LOJA 102 | Loja 102 | [874.905, 534.161] | position_only | unavailable
+P2 LOJA 101 | Loja 101 | [864.623, 521.117] | position_only | unavailable
+P2 LOJA 101 A | Loja 101 A | [852.379, 513.492] | cad_extracted | plan_inferred
+P2 LOJA 99 | Loja 99 | [762.791, 534.106] | position_only | unavailable
+P2 LOJA 98 | Loja 98 | [752.017, 542.306] | position_only | unavailable
+P2 LOJA 97 | Loja 97 | [741.567, 549.626] | position_only | unavailable
+P2 LOJA 95 | Loja 95 | [713.301, 565.7] | position_only | unavailable
+P2 LOJA 91 | Loja 91 | [651.224, 568.617] | cad_extracted | plan_inferred
+P2 LOJA 90 | Loja 90 | [639.07, 568.52] | position_only | unavailable
+P2 LOJA 89 | Loja 89 | [625.567, 569.179] | position_only | unavailable
+P2 LOJA 86 | Loja 86 | [589.481, 584.567] | cad_extracted | plan_inferred
+P2 LOJA 148-A | Loja 148-A | [527.294, 565.11] | position_only | unavailable
+P2 LOJA 147 | Loja 147 | [544.741, 527.594] | position_only | unavailable
+P2 LOJA 145 | Loja 145 | [591.121, 521.537] | position_only | unavailable
+P2 LOJA 138 | Loja 138 | [736.23, 501.475] | position_only | unavailable
+P2 LOJA 137 | Loja 137 | [751.76, 475.855] | position_only | unavailable
+P2 LOJA 135 | Loja 135 | [768.532, 462.99] | position_only | unavailable
+P2 LOJA ANC.A9 | C&A | [815.342, 422.781] | manual_trace | plan_inferred
+P2 LOJA 134 | Loja 134 | [856.921, 461.084] | position_only | unavailable
+P2 LOJA 133 | Loja 133 | [868.204, 468.232] | position_only | unavailable
+P2 LOJA 131 | Loja 131 | [890.953, 479.435] | position_only | unavailable
+P2 LOJA 129 | Loja 129 | [928.397, 511.994] | position_only | unavailable
+P2 LOJA 125 | Loja 125 | [981.562, 521.429] | cad_extracted | plan_inferred
+P2 LOJA 128 | Loja 128 | [937.182, 523.642] | position_only | unavailable
+P2 LOJA 123 | Loja 123 | [1021.682, 523.386] | position_only | unavailable
+P2 LOJA 122 | Loja 122 | [1038.1, 521.755] | position_only | unavailable
+P2 LOJA ANCORA 01 | Renner | [467.317, 700.145] | manual_trace | plan_inferred
+P2 LOJA 06 | Loja 06 | [520.765, 749.942] | position_only | unavailable
+P2 LOJA 08 | Loja 08 | [566.974, 744.941] | cad_extracted | plan_inferred
+P2 LOJA 09 | Loja 09 | [584.044, 743.745] | cad_extracted | plan_inferred
+P2 LOJA 10 | Loja 10 | [596.113, 745.593] | position_only | unavailable
+P2 LOJA 12 | Loja 12 | [651.678, 727.366] | cad_extracted | plan_inferred
+P2 LOJA 13 | Loja 13 | [678.099, 729.105] | position_only | unavailable
+P2 LOJA 16 | Loja 16 | [702.345, 721.712] | position_only | unavailable
+P2 LOJA 17 | Loja 17 | [713.661, 722.1] | cad_extracted | plan_inferred
+P2 LOJA 18 | Loja 18 | [731.81, 725.191] | position_only | unavailable
+P2 LOJA 29 | Loja 29 | [844.235, 691.159] | position_only | unavailable
+P2 LOJA 33 | Loja 33 | [903.926, 722.582] | position_only | unavailable
+P2 LOJA 34 | Loja 34 | [921.105, 721.929] | cad_extracted | plan_inferred
+P2 LOJA 35 | Loja 35 | [936.653, 720.733] | cad_extracted | plan_inferred
+P2 LOJA 36 | Loja 36 | [950.026, 718.885] | position_only | unavailable
+P2 LOJA 37 | Loja 37 | [962.53, 719.863] | position_only | unavailable
+P2 LOJA 38 | Loja 38 | [975.143, 720.298] | cad_extracted | plan_inferred
+P2 LOJA 40 | Loja 40 | [1016.323, 721.774] | cad_extracted | plan_inferred
+P2 LOJA ANCORA 03 | Marisa | [1025.524, 763.642] | manual_trace | plan_inferred
+P2 LOJA 41 | Loja 41 | [1067.778, 722.582] | position_only | unavailable
+P2 LOJA 42 | Loja 42 | [1080.5, 724.756] | cad_extracted | plan_inferred
+P2 LOJA ANCORA 04 | Cinemark | [1159.912, 688.946] | cad_extracted | plan_inferred
+P2 LOJA 114A | Loja 114A | [1042.699, 572.354] | cad_extracted | plan_inferred
+P2 LOJA 43 | Loja 43 | [1093.196, 664.743] | cad_extracted | plan_inferred
+P2 LOJA 44 | Loja 44 | [1092.87, 652.239] | cad_extracted | plan_inferred
+P2 LOJA 45 | Loja 45 | [1093.196, 632.125] | cad_extracted | plan_inferred
+P2 LOJA 46 | Loja 46 | [1093.522, 611.901] | cad_extracted | plan_inferred
+P2 LOJA 47 | Loja 47 | [1038.857, 612.114] | position_only | unavailable
+P2 LOJA 48 | Loja 48 | [1053.085, 623.664] | position_only | unavailable
+P2 LOJA 48A | Loja 48A | [1052.896, 639.543] | cad_extracted | plan_inferred
+P2 LOJA 49 | Loja 49 | [1054.405, 657.128] | cad_extracted | plan_inferred
+P2 LOJA 50 | Loja 50 | [1034.658, 660.666] | cad_extracted | plan_inferred
+P2 LOJA 52 | Loja 52 | [1017.546, 661.585] | cad_extracted | plan_inferred
+P2 LOJA 53 | Loja 53 | [994.713, 654.518] | position_only | unavailable
+P2 LOJA 54 | Loja 54 | [973.947, 661.694] | position_only | unavailable
+P2 LOJA 55 | Loja 55 | [962.313, 663.434] | position_only | unavailable
+P2 LOJA 56 | Loja 56 | [940.024, 660.716] | cad_extracted | plan_inferred
+P2 LOJA 57 | Loja 57 | [923.932, 662.238] | cad_extracted | plan_inferred
+P2 LOJA 58 | Loja 58 | [911.394, 665.171] | cad_extracted | plan_inferred
+P2 LOJA 59/60 | Loja 59/60 | [905.807, 642.898] | position_only | unavailable
+P2 LOJA 62 | Loja 62 | [869.995, 632.281] | cad_extracted | plan_inferred
+P2 LOJA 63 | Loja 63 | [859.723, 625.031] | cad_extracted | plan_inferred
+P2 LOJA 64 | Loja 64 | [849.314, 617.132] | cad_extracted | plan_inferred
+P2 ANCORA 02 | Riachuelo | [819.857, 567.497] | cad_extracted | plan_inferred
+P2 LOJA 65 | Loja 65 | [787.259, 613.727] | cad_extracted | plan_inferred
+P2 LOJA 68 | Loja 68 | [757.701, 636.801] | cad_extracted | plan_inferred
+P2 LOJA 69 | Loja 69 | [746.297, 644.529] | position_only | unavailable
+P2 LOJA 70 | Stilo A | [705.824, 641.688] | cad_extracted | plan_inferred
+P2 LOJA 71 | Loja 71 | [714.523, 669.957] | cad_extracted | plan_inferred
+P2 LOJA 72 | Loja 72 | [700.714, 670.284] | cad_extracted | plan_inferred
+P2 LOJA 73 | Loja 73 | [688.196, 671.069] | cad_extracted | plan_inferred
+P2 LOJA 74 | Loja 74 | [676.685, 670.61] | position_only | unavailable
+P2 LOJA 75 | Ri Happy | [652.222, 642.558] | manual_trace | plan_inferred
+P2 LOJA 78 | Loja 78 | [596.338, 646.165] | cad_extracted | plan_inferred
+P2 LOJA 79 | Loja 79 | [583.709, 646.67] | position_only | unavailable
+P2 LOJA 80 | Loja 80 | [571.581, 646.439] | position_only | unavailable
+P2 LOJA ANCORA 05 | Centauro | [647.261, 771.47] | manual_trace | plan_inferred
+P2 LOJA 04 | Loja 04 | [529.226, 652.565] | position_only | unavailable
+P2 LOJA PC 06 | STZ | [1165.686, 556.908] | manual_trace | plan_inferred
+P2 LOJA PC 05 | Avenida | [1163.512, 518.745] | manual_trace | plan_inferred
+P2 LOJA PC 04 | Pernambucanas | [1160.25, 474.058] | cad_extracted | plan_inferred
+P2 LOJA PC 03 | Biglar | [1166.665, 427.522] | cad_extracted | plan_inferred
+P2 LOJA 61 | Loja 61 | [880.699, 638.67] | position_only | unavailable
+P2 LOJA 103 | Loja 103 | [888.588, 542.654] | position_only | unavailable
+P2 LOJA 20 | Camicado | [779.324, 726.17] | cad_extracted | plan_inferred
+P2 LOJA 77 | Loja 77 | [611.231, 652.344] | cad_extracted | plan_inferred
+P2 LOJA 19 | Loja 19 | [760.949, 700.401] | position_only | unavailable
+P2 LOJA 67 | Loja 67 | [767.22, 629.068] | position_only | unavailable
+P2 LOJA 148 | Loja 148 | [527.944, 589.248] | position_only | unavailable
+P2 LOJA 84 | Loja 84 | [571.304, 596.679] | cad_extracted | plan_inferred
+P2 LOJA 76 | Loja 76 | [626.127, 655.497] | cad_extracted | plan_inferred
+P2 LOJA 81 | Loja 81 | [604.49, 610.157] | position_only | unavailable
+P2 LOJA 05 A | Loja 05 A | [529.477, 722.156] | position_only | unavailable
+P2 LOJA 81 | Loja 81 | [599.38, 625.379] | position_only | unavailable
+P2 LOJA 88 | Loja 88 | [610.454, 573.31] | cad_extracted | plan_inferred
+P2 LOJA 02-A | Loja 02-A | [527.493, 623.024] | position_only | unavailable
+P2 LOJA 39 | Loja 39 | [991.669, 720.842] | cad_extracted | plan_inferred
+P2 LOJA 39 A | Loja 39 A | [1006.024, 721.546] | cad_extracted | plan_inferred
+P2 LOJA 141 | Loja 141 | [671.036, 520.885] | position_only | unavailable
+P2 LOJA 140 | Loja 140 | [693.76, 525.234] | position_only | unavailable
+P2 LOJA 139 | Loja 139 | [712.64, 515.092] | position_only | unavailable
+P2 LOJA 92 | Loja 92 | [674.709, 571.335] | position_only | unavailable
+P2 LOJA 93A | Loja 93A | [688.219, 572.966] | position_only | unavailable
+P2 LOJA 93 | Loja 93 | [700.804, 572.966] | position_only | unavailable
+P2 LOJA 90 | Loja 90 | [639.07, 568.52] | position_only | unavailable
+P2 LOJA 53A | Loja 53A | [995.89, 614.622] | cad_extracted | unavailable
+P2 LOJA PC 001C | BIG | [1183.49, 322.613] | cad_extracted | unavailable
+P2 LOJA PC01B | Wow Park | [1162.26, 281.722] | cad_extracted | unavailable
+P2 LOJA PC01A | MoroFit | [1143.015, 224.967] | cad_extracted | unavailable
+P2 LOJA 30 | Loja 30 | [861.082, 691.99] | position_only | unavailable
+P2 LOJA 31 | Loja 31 | [875.978, 690.142] | position_only | unavailable
+P2 LOJA 28 | Loja 28 | [889.642, 697.999] | position_only | unavailable
+P2 LOJA 32 | Outback | [862.392, 725.3] | manual_trace | plan_inferred
+P2 LOJA 66 | Loja 66 | [778.042, 623.726] | position_only | unavailable
+P2 LOJA PC 02 | Zig Zag Play | [1171.455, 380.215] | cad_extracted | plan_inferred
+P2 LOJA 96 | Loja 96 | [731.993, 555.052] | position_only | unavailable
+P2 LOJA 143 | Loja 143 | [638.309, 520.776] | position_only | unavailable
+P2 LOJA 142 | Loja 142 | [652.553, 521.219] | position_only | unavailable
+P2 LOJA 124 | Loja 124 | [1003.44, 520.922] | position_only | unavailable
+P2 LOJA 109 | Loja 109 | [1001.894, 572.531] | cad_extracted | plan_inferred
+P3 LOJA 210 | Dona Maria Express | [1016.704, 339.835] | manual_trace | plan_inferred
+P3 LOJA 209 | Divino Fogão | [1093.357, 333.529] | manual_trace | plan_inferred
+P3 LOJA 211 | Loja 211 | [958.934, 347.012] | manual_trace | plan_inferred
+P3 LOJA 212 | Pizza Hut | [902.213, 346.576] | manual_trace | plan_inferred
+P3 LOJA 213 | Spoleto | [840.466, 355.781] | manual_trace | plan_inferred
+P3 LOJA 214 | McDonald's | [735.643, 370.496] | manual_trace | plan_inferred
+P3 LOJA 201 | Kin Sui | [681.931, 749.412] | manual_trace | plan_inferred
+P3 LOJA 202 | Giraffas | [759.563, 810.843] | manual_trace | plan_inferred
+P3 LOJA 203 | Loja 203 · vaga na planta | [833.715, 831.501] | manual_trace | plan_inferred
+P3 LOJA 204 | Loja 204 | [903.089, 829.053] | manual_trace | plan_inferred
+P3 LOJA 205 | Loja 205 · vaga na planta | [957.882, 824.434] | manual_trace | plan_inferred
+P3 LOJA 206 | Subway | [1012.789, 819.65] | manual_trace | plan_inferred
+P3 LOJA 207 | Express Grill | [1096.861, 826.185] | manual_trace | plan_inferred
+P3 LOJA 200 | Loja 200 · espaço de eventos | [619.487, 890.206] | manual_trace | plan_inferred
+P3 LOJA 215 | Mundo Imersivo | [560.918, 362.45] | manual_trace | plan_inferred
+P2 EXT 01 | Madero | [920.845, 758.205] | cad_extracted | unavailable
+
+CRITÉRIOS DE ACEITE PARA CORREÇÃO
+Cada loja/quiosque terá código da planta, página, posição, nome confirmado ou pendente, geometria e estado de rota explícitos. Não deslocar insets para térreo nem criar portas, GPS ou percursos sem evidência. Reexecutar contagens após correções e preservar referência à versão auditada.

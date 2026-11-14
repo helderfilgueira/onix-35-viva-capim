@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "map shows inactivity after 90 seconds",
+    "continue closes warning",
+    "warning returns after another inactive period",
+    "end resets map"
+  ],
+  "url": "https://onix35-viva-capim.vercel.app/explorar.html"
+}

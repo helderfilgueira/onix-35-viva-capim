@@ -1,0 +1,71 @@
+{
+  "created_or_reused": [
+    {
+      "code": "PILOTO-01",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/10",
+      "title": "[PILOTO-01] Contas e autorizacao por organizacao",
+      "milestone": "Piloto 1 - Acesso e governanca"
+    },
+    {
+      "code": "PILOTO-02",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/11",
+      "title": "[PILOTO-02] Governanca arquitetura e operacao documentadas",
+      "milestone": "Piloto 1 - Acesso e governanca"
+    },
+    {
+      "code": "PILOTO-03",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/12",
+      "title": "[PILOTO-03] Conteudo e beneficios com aprovacao administrativa",
+      "milestone": "Piloto 2 - Conteudo e experiencia"
+    },
+    {
+      "code": "PILOTO-04",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/13",
+      "title": "[PILOTO-04] Campanhas sazonais e experiencia acessivel em tres idiomas",
+      "milestone": "Piloto 2 - Conteudo e experiencia"
+    },
+    {
+      "code": "PILOTO-05",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/14",
+      "title": "[PILOTO-05] Cadastro pendente e direitos assistidos da fidelidade",
+      "milestone": "Piloto 3 - Fidelidade e resgate"
+    },
+    {
+      "code": "PILOTO-06",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/15",
+      "title": "[PILOTO-06] Carteira global e pontos independentes da nota",
+      "milestone": "Piloto 3 - Fidelidade e resgate"
+    },
+    {
+      "code": "PILOTO-07",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/16",
+      "title": "[PILOTO-07] Resgate assistido com debito e estoque atomicos",
+      "milestone": "Piloto 3 - Fidelidade e resgate"
+    },
+    {
+      "code": "PILOTO-08",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/issues/17",
+      "title": "[PILOTO-08] Regressao e publicacao controlada do piloto",
+      "milestone": "Piloto 4 - QA e publicacao controlada"
+    }
+  ],
+  "milestones": [
+    {
+      "title": "Piloto 1 - Acesso e governanca",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/milestone/1"
+    },
+    {
+      "title": "Piloto 2 - Conteudo e experiencia",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/milestone/2"
+    },
+    {
+      "title": "Piloto 3 - Fidelidade e resgate",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/milestone/3"
+    },
+    {
+      "title": "Piloto 4 - QA e publicacao controlada",
+      "url": "https://github.com/helderfilgueira/onix-35-viva-capim/milestone/4"
+    }
+  ],
+  "project_status": "blocked_missing_read_project_scope"
+}

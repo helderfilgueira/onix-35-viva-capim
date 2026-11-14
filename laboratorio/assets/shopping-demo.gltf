@@ -1,0 +1,608 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "Onix35 procedural schematic exporter"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Aurora",
+      "mesh": 0,
+      "translation": [
+        -12,
+        1.7,
+        -10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-01",
+        "floor_id": "f0",
+        "entrance_node_id": "loja-01-entrada"
+      }
+    },
+    {
+      "name": "Folha & Forma",
+      "mesh": 1,
+      "translation": [
+        0,
+        1.7,
+        -10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-02",
+        "floor_id": "f0",
+        "entrance_node_id": "loja-02-entrada"
+      }
+    },
+    {
+      "name": "Café do Sol",
+      "mesh": 2,
+      "translation": [
+        12,
+        1.7,
+        -10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-03",
+        "floor_id": "f0",
+        "entrance_node_id": "loja-03-entrada"
+      }
+    },
+    {
+      "name": "Passo Leve",
+      "mesh": 3,
+      "translation": [
+        -12,
+        1.7,
+        10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-04",
+        "floor_id": "f0",
+        "entrance_node_id": "loja-04-entrada"
+      }
+    },
+    {
+      "name": "Casa Cerrado",
+      "mesh": 4,
+      "translation": [
+        0,
+        1.7,
+        10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-05",
+        "floor_id": "f0",
+        "entrance_node_id": "loja-05-entrada"
+      }
+    },
+    {
+      "name": "Universo Geek",
+      "mesh": 5,
+      "translation": [
+        12,
+        1.7,
+        10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-06",
+        "floor_id": "f0",
+        "entrance_node_id": "loja-06-entrada"
+      }
+    },
+    {
+      "name": "Mesa Viva",
+      "mesh": 6,
+      "translation": [
+        -12,
+        10.7,
+        -10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-07",
+        "floor_id": "f1",
+        "entrance_node_id": "loja-07-entrada"
+      }
+    },
+    {
+      "name": "Livraria Horizonte",
+      "mesh": 7,
+      "translation": [
+        0,
+        10.7,
+        -10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-08",
+        "floor_id": "f1",
+        "entrance_node_id": "loja-08-entrada"
+      }
+    },
+    {
+      "name": "Ateliê Íris",
+      "mesh": 8,
+      "translation": [
+        12,
+        10.7,
+        -10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-09",
+        "floor_id": "f1",
+        "entrance_node_id": "loja-09-entrada"
+      }
+    },
+    {
+      "name": "Sabor de Casa",
+      "mesh": 9,
+      "translation": [
+        -12,
+        10.7,
+        10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-10",
+        "floor_id": "f1",
+        "entrance_node_id": "loja-10-entrada"
+      }
+    },
+    {
+      "name": "Pausa Verde",
+      "mesh": 10,
+      "translation": [
+        0,
+        10.7,
+        10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-11",
+        "floor_id": "f1",
+        "entrance_node_id": "loja-11-entrada"
+      }
+    },
+    {
+      "name": "Pequenos Mundos",
+      "mesh": 11,
+      "translation": [
+        12,
+        10.7,
+        10
+      ],
+      "scale": [
+        9,
+        3.4,
+        10
+      ],
+      "extras": {
+        "store_id": "loja-12",
+        "floor_id": "f1",
+        "entrance_node_id": "loja-12-entrada"
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "loja-01",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 0
+        }
+      ]
+    },
+    {
+      "name": "loja-02",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 1
+        }
+      ]
+    },
+    {
+      "name": "loja-03",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 2
+        }
+      ]
+    },
+    {
+      "name": "loja-04",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 3
+        }
+      ]
+    },
+    {
+      "name": "loja-05",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 4
+        }
+      ]
+    },
+    {
+      "name": "loja-06",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 5
+        }
+      ]
+    },
+    {
+      "name": "loja-07",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 6
+        }
+      ]
+    },
+    {
+      "name": "loja-08",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 7
+        }
+      ]
+    },
+    {
+      "name": "loja-09",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 8
+        }
+      ]
+    },
+    {
+      "name": "loja-10",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 9
+        }
+      ]
+    },
+    {
+      "name": "loja-11",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 10
+        }
+      ]
+    },
+    {
+      "name": "loja-12",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1,
+          "material": 11
+        }
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "loja-01",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8,
+          0.4823529411764706,
+          0.34509803921568627,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-02",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5490196078431373,
+          0.6666666666666666,
+          0.5176470588235295,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-03",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8392156862745098,
+          0.6745098039215687,
+          0.396078431372549,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-04",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4666666666666667,
+          0.5882352941176471,
+          0.6784313725490196,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-05",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6823529411764706,
+          0.5411764705882353,
+          0.6705882352941176,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-06",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4627450980392157,
+          0.6196078431372549,
+          0.5803921568627451,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-07",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8,
+          0.4823529411764706,
+          0.34509803921568627,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-08",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5490196078431373,
+          0.6666666666666666,
+          0.5176470588235295,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-09",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.8392156862745098,
+          0.6745098039215687,
+          0.396078431372549,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-10",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4666666666666667,
+          0.5882352941176471,
+          0.6784313725490196,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-11",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6823529411764706,
+          0.5411764705882353,
+          0.6705882352941176,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    },
+    {
+      "name": "loja-12",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.4627450980392157,
+          0.6196078431372549,
+          0.5803921568627451,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "data:application/octet-stream;base64,AAAAvwAAAL8AAAC/AAAAPwAAAL8AAAC/AAAAPwAAAD8AAAC/AAAAvwAAAD8AAAC/AAAAvwAAAL8AAAA/AAAAPwAAAL8AAAA/AAAAPwAAAD8AAAA/AAAAvwAAAD8AAAA/AAACAAEAAAADAAIABAAFAAYABAAGAAcAAAABAAUAAAAFAAQAAwAHAAYAAwAGAAIAAAAEAAcAAAAHAAMAAQACAAYAAQAGAAUA",
+      "byteLength": 168
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 96,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 96,
+      "byteLength": 72,
+      "target": 34963
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 8,
+      "type": "VEC3",
+      "min": [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "max": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5123,
+      "count": 36,
+      "type": "SCALAR"
+    }
+  ],
+  "extras": {
+    "notice": "Mapa e estabelecimentos fictícios. Não usar para orientação física no shopping.",
+    "version": "onix-demo-2026-11-13-v1",
+    "units": "schematic metres, not validated in venue"
+  }
+}

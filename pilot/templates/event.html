@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>{{ title }} · Viva Capim</title>
+<style>
+:root{--ink:#173c32;--muted:#5d6b62;--paper:#f6f2e7;--gold:#b98a3b;--card:#fffef9;--line:#e3dccb}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Segoe UI",Inter,Arial,sans-serif}
+main{max-width:620px;margin:0 auto;padding:24px 16px 48px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;margin-bottom:18px}.brand i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--ink);color:#d9f57c;font-style:normal}
+.langs{margin-left:auto;display:flex;gap:6px}.langs a{min-width:44px;min-height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:700;background:var(--card)}.langs a[aria-current]{background:var(--ink);color:#fff}
+article{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 10px 30px rgba(23,60,50,.08)}
+.state{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:#e9f3dd;color:#2c5a1d}
+.state.cancelled,.state.ended{background:#f7e3dc;color:#8a2f17}
+h1{font-size:30px;line-height:1.15;margin:12px 0 8px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:16px 0}dt{font-weight:700;color:var(--muted)}dd{margin:0}
+.actions{display:grid;gap:10px;margin-top:20px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 14px;text-align:center;border-radius:14px;font-weight:800;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:#fff}
+.btn.primary{background:var(--ink);color:#fff}
+.note{font-size:14px;color:var(--muted);margin-top:14px}
+a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+  <header class="brand"><i aria-hidden="true">v</i> Viva Capim
+    <nav class="langs" aria-label="{% if lang == 'en' %}Language{% else %}Idioma{% endif %}">
+      <a href="?lang=pt-BR" lang="pt-BR" {% if lang == 'pt-BR' %}aria-current="true"{% endif %}>PT</a>
+      <a href="?lang=en" lang="en" {% if lang == 'en' %}aria-current="true"{% endif %}>EN</a>
+      <a href="?lang=es" lang="es" {% if lang == 'es' %}aria-current="true"{% endif %}>ES</a>
+    </nav>
+  </header>
+  <article>
+    <span class="state {{ state }}">{% if state == 'cancelled' %}{% if lang == 'en' %}Cancelled{% else %}Cancelado{% endif %}{% elif state == 'ended' %}{% if lang == 'en' %}Ended{% elif lang == 'es' %}Finalizado{% else %}Encerrado{% endif %}{% elif state == 'ongoing' %}{% if lang == 'en' %}Happening now{% elif lang == 'es' %}En curso{% else %}Acontecendo agora{% endif %}{% else %}{% if lang == 'en' %}Upcoming{% elif lang == 'es' %}Próximo{% else %}Em breve{% endif %}{% endif %}</span>
+    <h1>{{ title }}</h1>
+    {% if details %}<p>{{ details|linebreaksbr }}</p>{% endif %}
+    <dl>
+      <dt>{% if lang == 'en' %}When{% elif lang == 'es' %}Cuándo{% else %}Quando{% endif %}</dt><dd>{{ when }}</dd>
+      <dt>{% if lang == 'en' %}Where{% elif lang == 'es' %}Dónde{% else %}Onde{% endif %}</dt><dd>{{ location }}</dd>
+    </dl>
+    {% if google %}
+    <div class="actions">
+      <a class="btn primary" href="{{ google }}" target="_blank" rel="noopener noreferrer">{% if lang == 'en' %}Add to Google Calendar{% elif lang == 'es' %}Agregar a Google Calendar{% else %}Adicionar ao Google Agenda{% endif %}</a>
+      <a class="btn" href="{{ ics }}" download>{% if lang == 'en' %}Download .ics (other calendars){% elif lang == 'es' %}Descargar .ics (otros calendarios){% else %}Baixar arquivo .ics (outras agendas){% endif %}</a>
+      {% if map %}<a class="btn" href="{{ map }}">{% if lang == 'en' %}See it on the map{% elif lang == 'es' %}Ver en el mapa{% else %}Ver no mapa{% endif %}</a>{% endif %}
+    </div>
+    <p class="note">{% if lang == 'en' %}Opening the calendar does not save the event by itself: confirm it in your own calendar. This page has no personal data and does not track you.{% elif lang == 'es' %}Abrir el calendario no guarda el evento automáticamente: confírmalo en tu propio calendario. Esta página no tiene datos personales ni te rastrea.{% else %}Abrir a agenda não salva o evento sozinho: confirme na sua própria agenda. Esta página não tem dados pessoais e não acompanha você.{% endif %}</p>
+    {% else %}
+    <p class="note">{% if state == 'cancelled' %}{% if lang == 'en' %}This event was cancelled or paused by the organisers.{% elif lang == 'es' %}Este evento fue cancelado o pausado por la organización.{% else %}Este evento foi cancelado ou pausado pela organização.{% endif %}{% else %}{% if lang == 'en' %}This event has already ended.{% elif lang == 'es' %}Este evento ya terminó.{% else %}Este evento já terminou.{% endif %}{% endif %}</p>
+    {% endif %}
+  </article>
+</main>
+</body>
+</html>

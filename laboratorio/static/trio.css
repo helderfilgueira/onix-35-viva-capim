@@ -1,0 +1,48 @@
+/* Easter egg "Encontre o trio" */
+.trio-chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid #d3dac7;background:#fffef9;color:#173c32;font:750 13px/1 Inter,"Segoe UI",Arial,sans-serif;cursor:pointer;white-space:nowrap}
+.trio-chip b{font-weight:900;color:#7a5418}
+.trio-chip:focus-visible{outline:3px solid #c9973c;outline-offset:2px}
+.trio-toast{position:fixed;left:50%;top:18vh;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:12px;max-width:min(92vw,520px);padding:12px 18px;border-radius:18px;
+  background:#173c32;color:#fffef9;font:700 16px/1.35 Inter,"Segoe UI",Arial,sans-serif;box-shadow:0 14px 34px rgba(0,0,0,.3);pointer-events:none}
+.trio-toast[hidden]{display:none}
+.trio-toast canvas{image-rendering:pixelated;flex:none}
+.trio-panel{width:min(480px,94vw);border:0;border-radius:24px;padding:22px;background:#fffef9;color:#173c32;font-family:Inter,"Segoe UI",Arial,sans-serif;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.trio-panel::backdrop{background:rgba(15,30,25,.5)}
+.trio-panel h2{margin:0 48px 6px 0;font-size:22px}
+.trio-help{margin:0 0 12px;font-size:14px;opacity:.85}
+.trio-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#eef1e8;font-size:24px;cursor:pointer}
+.trio-panel ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.trio-panel li{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:14px;background:#f3f0e6}
+.trio-av canvas{image-rendering:pixelated;display:block}
+.trio-who{display:grid;flex:1}.trio-who small{font-size:13px;opacity:.75}
+.trio-panel li button{min-height:44px;padding:0 14px;border-radius:12px;border:2px solid #173c32;background:#fff;color:#173c32;font-weight:800;cursor:pointer}
+.trio-panel li button:disabled{border-color:#9fc08a;background:#e9f3dd;color:#2c5a1d;cursor:default}
+.trio-panel button:focus-visible,.trio-party button:focus-visible{outline:3px solid #c9973c;outline-offset:2px}
+.trio-party{padding:0;border:0;background:transparent;font-family:Inter,"Segoe UI",Arial,sans-serif;overflow:visible}
+.trio-party::backdrop{background:rgba(15,30,25,.45)}
+.trio-party-card{position:relative;overflow:hidden;width:min(520px,92vw);padding:28px 24px 22px;border-radius:28px;text-align:center;background:#fffef9;color:#173c32;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.trio-party h2{margin:12px 0 6px;font-size:30px;letter-spacing:-.02em}
+.trio-party p{margin:0 0 16px}
+.trio-party-row{display:flex;justify-content:center;gap:18px}
+.trio-party-row canvas{image-rendering:pixelated;animation:trio-hop .9s ease-in-out infinite}
+@keyframes trio-hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.trio-party-close{min-height:52px;padding:0 24px;border-radius:999px;border:0;background:#173c32;color:#fff;font-weight:800;font-size:16px;cursor:pointer}
+.trio-confetti{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(circle at 10% 20%,var(--c1) 0 5px,transparent 6px),radial-gradient(circle at 80% 15%,var(--c2) 0 4px,transparent 5px),
+  radial-gradient(circle at 30% 80%,var(--c2) 0 4px,transparent 5px),radial-gradient(circle at 90% 70%,var(--c1) 0 6px,transparent 7px),
+  radial-gradient(circle at 55% 10%,var(--c3) 0 3px,transparent 4px),radial-gradient(circle at 15% 60%,var(--c3) 0 4px,transparent 5px);opacity:.9}
+.trio-party{--c1:#c9973c;--c2:#4f8f5f;--c3:#d9f57c}
+.trio-party.natal{--c1:#c62828;--c2:#2e7d32;--c3:#f2c230}
+.trio-party.ano-novo{--c1:#f2c230;--c2:#c0c0c0;--c3:#1f5fbf}
+.trio-party.pascoa{--c1:#f4a6c0;--c2:#9ed8f0;--c3:#f8e08e}
+@media (prefers-reduced-motion:reduce){.trio-party-row canvas{animation:none}}
+body.reduced-motion .trio-party-row canvas{animation:none}
+body.totem .trio-chip{font-size:16px;min-height:52px}
+/* Totem: botão fixo à direita, abaixo do ponto de partida; some com busca/detalhe/tela inicial abertos */
+body.totem .trio-chip{position:fixed;z-index:37;right:18px;top:calc(env(safe-area-inset-top,0px) + 18vh);zoom:1.5;box-shadow:0 8px 20px rgba(23,60,50,.18)}
+@media (max-width:900px){body.totem .trio-chip{zoom:1;top:auto;bottom:calc(31.5vh + 8px)}}
+@media (max-width:520px){.trio-chip .trio-label{display:none}}
+@media (max-width:680px){.map-toolbar{flex-wrap:wrap}}
+body.totem.totem-detail .trio-chip,body.totem:has(.catalog.totem-open) .trio-chip,body.attract-on .trio-chip{display:none}
+body.totem .trio-panel,body.totem .trio-party-card{zoom:1.5}
+body.totem .trio-toast{zoom:1.5}

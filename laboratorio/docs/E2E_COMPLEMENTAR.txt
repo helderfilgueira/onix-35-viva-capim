@@ -1,0 +1,3 @@
+PASS Seleção real por raycast no canvas 3D: Passo Leve
+PASS Falha de rede em /api/routes não mostra sucesso nem percurso
+Ambiente: Chrome headless Windows/SwiftShader; 13/11/2026.

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "organization created through UI",
+    "partner created through UI",
+    "cashier created through UI",
+    "partner login, scoped menus, blocked members endpoint and logout",
+    "cashier login, scoped menus, blocked members endpoint and logout",
+    "temporary QA accounts deactivated through UI"
+  ],
+  "errors": []
+}

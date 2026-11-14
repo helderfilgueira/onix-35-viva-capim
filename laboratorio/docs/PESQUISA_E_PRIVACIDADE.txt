@@ -1,0 +1,50 @@
+PESQUISA APLICADA E CONTROLES | EQUIPE ONIX - 35
+Consolidado em 13/11/2026 a partir das fontes primárias verificadas pelo coordenador ao preparar o prompt mestre.
+
+R01 — EXISTEM PRECEDENTES?
+Pergunta: navegação 3D com detalhes e posicionamento já foi aplicada em shopping?
+Fonte: Mappedin, estudo Dubai Mall: https://www.mappedin.com/static/9087c599f9a811da0f112283bb3c900f/Dubai_Mall_Case_Study_2_e28c211fe6.pdf
+Achado: caso comercial de integração de wayfinding 3D e posicionamento. Limite: relato do fornecedor, não prova de desempenho no nosso local. Aplicação: jornada integrada e separação entre mapa e infraestrutura. Decisão: não alegar ineditismo de 3D/QR; demonstrar conexão com eventos e privacidade.
+
+R02 — COMO MOSTRAR ONDE A PESSOA ESTÁ?
+Fonte: https://developer.mappedin.com/docs/enterprise-apps/mappedin-web/indoor-positioning
+Achado: posicionamento indoor requer fonte apropriada; mapa pode exibir localização fornecida por IPS. GPS não garante posição precisa em interiores. Aplicação: origem fixa do totem e âncora QR primeiro; pesquisa de IPS depois. Aceite: fonte, idade e limite do marcador visíveis. QR não comprova deslocamento contínuo.
+Referência complementar: https://help.mappedin.com/en/articles/14112093-getting-started-with-start-from-here
+Experimento: abrir link público com origem/destino, solicitar confirmação e calcular percurso. Resultado: pendente de integração/QA.
+
+R03 — COMO MANTER O 3D UTILIZÁVEL?
+Fonte: https://threejs.org/manual/pages/optimize-lots-of-objects.html
+Aplicação: geometria simples, limitar objetos e efeitos, renderização proporcional ao dispositivo, medir antes de otimizar. Experimento: cena com seleção e percurso; perfil de frame time no equipamento de referência. Resultado: pendente. Otimização recomendada não garante 30/60 FPS sem medição.
+
+R04 — ACESSIBILIDADE E MOTION
+Fonte: https://www.w3.org/TR/WCAG22/
+Aplicação: navegação por teclado, foco visível, nome acessível, contraste, equivalente em lista, alvos de toque confortáveis e redução de movimento. A meta de 44–48 CSS px é decisão de produto, não descrição universal do mínimo AA. Meta WCAG 2.2 AA não equivale a certificação. Teste de teclado/leitor/touch real deve produzir evidência.
+
+R05 — PROCESSO
+Fonte: https://scrumguides.org/scrum-guide.html
+Aplicação: objetivo explícito, backlog ordenado, incremento verificável e inspeção/adaptação. A sessão de agentes não é prova de daily/review humana. Especialidades de desenvolvimento não alteram as responsabilidades oficiais do framework.
+
+R06 — LGPD
+Fonte legal: https://www2.camara.leg.br/legin/fed/lei/2018/lei-13709-14-agosto-2018-787077-normaatualizada-pl.html
+Aplicação de engenharia: necessidade/minimização, transparência, segurança e finalidade definida. Consulta pública sem cadastro; localização não persistida por padrão. Base legal, retenção, controlador e canal real devem ser definidos no piloto. Consentimento não é resposta automática para todo tratamento. Este plano não é parecer jurídico nem comprovação de conformidade.
+
+INVENTÁRIO DE DADOS DO INCREMENTO
+Catálogo público fictício: nome/categoria/local/horário demonstrativo → orientar visitante → arquivo versionado → sem identificação pessoal.
+Origem/destino públicos: node_id e map_version → calcular rota → memória da requisição/interface → não registrar histórico individual por padrão.
+Link/QR: IDs públicos → continuar percurso → URL → sem sessão, token administrativo, telefone ou nome do visitante.
+Preferência de rota: opção sem escadas → calcular caminho → estado de interface → não inferir condição de saúde nem gravar perfil.
+Avaliação de evento existente: token pseudônimo + evento + nota + aspecto fechado → avaliação voluntária → SQLite conforme política atual → não tratar como anônimo só por faltar nome.
+Credencial administrativa: acesso de gestão → somente operação local → não incluir em URL, captura pública, logs ou repositório.
+
+RISCOS E CONTROLES
+Origem antiga apresentada como atual: mostrar último ponto confirmado/manual e permitir redefinir; não animar visitante fictício.
+Dados de visitante anterior: reset deve limpar seleção, busca, rota, QR, áudio e formulários; verificar voltar/recarregar. A navegação nova não deve herdar token da participação antiga. Isso exige teste integrado, não apenas botão visual.
+Mapa errado/desatualizado: modelo explicitamente demonstrativo; implantação real depende de validação de entradas, corredores e acessibilidade.
+Exposição de planta técnica: não publicar dependências de segurança/serviço; gerar somente representação pública aprovada.
+Foto/contato/reputação inventada: exibir indisponível ou ilustração rotulada; manter fonte/licença quando material real chegar.
+Link externo no totem: limitar navegação ou transferir por QR; não permitir escapar para desktop/admin.
+Offline: não anunciar cadastro/avaliação concluídos sem confirmação. Cache público não garante boot offline nem validade de bloqueios.
+Loopback: QR de localhost não abre o computador a partir de outro celular; declarar limite, sem apresentar transferência externa como validada.
+
+PRÓXIMAS EVIDÊNCIAS
+Resultados de testes automatizados; execução em navegador; inspeção de rede sem chamadas remotas inesperadas; duas sessões consecutivas; teste de layout estreito; acessibilidade; perfil de desempenho. Separar demonstração local de validação em campo.

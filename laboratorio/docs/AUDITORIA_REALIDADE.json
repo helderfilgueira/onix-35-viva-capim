@@ -1,0 +1,3404 @@
+{
+  "audit_date": "2026-11-13",
+  "baseline_sha256": "c1e027e6a006a762d4feedc97a0af559945d97e91718e2811e812ead69fdb24d",
+  "coordinate_system": "PDF raster normalizado para largura 1800 px, origem superior esquerda, por página; não representa coordenadas geográficas",
+  "scope": "3 páginas; inventário textual integral e inspeção visual dirigida a âncoras, insets e omissões; identidade comercial de cada logo pequeno ainda não transcrita integralmente",
+  "totals": {
+    "registered_positions": 158,
+    "footprints": 82,
+    "position_only": 76,
+    "inferred_routes": 77,
+    "unavailable_routes": 81,
+    "omitted_external_stores": 0,
+    "omitted_inset_establishments": 4,
+    "omitted_kiosk_label_occurrences": 50,
+    "distinct_kiosk_labels": 49,
+    "corrected_external_stores": 1
+  },
+  "external_store": {
+    "source_page": 2,
+    "source_label": "EXT 01",
+    "name": "Madero",
+    "source_position_px": [
+      920.775,
+      757.011
+    ],
+    "area_m2": 181.28,
+    "confidence": "high",
+    "status": "corrected_by_parent_during_audit",
+    "polygon_px": [
+      [
+        905.266,
+        737.164
+      ],
+      [
+        951.366,
+        737.164
+      ],
+      [
+        951.366,
+        743.035
+      ],
+      [
+        935.492,
+        743.035
+      ],
+      [
+        935.492,
+        771.413
+      ],
+      [
+        905.266,
+        771.413
+      ]
+    ],
+    "route_note": "Contorno não mostra abertura validável; não inventar acesso nem rota."
+  },
+  "omitted_insets": [
+    {
+      "source_page": 1,
+      "source_label": "QSUB1",
+      "name": "Maria Express",
+      "source_position_px": [
+        521.867,
+        247.738
+      ],
+      "confidence": "high",
+      "status": "omitted_inset",
+      "spatial_note": "Subsolo 1; usar sistema de coordenadas próprio."
+    },
+    {
+      "source_page": 1,
+      "source_label": "A 8",
+      "name": "Colégio Interação",
+      "source_position_px": [
+        133.176,
+        425.333
+      ],
+      "confidence": "high",
+      "status": "omitted_inset",
+      "spatial_note": "Inset separado; alinhamento e nível devem ser validados."
+    },
+    {
+      "source_page": 1,
+      "source_label": "LOJA L2",
+      "name": "IOA",
+      "source_position_px": [
+        194.36,
+        559.143
+      ],
+      "confidence": "high",
+      "status": "omitted_inset",
+      "spatial_note": "Inset PLANTA BAIXA L2; não transpor para térreo."
+    },
+    {
+      "source_page": 1,
+      "source_label": "LOJA L202",
+      "name": "Unicesumar",
+      "source_position_px": [
+        93.416,
+        540.673
+      ],
+      "confidence": "high",
+      "status": "omitted_inset",
+      "spatial_note": "Inset PLANTA BAIXA L2; não transpor para térreo."
+    }
+  ],
+  "omitted_kiosks": [
+    {
+      "source_page": 2,
+      "source_label": "Q 2B",
+      "source_position_px": [
+        591.335,
+        697.994
+      ],
+      "source_bbox": [
+        588.977,
+        696.959,
+        593.694,
+        699.029
+      ],
+      "name": "Chopp Brahma",
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": [
+        "101,63m²"
+      ]
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 11",
+      "source_position_px": [
+        1035.275,
+        693.389
+      ],
+      "source_bbox": [
+        1032.799,
+        692.232,
+        1037.752,
+        694.547
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 18",
+      "source_position_px": [
+        1075.723,
+        443.207
+      ],
+      "source_bbox": [
+        1073.246,
+        442.05,
+        1078.199,
+        444.365
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 12 A",
+      "source_position_px": [
+        1072.449,
+        694.377
+      ],
+      "source_bbox": [
+        1068.897,
+        693.211,
+        1076.001,
+        695.543
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 12",
+      "source_position_px": [
+        1053.345,
+        693.629
+      ],
+      "source_bbox": [
+        1050.957,
+        692.513,
+        1055.733,
+        694.745
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 10",
+      "source_position_px": [
+        1021.467,
+        693.389
+      ],
+      "source_bbox": [
+        1018.991,
+        692.232,
+        1023.944,
+        694.547
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 9 A",
+      "source_position_px": [
+        992.337,
+        692.197
+      ],
+      "source_bbox": [
+        989.417,
+        691.036,
+        995.256,
+        693.358
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 16",
+      "source_position_px": [
+        1075.723,
+        414.504
+      ],
+      "source_bbox": [
+        1073.246,
+        413.346,
+        1078.199,
+        415.661
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 3C",
+      "source_position_px": [
+        717.146,
+        697.13
+      ],
+      "source_bbox": [
+        714.663,
+        696.05,
+        719.628,
+        698.209
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 12B",
+      "source_position_px": [
+        1074.416,
+        645.556
+      ],
+      "source_bbox": [
+        1071.18,
+        644.392,
+        1077.652,
+        646.719
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 13",
+      "source_position_px": [
+        1074.309,
+        608.8
+      ],
+      "source_bbox": [
+        1071.832,
+        607.642,
+        1076.786,
+        609.957
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 30",
+      "source_position_px": [
+        729.31,
+        535.038
+      ],
+      "source_bbox": [
+        726.687,
+        532.58,
+        731.932,
+        537.496
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 29",
+      "source_position_px": [
+        785.445,
+        486.654
+      ],
+      "source_bbox": [
+        782.779,
+        484.283,
+        788.11,
+        489.025
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 3B",
+      "source_position_px": [
+        699.255,
+        696.912
+      ],
+      "source_bbox": [
+        696.831,
+        695.833,
+        701.68,
+        697.991
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 2",
+      "source_position_px": [
+        552.328,
+        656.091
+      ],
+      "source_bbox": [
+        550.484,
+        654.939,
+        554.171,
+        657.244
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 32",
+      "source_position_px": [
+        605.91,
+        548.13
+      ],
+      "source_bbox": [
+        603.434,
+        546.972,
+        608.387,
+        549.287
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 27",
+      "source_position_px": [
+        871.639,
+        501.367
+      ],
+      "source_bbox": [
+        869.192,
+        499.086,
+        874.086,
+        503.648
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 25",
+      "source_position_px": [
+        1036.628,
+        549.911
+      ],
+      "source_bbox": [
+        1034.322,
+        548.833,
+        1038.935,
+        550.989
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 6A",
+      "source_position_px": [
+        881.114,
+        676.312
+      ],
+      "source_bbox": [
+        878.555,
+        673.996,
+        883.674,
+        678.629
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 25A",
+      "source_position_px": [
+        1018.525,
+        549.264
+      ],
+      "source_bbox": [
+        1015.512,
+        548.181,
+        1021.539,
+        550.348
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 26",
+      "source_position_px": [
+        938.617,
+        550.74
+      ],
+      "source_bbox": [
+        936.14,
+        549.582,
+        941.094,
+        551.897
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 29-A",
+      "source_position_px": [
+        778.832,
+        494.033
+      ],
+      "source_bbox": [
+        775.526,
+        491.14,
+        782.137,
+        496.925
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 27-A",
+      "source_position_px": [
+        913.34,
+        538.591
+      ],
+      "source_bbox": [
+        909.834,
+        535.417,
+        916.845,
+        541.764
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 28",
+      "source_position_px": [
+        853.748,
+        487.634
+      ],
+      "source_bbox": [
+        851.121,
+        485.185,
+        856.376,
+        490.083
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 1",
+      "source_position_px": [
+        552.219,
+        625.539
+      ],
+      "source_bbox": [
+        550.375,
+        624.386,
+        554.063,
+        626.692
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 32A",
+      "source_position_px": [
+        626.019,
+        548.545
+      ],
+      "source_bbox": [
+        622.792,
+        547.407,
+        629.246,
+        549.684
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 29B",
+      "source_position_px": [
+        743.484,
+        523.57
+      ],
+      "source_bbox": [
+        740.279,
+        520.625,
+        746.688,
+        526.514
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 26-A",
+      "source_position_px": [
+        958.348,
+        549.334
+      ],
+      "source_bbox": [
+        954.733,
+        548.168,
+        961.963,
+        550.501
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 32B",
+      "source_position_px": [
+        617.864,
+        526.474
+      ],
+      "source_bbox": [
+        614.637,
+        525.335,
+        621.091,
+        527.612
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 7",
+      "source_position_px": [
+        926.351,
+        696.647
+      ],
+      "source_bbox": [
+        924.507,
+        695.494,
+        928.194,
+        697.799
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 15",
+      "source_position_px": [
+        1073.548,
+        532.908
+      ],
+      "source_bbox": [
+        1071.071,
+        531.75,
+        1076.025,
+        534.066
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 31",
+      "source_position_px": [
+        677.014,
+        549.524
+      ],
+      "source_bbox": [
+        674.546,
+        548.386,
+        679.481,
+        550.662
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 14",
+      "source_position_px": [
+        1073.439,
+        561.394
+      ],
+      "source_bbox": [
+        1070.963,
+        560.237,
+        1075.916,
+        562.552
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 2A",
+      "source_position_px": [
+        557.412,
+        699.734
+      ],
+      "source_bbox": [
+        555.054,
+        698.699,
+        559.771,
+        700.769
+      ],
+      "name": "Bistrô 81",
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": [
+        "78,36m²"
+      ]
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 4A",
+      "source_position_px": [
+        758.072,
+        677.036
+      ],
+      "source_bbox": [
+        755.368,
+        674.476,
+        760.777,
+        679.597
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 15 A",
+      "source_position_px": [
+        1074.08,
+        509.757
+      ],
+      "source_bbox": [
+        1070.528,
+        508.591,
+        1077.632,
+        510.923
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 3",
+      "source_position_px": [
+        682.891,
+        696.907
+      ],
+      "source_bbox": [
+        681.174,
+        695.833,
+        684.609,
+        697.98
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 29C",
+      "source_position_px": [
+        758.753,
+        510.808
+      ],
+      "source_bbox": [
+        755.5,
+        507.823,
+        762.006,
+        513.793
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 19-A",
+      "source_position_px": [
+        1062.074,
+        402.769
+      ],
+      "source_bbox": [
+        1058.459,
+        401.603,
+        1065.689,
+        403.936
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 2C",
+      "source_position_px": [
+        556.846,
+        722.422
+      ],
+      "source_bbox": [
+        554.18,
+        721.263,
+        559.512,
+        723.581
+      ],
+      "name": "Mini Cars",
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 34",
+      "source_position_px": [
+        572.644,
+        568.61
+      ],
+      "source_bbox": [
+        570.103,
+        566.051,
+        575.185,
+        571.168
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 5",
+      "source_position_px": [
+        784.876,
+        663.822
+      ],
+      "source_bbox": [
+        782.749,
+        661.751,
+        787.003,
+        665.893
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 4",
+      "source_position_px": [
+        771.418,
+        667.553
+      ],
+      "source_bbox": [
+        769.262,
+        665.669,
+        773.575,
+        669.438
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 28A",
+      "source_position_px": [
+        860.858,
+        491.705
+      ],
+      "source_bbox": [
+        857.645,
+        488.772,
+        864.071,
+        494.638
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 15 B",
+      "source_position_px": [
+        1073.536,
+        487.577
+      ],
+      "source_bbox": [
+        1069.984,
+        486.411,
+        1077.088,
+        488.743
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 9",
+      "source_position_px": [
+        973.637,
+        694.366
+      ],
+      "source_bbox": [
+        971.477,
+        693.211,
+        975.797,
+        695.521
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 20",
+      "source_position_px": [
+        1077.353,
+        359.813
+      ],
+      "source_bbox": [
+        1074.877,
+        358.656,
+        1079.83,
+        360.971
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 6B",
+      "source_position_px": [
+        866.654,
+        666.418
+      ],
+      "source_bbox": [
+        864.094,
+        664.102,
+        869.213,
+        668.735
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 19",
+      "source_position_px": [
+        1076.375,
+        390.801
+      ],
+      "source_bbox": [
+        1073.898,
+        389.643,
+        1078.852,
+        391.959
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    },
+    {
+      "source_page": 2,
+      "source_label": "Q 30",
+      "source_position_px": [
+        720.72,
+        542.432
+      ],
+      "source_bbox": [
+        718.098,
+        539.974,
+        723.342,
+        544.889
+      ],
+      "name": null,
+      "status": "omitted_kiosk",
+      "confidence": "high_label_location",
+      "area_m2": null,
+      "nearby_area_text": []
+    }
+  ],
+  "registered_inventory": [
+    {
+      "id": "f0-loja-07",
+      "name": "Loja 07",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 07",
+      "source_position_px": [
+        550.701,
+        743.126
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-07-entrada"
+    },
+    {
+      "id": "f0-loja-03",
+      "name": "Loja 03",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 03",
+      "source_position_px": [
+        528.983,
+        639.543
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-05",
+      "name": "Loja 05",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 05",
+      "source_position_px": [
+        529.468,
+        711.709
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-01",
+      "name": "Loja 01",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 01",
+      "source_position_px": [
+        527.496,
+        602.027
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-pc-07",
+      "name": "Loja PC 07",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 07",
+      "source_position_px": [
+        1111.14,
+        589.297
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-pc-07-entrada"
+    },
+    {
+      "id": "f0-loja-02",
+      "name": "Loja 02",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 02",
+      "source_position_px": [
+        527.388,
+        613.987
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-02-entrada"
+    },
+    {
+      "id": "f0-loja-132",
+      "name": "Loja 132",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 132",
+      "source_position_px": [
+        880.093,
+        471.348
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-141a",
+      "name": "Loja 141A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 141A",
+      "source_position_px": [
+        920.878,
+        481.614
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-130",
+      "name": "Loja 130",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 130",
+      "source_position_px": [
+        913.183,
+        509.452
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-127",
+      "name": "Loja 127",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 127",
+      "source_position_px": [
+        951.55,
+        524.341
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-127-entrada"
+    },
+    {
+      "id": "f0-loja-121",
+      "name": "Loja 121",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 121",
+      "source_position_px": [
+        1050.495,
+        512.513
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-121-entrada"
+    },
+    {
+      "id": "f0-loja-114-b",
+      "name": "Loja 114-B",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 114-B",
+      "source_position_px": [
+        1046.84,
+        588.514
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-112",
+      "name": "Loja 112",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 112",
+      "source_position_px": [
+        1022.77,
+        582.86
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-110",
+      "name": "Loja 110",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 110",
+      "source_position_px": [
+        988.196,
+        573.279
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-109",
+      "name": "Loja 109",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 109",
+      "source_position_px": [
+        974.821,
+        574.162
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-104",
+      "name": "Loja 104",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 104",
+      "source_position_px": [
+        930.181,
+        578.37
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-104-entrada"
+    },
+    {
+      "id": "f0-loja-102",
+      "name": "Loja 102",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 102",
+      "source_position_px": [
+        874.905,
+        534.161
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-101",
+      "name": "Loja 101",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 101",
+      "source_position_px": [
+        864.623,
+        521.117
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-101-a",
+      "name": "Loja 101 A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 101 A",
+      "source_position_px": [
+        852.379,
+        513.492
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-101-a-entrada"
+    },
+    {
+      "id": "f0-loja-99",
+      "name": "Loja 99",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 99",
+      "source_position_px": [
+        762.791,
+        534.106
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-98",
+      "name": "Loja 98",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 98",
+      "source_position_px": [
+        752.017,
+        542.306
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-97",
+      "name": "Loja 97",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 97",
+      "source_position_px": [
+        741.567,
+        549.626
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-95",
+      "name": "Loja 95",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 95",
+      "source_position_px": [
+        713.301,
+        565.7
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-91",
+      "name": "Loja 91",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 91",
+      "source_position_px": [
+        651.224,
+        568.617
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-91-entrada"
+    },
+    {
+      "id": "f0-loja-90",
+      "name": "Loja 90",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 90",
+      "source_position_px": [
+        639.07,
+        568.52
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-89",
+      "name": "Loja 89",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 89",
+      "source_position_px": [
+        625.567,
+        569.179
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-86",
+      "name": "Loja 86",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 86",
+      "source_position_px": [
+        589.481,
+        584.567
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-86-entrada"
+    },
+    {
+      "id": "f0-loja-148-a",
+      "name": "Loja 148-A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 148-A",
+      "source_position_px": [
+        527.294,
+        565.11
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-147",
+      "name": "Loja 147",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 147",
+      "source_position_px": [
+        544.741,
+        527.594
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-145",
+      "name": "Loja 145",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 145",
+      "source_position_px": [
+        591.121,
+        521.537
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-138",
+      "name": "Loja 138",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 138",
+      "source_position_px": [
+        736.23,
+        501.475
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-137",
+      "name": "Loja 137",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 137",
+      "source_position_px": [
+        751.76,
+        475.855
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-135",
+      "name": "Loja 135",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 135",
+      "source_position_px": [
+        768.532,
+        462.99
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-anc-a9",
+      "name": "C&A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA ANC.A9",
+      "source_position_px": [
+        815.342,
+        422.781
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-anc-a9-entrada"
+    },
+    {
+      "id": "f0-loja-134",
+      "name": "Loja 134",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 134",
+      "source_position_px": [
+        856.921,
+        461.084
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-133",
+      "name": "Loja 133",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 133",
+      "source_position_px": [
+        868.204,
+        468.232
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-131",
+      "name": "Loja 131",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 131",
+      "source_position_px": [
+        890.953,
+        479.435
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-129",
+      "name": "Loja 129",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 129",
+      "source_position_px": [
+        928.397,
+        511.994
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-125",
+      "name": "Loja 125",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 125",
+      "source_position_px": [
+        981.562,
+        521.429
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-125-entrada"
+    },
+    {
+      "id": "f0-loja-128",
+      "name": "Loja 128",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 128",
+      "source_position_px": [
+        937.182,
+        523.642
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-123",
+      "name": "Loja 123",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 123",
+      "source_position_px": [
+        1021.682,
+        523.386
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-122",
+      "name": "Loja 122",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 122",
+      "source_position_px": [
+        1038.1,
+        521.755
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-ancora-01",
+      "name": "Renner",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA ANCORA 01",
+      "source_position_px": [
+        467.317,
+        700.145
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-ancora-01-entrada"
+    },
+    {
+      "id": "f0-loja-06",
+      "name": "Loja 06",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 06",
+      "source_position_px": [
+        520.765,
+        749.942
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-08",
+      "name": "Loja 08",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 08",
+      "source_position_px": [
+        566.974,
+        744.941
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-08-entrada"
+    },
+    {
+      "id": "f0-loja-09",
+      "name": "Loja 09",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 09",
+      "source_position_px": [
+        584.044,
+        743.745
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-09-entrada"
+    },
+    {
+      "id": "f0-loja-10",
+      "name": "Loja 10",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 10",
+      "source_position_px": [
+        596.113,
+        745.593
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-12",
+      "name": "Loja 12",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 12",
+      "source_position_px": [
+        651.678,
+        727.366
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-12-entrada"
+    },
+    {
+      "id": "f0-loja-13",
+      "name": "Loja 13",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 13",
+      "source_position_px": [
+        678.099,
+        729.105
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-16",
+      "name": "Loja 16",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 16",
+      "source_position_px": [
+        702.345,
+        721.712
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-17",
+      "name": "Loja 17",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 17",
+      "source_position_px": [
+        713.661,
+        722.1
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-17-entrada"
+    },
+    {
+      "id": "f0-loja-18",
+      "name": "Loja 18",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 18",
+      "source_position_px": [
+        731.81,
+        725.191
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-29",
+      "name": "Loja 29",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 29",
+      "source_position_px": [
+        844.235,
+        691.159
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-33",
+      "name": "Loja 33",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 33",
+      "source_position_px": [
+        903.926,
+        722.582
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-34",
+      "name": "Loja 34",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 34",
+      "source_position_px": [
+        921.105,
+        721.929
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-34-entrada"
+    },
+    {
+      "id": "f0-loja-35",
+      "name": "Loja 35",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 35",
+      "source_position_px": [
+        936.653,
+        720.733
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-35-entrada"
+    },
+    {
+      "id": "f0-loja-36",
+      "name": "Loja 36",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 36",
+      "source_position_px": [
+        950.026,
+        718.885
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-37",
+      "name": "Loja 37",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 37",
+      "source_position_px": [
+        962.53,
+        719.863
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-38",
+      "name": "Loja 38",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 38",
+      "source_position_px": [
+        975.143,
+        720.298
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-38-entrada"
+    },
+    {
+      "id": "f0-loja-40",
+      "name": "Loja 40",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 40",
+      "source_position_px": [
+        1016.323,
+        721.774
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-40-entrada"
+    },
+    {
+      "id": "f0-loja-ancora-03",
+      "name": "Marisa",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA ANCORA 03",
+      "source_position_px": [
+        1025.524,
+        763.642
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-ancora-03-entrada"
+    },
+    {
+      "id": "f0-loja-41",
+      "name": "Loja 41",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 41",
+      "source_position_px": [
+        1067.778,
+        722.582
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-42",
+      "name": "Loja 42",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 42",
+      "source_position_px": [
+        1080.5,
+        724.756
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-42-entrada"
+    },
+    {
+      "id": "f0-loja-ancora-04",
+      "name": "Cinemark",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA ANCORA 04",
+      "source_position_px": [
+        1159.912,
+        688.946
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-ancora-04-entrada"
+    },
+    {
+      "id": "f0-loja-114a",
+      "name": "Loja 114A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 114A",
+      "source_position_px": [
+        1042.699,
+        572.354
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-114a-entrada"
+    },
+    {
+      "id": "f0-loja-43",
+      "name": "Loja 43",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 43",
+      "source_position_px": [
+        1093.196,
+        664.743
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-43-entrada"
+    },
+    {
+      "id": "f0-loja-44",
+      "name": "Loja 44",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 44",
+      "source_position_px": [
+        1092.87,
+        652.239
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-44-entrada"
+    },
+    {
+      "id": "f0-loja-45",
+      "name": "Loja 45",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 45",
+      "source_position_px": [
+        1093.196,
+        632.125
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-45-entrada"
+    },
+    {
+      "id": "f0-loja-46",
+      "name": "Loja 46",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 46",
+      "source_position_px": [
+        1093.522,
+        611.901
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-46-entrada"
+    },
+    {
+      "id": "f0-loja-47",
+      "name": "Loja 47",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 47",
+      "source_position_px": [
+        1038.857,
+        612.114
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-48",
+      "name": "Loja 48",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 48",
+      "source_position_px": [
+        1053.085,
+        623.664
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-48a",
+      "name": "Loja 48A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 48A",
+      "source_position_px": [
+        1052.896,
+        639.543
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-48a-entrada"
+    },
+    {
+      "id": "f0-loja-49",
+      "name": "Loja 49",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 49",
+      "source_position_px": [
+        1054.405,
+        657.128
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-49-entrada"
+    },
+    {
+      "id": "f0-loja-50",
+      "name": "Loja 50",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 50",
+      "source_position_px": [
+        1034.658,
+        660.666
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-50-entrada"
+    },
+    {
+      "id": "f0-loja-52",
+      "name": "Loja 52",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 52",
+      "source_position_px": [
+        1017.546,
+        661.585
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-52-entrada"
+    },
+    {
+      "id": "f0-loja-53",
+      "name": "Loja 53",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 53",
+      "source_position_px": [
+        994.713,
+        654.518
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-54",
+      "name": "Loja 54",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 54",
+      "source_position_px": [
+        973.947,
+        661.694
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-55",
+      "name": "Loja 55",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 55",
+      "source_position_px": [
+        962.313,
+        663.434
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-56",
+      "name": "Loja 56",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 56",
+      "source_position_px": [
+        940.024,
+        660.716
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-56-entrada"
+    },
+    {
+      "id": "f0-loja-57",
+      "name": "Loja 57",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 57",
+      "source_position_px": [
+        923.932,
+        662.238
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-57-entrada"
+    },
+    {
+      "id": "f0-loja-58",
+      "name": "Loja 58",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 58",
+      "source_position_px": [
+        911.394,
+        665.171
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-58-entrada"
+    },
+    {
+      "id": "f0-loja-59-60",
+      "name": "Loja 59/60",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 59/60",
+      "source_position_px": [
+        905.807,
+        642.898
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-62",
+      "name": "Loja 62",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 62",
+      "source_position_px": [
+        869.995,
+        632.281
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-62-entrada"
+    },
+    {
+      "id": "f0-loja-63",
+      "name": "Loja 63",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 63",
+      "source_position_px": [
+        859.723,
+        625.031
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-63-entrada"
+    },
+    {
+      "id": "f0-loja-64",
+      "name": "Loja 64",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 64",
+      "source_position_px": [
+        849.314,
+        617.132
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-64-entrada"
+    },
+    {
+      "id": "f0-ancora-02",
+      "name": "Riachuelo",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "ANCORA 02",
+      "source_position_px": [
+        819.857,
+        567.497
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-ancora-02-entrada"
+    },
+    {
+      "id": "f0-loja-65",
+      "name": "Loja 65",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 65",
+      "source_position_px": [
+        787.259,
+        613.727
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-65-entrada"
+    },
+    {
+      "id": "f0-loja-68",
+      "name": "Loja 68",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 68",
+      "source_position_px": [
+        757.701,
+        636.801
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-68-entrada"
+    },
+    {
+      "id": "f0-loja-69",
+      "name": "Loja 69",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 69",
+      "source_position_px": [
+        746.297,
+        644.529
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-70",
+      "name": "Stilo A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 70",
+      "source_position_px": [
+        705.824,
+        641.688
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-70-entrada"
+    },
+    {
+      "id": "f0-loja-71",
+      "name": "Loja 71",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 71",
+      "source_position_px": [
+        714.523,
+        669.957
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-71-entrada"
+    },
+    {
+      "id": "f0-loja-72",
+      "name": "Loja 72",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 72",
+      "source_position_px": [
+        700.714,
+        670.284
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-72-entrada"
+    },
+    {
+      "id": "f0-loja-73",
+      "name": "Loja 73",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 73",
+      "source_position_px": [
+        688.196,
+        671.069
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-73-entrada"
+    },
+    {
+      "id": "f0-loja-74",
+      "name": "Loja 74",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 74",
+      "source_position_px": [
+        676.685,
+        670.61
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-75",
+      "name": "Ri Happy",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 75",
+      "source_position_px": [
+        652.222,
+        642.558
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-75-entrada"
+    },
+    {
+      "id": "f0-loja-78",
+      "name": "Loja 78",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 78",
+      "source_position_px": [
+        596.338,
+        646.165
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-78-entrada"
+    },
+    {
+      "id": "f0-loja-79",
+      "name": "Loja 79",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 79",
+      "source_position_px": [
+        583.709,
+        646.67
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-80",
+      "name": "Loja 80",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 80",
+      "source_position_px": [
+        571.581,
+        646.439
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-ancora-05",
+      "name": "Centauro",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA ANCORA 05",
+      "source_position_px": [
+        647.261,
+        771.47
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-ancora-05-entrada"
+    },
+    {
+      "id": "f0-loja-04",
+      "name": "Loja 04",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 04",
+      "source_position_px": [
+        529.226,
+        652.565
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-pc-06",
+      "name": "STZ",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 06",
+      "source_position_px": [
+        1165.686,
+        556.908
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-pc-06-entrada"
+    },
+    {
+      "id": "f0-loja-pc-05",
+      "name": "Avenida",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 05",
+      "source_position_px": [
+        1163.512,
+        518.745
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-pc-05-entrada"
+    },
+    {
+      "id": "f0-loja-pc-04",
+      "name": "Pernambucanas",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 04",
+      "source_position_px": [
+        1160.25,
+        474.058
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-pc-04-entrada"
+    },
+    {
+      "id": "f0-loja-pc-03",
+      "name": "Biglar",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 03",
+      "source_position_px": [
+        1166.665,
+        427.522
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-pc-03-entrada"
+    },
+    {
+      "id": "f0-loja-61",
+      "name": "Loja 61",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 61",
+      "source_position_px": [
+        880.699,
+        638.67
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-103",
+      "name": "Loja 103",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 103",
+      "source_position_px": [
+        888.588,
+        542.654
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-20",
+      "name": "Camicado",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 20",
+      "source_position_px": [
+        779.324,
+        726.17
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-20-entrada"
+    },
+    {
+      "id": "f0-loja-77",
+      "name": "Loja 77",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 77",
+      "source_position_px": [
+        611.231,
+        652.344
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-77-entrada"
+    },
+    {
+      "id": "f0-loja-19",
+      "name": "Loja 19",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 19",
+      "source_position_px": [
+        760.949,
+        700.401
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-67",
+      "name": "Loja 67",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 67",
+      "source_position_px": [
+        767.22,
+        629.068
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-148",
+      "name": "Loja 148",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 148",
+      "source_position_px": [
+        527.944,
+        589.248
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-84",
+      "name": "Loja 84",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 84",
+      "source_position_px": [
+        571.304,
+        596.679
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-84-entrada"
+    },
+    {
+      "id": "f0-loja-76",
+      "name": "Loja 76",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 76",
+      "source_position_px": [
+        626.127,
+        655.497
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-76-entrada"
+    },
+    {
+      "id": "f0-loja-81",
+      "name": "Loja 81",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 81",
+      "source_position_px": [
+        604.49,
+        610.157
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-05-a",
+      "name": "Loja 05 A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 05 A",
+      "source_position_px": [
+        529.477,
+        722.156
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-81-setor-2",
+      "name": "Loja 81",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 81",
+      "source_position_px": [
+        599.38,
+        625.379
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-88",
+      "name": "Loja 88",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 88",
+      "source_position_px": [
+        610.454,
+        573.31
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-88-entrada"
+    },
+    {
+      "id": "f0-loja-02-a",
+      "name": "Loja 02-A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 02-A",
+      "source_position_px": [
+        527.493,
+        623.024
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-39",
+      "name": "Loja 39",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 39",
+      "source_position_px": [
+        991.669,
+        720.842
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-39-entrada"
+    },
+    {
+      "id": "f0-loja-39-a",
+      "name": "Loja 39 A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 39 A",
+      "source_position_px": [
+        1006.024,
+        721.546
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-39-a-entrada"
+    },
+    {
+      "id": "f0-loja-141",
+      "name": "Loja 141",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 141",
+      "source_position_px": [
+        671.036,
+        520.885
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-140",
+      "name": "Loja 140",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 140",
+      "source_position_px": [
+        693.76,
+        525.234
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-139",
+      "name": "Loja 139",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 139",
+      "source_position_px": [
+        712.64,
+        515.092
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-92",
+      "name": "Loja 92",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 92",
+      "source_position_px": [
+        674.709,
+        571.335
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-93a",
+      "name": "Loja 93A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 93A",
+      "source_position_px": [
+        688.219,
+        572.966
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-93",
+      "name": "Loja 93",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 93",
+      "source_position_px": [
+        700.804,
+        572.966
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-90-setor-2",
+      "name": "Loja 90",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 90",
+      "source_position_px": [
+        639.07,
+        568.52
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-53a",
+      "name": "Loja 53A",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 53A",
+      "source_position_px": [
+        995.89,
+        614.622
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-pc-001c",
+      "name": "BIG",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 001C",
+      "source_position_px": [
+        1183.49,
+        322.613
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-pc01b",
+      "name": "Wow Park",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC01B",
+      "source_position_px": [
+        1162.26,
+        281.722
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-pc01a",
+      "name": "MoroFit",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC01A",
+      "source_position_px": [
+        1143.015,
+        224.967
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-30",
+      "name": "Loja 30",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 30",
+      "source_position_px": [
+        861.082,
+        691.99
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-31",
+      "name": "Loja 31",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 31",
+      "source_position_px": [
+        875.978,
+        690.142
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-28",
+      "name": "Loja 28",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 28",
+      "source_position_px": [
+        889.642,
+        697.999
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-32",
+      "name": "Outback",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 32",
+      "source_position_px": [
+        862.392,
+        725.3
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-32-entrada"
+    },
+    {
+      "id": "f0-loja-66",
+      "name": "Loja 66",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 66",
+      "source_position_px": [
+        778.042,
+        623.726
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-pc-02",
+      "name": "Zig Zag Play",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA PC 02",
+      "source_position_px": [
+        1171.455,
+        380.215
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-pc-02-entrada"
+    },
+    {
+      "id": "f0-loja-96",
+      "name": "Loja 96",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 96",
+      "source_position_px": [
+        731.993,
+        555.052
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-143",
+      "name": "Loja 143",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 143",
+      "source_position_px": [
+        638.309,
+        520.776
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-142",
+      "name": "Loja 142",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 142",
+      "source_position_px": [
+        652.553,
+        521.219
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-124",
+      "name": "Loja 124",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 124",
+      "source_position_px": [
+        1003.44,
+        520.922
+      ],
+      "geometry_status": "position_only",
+      "route_status": "unavailable",
+      "node_id": null
+    },
+    {
+      "id": "f0-loja-109-setor-2",
+      "name": "Loja 109",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "LOJA 109",
+      "source_position_px": [
+        1001.894,
+        572.531
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "plan_inferred",
+      "node_id": "f0-loja-109-setor-2-entrada"
+    },
+    {
+      "id": "f1-loja-210",
+      "name": "Dona Maria Express",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 210",
+      "source_position_px": [
+        1016.704,
+        339.835
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-210-entrada"
+    },
+    {
+      "id": "f1-loja-209",
+      "name": "Divino Fogão",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 209",
+      "source_position_px": [
+        1093.357,
+        333.529
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-209-entrada"
+    },
+    {
+      "id": "f1-loja-211",
+      "name": "Loja 211",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 211",
+      "source_position_px": [
+        958.934,
+        347.012
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-211-entrada"
+    },
+    {
+      "id": "f1-loja-212",
+      "name": "Pizza Hut",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 212",
+      "source_position_px": [
+        902.213,
+        346.576
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-212-entrada"
+    },
+    {
+      "id": "f1-loja-213",
+      "name": "Spoleto",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 213",
+      "source_position_px": [
+        840.466,
+        355.781
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-213-entrada"
+    },
+    {
+      "id": "f1-loja-214",
+      "name": "McDonald's",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 214",
+      "source_position_px": [
+        735.643,
+        370.496
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-214-entrada"
+    },
+    {
+      "id": "f1-loja-201",
+      "name": "Kin Sui",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 201",
+      "source_position_px": [
+        681.931,
+        749.412
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-201-entrada"
+    },
+    {
+      "id": "f1-loja-202",
+      "name": "Giraffas",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 202",
+      "source_position_px": [
+        759.563,
+        810.843
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-202-entrada"
+    },
+    {
+      "id": "f1-loja-203",
+      "name": "Loja 203 · vaga na planta",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 203",
+      "source_position_px": [
+        833.715,
+        831.501
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-203-entrada"
+    },
+    {
+      "id": "f1-loja-204",
+      "name": "Loja 204",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 204",
+      "source_position_px": [
+        903.089,
+        829.053
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-204-entrada"
+    },
+    {
+      "id": "f1-loja-205",
+      "name": "Loja 205 · vaga na planta",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 205",
+      "source_position_px": [
+        957.882,
+        824.434
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-205-entrada"
+    },
+    {
+      "id": "f1-loja-206",
+      "name": "Subway",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 206",
+      "source_position_px": [
+        1012.789,
+        819.65
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-206-entrada"
+    },
+    {
+      "id": "f1-loja-207",
+      "name": "Express Grill",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 207",
+      "source_position_px": [
+        1096.861,
+        826.185
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-207-entrada"
+    },
+    {
+      "id": "f1-loja-200",
+      "name": "Loja 200 · espaço de eventos",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 200",
+      "source_position_px": [
+        619.487,
+        890.206
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-200-entrada"
+    },
+    {
+      "id": "f1-loja-215",
+      "name": "Mundo Imersivo",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": "LOJA 215",
+      "source_position_px": [
+        560.918,
+        362.45
+      ],
+      "geometry_status": "manual_trace",
+      "route_status": "plan_inferred",
+      "node_id": "f1-loja-215-entrada"
+    },
+    {
+      "id": "f0-ext-01",
+      "name": "Madero",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "EXT 01",
+      "source_position_px": [
+        920.845,
+        758.205
+      ],
+      "geometry_status": "cad_extracted",
+      "route_status": "unavailable",
+      "node_id": null
+    }
+  ],
+  "duplicate_source_labels": {
+    "LOJA 109": [
+      {
+        "id": "f0-loja-109",
+        "name": "Loja 109",
+        "floor_id": "f0",
+        "source_page": 2,
+        "source_label": "LOJA 109",
+        "source_position_px": [
+          974.821,
+          574.162
+        ],
+        "geometry_status": "position_only",
+        "route_status": "unavailable",
+        "node_id": null
+      },
+      {
+        "id": "f0-loja-109-setor-2",
+        "name": "Loja 109",
+        "floor_id": "f0",
+        "source_page": 2,
+        "source_label": "LOJA 109",
+        "source_position_px": [
+          1001.894,
+          572.531
+        ],
+        "geometry_status": "cad_extracted",
+        "route_status": "plan_inferred",
+        "node_id": "f0-loja-109-setor-2-entrada"
+      }
+    ],
+    "LOJA 90": [
+      {
+        "id": "f0-loja-90",
+        "name": "Loja 90",
+        "floor_id": "f0",
+        "source_page": 2,
+        "source_label": "LOJA 90",
+        "source_position_px": [
+          639.07,
+          568.52
+        ],
+        "geometry_status": "position_only",
+        "route_status": "unavailable",
+        "node_id": null
+      },
+      {
+        "id": "f0-loja-90-setor-2",
+        "name": "Loja 90",
+        "floor_id": "f0",
+        "source_page": 2,
+        "source_label": "LOJA 90",
+        "source_position_px": [
+          639.07,
+          568.52
+        ],
+        "geometry_status": "position_only",
+        "route_status": "unavailable",
+        "node_id": null
+      }
+    ],
+    "LOJA 81": [
+      {
+        "id": "f0-loja-81",
+        "name": "Loja 81",
+        "floor_id": "f0",
+        "source_page": 2,
+        "source_label": "LOJA 81",
+        "source_position_px": [
+          604.49,
+          610.157
+        ],
+        "geometry_status": "position_only",
+        "route_status": "unavailable",
+        "node_id": null
+      },
+      {
+        "id": "f0-loja-81-setor-2",
+        "name": "Loja 81",
+        "floor_id": "f0",
+        "source_page": 2,
+        "source_label": "LOJA 81",
+        "source_position_px": [
+          599.38,
+          625.379
+        ],
+        "geometry_status": "position_only",
+        "route_status": "unavailable",
+        "node_id": null
+      }
+    ]
+  },
+  "excluded_support_space": {
+    "page": 3,
+    "label": "LOJA 216",
+    "name": "Recolhimento de louças",
+    "position_px": [
+      614.217,
+      487.203
+    ],
+    "note": "Omitida propositalmente do catálogo comercial; pode ser POI de serviço."
+  },
+  "identity_review": [
+    {
+      "label": "LOJA 141A",
+      "candidate": "Leitura",
+      "page": 2,
+      "confidence": "medium",
+      "note": "Confirmar associação logo/lote antes de substituir nome."
+    },
+    {
+      "label": "LOJA 147",
+      "candidate": "Polo Wear",
+      "page": 2,
+      "confidence": "medium",
+      "note": "Confirmar associação logo/lote antes de substituir nome."
+    }
+  ],
+  "priority": [
+    "P0 concluído: Madero cadastrado com contorno; acesso continua pendente.",
+    "P1: integrar inventário dos quiosques e distinguir quiosque de loja fechada.",
+    "P1: recuperar 76 contornos faltantes; pin não significa volume 3D presente.",
+    "P1: cadastrar estabelecimentos de insets em pisos próprios após alinhamento.",
+    "P2: validar nomes comerciais e rótulos duplicados.",
+    "P2: validar entradas e conexões entre pisos; não afirmar navegação completa."
+  ],
+  "snapshot_note": "Inventário final capturado durante a correção concorrente: já inclui Madero. Baseline observado antes: 157 posições,81contornos,77rotas,80semrota."
+}

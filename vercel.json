@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "django",
+  "regions": ["gru1"],
+  "functions": {
+    "wsgi.py": {
+      "includeFiles": "{pilot/public/**,pilot/templates/**,pilot/integrations/**,laboratorio/static/**}"
+    }
+  },
+  "crons": [
+    {"path": "/api/v2/maintenance", "schedule": "0 7 * * *"}
+  ]
+}

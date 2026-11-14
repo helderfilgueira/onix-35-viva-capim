@@ -1,0 +1,53 @@
+REVISÃO INDEPENDENTE DO CÓDIGO — LABORATÓRIO ONIX 35
+13/11/2026 | Escopo: map3d.js, explorar.js, explorar.html, explorar.css
+Revisor: agente de backend/QA, diferente do autor do frontend.
+Método: leitura de código e comparação com contratos. Não representa teste em navegador, leitor de tela ou hardware físico. Frontend estava em conclusão; achados comunicados ao autor e coordenador para correção e reteste.
+
+P1 — CORRIGIR ANTES DE APRESENTAR COMO FLUXO VERIFICADO
+
+1. Atendimento não expira com compartilhamento aberto.
+O setInterval retorna imediatamente quando share-dialog está aberto. Uma pessoa pode abrir o QR e abandonar o totem, impedindo aviso/reset indefinidamente.
+Correção: manter contagem de inatividade; fechar compartilhamento antes de abrir aviso, depois limpar QR/URL ao encerrar.
+Reprodução: abrir compartilhamento, não interagir por 120 segundos, verificar encerramento e remoção de origem/destino.
+
+2. Corrida entre mudança de origem/preferência e resposta de rota.
+calculateRoute zera state.route durante fetch. Handlers de origin e accessible só recalculam se state.route existir. Uma mudança durante a requisição não invalida state.request; resposta calculada para configuração anterior pode ser aplicada à nova origem/preferência.
+Correção: invalidar requisição em toda alteração de parâmetro; guardar snapshot de entrada ou iniciar recálculo. Não reutilizar resposta que não corresponda aos parâmetros atuais.
+Reprodução: simular rede lenta, solicitar rota entre pisos, trocar origem ou marcar sem escadas antes da resposta; resposta antiga não pode aparecer como rota atual.
+
+3. Origem de QR aplicada sem confirmação explícita.
+init valida se origin existe nas anchors, mas seleciona e mostra marcador automaticamente; o texto pede confirmação, sem um estado ou ação de confirmação obrigatório.
+Correção: origem recebida deve permanecer pendente até ação explícita; impedir rota que a trate como atual antes da confirmação. Não basta alterar o texto.
+Reprodução: abrir link compartilhado; verificar ação Confirmar ponto ou seleção manual antes do cálculo.
+
+4. Foco de teclado perdido na seleção.
+selectStore chama renderList, que substitui todos os botões via innerHTML, e render2d, que remove os nós SVG. O elemento que iniciou a ação deixa de existir.
+Correção: preservar foco por ID após render, atualizar elementos existentes ou mover foco intencionalmente para título/detalhe com tabindex=-1.
+Reprodução: Tab até loja, Enter, confirmar foco visível e próximo Tab previsível. Repetir no SVG.
+
+P2 — MELHORIAS E CORREÇÕES DE INTEGRAÇÃO
+
+5. Link de privacidade usa /#privacidade, mas app.js legado não interpreta hash no carregamento; tende a abrir agenda. Corrigir navegação e testar link real.
+6. setView pode construir mais de uma cena se múltiplos cliques em 3D ocorrerem durante import inicial; manter promise única de inicialização e liberar cena parcial em falha.
+7. map3d.clearRoute remove filhos diretamente e só dispõe geometry/material imediatos. ArrowHelper possui filhos com recursos; definir propriedade/disposição correta sem destruir recursos compartilhados pelo Three.js.
+8. Renderização 3D continua quando mapa está oculto em modo 2D; pausar render ou reduzir trabalho quando oculto/documento em background.
+9. Regra CSS `.reduced-motion *,@media(...)` é sintaticamente inválida. As regras válidas posteriores cobrem redução de motion, mas remover trecho inválido para evitar manutenção confusa.
+10. SVG com role=img contém elementos interativos. Validar semântica com leitor de tela; a lista HTML equivalente mitiga o acesso, mas não comprova acessibilidade dos controles SVG.
+11. O reset deste mapa não encerra sessão de avaliação mantida em sessionStorage pelo app legado. Não afirmar que reset global de totem está pronto. Antes de piloto físico, revisar jornada mapa→evento→avaliação→novo visitante integralmente.
+
+CORRESPONDÊNCIA GEOMÉTRICA E CONTRATUAL
+
+- Lojas usam os mesmos centros e dimensões do cadastro; portas no limite z=±5 e corredores z=0 correspondem ao grafo.
+- Câmera 3D usa y vertical; versão 2D usa z como coordenada y do SVG. Rotas são obtidas do backend em ambos os modos, sem segundo algoritmo divergente.
+- Cada piso é mostrado isoladamente com altura visual local zero. Isso é coerente para vista por piso, mas não é visualização simultânea do desnível de 9 m.
+- A ligação vertical não é desenhada como segmento contínuo na cena: instruções e seletor de pavimento devem ser suficientes para compreender a troca. Confirmar no navegador.
+- A rota termina no nó da entrada, não no centro da loja. Distâncias são demonstrativas.
+- As praças são coleção separada; SVG cria retângulos de marcador em cima do corredor. Entender como marcador de destino, não geometria oficial de praça.
+- Catálogo tem site/telefone/fachada indisponíveis de forma explícita; não existe fotografia real nem avaliação inventada. Preservar essa honestidade.
+- Biblioteca 3D e QR são locais, sem CDN. GET catálogo e POST rotas não criam sessão. QR usa IDs públicos, sem credencial.
+
+CRITÉRIOS DE RETESTE
+
+Abrir catálogo; selecionar loja; gerar percurso; alternar 2D/3D; trocar piso; escolher rota sem escadas; conferir mudança de origem em requisição pendente; abrir link QR com confirmação; abrir compartilhamento e simular inatividade; novo atendimento; testar fallback WebGL; navegar apenas por teclado; abrir privacidade; verificar console e ausência de solicitações externas.
+
+Esta revisão lista achados da versão observada. Não marca correções como concluídas; o coordenador deve confrontar o diff final e anexar os resultados do navegador.

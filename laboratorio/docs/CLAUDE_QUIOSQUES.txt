@@ -1,0 +1,39 @@
+Claude Opus 5.5 - kiosk rendering in outputs/sistema/static/map-plan3d.js (2026-11-13)
+
+Scope: only static/map-plan3d.js was edited. No dataset, route, camera, server or test changes. No subagents, no commit, no publish.
+
+What changed
+1. New function buildKiosk(s, i, f, g, poly, color, inst, signs), called from buildStore only when
+   s.unit_type === 'kiosk' AND the store has a usable polygon (>= 3 points, simple, area > 0.2).
+   - Stores without a polygon (including pending kiosks) still hit the existing pin branch first:
+     same "conferir" pin and label, no invented shape.
+   - If buildKiosk rejects a polygon (degenerate/self-intersecting) it returns false and the existing
+     store path runs unchanged.
+2. Kiosk geometry (all following the real outline, no walls, no roof, no roofViews entry):
+   - 0.08 m plinth = exact polygon extrusion.
+   - Counter ring 0.95 m high between outline inset 0.04 m and inset 0.04+depth (depth 0.30-0.55 m by size);
+     worktop 0.05 m with a slight inward lip. If the inner inset is invalid the counter is a solid low block.
+   - Plinth + counter + worktop merged into ONE vertex-coloured mesh using M.body, so the existing selection
+     material swap (M.bodySel), hitObjects picking (userData.store) and shadows work unchanged.
+   - Name sign: small two-faced panel (~0.4 m tall, max 2.6 m wide) at ~1.9-2.4 m on two slim posts, along the
+     longest edge direction, centred on the area centroid (or s.x/z). Both ends checked inside the inset footprint
+     and >3 cm from every edge; skipped if it does not fit. Uses the existing sign atlas (drawBrandLogo only when a
+     logo exists, otherwise uppercase text), existing instanced fascia/frame meshes.
+   - Restrained detail: up to 4 small items (till + goods) on the counter band, pushed into the existing instanced
+     inst.fittings; every corner checked inside the outer counter outline and outside the inner hole; respects
+     MAX_FLOOR_FITTINGS.
+3. Metadata: kind 'poly' (so selection/zoom/label logic is unchanged), plus unitType 'kiosk', top = sign top
+   (labels and zoom pts sit above the sign), ringY = counter top. facadeAngle uses node_id/nearest corridor node
+   exactly as ordinary stores.
+4. updateSelectionVisuals: selection ring/line height now uses (t.ringY ?? t.top). For every non-kiosk target
+   ringY is undefined, so ordinary stores, pins and places behave exactly as before.
+
+Not changed: ordinary store shells, facades, interiors, roofs, floors, corridors, routes, camera code, labels for
+pins, brand-logo module.
+
+Validation
+- node --check static/map-plan3d.js: OK.
+- NOT done: browser/visual check with the coordinator's real kiosk data (data not present when this was written;
+  grep found no unit_type in static/ or server.py). Python unit tests not run (no backend/flow changes).
+- Recommend a visual check once kiosk records exist: sign orientation on both faces, counter-band fittings,
+  selection ring at counter height, and very small or concave kiosks (sign/fittings are skipped when they don't fit).

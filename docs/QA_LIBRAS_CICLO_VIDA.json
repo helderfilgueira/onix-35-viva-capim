@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "name": "Timeout after dismissal reports global error without removing executed script",
+      "passed": true
+    },
+    {
+      "name": "Retry waits for native widget without reinjection or focus theft after Escape",
+      "passed": true
+    },
+    {
+      "name": "Rerender clears pending timer; stale generation cannot mutate new UI",
+      "passed": true
+    },
+    {
+      "name": "Late native arrival after timeout without retry hides launcher and preserves focus",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "method": "Local controlled widget response and Playwright clock; real widget load separately verified in QA_LIBRAS_FLUTUANTE.json"
+}

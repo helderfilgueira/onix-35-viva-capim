@@ -1,0 +1,354 @@
+[
+  {
+    "node": "g-circle-west",
+    "action": "moved_around_recovered_obstacle",
+    "distance": 0.5559106872959914
+  },
+  {
+    "node": "f0-loja-127-junction",
+    "action": "moved_around_recovered_obstacle",
+    "distance": 1.7190684923769552
+  },
+  {
+    "node": "f0-loja-73-junction",
+    "action": "moved_around_recovered_obstacle",
+    "distance": 0.4915165938418653
+  },
+  {
+    "edge": [
+      "g-west-north2",
+      "g-west-north3"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-west-north3",
+      "g-diamond-nw-base"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-diamond-nw-base",
+      "g-diamond-nw-mid"
+    ],
+    "action": "detour_inferred",
+    "points": 5
+  },
+  {
+    "edge": [
+      "g-diamond-nw-mid",
+      "g-diamond-nw-top"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-diamond-ne-mid",
+      "g-diamond-ne-base"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-diamond-ne-base",
+      "g-east-north1"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-east-north1",
+      "g-east-north2"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-east-north2",
+      "g-east-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-east-north-entry",
+      "g-east-zigzag"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-south-east2",
+      "g-diamond-se-base"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-circle-nw",
+      "g-circle-west"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-south-west1",
+      "g-west-island-tip"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-west-stair-east",
+      "g-west-north"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-loja-02-junction",
+      "f0-loja-02-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-diamond-ne-base",
+      "f0-loja-127-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-east-north1",
+      "f0-loja-127-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "f0-loja-127-junction",
+      "f0-loja-127-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-loja-121-junction",
+      "f0-loja-121-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-diamond-ne-mid",
+      "f0-loja-104-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-west-north2",
+      "f0-loja-91-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-diamond-ne-base",
+      "f0-loja-125-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "f0-loja-09-junction",
+      "f0-loja-09-entrada"
+    ],
+    "action": "blocked_no_verified_clear_detour"
+  },
+  {
+    "edge": [
+      "g-diamond-se-base",
+      "f0-loja-34-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-diamond-se-base",
+      "f0-loja-35-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-east-north2",
+      "f0-loja-114a-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "f0-loja-48a-junction",
+      "f0-loja-48a-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-loja-52-junction",
+      "f0-loja-52-entrada"
+    ],
+    "action": "blocked_no_verified_clear_detour"
+  },
+  {
+    "edge": [
+      "g-diamond-se-base",
+      "f0-loja-56-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-loja-56-junction",
+      "f0-loja-56-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-south-east2",
+      "f0-loja-57-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-ancora-02-junction",
+      "f0-ancora-02-entrada"
+    ],
+    "action": "blocked_no_verified_clear_detour"
+  },
+  {
+    "edge": [
+      "g-circle-west",
+      "f0-loja-68-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-loja-68-junction",
+      "f0-loja-68-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-south-west1",
+      "f0-loja-72-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-west-island-tip",
+      "f0-loja-72-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "f0-loja-73-junction",
+      "f0-loja-73-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "f0-loja-ancora-05-junction",
+      "f0-loja-ancora-05-entrada"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-east-north2",
+      "f0-loja-pc-06-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-west-north2",
+      "f0-loja-88-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "edge": [
+      "g-west-north3",
+      "f0-loja-88-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 3
+  },
+  {
+    "edge": [
+      "g-east-north2",
+      "f0-loja-109-setor-2-junction"
+    ],
+    "action": "detour_inferred",
+    "points": 4
+  },
+  {
+    "store": "f0-loja-09",
+    "action": "reconnect_corrected_entrance"
+  },
+  {
+    "store": "f0-loja-52",
+    "action": "reconnect_corrected_entrance"
+  },
+  {
+    "store": "f0-ancora-02",
+    "action": "reconnect_corrected_entrance"
+  }
+]

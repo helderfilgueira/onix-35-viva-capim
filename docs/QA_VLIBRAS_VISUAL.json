@@ -1,0 +1,12 @@
+{
+  "public_route": "/participar/",
+  "verified_with_real_response_headers": true,
+  "official_widget_script_loaded": true,
+  "csp_violations": [],
+  "failed_requests": [],
+  "avatar_rendering_visually_verified": true,
+  "evidence_image": "publico-vlibras.png",
+  "automatic_avatar_selector": "inconclusive: third-party widget moves content into nested shadow DOM; visual screenshot confirms avatar after initialization",
+  "translation_linguistic_quality": "not evaluated; automated VLibras is not a replacement for a human interpreter",
+  "pii_pages": "separate documents; no VLibras loaded"
+}

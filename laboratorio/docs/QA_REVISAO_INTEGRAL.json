@@ -1,0 +1,40 @@
+{
+  "checks": [
+    {
+      "name": "Leitura",
+      "floor": "f0",
+      "selected": true
+    },
+    {
+      "name": "Kekala",
+      "floor": "f0",
+      "selected": true
+    },
+    {
+      "name": "IOA",
+      "floor": "inset-l2",
+      "selected": true
+    },
+    {
+      "name": "Maria Express",
+      "floor": "inset-subsolo1",
+      "selected": true
+    },
+    {
+      "name": "Madero",
+      "floor": "f0",
+      "selected": true
+    },
+    {
+      "name": "Outback",
+      "floor": "f0",
+      "selected": true
+    },
+    {
+      "name": "Vivara",
+      "floor": "f0",
+      "selected": true
+    }
+  ],
+  "errors": []
+}

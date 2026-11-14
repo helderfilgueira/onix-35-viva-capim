@@ -1,0 +1,43 @@
+name: Pilot - contracts and permissions
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pilot-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: onix_test
+          POSTGRES_USER: onix
+          POSTGRES_PASSWORD: ci-only-password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U onix -d onix_test"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      DATABASE_URL: postgres://onix:ci-only-password@localhost:5432/onix_test
+      DJANGO_SECRET_KEY: ci-only-key-not-used-in-production-0123456789
+      DJANGO_DEBUG: '1'
+      DB_SSLMODE: disable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pilot/requirements.txt
+      - run: pip install -r pilot/requirements.txt
+      - name: Django checks
+        run: python pilot/manage.py check
+      - name: No missing migrations
+        run: python pilot/manage.py makemigrations --check --dry-run
+      - name: PostgreSQL business and permissions tests
+        working-directory: pilot
+        run: python manage.py test --noinput
+      - name: JavaScript syntax
+        run: |
+          find pilot/static pilot/public -name '*.js' -print0 | xargs -0 -r -n1 node --check

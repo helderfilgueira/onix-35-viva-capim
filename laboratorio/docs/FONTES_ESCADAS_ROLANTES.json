@@ -1,0 +1,985 @@
+{
+  "coordinate_system": "Page-local raster coordinates at width1800; polygons are approximate visual traces, not georeferenced or certified access boundaries",
+  "features": [
+    {
+      "id": "f0-stairs-ca",
+      "name": "Escada do núcleo C&A / UZÔ",
+      "kind": "stairs",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "ESCADA E2 23,33m²",
+      "source_position_px": [
+        719.5801,
+        492.8336
+      ],
+      "polygon_px": [
+        [
+          719.0,
+          484.0
+        ],
+        [
+          712.0,
+          489.0
+        ],
+        [
+          719.8033,
+          503.6312
+        ],
+        [
+          722.019,
+          501.732
+        ],
+        [
+          722.585,
+          501.732
+        ],
+        [
+          722.585,
+          501.247
+        ],
+        [
+          725.983,
+          498.335
+        ],
+        [
+          726.2124,
+          498.5642
+        ],
+        [
+          727.116,
+          497.7735
+        ],
+        [
+          727.116,
+          497.202
+        ],
+        [
+          727.7696,
+          496.6672
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "unconfirmed",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Núcleo junto sanitários/C&A, atrás UZÔ. Uso público/serviço/emergência não explicitado; não inventar saída de emergência. Limite do traçado visual recortado na divisa CAD das lojas adjacentes, preservando degraus/núcleo e eliminando invasões por precisão do traçado.",
+      "boundary_adjustments": [
+        [
+          "f0-loja-138",
+          0.544
+        ]
+      ]
+    },
+    {
+      "id": "f0-stairs-west",
+      "name": "Escada do corredor oeste",
+      "kind": "stairs",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "ESCADA",
+      "source_position_px": [
+        665.5,
+        586.5345
+      ],
+      "polygon_px": [
+        [
+          657.5,
+          579.5
+        ],
+        [
+          657.5,
+          593.0
+        ],
+        [
+          673.5,
+          593.0
+        ],
+        [
+          673.5,
+          580.069
+        ],
+        [
+          664.975,
+          580.069
+        ],
+        [
+          664.975,
+          579.5
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "unconfirmed",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Atrás Baggagio; acesso pela circulação secundária. Limite do traçado visual recortado na divisa CAD das lojas adjacentes, preservando degraus/núcleo e eliminando invasões por precisão do traçado.",
+      "boundary_adjustments": [
+        [
+          "f0-loja-92",
+          0.804
+        ]
+      ]
+    },
+    {
+      "id": "f0-stairs-east",
+      "name": "Escada do corredor leste",
+      "kind": "stairs",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "ESCADA 10,71m²",
+      "source_position_px": [
+        986.5,
+        585.9205
+      ],
+      "polygon_px": [
+        [
+          991.0,
+          579.88
+        ],
+        [
+          982.0,
+          579.88
+        ],
+        [
+          982.0,
+          591.961
+        ],
+        [
+          984.589,
+          591.961
+        ],
+        [
+          986.099,
+          591.961
+        ],
+        [
+          987.609,
+          591.961
+        ],
+        [
+          989.119,
+          591.961
+        ],
+        [
+          990.629,
+          591.961
+        ],
+        [
+          991.0,
+          591.961
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "unconfirmed",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Atrás Usaflex; acesso pela circulação secundária. Limite do traçado visual recortado na divisa CAD das lojas adjacentes, preservando degraus/núcleo e eliminando invasões por precisão do traçado.",
+      "boundary_adjustments": [
+        [
+          "f0-loja-110",
+          1.312
+        ],
+        [
+          "f0-loja-53a",
+          1.55
+        ]
+      ]
+    },
+    {
+      "id": "f0-escalator-up",
+      "name": "Escada rolante — sobe à praça",
+      "kind": "escalator",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "SOBE",
+      "source_position_px": [
+        587.25,
+        680.875
+      ],
+      "polygon_px": [
+        [
+          569,
+          678.75
+        ],
+        [
+          605.5,
+          678.75
+        ],
+        [
+          605.5,
+          683
+        ],
+        [
+          569,
+          683
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Núcleo Bistrô81/Chopp Brahma; banda superior na folha2."
+    },
+    {
+      "id": "f0-public-stairs",
+      "name": "Escada fixa — praça de alimentação",
+      "kind": "stairs",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": null,
+      "source_position_px": [
+        585.25,
+        692.875
+      ],
+      "polygon_px": [
+        [
+          569,
+          690.25
+        ],
+        [
+          601.5,
+          690.25
+        ],
+        [
+          601.5,
+          695.5
+        ],
+        [
+          569,
+          695.5
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "paired_floor_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Escada central entre duas rolantes, visível nas folhas2e3."
+    },
+    {
+      "id": "f0-escalator-down",
+      "name": "Escada rolante — desce da praça",
+      "kind": "escalator",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "DESCE",
+      "source_position_px": [
+        587.25,
+        706.25
+      ],
+      "polygon_px": [
+        [
+          569,
+          704
+        ],
+        [
+          605.5,
+          704
+        ],
+        [
+          605.5,
+          708.5
+        ],
+        [
+          569,
+          708.5
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "f1-escalator-up",
+      "name": "Escada rolante — chegada do térreo",
+      "kind": "escalator",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": null,
+      "source_position_px": [
+        1316.0,
+        511.0
+      ],
+      "polygon_px": [
+        [
+          1220,
+          501
+        ],
+        [
+          1412,
+          501
+        ],
+        [
+          1412,
+          521
+        ],
+        [
+          1220,
+          521
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "paired_floor_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "f1-public-stairs",
+      "name": "Escada fixa — térreo",
+      "kind": "stairs",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": null,
+      "source_position_px": [
+        1304.5,
+        580.0
+      ],
+      "polygon_px": [
+        [
+          1220,
+          569
+        ],
+        [
+          1389,
+          569
+        ],
+        [
+          1389,
+          591
+        ],
+        [
+          1220,
+          591
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "paired_floor_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "f1-escalator-down",
+      "name": "Escada rolante — saída para térreo",
+      "kind": "escalator",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": null,
+      "source_position_px": [
+        1316.0,
+        649.5
+      ],
+      "polygon_px": [
+        [
+          1220,
+          639
+        ],
+        [
+          1412,
+          639
+        ],
+        [
+          1412,
+          660
+        ],
+        [
+          1220,
+          660
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "paired_floor_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "f1-stairs-service",
+      "name": "Escada no núcleo de serviço da praça",
+      "kind": "stairs",
+      "floor_id": "f1",
+      "source_page": 3,
+      "source_label": null,
+      "source_position_px": [
+        600.0,
+        134.0
+      ],
+      "polygon_px": [
+        [
+          570,
+          136
+        ],
+        [
+          611,
+          104
+        ],
+        [
+          630,
+          132
+        ],
+        [
+          589,
+          164
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "symbol_in_service_core",
+      "access": "service",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Junto elevadores e depósito ADM; correspondência com núcleo C&A é plausível mas não demonstrada por alinhamento georreferenciado."
+    },
+    {
+      "id": "f0-travelator-big-a",
+      "name": "Esteira rolante — BIG (faixa1)",
+      "kind": "moving_walkway",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "ESTEIRA ROLANTE A=82,00m²",
+      "source_position_px": [
+        1123.0,
+        330.0
+      ],
+      "polygon_px": [
+        [
+          1100,
+          328
+        ],
+        [
+          1146,
+          328
+        ],
+        [
+          1146,
+          332
+        ],
+        [
+          1100,
+          332
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Não é escada. Inclinação e acessibilidade não certificadas pela planta."
+    },
+    {
+      "id": "f0-travelator-big-b",
+      "name": "Esteira rolante — BIG (faixa2)",
+      "kind": "moving_walkway",
+      "floor_id": "f0",
+      "source_page": 2,
+      "source_label": "ESTEIRA ROLANTE A=82,00m²",
+      "source_position_px": [
+        1123.0,
+        335.0
+      ],
+      "polygon_px": [
+        [
+          1100,
+          333
+        ],
+        [
+          1146,
+          333
+        ],
+        [
+          1146,
+          337
+        ],
+        [
+          1100,
+          337
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "ss1-travelator-a",
+      "name": "Esteira rolante — Subsolo1 (faixa1)",
+      "kind": "moving_walkway",
+      "floor_id": "inset-subsolo1",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        501.0,
+        257.5
+      ],
+      "polygon_px": [
+        [
+          465,
+          255
+        ],
+        [
+          537,
+          255
+        ],
+        [
+          537,
+          260
+        ],
+        [
+          465,
+          260
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Símbolo de duas bandas contínuas; ligação ao BIG é candidata, não validada."
+    },
+    {
+      "id": "ss1-travelator-b",
+      "name": "Esteira rolante — Subsolo1 (faixa2)",
+      "kind": "moving_walkway",
+      "floor_id": "inset-subsolo1",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        501.0,
+        263.0
+      ],
+      "polygon_px": [
+        [
+          465,
+          260
+        ],
+        [
+          537,
+          260
+        ],
+        [
+          537,
+          266
+        ],
+        [
+          465,
+          266
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "public",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "ss1-motorcycle-ramp",
+      "name": "Rampa de motos",
+      "kind": "vehicle_ramp",
+      "floor_id": "inset-subsolo1",
+      "source_page": 1,
+      "source_label": "RAMPA DE MOTOS / DESCE",
+      "source_position_px": [
+        693.0,
+        44.75
+      ],
+      "polygon_px": [
+        [
+          673,
+          46
+        ],
+        [
+          713,
+          33
+        ],
+        [
+          713,
+          43
+        ],
+        [
+          673,
+          57
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "label_and_symbol",
+      "access": "vehicle_only",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Excluir da rede pedestre e de qualquer cálculo de rota acessível."
+    },
+    {
+      "id": "a8-stairs-a",
+      "name": "Escada A8 — núcleo oeste",
+      "kind": "stairs",
+      "floor_id": "inset-a8",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        80.75,
+        394.75
+      ],
+      "polygon_px": [
+        [
+          76.5,
+          389.5
+        ],
+        [
+          85,
+          389.5
+        ],
+        [
+          85,
+          400
+        ],
+        [
+          76.5,
+          400
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "restricted",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Dentro acesso do Colégio; público do estabelecimento, não atalho do shopping."
+    },
+    {
+      "id": "a8-stairs-b",
+      "name": "Escada A8 — núcleo leste",
+      "kind": "stairs",
+      "floor_id": "inset-a8",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        101.5,
+        394.5
+      ],
+      "polygon_px": [
+        [
+          94,
+          389.5
+        ],
+        [
+          109,
+          389.5
+        ],
+        [
+          109,
+          399.5
+        ],
+        [
+          94,
+          399.5
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "restricted",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "l2-stairs",
+      "name": "Escada do piso L2",
+      "kind": "stairs",
+      "floor_id": "inset-l2",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        136.75,
+        567.2185
+      ],
+      "polygon_px": [
+        [
+          130.5,
+          577.0
+        ],
+        [
+          143.0,
+          577.0
+        ],
+        [
+          143.0,
+          557.0
+        ],
+        [
+          142.805,
+          557.0
+        ],
+        [
+          142.805,
+          557.437
+        ],
+        [
+          130.5,
+          557.437
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "restricted",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Circulação comum IOA/Unicesumar. Não determinar piso de destino sem confirmação. Limite do traçado visual recortado na divisa CAD das lojas adjacentes, preservando degraus/núcleo e eliminando invasões por precisão do traçado.",
+      "boundary_adjustments": [
+        [
+          "inset-l2-unicesumar",
+          0.618
+        ]
+      ]
+    },
+    {
+      "id": "ss2-stairs-north",
+      "name": "Escada Subsolo2 — núcleo norte",
+      "kind": "stairs",
+      "floor_id": "inset-subsolo2",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        877.25,
+        104.0
+      ],
+      "polygon_px": [
+        [
+          868,
+          101
+        ],
+        [
+          878,
+          96
+        ],
+        [
+          886,
+          106
+        ],
+        [
+          877,
+          113
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "unconfirmed",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": "Inset ainda não integrado. Duas caixas de elevador ao lado."
+    },
+    {
+      "id": "ss2-stairs-west",
+      "name": "Escada Subsolo2 — lado oeste",
+      "kind": "stairs",
+      "floor_id": "inset-subsolo2",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        816.5,
+        214.0
+      ],
+      "polygon_px": [
+        [
+          808,
+          207
+        ],
+        [
+          825,
+          207
+        ],
+        [
+          825,
+          221
+        ],
+        [
+          808,
+          221
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "unconfirmed",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "ss2-stairs-east",
+      "name": "Escada Subsolo2 — lado leste",
+      "kind": "stairs",
+      "floor_id": "inset-subsolo2",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        1205.5,
+        214.0
+      ],
+      "polygon_px": [
+        [
+          1196,
+          207
+        ],
+        [
+          1215,
+          207
+        ],
+        [
+          1215,
+          221
+        ],
+        [
+          1196,
+          221
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "visual_trace",
+      "access": "unconfirmed",
+      "accessible": false,
+      "connection_status": "unconfirmed",
+      "notes": ""
+    },
+    {
+      "id": "ss2-elevator-candidate-1",
+      "name": "Possível elevador 1 — Subsolo 2",
+      "kind": "elevator",
+      "floor_id": "inset-subsolo2",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        889.354,
+        102.916
+      ],
+      "polygon_px": [
+        [
+          885.917,
+          102.583
+        ],
+        [
+          889.5,
+          99.583
+        ],
+        [
+          892.833,
+          103.25
+        ],
+        [
+          889.167,
+          106.25
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "symbol_unconfirmed",
+      "access": "unconfirmed",
+      "accessible": null,
+      "connection_status": "unconfirmed",
+      "notes": "Poço retangular com diagonais ao lado da escada no núcleo norte do Subsolo2. Símbolo compatível com elevador, mas sem identificação textual: confirmar função, operação, acessibilidade e pisos atendidos; não habilitar rota acessível apenas com este símbolo."
+    },
+    {
+      "id": "ss2-elevator-candidate-2",
+      "name": "Possível elevador 2 — Subsolo 2",
+      "kind": "elevator",
+      "floor_id": "inset-subsolo2",
+      "source_page": 1,
+      "source_label": null,
+      "source_position_px": [
+        895.042,
+        98.25
+      ],
+      "polygon_px": [
+        [
+          891.667,
+          97.917
+        ],
+        [
+          895.25,
+          94.833
+        ],
+        [
+          898.333,
+          98.667
+        ],
+        [
+          894.917,
+          101.583
+        ]
+      ],
+      "geometry_status": "visual_trace",
+      "confidence": "symbol_unconfirmed",
+      "access": "unconfirmed",
+      "accessible": null,
+      "connection_status": "unconfirmed",
+      "notes": "Poço retangular com diagonais ao lado da escada no núcleo norte do Subsolo2. Símbolo compatível com elevador, mas sem identificação textual: confirmar função, operação, acessibilidade e pisos atendidos; não habilitar rota acessível apenas com este símbolo."
+    }
+  ],
+  "connections": [
+    {
+      "from": "f0-escalator-up",
+      "to": "f1-escalator-up",
+      "direction": "up",
+      "status": "documentary_correspondence",
+      "evidence": "Duas rolantes e uma escada fixa no mesmo núcleo do acesso à praça, nas folhas2e3; sentido SOBE no térreo. Validar pousos e orientação no local antes produção."
+    },
+    {
+      "from": "f1-escalator-down",
+      "to": "f0-escalator-down",
+      "direction": "down",
+      "status": "documentary_correspondence",
+      "evidence": "Mesmo núcleo triplo; DESCE explícito na folha2."
+    },
+    {
+      "from": "f0-public-stairs",
+      "to": "f1-public-stairs",
+      "direction": "both",
+      "status": "documentary_correspondence",
+      "evidence": "Banda central de degraus com patamar nas duas plantas."
+    }
+  ],
+  "unconfirmed_connections": [
+    {
+      "from": "f0-travelator-big-a/b",
+      "to": "ss1-travelator-a/b",
+      "reason": "Símbolos compatíveis, sem identificação explícita de pavimentos conectados"
+    },
+    {
+      "from": "f0-stairs-ca",
+      "to": "f1-stairs-service",
+      "reason": "Posição relativa dos elevadores/sanitários sugere núcleo, mas inset possui rotação/escala independente"
+    }
+  ],
+  "additional_floor": {
+    "id": "inset-subsolo2",
+    "name": "Subsolo2 — detalhe da planta",
+    "source_page": 1,
+    "source_bounds_px": [
+      725,
+      65,
+      1300,
+      230
+    ],
+    "source_scale": "independent_not_georeferenced"
+  },
+  "excluded_ambiguous": [
+    {
+      "page": 3,
+      "area": "hachuras nas bordas oeste e bandas largas junto Mundo Imersivo/Loja200",
+      "reason": "Sem indicação de degraus, subida/descida; podem ser cobertura/pergolado, não classificar como escadas automaticamente"
+    },
+    {
+      "page": 2,
+      "area": "degraus externos das entradas e interior Renner/Cinemark",
+      "reason": "Símbolos parciais e limites operacionais não conferidos; não estabelecer conexões de saída/evacuação"
+    }
+  ],
+  "coverage": "Text labels scanned on all3pages; high-resolution visual inspection of all labeled stair cores, public triplecore, BIG walkway and inset cores. Does not certify emergency egress or every exterior grade change."
+}
