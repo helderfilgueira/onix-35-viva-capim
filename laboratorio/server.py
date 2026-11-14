@@ -114,7 +114,13 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header('X-Content-Type-Options','nosniff')
         self.send_header('Referrer-Policy','no-referrer')
         self.send_header('X-Frame-Options','DENY')
-        self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'")
+        csp = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+        if urlsplit(self.path).path == '/explorar.html':
+            # The map loads the external translator only after explicit consent.
+            hosts = ' https://vlibras.gov.br https://*.vlibras.gov.br'
+            cdn = ' https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/'
+            csp = "default-src 'self'; script-src 'self'"+hosts+cdn+"; style-src 'self' 'unsafe-inline'"+hosts+"; img-src 'self' data: blob:"+hosts+cdn+"; font-src 'self'"+hosts+cdn+"; connect-src 'self'"+hosts+"; media-src 'self' blob:"+hosts+"; frame-src 'self'"+hosts+"; object-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"
+        self.send_header('Content-Security-Policy', csp)
         self.end_headers()
         self.wfile.write(raw)
 

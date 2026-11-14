@@ -7,6 +7,15 @@ from server import AppServer, Store
 
 
 class IntegrationTests(unittest.TestCase):
+    def test_translator_policy_is_only_enabled_on_map(self):
+        for path, allowed in [('/explorar.html?destination=f0-loja-29', True), ('/', False), ('/api/events', False)]:
+            conn=http.client.HTTPConnection('127.0.0.1',self.server.server_port,timeout=5)
+            conn.request('GET',path)
+            response=conn.getresponse()
+            self.assertEqual(response.status,200)
+            self.assertEqual('vlibras.gov.br' in response.getheader('Content-Security-Policy',''),allowed)
+            response.read();conn.close()
+
     def setUp(self):
         self.store=Store(':memory:')
         self.server=AppServer(('127.0.0.1',0),self.store,'test-administrator-secret')

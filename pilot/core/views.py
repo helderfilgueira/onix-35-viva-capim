@@ -294,7 +294,7 @@ def public_asset(request,name):return local_file(settings.BASE_DIR/'public',name
 def dashboard_asset(request,name):return local_file(settings.BASE_DIR/'static',name)
 def legacy_file(request,name):
     if name=='store-reviews.js':return local_file(settings.BASE_DIR/'integrations','map-store-reviews.js')
-    allowed={'explorar.html','explorar.css','explorar.js','map3d.js','map-plan3d.js','brand-logos.js','store-reviews.css','logo-manifest.json','navigation-data.json'}
+    allowed={'explorar.html','explorar.css','explorar.js','map3d.js','map-plan3d.js','brand-logos.js','store-reviews.css','logo-manifest.json','navigation-data.json','vlibras-accessibility.js','vlibras-accessibility.css'}
     require_allowed=name in allowed or (name.startswith(('vendor/','logos/')) and Path(name).suffix in ('.js','.png','.jpg','.jpeg','.webp','.svg'))
     if not require_allowed:raise Http404
     return local_file(settings.LEGACY_DIR/'static',name)

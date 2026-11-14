@@ -3,8 +3,8 @@ class PilotHeaders:
     def __call__(self,request):
         response=self.get_response(request)
         response['Cache-Control']='no-store'
-        # Only the public catalogue can opt into VLibras. Identity and staff pages never load third parties.
-        vlibras = request.path == '/participar/'
+        # Public catalogue and map can opt in; identity and staff pages stay isolated.
+        vlibras = request.path in ('/participar/', '/explorar.html')
         external = ' https://vlibras.gov.br https://*.vlibras.gov.br' if vlibras else ''
         script_cdn = ' https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/' if vlibras else ''
         fonts = ' https://vlibras.gov.br/app/assets/fonts/'+script_cdn if vlibras else ''
