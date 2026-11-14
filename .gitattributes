@@ -1,2 +1,3 @@
 *.pdf binary
 laboratorio/static/logos/* -text
+*.sh text eol=lf
