@@ -1,3 +1,4 @@
+import {t,getLocale,formatInstruction,initializeLocalization,localizeTree} from './map-i18n.js';
 import {mountStoreReviews,openStoreReview,resetStoreReviewSession} from './store-reviews.js';
 import {getBrand,brandImageUrl,loadBrandLogos} from './brand-logos.js';
 const $ = id => document.getElementById(id);
@@ -12,14 +13,14 @@ const facilityIcon=s=>({toilet:'WC',accessible_toilet:'♿',family_room:'FAM',el
 function destinations(){return [...state.data.stores,...(state.data.places||[]).map(p=>({...p,category:'Experiências',description:'Espaço demonstrativo para descobrir eventos, participar e avaliar a experiência.',...{x:node(p.node_id)?.x||0,z:node(p.node_id)?.z||0},width:5,depth:4,color:'#d9f57c',hours:'Consulte a agenda',event_id:eventIds[p.event_location],review_count:0}))];}
 function originNode(){return node($('origin').value);}
 function updatePosition(){
- const label=$('origin').selectedOptions[0]?.textContent||'Origem';
+ const label=state.data.anchors.find(a=>a.node_id===$('origin').value)?.label||'Origem';
  $('position-label').textContent=state.positionSource==='qr' ? `Ponto recebido no link: ${label}. Confirme sua origem; não há rastreamento.` : state.positionSource==='confirmed' ? `Último ponto confirmado: ${label}, às ${state.confirmedAt}. Sem acompanhamento contínuo.` : `Local selecionado: ${label}. Não é uma posição detectada.`;
  $('confirm-origin').hidden=state.positionSource!=='qr';
  state.scene?.setOrigin(originNode()); render2d();
 }
 function renderList(){
  const query=$('search').value.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
- const all=destinations().filter(s=>(!state.serviceFilter||serviceGroups[state.serviceFilter]?.includes(s.service_type))&&(!$('category').value||s.category===$('category').value)&&`${s.name} ${s.category}`.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(query));
+ const all=destinations().filter(s=>(!state.serviceFilter||serviceGroups[state.serviceFilter]?.includes(s.service_type))&&(!$('category').value||s.category===$('category').value)&&`${s.name} ${s.category} ${t(s.name)} ${t(s.category)}`.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(query));
  $('count').textContent=`${all.length} ${all.length===1?'destino':'destinos'} para explorar`;
  $('store-list').innerHTML=all.slice(0,state.limit).map(s=>`<button class="store-card ${s.id===state.selected?.id?'selected':''}" data-store="${esc(s.id)}" aria-pressed="${s.id===state.selected?.id}"><span class="store-icon" aria-hidden="true">${getBrand(s.name)?`<img src="${esc(brandImageUrl(s.name))}" alt="">`:s.unit_type==='facility'?facilityIcon(s):s.event_id?'✳':esc(s.name.charAt(0))}</span><span class="store-text"><strong>${esc(s.name)}</strong><small>${esc(s.category)} · ${esc(floorName(s.floor_id))}</small></span><span class="store-arrow" aria-hidden="true">↗</span></button>`).join('') || '<p class="fine">Nenhum destino encontrado. Tente outro nome ou categoria.</p>';
  $('store-list').querySelectorAll('[data-store]').forEach(b=>b.addEventListener('click',()=>selectStore(b.dataset.store)));
@@ -51,7 +52,7 @@ async function calculateRoute(){
 function renderRoute(){
  const r=state.route;if(!r||!$('route-result'))return;
  const steps=r.floor_steps||[];
- $('route-result').innerHTML=`<div class="route-box"><div class="route-summary"><strong>Percurso · ${steps.length} ${steps.length===1?'piso':'pisos'}</strong><button id="arrival-toggle" class="quiet">${state.arrival?'Voltar a explorar':'Modo chegar'}</button></div><div class="route-floors" aria-label="Etapas do percurso">${steps.map((s,i)=>`<button class="quiet" data-route-floor="${esc(s.floor_id)}" aria-pressed="${s.floor_id===state.floor}">${i+1}. ${esc(s.name)}${s.transfer?` · ${esc(s.transfer.label)} → ${esc(s.transfer.to_name)}`:''}</button>`).join('')}</div><ol>${r.instructions.map(i=>`<li>${esc(i)}</li>`).join('')}</ol><p class="fine">Distâncias aproximadas da planta. Transições usam custo estimado, não altura medida. Origem selecionada, sem acompanhamento contínuo. ${r.accessible_requested?'Rota sem escadas neste grafo; acessibilidade física sujeita à validação local.':''} Toque nas etapas para acompanhar o percurso em cada piso.</p></div>`;
+ $('route-result').innerHTML=`<div class="route-box"><div class="route-summary"><strong>Percurso · ${steps.length} ${steps.length===1?'piso':'pisos'}</strong><button id="arrival-toggle" class="quiet">${state.arrival?'Voltar a explorar':'Modo chegar'}</button></div><div class="route-floors" aria-label="Etapas do percurso">${steps.map((s,i)=>`<button class="quiet" data-route-floor="${esc(s.floor_id)}" aria-pressed="${s.floor_id===state.floor}">${i+1}. ${esc(s.name)}${s.transfer?` · ${esc(s.transfer.label)} → ${esc(s.transfer.to_name)}`:''}</button>`).join('')}</div><ol>${r.instruction_tokens?r.instruction_tokens.map(token=>`<li data-map-no-translate>${esc(formatInstruction(token))}</li>`).join(''):r.instructions.map(i=>`<li>${esc(i)}</li>`).join('')}</ol><p class="fine">Distâncias aproximadas da planta. Transições usam custo estimado, não altura medida. Origem selecionada, sem acompanhamento contínuo. ${r.accessible_requested?'Rota sem escadas neste grafo; acessibilidade física sujeita à validação local.':''} Toque nas etapas para acompanhar o percurso em cada piso.</p></div>`;
  $('route-result').querySelectorAll('[data-route-floor]').forEach(b=>b.addEventListener('click',()=>changeFloor(b.dataset.routeFloor)));
  $('arrival-toggle').addEventListener('click',()=>{state.arrival=!state.arrival;document.body.classList.toggle('arrival-mode',state.arrival);renderRoute();});
 }
@@ -105,15 +106,17 @@ $('confirm-origin').addEventListener('click',()=>{state.positionSource='confirme
 function motion(){document.body.classList.toggle('reduced-motion',state.reduced);$('reduce-motion').setAttribute('aria-pressed',state.reduced);$('reduce-motion').textContent=state.reduced?'Movimento reduzido':'Reduzir movimento';state.scene?.setReducedMotion(state.reduced);}
 $('reduce-motion').addEventListener('click',()=>{state.reduced=!state.reduced;motion();});motion();
 async function init(){
+ await initializeLocalization();
  try{const response=await fetch('/api/navigation');if(!response.ok)throw new Error('Catálogo indisponível.');state.data=await response.json();await loadBrandLogos();state.data.stores.sort((a,b)=>Number(b.featured)-Number(a.featured)||a.name.localeCompare(b.name));state.floor=state.data.floors[0].id;
  $('floor').innerHTML=state.data.floors.map(f=>`<option value="${esc(f.id)}">${esc(f.name||f.label||f.id)}</option>`).join('');
  $('origin').innerHTML=state.data.anchors.map(a=>`<option value="${esc(a.node_id)}">${esc(a.label)}</option>`).join('');
- $('category').innerHTML='<option value="">Todas as categorias</option>'+[...new Set(destinations().map(s=>s.category))].map(c=>`<option>${esc(c)}</option>`).join('');
+ $('category').innerHTML='<option value="">Todas as categorias</option>'+[...new Set(destinations().map(s=>s.category))].map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
  const params=new URLSearchParams(location.search),origin=params.get('origin'),destination=params.get('destination');if(origin&&state.data.anchors.some(a=>a.node_id===origin)){$('origin').value=origin;state.positionSource='qr';}else if(origin)status('Origem do link não reconhecida. Selecione um ponto de partida.');
  if(Object.hasOwn(serviceGroups,params.get('service')))state.serviceFilter=params.get('service');
  renderList();updatePosition();if(destination){if(destinations().some(s=>s.id===destination))selectStore(destination);else status('Destino do link não encontrado. Escolha um destino na lista.');}if(params.get('version')&&params.get('version')!==state.data.version)status('O link usa uma versão anterior do mapa. O catálogo atual foi carregado; confirme a origem e solicite um novo percurso.');await setView('3d');
  }catch(error){status('Não foi possível carregar o catálogo. Verifique se o servidor está ativo e recarregue a página.');$('count').textContent='Catálogo indisponível';$('map-state').textContent='Sem conexão';}
 }
+window.addEventListener('viva:map-language',()=>{if(!state.data)return;renderList();updatePosition();if(state.route)renderRoute();localizeTree();});
 init();
 
 

@@ -150,14 +150,18 @@ def calculate_route(request, data=None):
     segments.reverse()
     floors = {f['id']: f['name'] for f in data['floors']}
     instructions = []
+    instruction_tokens = []
     for segment in segments:
         target = nodes[segment['to']]
         if segment['kind'] in ('stairs', 'escalator', 'elevator'):
             means={'elevator':'o elevador','escalator':'a escada rolante','stairs':'a escada'}[segment['kind']]
             instructions.append(f"Use {means} até {floors[target['floor_id']]}. Ao chegar, continue no trecho desse piso.")
+            instruction_tokens.append({'code':'transfer','params':{'kind':segment['kind'],'target_floor_id':target['floor_id'],'target_floor_name':floors[target['floor_id']]}})
         else:
             instructions.append(f"Siga cerca de {segment['distance']:.1f} m até {target.get('label', 'o próximo ponto')}.")
+            instruction_tokens.append({'code':'walk','params':{'distance_m':round(segment['distance'],1),'target_node_id':target['id'],'target_label':target.get('label','o próximo ponto'),'target_floor_id':target['floor_id']}})
     instructions.append('Você chegou ao ponto de entrada do destino.' if segments else 'Origem e destino são o mesmo ponto.')
+    instruction_tokens.append({'code':'arrived' if segments else 'same_point','params':{}})
     floor_steps=[]
     for i,nid in enumerate(path):
         fid=nodes[nid]['floor_id']
@@ -170,6 +174,7 @@ def calculate_route(request, data=None):
             else:floor_steps[-1]['distance']+=seg['distance']
     for step in floor_steps:step['distance']=round(step['distance'],1)
     return {'version': data['version'], 'path': [nodes[n] for n in path],
-            'distance': round(distances[end], 1), 'instructions': instructions,
+            'distance': round(distances[end], 1), 'instructions': instructions, 'instruction_tokens':instruction_tokens,
+            'warning_token':{'code':'inferred_plan' if data.get('geometry_source') else 'schematic','params':{}},
             'segments': segments, 'floor_steps':floor_steps, 'accessible_requested':request['accessible'], 'demo': True,
             'warning': 'Percurso inferido da planta. Distâncias estimadas e acessibilidade não validadas no shopping.' if data.get('geometry_source') else 'Percurso esquemático demonstrativo. Distâncias e acessibilidade não validadas no shopping.'}

@@ -1,3 +1,4 @@
+import {t as translateMap} from './map-i18n.js';
 import {drawBrandLogo,getBrand} from './brand-logos.js';
 import * as T from './vendor/three.module.js';
 
@@ -459,6 +460,7 @@ export function createPlanScene(container, data, onSelect) {
     return { cw: Math.ceil(tw + (bw ? bw + 80 : 112)), bw };
   }
   function addLabel(o) {
+    o={...o,sourceText:o.text,sourceBadge:o.badge,text:translateMap(o.text),badge:o.badge?translateMap(o.badge):o.badge};
     const { cw, bw } = labelWidth(o.text, o.badge), ch = 72;
     const sp = new T.Sprite(new T.SpriteMaterial({ depthTest: false, depthWrite: false, transparent: true, toneMapped: false }));
     sp.center.set(.5, -.12); sp.renderOrder = 20; sp.visible = false; sp.position.set(o.x, o.y, o.z);
@@ -809,21 +811,24 @@ export function createPlanScene(container, data, onSelect) {
     labelsByFloor.set(f.id, labels.filter(l => l.floor === f.id).sort((p, q) => rank(p) - rank(q) || q.area - p.area));
   }
   // Facade sign atlas: one texture, one merged quad mesh per floor.
+  let refreshSignLanguage=()=>{};
   if (signEntries.length) {
     const cols = 4, cw = 256, chh = 48, rows = Math.ceil(signEntries.length / cols), W = cols * cw, H = rows * chh;
     const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const c = cv.getContext('2d');
-    signEntries.forEach((e, i) => {
+    const paintSigns=()=>{signEntries.forEach((e, i) => {
       const x = (i % cols) * cw, y = Math.floor(i / cols) * chh;
       c.fillStyle = e.color.getStyle(); c.fillRect(x, y, cw, chh);
       c.fillStyle = 'rgba(255,255,255,.16)'; c.fillRect(x, y + 3, cw, 2);
       c.fillStyle = e.accent.getStyle(); c.fillRect(x + 6, y + chh - 9, cw - 12, 3); // profile accent stripe
       const hasLogo=!e.plain&&drawBrandLogo(c,e.text,x+7,y+5,50,37);
-      const txt = String(e.text).toUpperCase(); let fs = hasLogo?22:27;
+      const txt = translateMap(e.text).toUpperCase(); let fs = hasLogo?22:27;
       do { c.font = `${e.weight} ${fs}px ${FONT}`; } while (c.measureText(txt).width > cw - (hasLogo?76:24) && --fs > 15);
       c.fillStyle = e.fg.getStyle(); c.textAlign = 'center'; c.textBaseline = 'middle';
       c.fillText(txt, x + (hasLogo?158:cw/2), y + chh / 2 - 1, cw - (hasLogo?76:22));
     });
+    };paintSigns();
     M.sign = own(new T.MeshBasicMaterial({ map: own(canvasTex(cv, aniso)), toneMapped: false, side: T.DoubleSide }));
+    refreshSignLanguage=()=>{paintSigns();M.sign.map.needsUpdate=true;};
     for (const [fid, info] of floorInfo) {
       if (!info.signs.length) continue;
       const pos = [], uv = [];
@@ -875,7 +880,7 @@ export function createPlanScene(container, data, onSelect) {
       else selGroup.add(new T.LineLoop(new T.BufferGeometry().setFromPoints(t.body.map(p => new T.Vector3(p[0], (t.ringY ?? t.top) + .03, p[1]))), M.selLine));
     } else { const m = new T.Mesh(new T.RingGeometry(1.4, 1.9, 40), M.selRing); m.rotation.x = -Math.PI / 2; m.position.set(t.x, .09, t.z); selGroup.add(m); }
     selGroup.visible = t.floor === floor;
-    Object.assign(selLabel, { text: t.kind === 'pin' ? `${t.name} · conferir` : t.name, badge: t.badge || null, color: t.color ? '#' + t.color.getHexString() : '#d9f57c', x: t.x, y: t.top + (t.kind === 'pin' ? .9 : .3), z: t.z, floor: t.floor });
+    Object.assign(selLabel, { text: translateMap(t.kind === 'pin' ? `${t.name} · conferir` : t.name), badge: t.badge?translateMap(t.badge):null, color: t.color ? '#' + t.color.getHexString() : '#d9f57c', x: t.x, y: t.top + (t.kind === 'pin' ? .9 : .3), z: t.z, floor: t.floor });
     Object.assign(selLabel, labelWidth(selLabel.text, selLabel.badge)); selLabel.aspect = selLabel.cw / selLabel.ch;
     paintLabel(selLabel.canvas, selLabel, 'selected');
     selLabel.tex?.dispose(); selLabel.tex = canvasTex(selLabel.canvas); selLabel.sprite.material.map = selLabel.tex; selLabel.sprite.material.needsUpdate = true;
@@ -1093,6 +1098,8 @@ export function createPlanScene(container, data, onSelect) {
     if (!reduced) { ring.scale.setScalar(1 + Math.sin(t * .002) * .06); chevronTex.offset.x = -((t / 900) % 1); M.selRing.opacity = .72 + Math.sin(t * .004) * .23; }
     updateLabels(); renderer.render(scene, camera);
   }
+  const refreshLabelLanguage=()=>{for(const label of labels){label.text=translateMap(label.sourceText);label.badge=label.sourceBadge?translateMap(label.sourceBadge):label.sourceBadge;Object.assign(label,labelWidth(label.text,label.badge));label.aspect=label.cw/label.ch;label.tex?.dispose();label.tex=null;}refreshSignLanguage();updateSelectionVisuals();};
+  window.addEventListener('viva:map-language',refreshLabelLanguage);
   raf = requestAnimationFrame(tick);
 
   return {
@@ -1102,7 +1109,7 @@ export function createPlanScene(container, data, onSelect) {
     setReducedMotion(v) { reduced = Boolean(v); ring.scale.setScalar(1); chevronTex.offset.x = 0; M.selRing.opacity = .95; if (reduced) finishAnim(); },
     getMetrics() { return { fps: total ? Math.round(count * 1000 / total) : 0, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles }; },
     dispose() {
-      disposed = true; cancelAnimationFrame(raf); ro.disconnect(); overlay.remove(); if (fixPosition) container.style.position = prevPosition;
+      disposed = true;window.removeEventListener('viva:map-language',refreshLabelLanguage); cancelAnimationFrame(raf); ro.disconnect(); overlay.remove(); if (fixPosition) container.style.position = prevPosition;
       scene.traverse(o => { o.geometry?.dispose(); if (o.material) for (const m of Array.isArray(o.material) ? o.material : [o.material]) { m.map?.dispose(); m.dispose(); } if (o.isInstancedMesh) o.dispose(); });
       for (const x of owned) x.dispose?.(); for (const l of labels) l.tex?.dispose(); selLabel.tex?.dispose();
       renderer.dispose(); canvas.remove();
