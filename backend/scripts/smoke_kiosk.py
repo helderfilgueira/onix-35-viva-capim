@@ -65,6 +65,18 @@ def main():
     status, config = request("GET", "/v1/kiosk/config")
     assert status == 200 and config["generation_id"] >= 0
 
+    # Development smoke tests may be rerun after an interrupted run left a
+    # session active. Reset this test device before creating a fresh session.
+    status, reset = request("POST", "/v1/kiosk/reset", {
+        "reason": "recovery",
+        "operation_id": str(uuid.uuid4()),
+        "expected_generation": config["generation_id"],
+    })
+    assert status == 200 and reset["state"] == "clean"
+
+    status, config = request("GET", "/v1/kiosk/config")
+    assert status == 200 and config["generation_id"] >= 0
+
     status, session = request("POST", "/v1/kiosk/sessions", {
         "notice_version": config["privacy_notice"]["version"],
         "purpose": "event_feedback",
@@ -105,6 +117,7 @@ def main():
 
     print("PASS: kiosk catalog")
     print("PASS: kiosk configuration")
+    print("PASS: device recovery reset")
     print("PASS: session creation and secure cookie")
     print("PASS: activity refresh")
     print("PASS: participation submission")
