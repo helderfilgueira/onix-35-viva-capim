@@ -51,11 +51,11 @@ HackaRun 2026 · Equipe **Onix 35**
 
 ```mermaid
 flowchart LR
-  A[Visitante se cadastra<br>nome, telefone, 18+ e aceite] --> B[Cadastro pendente]
-  B --> C[Administração ativa<br>no atendimento]
-  C --> D[Avalia loja ou evento<br>pelo mapa ou site]
-  D --> E[+10 pontos<br>qualquer nota]
-  E --> F[Operador resgata<br>no balcão]
+  A[Cadastro] --> B[Pendente]
+  B --> C[Ativação]
+  C --> D[Avaliação]
+  D --> E[+10 pontos]
+  E --> F[Resgate<br>no balcão]
 ```
 
 - Uma concessão por loja a cada 30 dias, uma por evento e no máximo 30 pontos por dia.
