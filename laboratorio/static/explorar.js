@@ -1,6 +1,9 @@
 import {t,getLocale,formatInstruction,initializeLocalization,localizeTree} from './map-i18n.js';
 import {mountStoreReviews,openStoreReview,resetStoreReviewSession} from './store-reviews.js';
 import {getBrand,brandImageUrl,loadBrandLogos} from './brand-logos.js';
+// Módulos da experiência carregados de forma isolada: se algum falhar, o mapa continua funcionando.
+let KIOSK=new URLSearchParams(location.search).get('modo')==='totem',attractVisible=()=>false,foundMascot=()=>{};
+try{const kiosk=await import('./kiosk.js');KIOSK=kiosk.isKiosk();kiosk.initAttract();attractVisible=kiosk.attractVisible;}catch(error){console.warn('Tela inicial indisponível',error);}
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const state = {serviceFilter:null,data:null, selected:null, route:null, scene:null, floor:null, view:'3d', limit:8, request:0, reduced:matchMedia('(prefers-reduced-motion: reduce)').matches, arrival:false, lastActivity:Date.now(), idleStart:null, positionSource:'manual'};
@@ -21,12 +24,34 @@ function updatePosition(){
 function renderList(){
  const query=$('search').value.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
  const all=destinations().filter(s=>(!state.serviceFilter||serviceGroups[state.serviceFilter]?.includes(s.service_type))&&(!$('category').value||s.category===$('category').value)&&`${s.name} ${s.category} ${t(s.name)} ${t(s.category)}`.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').includes(query));
+ if(state.serviceFilter){all.sort((a,b)=>distOf(a)-distOf(b)||a.name.localeCompare(b.name,'pt-BR'));fetchServiceDistances(all);}
  $('count').textContent=`${all.length} ${all.length===1?'destino':'destinos'} para explorar`;
- $('store-list').innerHTML=all.slice(0,state.limit).map(s=>`<button class="store-card ${s.id===state.selected?.id?'selected':''}" data-store="${esc(s.id)}" aria-pressed="${s.id===state.selected?.id}"><span class="store-icon" aria-hidden="true">${getBrand(s.name)?`<img src="${esc(brandImageUrl(s.name))}" alt="">`:s.unit_type==='facility'?facilityIcon(s):s.event_id?'✳':esc(s.name.charAt(0))}</span><span class="store-text"><strong>${esc(s.name)}</strong><small>${esc(s.category)} · ${esc(floorName(s.floor_id))}</small></span><span class="store-arrow" aria-hidden="true">↗</span></button>`).join('') || '<p class="fine">Nenhum destino encontrado. Tente outro nome ou categoria.</p>';
+ $('store-list').innerHTML=all.slice(0,state.limit).map(s=>`<button class="store-card ${s.id===state.selected?.id?'selected':''}" data-store="${esc(s.id)}" aria-pressed="${s.id===state.selected?.id}"><span class="store-icon" aria-hidden="true">${getBrand(s.name)?`<img src="${esc(brandImageUrl(s.name))}" alt="">`:s.unit_type==='facility'?facilityIcon(s):s.event_id?'✳':esc(s.name.charAt(0))}</span><span class="store-text"><strong>${esc(s.name)}</strong><small>${esc(s.category)} · ${esc(floorName(s.floor_id))}</small>${state.serviceFilter?distBadge(s):''}</span><span class="store-arrow" aria-hidden="true">↗</span></button>`).join('') || '<p class="fine">Nenhum destino encontrado. Tente outro nome ou categoria.</p>';
  $('store-list').querySelectorAll('[data-store]').forEach(b=>b.addEventListener('click',()=>selectStore(b.dataset.store)));
  $('load-more').hidden=all.length<=state.limit;
 }
+// Distância a pé até serviços (WC, elevadores, escadas, família), calculada pela mesma rota do servidor.
+const distCache=new Map();
+const distKey=s=>`${$('origin').value}|${$('accessible').checked}|${s.node_id}`;
+function distOf(s){const v=s.node_id?distCache.get(distKey(s)):null;return typeof v==='number'?v:Infinity;}
+function distBadge(s){const v=s.node_id?distCache.get(distKey(s)):null;
+ if(typeof v==='number')return `<small class="store-dist">≈ ${Math.round(v)} m · ${Math.max(1,Math.round(v/70))} min</small>`;
+ if(v==='pending')return `<small class="store-dist muted">${esc(t('Calculando distância…'))}</small>`;
+ return `<small class="store-dist muted">${esc(t('Sem percurso confirmado'))}</small>`;}
+let distTicket=0;
+async function fetchServiceDistances(items){
+ if(!state.data||!$('origin').value)return;
+ const todo=items.filter(s=>s.node_id&&!distCache.has(distKey(s))).slice(0,24);if(!todo.length)return;
+ const ticket=++distTicket;todo.forEach(s=>distCache.set(distKey(s),'pending'));
+ await Promise.all(todo.map(async s=>{const key=distKey(s);try{
+  const res=await fetch('/api/routes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({origin:$('origin').value,destination:s.node_id,accessible:$('accessible').checked,map_version:state.data.version})});
+  const out=await res.json();distCache.set(key,res.ok&&typeof out.distance==='number'?out.distance:null);
+ }catch{distCache.set(key,null);}}));
+ if(ticket===distTicket&&state.serviceFilter)renderList();
+}
 function changeFloor(id){state.floor=id;$('floor').value=id;state.scene?.setFloor(id);render2d();if(state.route)renderRoute();}
+// "Como chegar" a partir de um cartão: usa o motor de rotas existente e a preferência de rota acessível atual.
+function routeToStore(id){selectStore(id);if(!state.selected||state.selected.id!==id)return;if(document.body.classList.contains('totem'))document.body.classList.add('totem-detail');calculateRoute();}
 function selectStore(id){
  const item=destinations().find(s=>s.id===id);if(!item)return;
  state.request++;state.selected=item;state.route=null;state.arrival=false;document.body.classList.remove('arrival-mode');status();state.scene?.setRoute([]);changeFloor(item.floor_id);state.scene?.selectStore(id);renderList();renderDetail();render2d();const heading=$('destination').querySelector('h2');heading.setAttribute('tabindex','-1');heading.focus({preventScroll:true});
@@ -76,7 +101,7 @@ function render2d(){
 async function setView(view){
  state.view=view;$('view3d').setAttribute('aria-pressed',view==='3d');$('view2d').setAttribute('aria-pressed',view==='2d');$('scene3d').hidden=view!=='3d';$('map2d').toggleAttribute('hidden',view!=='2d');
  if(view==='2d'){$('map-state').textContent='Planta reconstruída · 2D';return;}
- try{if(!state.scene){$('map-state').textContent='Carregando cena 3D…';if(!state.scenePromise)state.scenePromise=import('/map3d.js').then(module=>module.createMallScene($('scene3d'),state.data,selectStore));state.scene=await state.scenePromise;state.scene.setReducedMotion(state.reduced);state.scene.setFloor(state.floor);state.scene.setOrigin(originNode());if(state.selected)state.scene.selectStore(state.selected.id);if(state.route)state.scene.setRoute(state.route.path);}if(state.view==='3d')$('map-state').textContent='Planta reconstruída · 3D';}
+ try{if(!state.scene){$('map-state').textContent='Carregando cena 3D…';if(!state.scenePromise)state.scenePromise=import('/map3d.js').then(module=>module.createMallScene($('scene3d'),state.data,selectStore,{mascots:true,onMascot:id=>foundMascot(id)}));state.scene=await state.scenePromise;state.scene.setReducedMotion(state.reduced);state.scene.setFloor(state.floor);state.scene.setOrigin(originNode());if(state.selected)state.scene.selectStore(state.selected.id);if(state.route)state.scene.setRoute(state.route.path);}if(state.view==='3d')$('map-state').textContent='Planta reconstruída · 3D';}
  catch(error){state.scene=null;state.scenePromise=null;await setView('2d');status('O mapa 3D não está disponível neste dispositivo. Continue pela versão 2D ou pela lista.');}
 }
 function share(){
@@ -97,7 +122,7 @@ function reset(){
 }
 function activity(){if(!$('idle-dialog').open)state.lastActivity=Date.now();}
 ['pointerdown','keydown'].forEach(name=>document.addEventListener(name,activity,{passive:true}));
-setInterval(()=>{if(!state.data)return;if(!state.idleStart&&Date.now()-state.lastActivity>=90000){state.idleStart=Date.now();$('idle-seconds').textContent='30';if($('share-dialog').open)$('share-dialog').close();$('idle-dialog').showModal();}if(state.idleStart){const left=Math.max(0,30-Math.floor((Date.now()-state.idleStart)/1000));$('idle-seconds').textContent=left;if(left===0)reset();}},1000);
+setInterval(()=>{if(!state.data)return;if(attractVisible()){state.lastActivity=Date.now();return;}if(!state.idleStart&&Date.now()-state.lastActivity>=90000){state.idleStart=Date.now();$('idle-seconds').textContent='30';if($('share-dialog').open)$('share-dialog').close();$('idle-dialog').showModal();}if(state.idleStart){const left=Math.max(0,30-Math.floor((Date.now()-state.idleStart)/1000));$('idle-seconds').textContent=left;if(left===0)reset();}},1000);
 $('continue-session').addEventListener('click',()=>{state.idleStart=null;state.lastActivity=Date.now();$('idle-dialog').close();});$('idle-dialog').addEventListener('cancel',e=>{e.preventDefault();$('continue-session').click();});$('end-session').addEventListener('click',reset);$('reset').addEventListener('click',()=>state.data&&reset());
 $('close-share').addEventListener('click',()=>{$('share-dialog').close();state.lastActivity=Date.now();});$('copy-link').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('share-url').value);$('copy-link').textContent='Link copiado';}catch{$('share-url').select();$('copy-link').textContent='Selecione e copie o link acima';}});
 $('search').addEventListener('input',()=>{state.limit=8;renderList();});$('category').addEventListener('change',()=>{state.serviceFilter=null;document.querySelectorAll('[data-service-filter]').forEach(b=>b.setAttribute('aria-pressed','false'));state.limit=8;renderList();});$('load-more').addEventListener('click',()=>{state.limit+=8;renderList();});$('floor').addEventListener('change',()=>changeFloor($('floor').value));
@@ -107,6 +132,8 @@ function motion(){document.body.classList.toggle('reduced-motion',state.reduced)
 $('reduce-motion').addEventListener('click',()=>{state.reduced=!state.reduced;motion();});motion();
 async function init(){
  await initializeLocalization();
+ import('./cards.js').then(m=>m.initCards({kiosk:KIOSK,onRoute:routeToStore})).catch(error=>console.warn('Cartões indisponíveis',error));
+ import('./trio.js').then(m=>{foundMascot=m.foundMascot;m.initTrio({mount:KIOSK?document.body:document.querySelector('.map-toolbar')});}).catch(error=>console.warn('Easter egg indisponível',error));
  try{const response=await fetch('/api/navigation');if(!response.ok)throw new Error('Catálogo indisponível.');state.data=await response.json();await loadBrandLogos();state.data.stores.sort((a,b)=>Number(b.featured)-Number(a.featured)||a.name.localeCompare(b.name));state.floor=state.data.floors[0].id;
  $('floor').innerHTML=state.data.floors.map(f=>`<option value="${esc(f.id)}">${esc(f.name||f.label||f.id)}</option>`).join('');
  $('origin').innerHTML=state.data.anchors.map(a=>`<option value="${esc(a.node_id)}">${esc(a.label)}</option>`).join('');
@@ -123,3 +150,79 @@ init();
 document.querySelectorAll('[data-service-filter]').forEach(b=>b.addEventListener('click',()=>{state.serviceFilter=b.dataset.serviceFilter||null;state.limit=8;$('search').value='';$('category').value='';document.querySelectorAll('[data-service-filter]').forEach(el=>el.setAttribute('aria-pressed',String(el===b)));renderList();}));
 
 $('rate-selected').addEventListener('click',()=>{const host=$('store-review-host');if(openStoreReview(host))host.scrollIntoView({behavior:state.reduced?'instant':'smooth',block:'start'});});
+
+// ===== Modo totem (/explorar.html?modo=totem) =====
+// Só a moldura muda. Mapa 3D/2D, rotas (/api/routes), dados e avaliações seguem o fluxo normal acima.
+// Observa o painel #destination em vez de alterar as funções do mapa.
+if(KIOSK){
+ document.body.classList.add('totem');
+ const catalog=$('catalog'),dest=$('destination'),emptyDetail=dest.innerHTML;
+ const callout=document.createElement('div');callout.className='totem-callout';callout.hidden=true;callout.setAttribute('role','group');
+ callout.innerHTML='<button type="button" class="totem-x">×</button><div class="totem-name"><b></b><small></small></div><button type="button" class="totem-more"></button>';
+ const closeBtn=document.createElement('button');closeBtn.type='button';closeBtn.className='totem-close';closeBtn.textContent='×';
+ document.body.append(callout,closeBtn);
+ const labels=()=>{callout.querySelector('.totem-x').setAttribute('aria-label',t('Fechar'));callout.querySelector('.totem-more').textContent=t('Toque aqui para ver mais detalhes');closeBtn.setAttribute('aria-label',t('Fechar detalhes'));};
+ const openCatalog=()=>catalog.classList.add('totem-open'),closeCatalog=()=>catalog.classList.remove('totem-open');
+ const showDetail=on=>{document.body.classList.toggle('totem-detail',on);if(on)dest.scrollTop=0;};
+ $('search').addEventListener('focus',openCatalog);$('search').addEventListener('input',openCatalog);
+ document.querySelectorAll('[data-service-filter]').forEach(b=>b.addEventListener('click',openCatalog));
+ callout.querySelector('.totem-x').addEventListener('click',()=>{callout.hidden=true;});
+ callout.querySelector('.totem-more').addEventListener('click',()=>{showDetail(true);dest.querySelector('h2')?.focus({preventScroll:true});});
+ closeBtn.addEventListener('click',()=>{showDetail(false);if(dest.querySelector('.detail-title'))callout.hidden=false;});
+ new MutationObserver(()=>{
+  const title=dest.querySelector('.detail-title h2');
+  if(!title){callout.hidden=true;showDetail(false);closeCatalog();return;}
+  if(!document.body.classList.contains('totem-detail')){callout.querySelector('b').textContent=title.textContent;callout.querySelector('small').textContent=dest.querySelector('.detail-title .eyebrow')?.textContent||'';callout.hidden=false;closeCatalog();}
+ }).observe(dest,{childList:true});
+ // Zoom + / − do 2D (no 3D os controles ficam no próprio motor: zoomBy/rotateBy).
+ const zoom=document.createElement('div');zoom.className='totem-zoom';zoom.setAttribute('role','group');
+ zoom.innerHTML='<button type="button" data-z="in">+</button><button type="button" data-z="out">−</button>';
+ document.body.append(zoom);
+ let zoom2d=1;
+ const step=dir=>{
+  if(!$('map2d').hidden){zoom2d=Math.min(4,Math.max(1,zoom2d*(dir>0?1.35:1/1.35)));$('map2d').style.transform=`scale(${zoom2d})`;return;}
+  state.scene?.zoomBy?.(dir>0?1/1.45:1.45);
+ };
+ zoom.addEventListener('click',e=>{const b=e.target.closest('[data-z]');if(b)step(b.dataset.z==='in'?1:-1);});
+ const zoomLabels=()=>{zoom.setAttribute('aria-label',t('Zoom do mapa'));zoom.children[0].setAttribute('aria-label',t('Aproximar'));zoom.children[1].setAttribute('aria-label',t('Afastar'));};
+ new MutationObserver(()=>{zoom2d=1;$('map2d').style.transform='';}).observe($('map2d'),{attributes:true,attributeFilter:['hidden']});
+ const back=document.createElement('button');back.type='button';back.className='totem-back';back.hidden=true;
+ back.innerHTML='<span aria-hidden="true">←</span> <span class="totem-back-label"></span>';document.body.append(back);
+ const canGoBack=()=>document.body.classList.contains('totem-detail')||catalog.classList.contains('totem-open')||!!state.selected;
+ const syncBack=()=>{back.hidden=!canGoBack();};
+ back.addEventListener('click',()=>{
+  if(document.body.classList.contains('totem-detail')){showDetail(false);if(dest.querySelector('.detail-title'))callout.hidden=false;}
+  else if(catalog.classList.contains('totem-open')){closeCatalog();$('search').blur();}
+  else if(state.selected){state.request++;state.selected=null;state.route=null;state.arrival=false;document.body.classList.remove('arrival-mode');state.scene?.setRoute([]);state.scene?.selectStore(null);mountStoreReviews(null,null);$('rate-selected').disabled=true;dest.innerHTML=emptyDetail;renderList();render2d();}
+  syncBack();
+ });
+ new MutationObserver(syncBack).observe(document.body,{attributes:true,attributeFilter:['class']});
+ new MutationObserver(syncBack).observe(catalog,{attributes:true,attributeFilter:['class']});
+ new MutationObserver(syncBack).observe(dest,{childList:true});
+ // Depois de "Como chegar": QR do percurso logo abaixo de "Avaliar esta loja" (mesmo link do botão Continuar no celular).
+ let qrFor='',qrWanted=null;
+ // QR só quando a pessoa toca em "Continuar no celular" (não junto com "Como chegar").
+ dest.addEventListener('click',e=>{if(!e.target.closest('#share-button'))return;e.preventDefault();e.stopPropagation();const s=state.selected;if(!s?.node_id)return;qrWanted=qrWanted===s.id?null:s.id;qrFor='';syncQr();dest.querySelector('.totem-qr')?.scrollIntoView({behavior:state.reduced?'instant':'smooth',block:'nearest'});},true);
+ const syncQr=()=>{
+  const old=dest.querySelector('.totem-qr'),s=state.selected,ready=!!(s&&s.node_id&&qrWanted===s.id);
+  if(!ready){if(old)old.remove();qrFor='';return;}
+  const url=new URL('/explorar.html',location.origin);url.searchParams.set('origin',$('origin').value);url.searchParams.set('destination',s.id);url.searchParams.set('version',state.data.version);
+  if(old&&qrFor===url.href)return;
+  if(old)old.remove();qrFor=url.href;
+  const box=document.createElement('section');box.className='totem-qr';box.setAttribute('aria-label',t('QR code do percurso'));
+  box.innerHTML='<div class="totem-qr-code"></div><div><p class="eyebrow"></p><strong></strong><p class="fine"></p></div>';
+  box.querySelector('.eyebrow').textContent=t('LEVE O CAMINHO COM VOCÊ');box.querySelector('strong').textContent=t('Continue no celular.');
+  box.querySelector('.fine').textContent=t('O link não transfere sua sessão nem acompanha seus passos. Confirme a origem ao abrir.');
+  const code=box.querySelector('.totem-qr-code');
+  if(window.QRCode)new window.QRCode(code,{text:url.href,width:168,height:168,colorDark:'#173c32',colorLight:'#fffef9',correctLevel:window.QRCode.CorrectLevel.M});else code.textContent=t('QR indisponível. Use o link abaixo.');
+  // Ordem pedida: Avaliar esta loja → QR → bloco do percurso.
+  const rr=$('route-result'),host=$('store-review-host');
+  if(rr){if(host&&(host.compareDocumentPosition(rr)&Node.DOCUMENT_POSITION_PRECEDING))rr.before(host);rr.before(box);}else if(host)host.after(box);else dest.append(box);
+ };
+ new MutationObserver(()=>{if(!dest.querySelector('.totem-qr')||qrFor)syncQr();}).observe(dest,{childList:true,subtree:true});
+ const backLabel=()=>{back.querySelector('.totem-back-label').textContent=t('Voltar');qrFor='';syncQr();};
+ window.addEventListener('viva:map-language',()=>{labels();zoomLabels();backLabel();});labels();zoomLabels();backLabel();
+}
+
+$('origin').addEventListener('change',()=>{if(state.serviceFilter)renderList();});
+$('accessible').addEventListener('change',()=>{if(state.serviceFilter)renderList();});

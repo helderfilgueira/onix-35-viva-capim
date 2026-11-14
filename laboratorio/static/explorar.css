@@ -20,3 +20,96 @@
 .route-floors{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.route-floors button{white-space:normal;text-align:left;min-height:48px}.route-floors [aria-pressed="true"]{background:#d9f57c;color:#173c32;outline:2px solid #426820}#rate-selected{color:#66500d}#store-review-host{margin-top:24px}
 
 .map-languages{display:flex;gap:4px;flex-shrink:0}.map-languages button{min-width:44px;min-height:44px;padding:8px;border:1px solid #d8dfd1;border-radius:9px;background:#fffef9;color:#173c32;font-weight:650}.map-languages button[aria-pressed=true]{background:#173c32;color:#fffef9}.map-languages button:focus-visible{outline:3px solid #8b6200;outline-offset:3px}@media(max-width:600px){.topbar{flex-wrap:wrap;gap:10px}.map-languages{margin-left:auto}.topbar #reset{margin-left:auto;min-height:44px}}
+
+/* ===== Modo totem (/explorar.html?modo=totem) =====
+   Só a moldura muda: o mapa 3D/2D, rotas, dados e textos continuam os mesmos.
+   Tudo fica sob body.totem, então o site normal não é afetado. */
+body.totem{--tg-glass:rgba(255,251,243,.66);--tg-solid:rgba(255,251,243,.92);--tg-edge:rgba(127,86,44,.2);--tg-bronze:#7f562c;--tg-bronze2:#a8763f;--tg-gold:#f0d39a;--tg-shadow:0 24px 60px -30px rgba(43,29,16,.55),0 4px 14px -8px rgba(43,29,16,.35);height:100dvh;overflow:hidden}
+body.totem .intro,body.totem .event-strip,body.totem footer,body.totem .map-topline .map-label,body.totem .map-hint,body.totem .catalog-heading,body.totem .catalog-footer{display:none}
+body.totem main{max-width:none;padding:0}
+body.totem .topbar,body.totem .map-toolbar,body.totem .origin-bar,body.totem .catalog,body.totem .destination,body.totem .totem-callout,body.totem .demo-banner,body.totem .status:not(:empty){background:var(--tg-glass);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);border:1px solid var(--tg-edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),var(--tg-shadow)}
+body.totem .workspace{position:fixed;inset:0;display:block;border:0;border-radius:0;box-shadow:none;background:#e7ecdf;overflow:hidden}
+body.totem .map-column{position:absolute;inset:0}
+body.totem .map-stage{position:absolute;inset:0;height:auto;transition:bottom .6s cubic-bezier(.22,1,.36,1)}
+body.totem.totem-detail .map-stage{bottom:56vh}
+body.totem .map-topline{top:calc(env(safe-area-inset-top,0px) + 196px)}
+body.totem .map-bottomline{bottom:calc(27vh + 24px);left:16px;right:auto;border-radius:14px;background:var(--tg-solid);padding:8px 12px}
+body.totem.totem-detail .map-bottomline{display:none}
+body.totem .topbar{position:fixed;z-index:40;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px;right:14px;height:72px;border-radius:999px;padding:0 10px 0 20px;zoom:1.7}
+body.totem .topbar nav{display:none}
+body.totem #reset{border-radius:999px}
+body.totem .map-toolbar{position:fixed;z-index:39;top:calc(env(safe-area-inset-top,0px) + 112px);left:14px;right:14px;height:auto;border-radius:22px;flex-wrap:wrap;zoom:1.7}
+body.totem .origin-bar{position:fixed;z-index:39;top:calc(env(safe-area-inset-top,0px) + 186px);left:14px;right:14px;border-radius:22px;zoom:1.7}
+body.totem .demo-banner{position:fixed;z-index:38;left:14px;bottom:calc(27vh + 64px);max-width:62vw;margin:0;border-radius:14px;padding:6px 10px;font-size:10px}
+body.totem.totem-detail .demo-banner{display:none}
+body.totem .status:not(:empty){position:fixed;z-index:45;top:calc(env(safe-area-inset-top,0px) + 270px);left:50%;transform:translateX(-50%);max-width:80vw;border-radius:16px;padding:10px 16px;zoom:1.7}
+/* busca como gaveta inferior */
+body.totem .catalog{position:fixed;z-index:35;left:14px;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);max-height:15vh;border-radius:30px;padding:16px 16px 14px;overflow:hidden;transition:max-height .6s cubic-bezier(.34,1.56,.64,1),transform .5s;zoom:1.7}
+body.totem .catalog .catalog-count,body.totem .catalog #store-list,body.totem .catalog #load-more,body.totem .catalog .small-label,body.totem .catalog #category{display:none}
+body.totem .catalog.totem-open{max-height:36vh;overflow:auto}
+body.totem .catalog.totem-open .catalog-count,body.totem .catalog.totem-open #store-list,body.totem .catalog.totem-open .small-label,body.totem .catalog.totem-open #category{display:revert}
+body.totem .catalog.totem-open #load-more:not([hidden]){display:block}
+body.totem.totem-detail .catalog{transform:translateY(130%)}
+body.totem .search-label{font-size:12px}
+body.totem .search-wrap{border-radius:999px;background:#fffdf8;border:1.5px solid var(--tg-gold)}
+body.totem .service-shortcuts button{border-radius:999px}
+body.totem .service-shortcuts button[aria-pressed=true]{background:linear-gradient(140deg,var(--tg-bronze2),var(--tg-bronze));color:#fffaf2}
+/* painel de detalhes */
+body.totem .destination{position:fixed;z-index:36;left:14px;right:14px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);max-height:54vh;overflow:auto;border-radius:32px;background:var(--tg-solid);transform:translateY(115%);transition:transform .7s cubic-bezier(.34,1.56,.64,1);zoom:1.65;padding-top:58px}
+body.totem.totem-detail .destination{transform:none}
+body.totem .destination .primary,body.totem .totem-more{background:linear-gradient(140deg,var(--tg-bronze2),#6e4822);color:#fffaf2;border:0}
+.totem-close{display:none}
+body.totem.totem-detail .totem-close{display:grid;position:fixed;z-index:37;right:28px;bottom:calc(54vh * 1.3 - 52px);width:56px;height:56px;border-radius:50%;border:0;place-items:center;font-size:26px;background:rgba(127,86,44,.12);color:var(--ink);cursor:pointer;zoom:1.3}
+/* balão após selecionar no mapa */
+.totem-callout{display:none}
+body.totem .totem-callout{display:grid;position:fixed;z-index:34;left:50%;top:30vh;transform:translateX(-50%);gap:12px;width:max-content;max-width:86vw;padding:16px 18px 18px;border-radius:28px;zoom:1.7;animation:totemCallout .7s cubic-bezier(.34,1.56,.64,1) both}
+body.totem .totem-callout[hidden],body.totem.totem-detail .totem-callout{display:none}
+.totem-callout .totem-name{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.totem-callout b{font-size:26px;letter-spacing:-.02em}
+.totem-callout small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.totem-more{min-height:56px;border-radius:999px;padding:0 22px;font-size:16px;font-weight:750;cursor:pointer;animation:totemNudge 2.4s ease-in-out 1.2s 3}
+@keyframes totemCallout{from{opacity:0;transform:translateX(-50%) translateY(24px) scale(.88)}}
+@keyframes totemNudge{50%{transform:translateY(-5px)}}
+body.totem.reduced-motion .totem-callout,body.totem.reduced-motion .totem-more{animation:none}
+@media (prefers-reduced-motion:reduce){body.totem .totem-callout,body.totem .totem-more{animation:none}body.totem .catalog,body.totem .destination,body.totem .map-stage{transition:none}}
+
+.totem-zoom{display:none}
+body.totem .totem-zoom{display:grid;gap:10px;position:fixed;z-index:38;right:18px;top:22vh;zoom:1.7}
+body.totem .totem-zoom button{width:64px;height:64px;border-radius:20px;border:1px solid var(--tg-edge);background:var(--tg-glass);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),var(--tg-shadow);font-size:32px;font-weight:600;color:var(--ink);cursor:pointer}
+body.totem .totem-zoom button:active{transform:scale(.92)}
+body.totem.totem-detail .totem-zoom{top:12vh}
+body.totem #map2d{transform-origin:50% 50%;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+
+.store-dist{display:block;margin-top:2px;font-weight:700;color:#426820;font-variant-numeric:tabular-nums}
+.store-dist.muted{font-weight:500;color:var(--muted)}
+
+.totem-back{display:none}
+body.totem .totem-back{display:flex;align-items:center;gap:8px;position:fixed;z-index:41;left:18px;top:22vh;min-height:64px;padding:0 20px;border-radius:999px;border:1px solid var(--tg-edge);background:var(--tg-glass);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),var(--tg-shadow);font-size:20px;font-weight:750;color:var(--ink);cursor:pointer;zoom:1.7}
+body.totem .totem-back[hidden]{display:none}
+body.totem.totem-detail .totem-back{top:12vh}
+body.totem .totem-back:active{transform:scale(.95)}
+
+.totem-qr{display:none}
+body.totem .totem-qr{display:flex;align-items:center;gap:18px;margin-top:20px;padding:16px;border-radius:22px;background:#fffef9;border:1px solid var(--tg-edge)}
+body.totem .totem-qr-code{flex:none;width:184px;height:184px;padding:8px;border-radius:14px;background:#fffef9;display:grid;place-items:center}
+body.totem .totem-qr strong{display:block;font-size:18px;margin:4px 0}
+
+body.totem .totem-callout{padding-right:62px}
+body.totem .totem-x{position:absolute;top:10px;right:10px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(127,86,44,.12);color:var(--ink);font-size:24px;line-height:1;cursor:pointer}
+
+body.totem .catalog.totem-open ~ .totem-zoom,body.totem:has(.catalog.totem-open) .totem-zoom{display:none}
+
+/* Totem: controles 3D do motor no lugar do +/- antigo; mesmo tamanho de toque do totem */
+body.totem .plan3d-ctrl{bottom:auto!important;right:44px!important;top:22vh!important;zoom:1.7;gap:10px!important}
+body.totem .plan3d-ctrl button{width:64px!important;height:64px!important;border-radius:20px!important;font-size:30px!important}
+body.totem.totem-detail .plan3d-ctrl{top:12vh!important}
+body.totem:has(.catalog.totem-open) .plan3d-ctrl{display:none!important}
+body.totem:has(#scene3d:not([hidden])) .totem-zoom{display:none}
+body.totem:has(.catalog.totem-open) .totem-back{top:14vh}
+.plan3d-ctrl button:focus-visible{outline:3px solid #173c32;outline-offset:2px}
+.plan3d-ctrl button:active{transform:scale(.94)}
+
+/* Totem em tela menor que a do quiosque (tablet/notebook): sem ampliação 1,7x para nada estourar */
+@media (max-width:900px){body.totem .topbar,body.totem .map-toolbar,body.totem .origin-bar,body.totem .status:not(:empty),body.totem .catalog,body.totem .totem-callout,body.totem .totem-zoom,body.totem .totem-back,body.totem .plan3d-ctrl{zoom:1}
+body.totem .map-toolbar{top:calc(env(safe-area-inset-top,0px) + 96px)}body.totem .origin-bar{top:calc(env(safe-area-inset-top,0px) + 168px)}
+body.totem .plan3d-ctrl{top:38vh!important;right:64px!important}body.totem .totem-back{top:38vh}body.totem:has(.catalog.totem-open) .totem-back{top:34vh}}

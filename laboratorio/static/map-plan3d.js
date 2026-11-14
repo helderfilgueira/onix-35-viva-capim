@@ -361,8 +361,11 @@ function wedgePart(x, z, hu, hw, rise, rot, top, side) {
   g.computeVertexNormals(); g.rotateY(rot); g.translate(x, 0, z); return { geo: g };
 }
 
-export function createPlanScene(container, data, onSelect) {
+export function createPlanScene(container, data, onSelect, opts = {}) {
   const scene = new T.Scene(); scene.background = new T.Color('#e7ecdf');
+  // Modo totem: nomes maiores e lojas âncora em destaque (só tamanho dos rótulos; geometria inalterada).
+  const anchorIds = new Set(data.stores.filter(s => s.category === 'Lojas âncora').map(s => s.id));
+  const totemMode = () => document.body.classList.contains('totem');
   const renderer = new T.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6)); renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.04;
@@ -1023,7 +1026,12 @@ export function createPlanScene(container, data, onSelect) {
     pointers.delete(e.pointerId); if (pointers.size < 2) pinch = null;
     if (!drag || drag.id === e.pointerId) drag = null;
     canvas.style.cursor = 'grab';
-    if (click) { const h = pick(e), id = h && idOfHit(h); if (id) onSelect(id); }
+    if (click) {
+      const h = pick(e), id = h && idOfHit(h);
+      if (id) onSelect(id);
+      // Mascotes não estão em hitObjects: só recebem o clique quando nenhuma loja foi atingida.
+      else if (mascots && opts.onMascot) { const mid = mascots.pick(ray); if (mid) { mascots.bounce(mid); opts.onMascot(mid); } }
+    }
   };
   canvas.addEventListener('pointerup', endPointer); canvas.addEventListener('pointercancel', endPointer);
   canvas.addEventListener('contextmenu', e => e.preventDefault());
@@ -1043,6 +1051,27 @@ export function createPlanScene(container, data, onSelect) {
   const interiorBtn=document.createElement('button'); interiorBtn.type='button'; interiorBtn.textContent='Mostrar coberturas'; interiorBtn.setAttribute('aria-pressed','true'); interiorBtn.style.cssText=overviewBtn.style.cssText;
   interiorBtn.addEventListener('click',()=>{cutaway=!cutaway;for(const o of roofViews)o.visible=!cutaway;interiorBtn.textContent=cutaway?'Mostrar coberturas':'Ver interiores';interiorBtn.setAttribute('aria-pressed',String(cutaway));});
   overlay.append(overviewBtn, interiorBtn, note); container.append(overlay);
+
+  // ---------- 3D camera buttons: zoom and rotate (same engine for site, totem and simulation) ----------
+  function nudge(f, da) {
+    const ov = overviewGoal(view.angle).size, base = anim ? { ...anim.to } : { ...view };
+    const gl = { x: base.x, z: base.z, angle: base.angle + da, size: clamp(base.size * f, Math.max(3, ov * .045), ov * 1.6) };
+    if (mode.type === 'overview' && f === 1) { Object.assign(gl, overviewGoal(gl.angle)); mode = { type: 'overview', angle: gl.angle }; } else mode = { type: 'free' };
+    if (!canAnimate()) { anim = null; Object.assign(view, gl); clampView(); applyView(); return; }
+    anim = { from: { ...view }, to: gl, start: performance.now(), dur: 380, bump: 0 };
+  }
+  const ctrl = document.createElement('div'); ctrl.className = 'plan3d-ctrl'; ctrl.setAttribute('role', 'group');
+  Object.assign(ctrl.style, { position: 'absolute', right: '16px', bottom: '56px', zIndex: '2', display: 'flex', flexDirection: 'column', gap: '8px' });
+  const CTRL = [['in', '+', 'Aproximar', () => nudge(1 / 1.45, 0)], ['out', '−', 'Afastar', () => nudge(1.45, 0)], ['left', '↺', 'Girar para a esquerda', () => nudge(1, -Math.PI / 8)], ['right', '↻', 'Girar para a direita', () => nudge(1, Math.PI / 8)], ['home', '⌂', 'Visão geral', () => go({ type: 'overview', angle: DEFAULT_ANGLE })]];
+  const ctrlBtns = CTRL.map(([k, sym, label, fn]) => {
+    const b = document.createElement('button'); b.type = 'button'; b.dataset.cam = k; b.textContent = sym; b.dataset.label = label;
+    Object.assign(b.style, { width: '48px', height: '48px', borderRadius: '12px', border: '1px solid #d3dac7', background: 'rgba(255,254,249,.94)', color: '#173c32', fontSize: '22px', fontWeight: '650', lineHeight: '1', boxShadow: '0 4px 14px rgba(23,60,50,.12)', cursor: 'pointer', padding: '0' });
+    b.addEventListener('click', fn); ctrl.append(b); return b;
+  });
+  const labelCtrl = () => { ctrl.setAttribute('aria-label', translateMap('Controles do mapa 3D')); for (const b of ctrlBtns) { const l = translateMap(b.dataset.label); b.setAttribute('aria-label', l); b.title = l; } };
+  labelCtrl(); container.append(ctrl);
+  // Mapa baixo (celular): controles em linha no rodapé, sem cobrir "Visão geral".
+  const layoutCtrl = () => { const short = container.clientHeight < 560; Object.assign(ctrl.style, { flexDirection: short ? 'row' : 'column', bottom: short ? '12px' : '56px' }); for (const b of ctrlBtns) Object.assign(b.style, { width: short ? '44px' : '48px', height: short ? '44px' : '48px' }); };
 
   // ---------- floor switching ----------
   function setFloor(id) {
@@ -1068,18 +1097,20 @@ export function createPlanScene(container, data, onSelect) {
   const v3 = new T.Vector3();
   function updateLabels() {
     const W = container.clientWidth, H = container.clientHeight; if (!W || !H) return;
-    const wpp = 2 * view.size / H, px = W < 520 ? 20 : 23, occupied = [], ov = overviewGoal(view.angle).size, zoomed = view.size < ov * .42;
+    const totem = totemMode(), wpp = 2 * view.size / H, px = totem ? 30 : W < 520 ? 20 : 23, occupied = [], ov = overviewGoal(view.angle).size, zoomed = view.size < ov * .42;
     const place = (l, sprite, force) => {
       v3.set(l.x, l.y, l.z).project(camera);
-      const x = (v3.x + 1) * W / 2, y = (1 - v3.y) * H / 2, w = px * l.aspect, rect = [x - w / 2, y - px * 1.12, x + w / 2, y - px * .12];
+      const s = totem && anchorIds.has(l.id) ? px * 1.6 : px;
+      const x = (v3.x + 1) * W / 2, y = (1 - v3.y) * H / 2, w = s * l.aspect, rect = [x - w / 2, y - s * 1.12, x + w / 2, y - s * .12];
       if (rect[2] < 0 || rect[0] > W || rect[3] < 0 || rect[1] > H) return false;
       if (!force && occupied.some(r => rect[0] < r[2] + 4 && rect[2] > r[0] - 4 && rect[1] < r[3] + 3 && rect[3] > r[1] - 3)) return false;
-      occupied.push(rect); sprite.scale.set(wpp * px * l.aspect, wpp * px, 1); sprite.visible = true; return true;
+      occupied.push(rect); sprite.scale.set(wpp * s * l.aspect, wpp * s, 1); sprite.visible = true; return true;
     };
     selLabel.sprite.visible = false;
     if (selLabel.floor === floor && selLabel.tex) place(selLabel, selLabel.sprite, true);
     let shown = 0;
-    for (const l of labelsByFloor.get(floor) || []) {
+    const floorLabels = labelsByFloor.get(floor) || [];
+    for (const l of totem ? [...floorLabels.filter(x => anchorIds.has(x.id)), ...floorLabels.filter(x => !anchorIds.has(x.id))] : floorLabels) {
       l.sprite.visible = false;
       if (shown >= 48 || l.id === selected || l.kind === 'pin') continue;
       if (l.kind === 'store' && !l.featured && !getBrand(l.text) && !zoomed) continue;
@@ -1087,29 +1118,40 @@ export function createPlanScene(container, data, onSelect) {
     }
   }
 
-  const ro = new ResizeObserver(resize); ro.observe(container);
+  const ro = new ResizeObserver(() => { resize(); layoutCtrl(); }); ro.observe(container); layoutCtrl();
   setFloor(floor); resize();
   let raf = 0, count = 0, total = 0, last = 0;
   function tick(t) {
     if (disposed) return; raf = requestAnimationFrame(tick);
-    if (container.hidden || document.hidden) { last = 0; finishAnim(); return; }
+    if (container.hidden || document.hidden) { last = 0; mascotClock = 0; finishAnim(); return; }
     if (last) { total += t - last; count++; } last = t;
     stepAnim(performance.now());
+    if (mascots) { const now = performance.now(); mascots.tick(mascotClock ? (now - mascotClock) / 1000 : 0); mascotClock = now; } else mascotClock = 0;
     if (!reduced) { ring.scale.setScalar(1 + Math.sin(t * .002) * .06); chevronTex.offset.x = -((t / 900) % 1); M.selRing.opacity = .72 + Math.sin(t * .004) * .23; }
     updateLabels(); renderer.render(scene, camera);
   }
-  const refreshLabelLanguage=()=>{for(const label of labels){label.text=translateMap(label.sourceText);label.badge=label.sourceBadge?translateMap(label.sourceBadge):label.sourceBadge;Object.assign(label,labelWidth(label.text,label.badge));label.aspect=label.cw/label.ch;label.tex?.dispose();label.tex=null;}refreshSignLanguage();updateSelectionVisuals();};
+  // ---------- mascotes (opcional; falha não derruba o mapa) ----------
+  let mascots = null, mascotClock = 0;
+  if (opts.mascots) import('./map-mascots.js').then(mod => {
+    if (disposed) return;
+    mascots = mod.attachMascots({ T, floorGroups, nodes: data.nodes || [], edges: data.edges || [], camera, own,
+      getPixelWorld: () => 2 * view.size / Math.max(1, container.clientHeight), isReduced: () => reduced });
+  }).catch(() => { mascots = null; });
+  const refreshLabelLanguage=()=>{labelCtrl();for(const label of labels){label.text=translateMap(label.sourceText);label.badge=label.sourceBadge?translateMap(label.sourceBadge):label.sourceBadge;Object.assign(label,labelWidth(label.text,label.badge));label.aspect=label.cw/label.ch;label.tex?.dispose();label.tex=null;}refreshSignLanguage();updateSelectionVisuals();};
   window.addEventListener('viva:map-language',refreshLabelLanguage);
   raf = requestAnimationFrame(tick);
 
   return {
     setFloor, selectStore,
+    resize,
+    mascotFloor(id) { return mascots?.floorOf(id) || null; },
+    zoomBy(f) { nudge(f, 0); }, rotateBy(a) { nudge(1, a); },
     setRoute(p) { route = Array.isArray(p) ? p.filter(Boolean) : []; drawRoute(); if (routePts().length >= 2) go({ type: 'route' }); else if (mode.type === 'route') mode = { type: 'free' }; },
     setOrigin(n) { origin = n; updateOrigin(); },
     setReducedMotion(v) { reduced = Boolean(v); ring.scale.setScalar(1); chevronTex.offset.x = 0; M.selRing.opacity = .95; if (reduced) finishAnim(); },
     getMetrics() { return { fps: total ? Math.round(count * 1000 / total) : 0, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles }; },
     dispose() {
-      disposed = true;window.removeEventListener('viva:map-language',refreshLabelLanguage); cancelAnimationFrame(raf); ro.disconnect(); overlay.remove(); if (fixPosition) container.style.position = prevPosition;
+      disposed = true;mascots?.dispose();mascots=null;window.removeEventListener('viva:map-language',refreshLabelLanguage); cancelAnimationFrame(raf); ro.disconnect(); overlay.remove(); ctrl.remove(); if (fixPosition) container.style.position = prevPosition;
       scene.traverse(o => { o.geometry?.dispose(); if (o.material) for (const m of Array.isArray(o.material) ? o.material : [o.material]) { m.map?.dispose(); m.dispose(); } if (o.isInstancedMesh) o.dispose(); });
       for (const x of owned) x.dispose?.(); for (const l of labels) l.tex?.dispose(); selLabel.tex?.dispose();
       renderer.dispose(); canvas.remove();

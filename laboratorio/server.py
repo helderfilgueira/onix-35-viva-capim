@@ -300,7 +300,7 @@ class Handler(BaseHTTPRequestHandler):
                     raise Problem(404, 'Logomarca não encontrada.')
                 mime = {'png':'image/png','jpg':'image/jpeg','jpeg':'image/jpeg','svg':'image/svg+xml','webp':'image/webp'}[file.suffix[1:]]
                 return self.reply(200, file.read_bytes(), mime)
-            if method=='GET' and path in ('/','/index.html','/app.js','/style.css','/modern.css','/explorar.html','/explorar.css','/explorar.js','/map-i18n.js','/map-content-i18n.json','/vlibras-accessibility.js','/vlibras-accessibility.css','/map3d.js','/map-plan3d.js','/brand-logos.js','/store-reviews.js','/store-reviews.css','/vendor/three.module.js','/vendor/three.core.js','/vendor/qrcode.js'):
+            if method=='GET' and path in ('/','/index.html','/app.js','/style.css','/modern.css','/explorar.html','/explorar.css','/explorar.js','/map-i18n.js','/map-content-i18n.json','/vlibras-accessibility.js','/vlibras-accessibility.css','/map3d.js','/map-plan3d.js','/brand-logos.js','/store-reviews.js','/store-reviews.css','/vendor/three.module.js','/vendor/three.core.js','/vendor/qrcode.js','/kiosk.js','/kiosk.css','/cards.js','/cards.css','/trio.js','/trio.css','/map-mascots.js'):
                 name='index.html' if path=='/' else path[1:]
                 mime={'html':'text/html; charset=utf-8','js':'text/javascript; charset=utf-8','css':'text/css; charset=utf-8','json':'application/json; charset=utf-8'}[name.rsplit('.',1)[1]]
                 file = ROOT/'static'/name
