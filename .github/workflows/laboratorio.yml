@@ -1,9 +1,7 @@
 name: Laboratorio - testes Python
 on:
   push:
-    paths: ['laboratorio/**', '.github/workflows/laboratorio.yml']
   pull_request:
-    paths: ['laboratorio/**', '.github/workflows/laboratorio.yml']
 permissions:
   contents: read
 jobs:

@@ -1,0 +1,13 @@
+.git
+**/.env
+**/.env.*
+**/*.sqlite*
+**/*.db
+**/__pycache__
+**/node_modules
+**/data
+**/staticfiles
+missao-1
+
+.local-access.txt
+.venv
