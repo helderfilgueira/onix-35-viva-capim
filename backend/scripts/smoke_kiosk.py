@@ -25,7 +25,7 @@ def main():
             "X-Gateway-Token": args.gateway_token,
             "X-Verified-Device-Id": args.device_id,
         }
-        if payload is not None:
+        if method != "GET":
             headers.update({"Content-Type": "application/json", "X-Kiosk-Request": "1"})
         if extra_headers:
             headers.update(extra_headers)
