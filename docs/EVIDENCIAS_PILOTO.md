@@ -95,3 +95,17 @@ A troca mantém origem, destino, piso, visualização, busca, categoria e prefer
 QA local: [10 verificações de integração](QA_MAPA_IDIOMAS.json), [8 de conteúdo/estado/mobile](QA_MAPA_CONTEUDO_IDIOMAS.json), [5 de ciclo VLibras](QA_MAPA_LIBRAS_I18N_ISOLADO.json) e [cobertura do catálogo](QA_MAPA_CONTEUDO_I18N.json) aprovadas. Legado: 69 testes aprovados. Django local: 56 testes encontrados, 50 aprovados e seis ignorados por dependerem de PostgreSQL; resultado CI no banco alvo e publicação serão registrados abaixo.
 
 Publicação confirmada: `dpl_AMYG9nsriESMcnYnqdQ7hUKzuydp`, aplicação `be2a340`. CI PostgreSQL: 56 aprovados sem skips; legado: 69 aprovados. [Smoke publicado](VERCEL_MAPA_I18N.json) e [10 verificações de navegador na nuvem](QA_MAPA_IDIOMAS_CLOUD.json) passaram, incluindo tradução e preservação da rota acessível. Commits posteriores somente documentais.
+
+## Ciclo de fidelidade ponta a ponta · aplicação be2a340
+
+Executado em 14/11/2026 com dados fictícios (telefones `+1 212 555 01xx`, faixa reservada a ficção). Deployment de produção conferido na Vercel: `dpl_AMYG9nsriESMcnYnqdQ7hUKzuydp`, aplicação `be2a340`, estado READY. Contas demonstrativas `admin`, `operador` e `lojista`; as senhas foram digitadas pelo usuário em prompt local e não foram registradas.
+
+**API na nuvem: 23 verificações aprovadas.** Cadastro pendente com resposta genérica e recusa sem aceite; operador localiza cadastro com telefone mascarado e não verificado, mas não ativa; avaliação antes da ativação não credita; ativação pelo administrador; uma estrela na loja e no evento creditam 10 pontos cada; repetição da mesma loja em 30 dias e do mesmo evento não credita; resgate pelo operador no próprio escopo debita saldo e estoque uma única vez com chave repetida; mesma chave com outro conteúdo é recusada; operador não cria benefício, não lista cadastros nem acessa usuários; resgate público recusado; lojista recebe somente agregado sem identidade e com amostra mínima; estorno e encerramento com remoção do telefone.
+
+**Interface na nuvem: 15 verificações aprovadas** (Microsoft Edge headless; operador em 390×844). Cadastro em inglês com mensagem genérica e campos limpos; ativação pelo administrador no balcão mantendo telefone não verificado; mapa em inglês → Vivara → "Review this store" com loja pré-selecionada e idioma preservado; avaliação de uma estrela; menu do operador sem cadastros/usuários/parceiros; saldo de 10 pontos no balcão; resgate com comprovante e saldo 0; nova busca sem débito duplicado; lista de cadastros inacessível por URL; limpeza com estorno e encerramento; nenhum erro JavaScript. Evidência: [QA_CICLO_FIDELIDADE_NUVEM.json](QA_CICLO_FIDELIDADE_NUVEM.json).
+
+Antes da nuvem, o mesmo roteiro passou localmente em banco SQLite descartável (23 API e 15 interface), com o código `f7f4325`; Django local: 50 aprovados e 6 ignorados por exigirem PostgreSQL. Evidência: [QA_CICLO_FIDELIDADE_LOCAL.json](QA_CICLO_FIDELIDADE_LOCAL.json).
+
+Após a limpeza, o estoque público do benefício de demonstração voltou a 100. Efeito colateral observado: as avaliações de teste completaram a amostra mínima da loja Vivara, cuja média pública (cinco avaliações, 1,8) passou a ser exibida até a retenção de 30 dias. Os lançamentos e resgates estornados permanecem pseudonimizados para auditoria. O limitador de login (10 tentativas a cada 15 minutos) foi acionado durante a execução local, como esperado.
+
+Esta execução não comprova posse de telefone, uso em totem real nem acessibilidade presencial, e não substitui a revisão humana do PR #18.

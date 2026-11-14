@@ -1,0 +1,217 @@
+{
+  "data": "2026-11-14",
+  "dados": "Somente ficticios: telefones +1 212 555 01xx (faixa reservada a ficcao), nome \"Teste Ficticio\".",
+  "limites": [
+    "Nao comprova posse do telefone (sem OTP) nem identidade.",
+    "Avaliacoes de teste permanecem ate a retencao de 30 dias; ledger e resgates estornados permanecem pseudonimizados para auditoria.",
+    "Nao substitui teste presencial, totem real ou revisao humana do PR."
+  ],
+  "ambiente": "nuvem (producao de demonstracao)",
+  "url": "https://onix35-viva-capim.vercel.app",
+  "deployment": "dpl_AMYG9nsriESMcnYnqdQ7hUKzuydp",
+  "aplicacao": "be2a3401e84faa8ade24702f68dd51b53254328c",
+  "verificacao_deployment": "Vercel list_deployments: deployment de producao mais recente, READY, commit be2a340.",
+  "contas": "admin, operador e lojista demonstrativas; senhas digitadas pelo usuario em prompt local, nao registradas.",
+  "navegador": "Microsoft Edge 157 headless via Playwright; operador em viewport 390x844.",
+  "api": {
+    "passed": true,
+    "total": 23,
+    "aprovadas": 23,
+    "executado_em": "2026-11-14T05:46:55.343815+00:00",
+    "checks": [
+      {
+        "check": "cadastro publico aceito com resposta generica",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "check": "cadastro sem aceite recusado",
+        "passed": true,
+        "detail": "HTTP 400"
+      },
+      {
+        "check": "caixa localiza cadastro pendente, telefone mascarado e nao verificado",
+        "passed": true,
+        "detail": "status=pending"
+      },
+      {
+        "check": "caixa nao ativa cadastro",
+        "passed": true,
+        "detail": "HTTP 403"
+      },
+      {
+        "check": "avaliacao com cadastro pendente nao credita",
+        "passed": true,
+        "detail": "saldo=0"
+      },
+      {
+        "check": "admin ativa cadastro",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "check": "avaliacao 1 estrela aceita com resposta generica",
+        "passed": true,
+        "detail": "HTTP 200"
+      },
+      {
+        "check": "avaliacao de loja 1 estrela credita 10 pontos",
+        "passed": true,
+        "detail": "saldo=10"
+      },
+      {
+        "check": "segunda avaliacao da mesma loja em 30 dias nao credita",
+        "passed": true,
+        "detail": "saldo=10"
+      },
+      {
+        "check": "avaliacao de evento 1 estrela credita 10 pontos",
+        "passed": true,
+        "detail": "10->20"
+      },
+      {
+        "check": "segunda avaliacao do mesmo evento nao credita",
+        "passed": true,
+        "detail": "20->20"
+      },
+      {
+        "check": "caixa resgata beneficio do proprio escopo",
+        "passed": true,
+        "detail": "HTTP 201 "
+      },
+      {
+        "check": "repeticao com mesma chave devolve mesmo resgate",
+        "passed": true,
+        "detail": "ids 2/2"
+      },
+      {
+        "check": "debito e estoque aplicados uma unica vez",
+        "passed": true,
+        "detail": "saldo 20->10, estoque 100->99"
+      },
+      {
+        "check": "mesma chave com outro payload recusada",
+        "passed": true,
+        "detail": "HTTP 409"
+      },
+      {
+        "check": "caixa nao cria beneficio",
+        "passed": true,
+        "detail": "HTTP 403"
+      },
+      {
+        "check": "caixa nao lista cadastros",
+        "passed": true,
+        "detail": "HTTP 403"
+      },
+      {
+        "check": "caixa nao acessa gestao de usuarios",
+        "passed": true,
+        "detail": "HTTP 403"
+      },
+      {
+        "check": "resgate publico recusado",
+        "passed": true,
+        "detail": "HTTP 401"
+      },
+      {
+        "check": "parceiro ve agregado sem identidade e oculta amostra < 5",
+        "passed": true,
+        "detail": "1 alvos; loja=[{'target_type': 'store', 'target_id': 'f0-loja-29', 'count': None, 'average': None, 'status': 'insufficient_sample'}]"
+      },
+      {
+        "check": "parceiro nao lista cadastros",
+        "passed": true,
+        "detail": "HTTP 403"
+      },
+      {
+        "check": "admin estorna resgate e restaura saldo",
+        "passed": true,
+        "detail": "saldo 10->20"
+      },
+      {
+        "check": "cadastro ficticio encerrado e telefone removido",
+        "passed": true,
+        "detail": "HTTP 200; lookup=None"
+      }
+    ]
+  },
+  "interface": {
+    "passed": true,
+    "total": 15,
+    "aprovadas": 15,
+    "executado_em": "2026-11-14T05:52:42.895Z",
+    "checks": [
+      {
+        "check": "cadastro exibe ingles apos botao EN",
+        "passed": true
+      },
+      {
+        "check": "cadastro EN recebido sem revelar saldo ou status",
+        "passed": true,
+        "detail": "mensagem generica; campos limpos apos envio"
+      },
+      {
+        "check": "balcao do admin mostra cadastro pendente",
+        "passed": true
+      },
+      {
+        "check": "admin ativa cadastro; telefone continua nao verificado",
+        "passed": true,
+        "detail": "CLIENTE Teste F. TELEFONE ***[ficticio] SITUAÇÃO Ativo SALDO 0 pts Telefone não verificado (sem SMS). Confirme presencialmente"
+      },
+      {
+        "check": "painel da loja no mapa oferece avaliar a loja certa",
+        "passed": true,
+        "detail": "Review this store ★"
+      },
+      {
+        "check": "avaliacao abre com loja pre-selecionada",
+        "passed": true
+      },
+      {
+        "check": "avaliacao aberta pelo mapa em ingles mantem ingles",
+        "passed": true,
+        "detail": "Submit review"
+      },
+      {
+        "check": "avaliacao 1 estrela enviada pela interface",
+        "passed": true
+      },
+      {
+        "check": "menu do operador sem cadastros, usuarios ou parceiros",
+        "passed": true
+      },
+      {
+        "check": "operador ve saldo 10 apos avaliacao de 1 estrela",
+        "passed": true
+      },
+      {
+        "check": "operador confirma resgate e recebe comprovante com novo saldo 0",
+        "passed": true
+      },
+      {
+        "check": "nova busca confirma saldo 0 (sem debito duplicado)",
+        "passed": true
+      },
+      {
+        "check": "operador nao abre lista de cadastros por URL",
+        "passed": true
+      },
+      {
+        "check": "limpeza: resgate estornado e cadastro ficticio encerrado",
+        "passed": true,
+        "detail": "{\"ok\":true,\"reversed\":1}"
+      },
+      {
+        "check": "sem erros JavaScript nas paginas",
+        "passed": true
+      }
+    ]
+  },
+  "pos_verificacao_publica": {
+    "estoque_beneficio_demonstracao": "100 (restaurado apos estornos)",
+    "media_publica_vivara": "5 avaliacoes, media 1,8: as avaliacoes de teste completaram a amostra minima e a media passou a ser exibida publicamente ate a retencao."
+  },
+  "passed": true
+}
