@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "url": "https://onix35-viva-capim.vercel.app",
+  "deployment": "https://onix35-viva-capim-fwozdj3v4-helder-filgueiras-projects.vercel.app",
+  "deployment_id": "dpl_EpjcYSYzpS2wpe57yFhLAAqs4R6m",
+  "source_revision": "381c3c3",
+  "target": "production",
+  "verified_at": "2026-11-14T04:19:01.230710+00:00",
+  "checks": [
+    {
+      "path": "/api/v2/health",
+      "status": 200
+    },
+    {
+      "path": "/public/app.js",
+      "status": 200
+    },
+    {
+      "path": "/participar/",
+      "status": 200
+    },
+    {
+      "path": "/participar/cadastro/",
+      "status": 200
+    },
+    {
+      "path": "/participar/avaliar/",
+      "status": 200
+    },
+    {
+      "path": "/explorar.html",
+      "status": 200
+    }
+  ],
+  "libras_launcher_and_dialog_in_published_script": true,
+  "public_pages_no_idle_markup": true,
+  "public_script_no_idle_dialog": true,
+  "map_idle_dialog_present": true,
+  "note": "HTTP artifact smoke; browser behavior covered by separate UX QA reports."
+}

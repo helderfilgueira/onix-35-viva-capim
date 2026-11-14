@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "name": "No external loading before opt-in",
+      "passed": true
+    },
+    {
+      "name": "Keyboard open/escape/focus return",
+      "passed": true
+    },
+    {
+      "name": "Failed load offers retry and preserves launcher",
+      "passed": true
+    },
+    {
+      "name": "Real widget loads on retry, native handoff without duplicate",
+      "passed": true
+    },
+    {
+      "name": "en dialog translated and activation blocked",
+      "passed": true
+    },
+    {
+      "name": "es dialog translated and activation blocked",
+      "passed": true
+    },
+    {
+      "name": "No launcher or widget on PII form",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

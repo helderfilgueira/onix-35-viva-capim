@@ -27,7 +27,7 @@ Esses são comandos de operação, não uma declaração de que foram executados
 
 Navegar sem cadastro; mudar pt/en/es; usar teclado; ativar/desativar recursos acessíveis; enviar cadastro; confirmar estado pendente; ativar no administrador; obter crédito igual em avaliações de uma e cinco estrelas; conferir bloqueios por período/limite; aprovar benefício; resgatar no balcão; repetir requisição sem débito/estoque duplicados; confirmar isolamento entre parceiros.
 
-No totem: encerrar ou aguardar inatividade e confirmar que outro visitante não recupera cadastro, telefone, comprovante ou sessão anterior por voltar/recarregar. VLibras não carrega em telas com dados pessoais.
+No mapa `/explorar.html`, conferir o aviso após 90 segundos ociosos, a opção Continuar e o encerramento que reinicia o mapa. Somente o mapa usa aviso/encerramento automático por inatividade. No catálogo, cadastro e avaliação, aguardar cinco minutos sem interação deve preservar a página e os campos, sem modal ou navegação automática; depois usar “Encerrar atendimento” manualmente e conferir a limpeza da interface. A expiração de sessão administrativa do servidor é independente. VLibras não carrega em telas com dados pessoais.
 
 ## Operação dos 30 dias
 

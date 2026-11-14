@@ -41,7 +41,23 @@ Revisão independente executada com Claude Opus 5.5 (`claude-opus-5-5`), sem tro
 
 O tratamento de IP no ambiente Vercel recebeu quatro testes específicos para o limitador de requisições, mantendo a distinção entre ambiente confiável e cabeçalhos enviados pelo cliente. Verificação manual da manutenção: chamada autenticada com segredo retornou 200 e chamada sem segredo retornou 401. O primeiro disparo automático agendado ainda não foi observado.
 
-O redeploy final foi confirmado: deployment `dpl_3J9fFbuuLLjezkmh1CrNTWzfhFkC`, aplicação no commit `f70590b`. Saúde, 15 endpoints/assets, login/CSRF, isolamento, manutenção protegida, exportação na interface e rejeição de identificador inválido foram verificados. Evidência: [VERCEL_PUBLICACAO.json](VERCEL_PUBLICACAO.json). Commits posteriores desta entrega apenas atualizam documentação.
+O redeploy final foi confirmado: deployment `dpl_3J9fFbuuLLjezkmh1CrNTWzfhFkC`, aplicação no commit `f70590b`. Saúde, 15 endpoints/assets, login/CSRF, isolamento, manutenção protegida, exportação na interface e rejeição de identificador inválido foram verificados. Evidência: [VERCEL_PUBLICACAO.json](VERCEL_PUBLICACAO.json). Esse registro corresponde à publicação indicada; o novo ajuste de Libras abaixo tem validação e publicação separadas.
+
+## Incremento de Libras · validação local
+
+Botão flutuante azul de 50×50 px, com duas mãos brancas, na lateral direita do catálogo público. Abre modal de consentimento antes de carregar o serviço externo; após ativação, transfere o controle ao botão nativo do VLibras sem duplicar controles.
+
+**Sete verificações locais aprovadas:** ausência de carga externa antes do aceite; teclado/Escape/retorno de foco; falha com nova tentativa; carregamento real e transição ao widget nativo; modal em inglês e espanhol com orientação para português e ativação bloqueada nesses idiomas; ausência no cadastro com dados pessoais. Inspeção visual de desktop/mobile e modal registrada. Evidência: [QA_LIBRAS_FLUTUANTE.json](QA_LIBRAS_FLUTUANTE.json).
+
+O incremento está no commit de aplicação `381c3c395a4dd8825dced1e3720c21935840692f`; seu redeploy foi confirmado em `dpl_EpjcYSYzpS2wpe57yFhLAAqs4R6m`. Os sete testes do botão também passaram no site publicado: [QA em nuvem](QA_LIBRAS_FLUTUANTE_NUVEM.json). A qualidade linguística da tradução automática continua não avaliada; Libras é língua de sinais brasileira e o recurso usa o conteúdo em português.
+
+## Ajuste posterior · ciclo do VLibras e inatividade
+
+Quatro regressões locais do ciclo do widget passaram com resposta controlada e relógio do Playwright: timeout/erro após fechar, retry sem reinjetar script, callbacks obsoletos após rerender e chegada tardia do widget sem duplicata ou perda de foco. A integração real do widget continua registrada separadamente nos sete testes anteriores. Evidência: [QA_LIBRAS_CICLO_VIDA.json](QA_LIBRAS_CICLO_VIDA.json).
+
+A pedido do usuário, **inatividade automática somente em `/explorar.html`**. Seis verificações locais passaram para catálogo, cadastro e avaliação: cinco minutos sem modal/recarregamento/limpeza automática e encerramento manual funcionando. No mapa publicado, quatro verificações passaram: aviso após 90 segundos, Continuar, reaparecimento após novo período ocioso e encerramento que reinicia o mapa. Evidências: [páginas públicas](QA_INATIVIDADE_SOMENTE_MAPA_PUBLICO.json) e [mapa publicado](QA_INATIVIDADE_MAPA.json).
+
+Este ajuste pertence ao commit de aplicação `381c3c395a4dd8825dced1e3720c21935840692f`, separado dos commits documentais. O redeploy correspondente foi confirmado, com seis verificações de inatividade também aprovadas no site publicado: [QA em nuvem](QA_INATIVIDADE_PUBLICO_NUVEM.json). Evidência de publicação: [VERCEL_LIBRAS.json](VERCEL_LIBRAS.json). Os relatórios da versão anterior foram preservados. A expiração de sessão administrativa no servidor permanece independente.
 
 ## O que ainda não está comprovado
 

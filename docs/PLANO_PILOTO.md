@@ -26,6 +26,8 @@ Anúncios: cadastro simples de banner, destino e período; sem venda de mídia, 
 
 Campanhas de Natal, Ano Novo, Páscoa e Dia dos Pais usam tema e três descobertas digitais. Esses easter eggs não geram pontos. A missão deve ter alternativa em lista acessível; o mapa 3D não pode ser requisito obrigatório.
 
+Inatividade automática limitada ao mapa `/explorar.html`. Catálogo, cadastro e avaliação mantêm encerramento manual, sem limpeza automática por tempo ocioso; expiração administrativa no servidor permanece.
+
 Interface em português, inglês e espanhol. Preferências de texto, contraste e movimento reduzido. VLibras somente por opção explícita em páginas públicas, fora de telas que exibem dados pessoais; integração não equivale a tradução humana validada.
 
 ## Piloto controlado
