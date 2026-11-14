@@ -70,4 +70,21 @@ Decisões humanas pendentes:
 - **Limite diário e janela da loja:** avaliação gravada sem pontos por limite diário ainda bloqueia nova concessão na mesma loja por 30 dias (evento: permanentemente). Opções: considerar só avaliações premiadas ou documentar o comportamento atual.
 - **Dados de QA na média pública:** avaliações de teste completaram a amostra mínima da Vivara. Opções: aguardar a retenção, remoção auditada ou usar alvo fictício excluído do agregado nos próximos ciclos.
 
+## Incremento: experiência interativa (branch `feat/experiencia-interativa`)
+
+Escopo, contratos, divisão de responsabilidades e mudança de regra em `MISSAO_EXPERIENCIA.md`. Estado honesto:
+
+| Item | Estado |
+|---|---|
+| Mascotes pixel art no mapa (RF01–RF03) | Implementado e testado localmente (Playwright, WebGL por software) |
+| Tela "Toque para iniciar" e modo totem (RF04–RF05) | Implementado e testado localmente |
+| Cartões, painel, upload e local do catálogo (RF06–RF08) | Implementado; backend com testes Django em SQLite e PostgreSQL 16 |
+| Rota a partir do cartão (RF09) | Implementado e testado localmente |
+| Página do evento, Google Agenda, `.ics` e QR (RF10) | Implementado; link do Google sem documentação oficial pública |
+| Campanha assistida no balcão (RF11) | Implementado; concorrência validada em PostgreSQL 16 |
+| Publicação | **Não publicado** |
+| Teste em hardware real de totem | **Não realizado** (sem equipamento) |
+
+Decisões humanas novas: licença dos assets (o repositório não declara licença; os mascotes são originais e gerados por código), e confirmação da regra de 5 pontos por campanha pela equipe.
+
 Fluxo sem GitHub Projects: labels `estado:pronto`, `estado:em-andamento`, `estado:revisao` e `estado:qa` funcionam como colunas; backlog é a ausência de estado e concluído é a issue fechada, sempre com evidência.

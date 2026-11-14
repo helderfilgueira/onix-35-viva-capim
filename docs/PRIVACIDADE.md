@@ -18,6 +18,13 @@ As avaliações têm retenção de 30 dias. A carteira e os lançamentos são se
 
 Resultados agregados com mínimo de cinco avaliações não são garantia absoluta de anonimização. Não incluir nomes, telefones, sessões, recibos, horário exato ou filtros de grupos pequenos no painel do parceiro. Nunca apresentar histórico de notas junto ao cadastro do membro.
 
+## Missão experiência (cartões, agenda, campanha e totem)
+
+- **Campanha de interesse:** o lançamento `campaign` no extrato registra membro, campanha, valor, operador e data, com a única finalidade de crédito de fidelidade; não é marketing nem segmentação, e segue a mesma retenção do extrato. O totem não pede telefone para campanhas: a confirmação é presencial no balcão.
+- **QR e agenda:** o QR leva apenas à página pública do evento (`/evento/<id>/`), sem nome, telefone, saldo, sessão ou token. O visitante adiciona o evento na própria agenda; abrir o link não comprova inclusão e nada é registrado sobre isso. O totem nunca autentica conta Google.
+- **Imagens de banner:** EXIF/XMP/IPTC e comentários são removidos no servidor antes de gravar.
+- **Modo totem:** a marca `viva-kiosk` em `localStorage` é configuração do aparelho, não dado de visitante. O progresso do easter egg fica só na memória do atendimento e é apagado no encerramento.
+
 ## Risco explicitamente aceito para desenho do piloto
 
 Não há OTP. Nome e telefone digitados não comprovam identidade ou posse do número; ativação administrativa também não comprova isso. Há risco de cadastro indevido, atribuição de pontos e solicitação de benefício por terceiro. O resgate fica restrito ao balcão autenticado, com procedimento assistido; essa restrição reduz exposição, não elimina o risco. Não anunciar cadastro como “telefone verificado”.

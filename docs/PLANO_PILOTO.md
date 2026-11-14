@@ -12,7 +12,7 @@ Baseline de execução: 14/11/2026. Este documento registra decisões de produto
 
 ## Fidelidade e avaliações
 
-Carteira única do shopping. Dez pontos por avaliação elegível, igualmente para notas de 1 a 5; uma concessão por loja a cada 30 dias, uma por evento e limite de 30 pontos por membro/dia. Sem expiração de pontos durante o piloto. Não importar créditos de avaliações antigas.
+Carteira única do shopping. Dez pontos por avaliação elegível, igualmente para notas de 1 a 5; uma concessão por loja a cada 30 dias, uma por evento e limite de 30 pontos de avaliação por membro/dia. **Campanha de interesse (regra adicionada em 14/11/2026):** cartão de anúncio pode habilitar 5 pontos por membro, uma única vez por campanha, máximo de 5 pontos de campanha por membro/dia (limite separado do de avaliações), creditados somente por operador autorizado no balcão, com o membro presente, durante a vigência do cartão aprovado; desativada por padrão. Abrir banner, gerar QR ou adicionar à agenda não pontua. A confirmação assistida não verifica posse do telefone. Detalhes em `MISSAO_EXPERIENCIA.md`. Sem expiração de pontos durante o piloto. Não importar créditos de avaliações antigas.
 
 Cadastro no site, totem ou balcão: nome, sobrenome, telefone, declaração de maioridade (18+) e aceite específico. O cadastro fica pendente até ativação administrativa. A ativação não verifica posse do número. Não há OTP: registrar risco de personificação e nunca apresentar telefone como prova de identidade. Não oferecer saldo por consulta pública ao número.
 
@@ -22,11 +22,11 @@ Avaliações permanecem agregadas no painel do parceiro; limiar mínimo de cinco
 
 ## Conteúdo e experiência
 
-Anúncios: cadastro simples de banner, destino e período; sem venda de mídia, cobrança ou segmentação pessoal. Eventos e benefícios passam por aprovação do administrador.
+Anúncios: cartões com banner (PNG/JPEG/WebP até 300 KB, metadados removidos no servidor), texto alternativo, título e descrição em PT/EN/ES, evento vinculado opcional, local do catálogo do mapa, ordem e vigência de exibição distinta das datas do evento; sem venda de mídia, cobrança ou segmentação pessoal. Eventos têm página pública `/evento/<id>/` com Google Agenda e arquivo `.ics`; o QR do totem aponta só para essa página. Eventos, cartões e benefícios passam por aprovação do administrador.
 
-Campanhas de Natal, Ano Novo, Páscoa e Dia dos Pais usam tema e três descobertas digitais. Esses easter eggs não geram pontos. A missão deve ter alternativa em lista acessível; o mapa 3D não pode ser requisito obrigatório.
+Campanhas de Natal, Ano Novo, Páscoa e Dia dos Pais usam tema e três descobertas digitais. Esses easter eggs não geram pontos. No mapa, o easter egg "Encontre o trio" (três mascotes fictícios em pixel art) guarda progresso só no atendimento atual, é limpo no encerramento e não gera pontos. A missão deve ter alternativa em lista acessível; o mapa 3D não pode ser requisito obrigatório.
 
-Inatividade automática limitada ao mapa `/explorar.html`. Catálogo, cadastro e avaliação mantêm encerramento manual, sem limpeza automática por tempo ocioso; expiração administrativa no servidor permanece.
+Modo totem explícito por aparelho (`/explorar.html?modo=totem` liga; `?modo=site` desliga), com tela "Toque para iniciar" que não aparece para visitantes do site comum nem bloqueia links diretos; no totem, o encerramento do atendimento volta a essa tela. Inatividade automática limitada ao mapa `/explorar.html`. Catálogo, cadastro e avaliação mantêm encerramento manual, sem limpeza automática por tempo ocioso; expiração administrativa no servidor permanece.
 
 Catálogo, cadastro e avaliação públicos oferecem botões PT/EN/ES. A evolução do mapa também exige PT/EN/ES, incluindo interface, orientações, categorias, pisos, serviços e informações descritivas das lojas. Nomes comerciais, códigos, coordenadas e posições da planta permanecem intactos. A tradução usa catálogos locais, sem API externa de tradução durante o uso; a troca de idioma deve preservar seleção, origem, destino e percurso ativo. O dashboard mantém seu seletor anterior. Preferências de texto, contraste e movimento reduzido permanecem. VLibras é opt-in no catálogo público e no mapa, com modal antes de carregar o serviço externo; não é carregado em cadastro, avaliação ou painéis privados. VLibras destina-se ao conteúdo em português; não traduz inglês ou espanhol para Libras. A integração não equivale a tradução humana validada.
 

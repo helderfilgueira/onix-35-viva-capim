@@ -109,3 +109,22 @@ Esta execução não comprova posse de telefone, uso em totem real nem acessibil
 - `python pilot/manage.py check --deploy` com a configuração do ambiente alvo registrado como evidência.
 
 Continuar com dados fictícios. O piloto sem OTP não comprova posse do telefone. Pontuação é igual para qualquer nota, resgate é assistido e nenhuma avaliação antiga gera crédito retroativo.
+
+## Missão experiência interativa · branch `feat/experiencia-interativa` (14/11/2026)
+
+Escopo, contratos e regras em [MISSAO_EXPERIENCIA.md](MISSAO_EXPERIENCIA.md). Resultados reais desta máquina, antes do commit:
+
+| Verificação | Resultado |
+|---|---|
+| Testes do piloto em **PostgreSQL 16** (Docker local descartável, sem tocar o Supabase) | **82 OK, 0 pulados**: inclui concorrência da campanha (mesma campanha em paralelo credita uma vez; duas campanhas em paralelo respeitam 5 pts/dia) |
+| Testes do piloto em SQLite | Mesmos testes; os 8 de concorrência PostgreSQL ficam pulados por desenho |
+| Testes do laboratório | 69 OK |
+| `makemigrations --check` / `check` | sem pendências / sem problemas |
+| `node --check` nos JS do mapa, painel e área pública | sem erros |
+| QA independente de backend (somente leitura + fuzz de 60 mil imagens malformadas) | 1 P1 e 4 P2 encontrados e **corrigidos com testes** (evento nunca aprovado pausado não expõe texto; rollback da 0004 bloqueia com mensagem clara; `.ics` sem caracteres de controle; só o admin habilita recompensa; limite de dimensão de imagem e corte após o fim do JPEG) |
+| QA independente de frontend (Playwright, WebGL por software) | 1 P0, 2 P1 e P2s encontrados e **corrigidos e retestados**: falha do módulo de mascotes não derruba mais o mapa; celebração do trio modal e com foco; botão do trio sem sobrepor controles em PT/EN/ES no 1080×1920; foco preso na tela inicial; idioma volta a PT no novo atendimento; "Térreo" traduzido; link do evento com idioma |
+| Fluxos verificados no navegador | tela inicial (toque, Enter, Espaço, PT/EN/ES), link direto pula a tela, site comum nunca mostra a tela, cartões e diálogo (Esc devolve foco), QR para `/evento/<id>/`, rota a partir do cartão, trio 3/3 com celebração, novo atendimento limpa tudo, página do evento sem JavaScript, `.ics` `text/calendar` com UTC e escapes |
+
+Capturas (dados fictícios `[demo]`): [tela inicial](img/totem-tela-inicial.png), [cartão com QR e campanha](img/totem-cartao-evento.png), [trio completo](img/totem-trio-completo.png), [cartões no site](img/site-cartoes.png).
+
+Não verificado: hardware real de totem; inclusão efetiva no Google Agenda de um visitante (abrir o link não comprova salvamento, por desenho).

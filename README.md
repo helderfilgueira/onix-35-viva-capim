@@ -35,6 +35,9 @@ HackaRun 2026 · Equipe **Onix 35**
 | ⭐ **Avaliar e ganhar pontos** | Fidelidade opcional: 10 pontos por avaliação elegível, **qualquer que seja a nota**. |
 | 🎁 **Resgate no balcão** | Operador autenticado localiza o cliente e confirma a entrega, sem débito duplicado. |
 | 🏪 **Painel por perfil** | Administração, lojista (somente a própria loja e médias agregadas) e operador de balcão. |
+| 🖐️ **Modo totem** | Tela "Toque para iniciar" só no aparelho configurado (`?modo=totem`), com volta automática ao encerrar o atendimento. |
+| 🗓️ **Cartões e agenda** | Anúncios e eventos em cartões, "Como chegar" pelo motor de rotas e QR para a página do evento com Google Agenda e `.ics`. |
+| 🕹️ **Encontre o trio** | Três mascotes fictícios em pixel art passeiam pelos corredores; achar os três revela uma surpresa (sem pontos). |
 
 <table>
 <tr>
@@ -58,7 +61,8 @@ flowchart LR
   E --> F[Resgate<br>no balcão]
 ```
 
-- Uma concessão por loja a cada 30 dias, uma por evento e no máximo 30 pontos por dia.
+- Uma concessão por loja a cada 30 dias, uma por evento e no máximo 30 pontos de avaliação por dia.
+- Campanha de interesse em cartão (opcional, desligada por padrão): **5 pontos** uma vez por campanha, no máximo 5 por dia, confirmados **no balcão** pelo operador.
 - Sem login de membro, sem consulta pública de saldo e sem resgate pela internet.
 - O telefone é **autodeclarado** (não há SMS/OTP) e não comprova identidade: risco aceito e documentado.
 - Lojistas veem apenas médias com pelo menos cinco avaliações, sem nome ou telefone.

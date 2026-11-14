@@ -12,7 +12,7 @@ Fidelidade é opcional; navegação pública permanece sem cadastro. Não existe
 
 PO/Scrum Master: governança, requisitos e issues; arquiteto/backend: Django, contratos, permissões e transações; frontend/UX: telas e idiomas; QA: testes e evidências independentes; DevOps: ambiente, CI e operação. Combinar propriedade de arquivos antes de editar e não desfazer alterações de outro agente.
 
-Preservar a Missão 1 e a autoridade da planta em `laboratorio/`. Não criar acesso de elevador ou geometria sem comprovação. Não atribuir pontos retroativos, por nota positiva ou por easter eggs. Condições da carteira e limites estão no plano do piloto.
+Preservar a Missão 1 e a autoridade da planta em `laboratorio/`. Não criar acesso de elevador ou geometria sem comprovação. Não atribuir pontos retroativos, por nota positiva ou por easter eggs. Exceção autorizada em 14/11/2026: campanha de interesse em cartão de anúncio (5 pts, uma vez por membro, máximo 5 pts/dia, separada dos 30/dia de avaliação), creditada somente por confirmação assistida no balcão — ver `docs/MISSAO_EXPERIENCIA.md`. Condições da carteira e limites estão no plano do piloto.
 
 ## Entrega
 
