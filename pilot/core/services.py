@@ -1,4 +1,4 @@
-import base64, hashlib, re, time
+import base64, hashlib, ipaddress, os, re, time
 from datetime import timedelta
 from urllib.parse import urlparse
 from django.conf import settings
@@ -73,9 +73,21 @@ def image(value):
 def audit(user,action,obj,reason=''):
     Audit.objects.create(actor=user if user and user.is_authenticated else None,action=action,object_type=obj.__class__.__name__,object_id=str(obj.pk),reason=reason)
 
-def rate_limit(request,scope,limit,seconds):
-    # Direct peer only. Do not trust a client-supplied X-Forwarded-For header.
+def client_ip(request):
     source=request.META.get('REMOTE_ADDR','unknown')
+    # Vercel overwrites this header at its edge to prevent IP spoofing.
+    # https://vercel.com/docs/headers/request-headers#x-forwarded-for
+    # Never trust forwarded headers on local or other hosting environments.
+    if os.environ.get('VERCEL')=='1':
+        forwarded=request.META.get('HTTP_X_FORWARDED_FOR','').strip()
+        try:
+            # Only a single canonical IPv4/IPv6 address, never a proxy chain.
+            if '%' not in forwarded: return str(ipaddress.ip_address(forwarded))
+        except ValueError: pass
+    return source
+
+def rate_limit(request,scope,limit,seconds):
+    source=client_ip(request)
     key=hashlib.sha256((settings.SECRET_KEY+'|'+scope+'|'+source).encode()).hexdigest()
     window=int(time.time())//seconds
     with transaction.atomic():

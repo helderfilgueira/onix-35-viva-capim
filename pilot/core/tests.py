@@ -50,6 +50,55 @@ class PilotTests(TestCase):
     def test_login_rate_limit_persisted(self):
         for _ in range(10):self.request('auth/login',{'username':'bad','password':'bad'})
         self.assertEqual(self.request('auth/login',{'username':'bad','password':'bad'}).status_code,429);self.assertTrue(RateBucket.objects.exists())
+    def test_event_ids_cannot_bypass_once_only_reward(self):
+        canonical=str(self.event.pk)
+        data=self.review(target_type='event',target_id=canonical,reason='organizacao')
+        self.assertEqual(self.request('reviews',data).status_code,200)
+        for alias in ('0'+canonical,'00'+canonical):
+            with self.subTest(alias=alias):
+                self.assertEqual(self.request('reviews',{**data,'target_id':alias,'idempotency_key':alias}).status_code,400)
+                self.assertEqual(self.client.get('/api/v2/public/ratings',{'target_type':'event','target_id':alias}).status_code,400)
+        self.assertEqual(self.request('reviews',{**data,'idempotency_key':'second-attempt'}).status_code,200)
+        self.member.refresh_from_db();self.assertEqual(self.member.balance,60)
+        self.assertEqual(Ledger.objects.filter(target_type='event',target_id=canonical).count(),1)
+        self.assertFalse(Review.objects.filter(target_type='event').exclude(target_id=canonical).exists())
+        self.assertEqual(self.client.get('/api/v2/public/ratings',{'target_type':'event','target_id':canonical}).status_code,200)
+    def test_event_ids_reject_noncanonical_or_out_of_range_values(self):
+        for invalid in ('0','-1','1.0','١','²','9223372036854775808','9'*5000):
+            with self.subTest(length=len(invalid)):
+                self.assertEqual(self.request('reviews',self.review(target_type='event',target_id=invalid)).status_code,400)
+        self.assertFalse(Review.objects.exists());self.assertFalse(Ledger.objects.exists())
+    def test_pilot_admin_cannot_list_or_modify_superusers(self):
+        root=get_user_model().objects.create_superuser('technical-root',password=PASSWORD)
+        self.login()
+        self.assertNotIn(root.pk,[item['id'] for item in self.client.get('/api/v2/staff').json()['items']])
+        for changes in ({'password':'Replacement-Password-649!'}, {'active':False}):
+            self.assertEqual(self.request(f'staff/{root.pk}',changes,'patch').status_code,403)
+        root.refresh_from_db();self.assertTrue(root.is_active);self.assertTrue(root.check_password(PASSWORD))
+        self.assertFalse(Audit.objects.filter(action='staff.save').exists())
+        self.assertEqual(self.request(f'staff/{self.cashier.pk}',{'active':False},'patch').status_code,200)
+    def test_superuser_can_manage_technical_accounts(self):
+        root=get_user_model().objects.create_superuser('technical-root',password=PASSWORD)
+        other=get_user_model().objects.create_superuser('other-root',password=PASSWORD)
+        self.login(root)
+        self.assertIn(other.pk,[item['id'] for item in self.client.get('/api/v2/staff').json()['items']])
+        self.assertEqual(self.request(f'staff/{other.pk}',{'active':False},'patch').status_code,200)
+        other.refresh_from_db();self.assertFalse(other.is_active)
+    def test_suspended_organization_session_recovers_and_allows_csrf_login(self):
+        c=Client(enforce_csrf_checks=True);c.force_login(self.cashier)
+        old_session=c.session.session_key
+        self.org.active=False;self.org.save()
+        r=c.get('/api/v2/session');self.assertEqual(r.status_code,200)
+        data=r.json();self.assertFalse(data['authenticated']);self.assertIsNone(data['user'])
+        self.assertNotIn('_auth_user_id',c.session);self.assertNotEqual(old_session,c.session.session_key)
+        r=c.post('/api/v2/auth/login',data=json.dumps({'username':'admin','password':PASSWORD}),content_type='application/json',HTTP_X_CSRFTOKEN=data['csrf_token'])
+        self.assertEqual(r.status_code,200);self.assertEqual(r.json()['user']['id'],self.admin.pk)
+        self.assertEqual(c.get('/api/v2/overview').status_code,200)
+    def test_session_without_profile_is_logged_out(self):
+        self.login(self.partner);StaffProfile.objects.filter(user=self.partner).delete()
+        r=self.client.get('/api/v2/session');self.assertEqual(r.status_code,200)
+        self.assertFalse(r.json()['authenticated']);self.assertIsNone(r.json()['user']);self.assertTrue(r.json()['csrf_token'])
+        self.assertNotIn('_auth_user_id',self.client.session)
     def test_no_public_wallet_or_staff_endpoint_access(self):
         for url in ('members','overview','redemptions','staff','ratings'):
             self.assertEqual(self.client.get('/api/v2/'+url).status_code,401)

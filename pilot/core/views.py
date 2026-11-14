@@ -70,7 +70,10 @@ def target(data):
         require(store is not None,'Loja não encontrada.',404)
         return Organization.objects.filter(store_id=tid,active=True).first()
     require(kind=='event','Tipo de avaliação inválido.')
-    event=Event.objects.filter(pk=int(tid) if tid.isdigit() else 0,status='approved',organization__active=True).first()
+    require(tid.isascii() and tid.isdecimal() and len(tid)<=19,'Identificador de evento inválido.')
+    event_id=int(tid)
+    require(tid==str(event_id) and 1<=event_id<=9223372036854775807,'Identificador de evento inválido.')
+    event=Event.objects.filter(pk=event_id,status='approved',organization__active=True).first()
     require(event is not None,'Evento não encontrado.',404)
     require(event.starts<=timezone.now() and event.ends>=timezone.now()-timedelta(days=30),'A avaliação fica disponível durante o evento e por trinta dias após seu término.',409)
     return event.organization
@@ -162,7 +165,11 @@ def api_dispatch(request,path):
         with connection.cursor() as cursor:cursor.execute('SELECT 1');cursor.fetchone()
         return response({'ok':True})
     if path=='session' and request.method=='GET':
-        who=identity(request,False);return response({'csrf_token':get_token(request),'authenticated':bool(who),'user':who})
+        try:who=identity(request,False)
+        except DomainError as exc:
+            if exc.status!=403:raise
+            logout(request);who=None
+        return response({'csrf_token':get_token(request),'authenticated':bool(who),'user':who})
     if path=='auth/login' and request.method=='POST':
         rate_limit(request,'login',10,900);data=body(request,('username','password'))
         user=authenticate(request,username=data.get('username'),password=data.get('password'))
@@ -221,7 +228,9 @@ def api_dispatch(request,path):
         return editorial_edit(model,request,who,int(parts[1]) if len(parts)>1 else None,parts[2] if len(parts)>2 else None)
     if parts[0]=='staff':
         administrator(who)
-        if request.method=='GET':return response({'items':[{'id':u.id,'username':u.username,'active':u.is_active,'role':getattr(getattr(u,'pilot_profile',None),'role','admin' if u.is_superuser else None),'organization_id':getattr(getattr(u,'pilot_profile',None),'organization_id',None)} for u in User.objects.all()]})
+        if request.method=='GET':
+            users=User.objects.all() if request.user.is_superuser else User.objects.filter(is_superuser=False)
+            return response({'items':[{'id':u.id,'username':u.username,'active':u.is_active,'role':getattr(getattr(u,'pilot_profile',None),'role','admin' if u.is_superuser else None),'organization_id':getattr(getattr(u,'pilot_profile',None),'organization_id',None)} for u in users]})
         data=body(request,('username','password','role','organization_id','active'))
         with transaction.atomic():
             if len(parts)==1:
@@ -230,6 +239,7 @@ def api_dispatch(request,path):
                 u=User(username=text(data.get('username'),'Usuário',150));validate_password(data.get('password'),u);u.set_password(data['password']);u.full_clean();u.save();StaffProfile.objects.create(user=u,role=role,organization=org if role!='admin' else None)
             else:
                 require(request.method=='PATCH','Método não permitido.',405);u=User.objects.filter(pk=int(parts[1])).first();require(u is not None,'Conta não encontrada.',404)
+                require(not u.is_superuser or request.user.is_superuser,'Acesso exclusivo da administração técnica.',403)
                 require(u.pk!=request.user.pk or data.get('active',True),'Você não pode desativar a própria conta.')
                 if 'active' in data:require(type(data['active']) is bool,'Estado inválido.');u.is_active=data['active']
                 if 'password' in data:validate_password(data['password'],u);u.set_password(data['password'])
