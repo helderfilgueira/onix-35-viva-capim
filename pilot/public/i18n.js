@@ -16,3 +16,5 @@ copy['pt-BR'].demoNotice='Demonstração experimental: use somente dados fictíc
 copy.en.demoNotice='Experimental demonstration: use fictional details only. Use with real personal data is not authorised until a controller and support channel are defined. This is not an official shopping service.';
 copy.es.demoNotice='Demostración experimental: usa solo datos ficticios. El uso de datos reales no está autorizado hasta definir responsable y canal de atención. No es un servicio oficial del centro comercial.';
 copy['pt-BR'].librasPortuguese='Para usar Libras, selecione Português no menu de idioma.';copy.en.librasPortuguese='Select Português in the language menu to use Brazilian Sign Language.';copy.es.librasPortuguese='Selecciona Português en el menú de idioma para usar la lengua de señas brasileña.';
+
+copy['pt-BR'].close='Fechar';copy.en.close='Close';copy.es.close='Cerrar';
