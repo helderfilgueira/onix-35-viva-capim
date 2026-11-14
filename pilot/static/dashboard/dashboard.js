@@ -1840,6 +1840,7 @@
             r.status === 'pending' || r.status === 'suspended' ? btn(t('members.activate'), { sm: true, cls: 'btn--approve', onClick: () => activateDialog(r, reload) }) : null,
             r.status === 'active' ? btn(t('members.suspend'), { sm: true, cls: 'btn--danger-outline', onClick: () => suspendDialog(r, reload) }) : null,
             btn(t('members.ledger'), { sm: true, onClick: () => ledgerDialog(r) }),
+            isAdmin() ? btn(t('members.export'), { sm: true, onClick: (event) => exportMember(r, event.currentTarget) }) : null,
             r.status !== 'closed' ? btn(t('members.close'), { sm: true, cls: 'btn--danger-outline', onClick: () => closeDialog(r, reload) }) : null,
           ] },
         ],
@@ -1848,6 +1849,29 @@
     load();
   }
   function memberLabel(m) { return [m.first_name, m.last_name].join(' ').trim() || '#' + m.id; }
+  async function exportMember(member, button) {
+    if (!isAdmin() || button.disabled) return;
+    const requester = state.user;
+    setBusy(button, true, t('members.exporting'));
+    let objectUrl = null;
+    try {
+      const records = await api('GET', `/members/${member.id}/export`);
+      // Do not start a sensitive download after the operator ends or changes session.
+      if (!state.user || state.user !== requester) return;
+      const blob = new Blob([JSON.stringify(records, null, 2)], { type: 'application/json;charset=utf-8' });
+      objectUrl = URL.createObjectURL(blob);
+      const link = h('a', { href: objectUrl, download: 'viva-capim-participacao.json', hidden: true });
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      toast(t('members.exported'));
+    } catch (err) {
+      if (state.user === requester) toast(errorText(err), 'error');
+    } finally {
+      if (objectUrl) { const url = objectUrl; setTimeout(() => URL.revokeObjectURL(url), 1000); }
+      setBusy(button, false);
+    }
+  }
   function activateDialog(m, onDone) {
     openDialog({
       title: t('members.activateTitle', { name: memberLabel(m) }),

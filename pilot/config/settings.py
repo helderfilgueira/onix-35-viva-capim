@@ -8,11 +8,19 @@ if not DEBUG and SECRET_KEY.startswith('local-demo'):
     raise RuntimeError('Configure DJANGO_SECRET_KEY before public deployment.')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', os.environ.get('ALLOWED_HOSTS','localhost,127.0.0.1,testserver')).split(',')
 CSRF_TRUSTED_ORIGINS = [v for v in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', os.environ.get('CSRF_TRUSTED_ORIGINS','')).split(',') if v]
+# Platform-provided exact deployment hosts, never a wildcard or request Host.
+if os.environ.get('VERCEL') == '1':
+    for variable in ('VERCEL_URL','VERCEL_PROJECT_PRODUCTION_URL','VERCEL_BRANCH_URL'):
+        host=os.environ.get(variable,'')
+        if host and host.endswith('.vercel.app') and all(c.isalnum() or c in '.-' for c in host):
+            if host not in ALLOWED_HOSTS:ALLOWED_HOSTS.append(host)
+            origin='https://'+host
+            if origin not in CSRF_TRUSTED_ORIGINS:CSRF_TRUSTED_ORIGINS.append(origin)
 INSTALLED_APPS = ['django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions','django.contrib.messages','django.contrib.staticfiles','core']
 MIDDLEWARE = ['django.middleware.security.SecurityMiddleware','django.contrib.sessions.middleware.SessionMiddleware','django.middleware.common.CommonMiddleware','django.middleware.csrf.CsrfViewMiddleware','django.contrib.auth.middleware.AuthenticationMiddleware','django.contrib.messages.middleware.MessageMiddleware','django.middleware.clickjacking.XFrameOptionsMiddleware','core.middleware.PilotHeaders']
 MIDDLEWARE.insert(1,'whitenoise.middleware.WhiteNoiseMiddleware')
 ROOT_URLCONF = 'config.urls'
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application' if os.environ.get('VERCEL') == '1' else 'config.wsgi.application'
 TEMPLATES = [{'BACKEND':'django.template.backends.django.DjangoTemplates','DIRS':[BASE_DIR/'templates'],'APP_DIRS':True,'OPTIONS':{'context_processors':['django.template.context_processors.request','django.contrib.auth.context_processors.auth','django.contrib.messages.context_processors.messages']}}]
 url = os.environ.get('DATABASE_URL', '')
 if url:
