@@ -68,7 +68,59 @@ def image(value):
     except ValueError:raise DomainError('Imagem inválida.')
     valid=(match[1]=='png' and raw.startswith(b'\x89PNG\r\n\x1a\n')) or (match[1]=='jpeg' and raw.startswith(b'\xff\xd8\xff')) or (match[1]=='webp' and raw.startswith(b'RIFF') and raw[8:12]==b'WEBP')
     require(valid and len(raw)<=307200,'Imagem inválida ou excede 300KB.')
-    return value
+    clean=strip_metadata(match[1],raw)
+    return f'data:image/{match[1]};base64,'+base64.b64encode(clean).decode('ascii')
+
+MAX_SIDE=4000
+def strip_metadata(kind,raw):
+    """Remove EXIF/XMP/IPTC/comentários sem decodificar pixels; rejeita estrutura malformada."""
+    import struct, zlib
+    try:
+        if kind=='jpeg':
+            out=bytearray(raw[:2]);i=2
+            while i<len(raw):
+                require(raw[i]==0xFF,'Imagem JPEG malformada.')
+                marker=raw[i+1]
+                if marker==0xD9:out+=raw[i:i+2];break
+                if marker==0xDA:
+                    # Copia a varredura até o EOI (FFD9) e descarta qualquer dado anexado depois dele.
+                    end=raw.find(b'\xff\xd9',i+2);require(end!=-1,'Imagem JPEG malformada.')
+                    out+=raw[i:end+2];break
+                if marker in (0xC0,0xC1,0xC2) and i+9<len(raw):
+                    h_,w_=struct.unpack('>HH',raw[i+5:i+9]);require(0<w_<=MAX_SIDE and 0<h_<=MAX_SIDE,'Imagem muito grande: até 4000×4000 px.')
+                if 0xD0<=marker<=0xD7 or marker==0x01:out+=raw[i:i+2];i+=2;continue
+                length=struct.unpack('>H',raw[i+2:i+4])[0];require(length>=2,'Imagem JPEG malformada.')
+                seg=raw[i:i+2+length];require(len(seg)==2+length,'Imagem JPEG malformada.')
+                if marker not in (0xE1,0xED,0xFE):out+=seg  # descarta APP1 (EXIF/XMP), APP13 (IPTC), COM
+                i+=2+length
+            return bytes(out)
+        if kind=='png':
+            out=bytearray(raw[:8]);i=8;ended=False
+            while i<len(raw):
+                length=struct.unpack('>I',raw[i:i+4])[0];ctype=raw[i+4:i+8];chunk=raw[i:i+12+length]
+                require(len(chunk)==12+length,'Imagem PNG malformada.')
+                require(zlib.crc32(raw[i+4:i+8+length])&0xffffffff==struct.unpack('>I',raw[i+8+length:i+12+length])[0],'Imagem PNG malformada.')
+                if ctype==b'IHDR':
+                    w_,h_=struct.unpack('>II',raw[i+8:i+16]);require(0<w_<=MAX_SIDE and 0<h_<=MAX_SIDE,'Imagem muito grande: até 4000×4000 px.')
+                if ctype not in (b'tEXt',b'iTXt',b'zTXt',b'eXIf',b'tIME'):out+=chunk
+                i+=12+length
+                if ctype==b'IEND':ended=True;break
+            require(ended,'Imagem PNG malformada.')
+            return bytes(out)
+        if kind=='webp':
+            body=bytearray();i=12
+            while i<len(raw):
+                fourcc=raw[i:i+4];size=struct.unpack('<I',raw[i+4:i+8])[0];padded=size+(size&1)
+                chunk=bytearray(raw[i:i+8+padded]);require(len(chunk)>=8+size,'Imagem WebP malformada.')
+                if fourcc==b'VP8X':
+                    chunk[8]&=~0x0C  # limpa flags de EXIF (0x08) e XMP (0x04)
+                    w_=1+int.from_bytes(raw[i+12:i+15],'little');h_=1+int.from_bytes(raw[i+15:i+18],'little')
+                    require(w_<=MAX_SIDE and h_<=MAX_SIDE,'Imagem muito grande: até 4000×4000 px.')
+                if fourcc not in (b'EXIF',b'XMP '):body+=chunk
+                i+=8+padded
+            return b'RIFF'+struct.pack('<I',len(body)+4)+b'WEBP'+bytes(body)
+    except (IndexError,struct.error):raise DomainError('Imagem malformada.')
+    raise DomainError('Formato de imagem inválido.')
 
 def audit(user,action,obj,reason=''):
     Audit.objects.create(actor=user if user and user.is_authenticated else None,action=action,object_type=obj.__class__.__name__,object_id=str(obj.pk),reason=reason)
@@ -186,3 +238,53 @@ def reverse(user,rid,reason):
     Ledger.objects.create(member=member,delta=r.points,kind='reversal',redemption=r,actor=user,reason=reason)
     r.status='reversed';r.save(update_fields=['status']);audit(user,'redemption.reversed',r,reason)
     return r
+
+# ---------- Campanha de interesse (regra nova, ver docs/MISSAO_EXPERIENCIA.md §2) ----------
+# Valor e limites ficam SOMENTE no servidor; o request nunca informa pontos.
+CAMPAIGN_POINTS = 5
+CAMPAIGN_DAILY_CAP = 5
+
+def campaign_json(entry):
+    return {'id':entry.id,'member_id':entry.member_id,'content_id':int(entry.target_id),'points':entry.delta,'created_at':entry.created_at.isoformat()}
+
+def campaign_available(content,now=None):
+    now=now or timezone.now()
+    return bool(content.kind=='ad' and content.reward_enabled and content.status=='approved' and content.organization.active and content.starts<=now<content.ends)
+
+@transaction.atomic
+def credit_campaign(user,role,organization_id,data):
+    """Crédito assistido no balcão: o operador confirma, com o membro presente, o interesse na campanha.
+    Não é verificação de posse do telefone (o piloto não tem OTP)."""
+    from .models import Content
+    member_id=integer(data.get('member_id'),'Membro',1);content_id=integer(data.get('content_id'),'Campanha',1)
+    # Ordem de travas: membro primeiro (serializa campanhas diferentes do mesmo membro -> teto diário seguro).
+    member=Member.objects.select_for_update().filter(pk=member_id).first()
+    require(member is not None and member.status=='active','Cadastro ativo não encontrado.',404)
+    content=Content.objects.select_related('organization').filter(pk=content_id,kind='ad').first()
+    require(content is not None and (role=='admin' or content.organization_id==organization_id),'Campanha não encontrada.',404)
+    existing=Ledger.objects.filter(member=member,kind='campaign',target_id=str(content.pk)).first()
+    if existing:return existing,False
+    now=timezone.now()
+    require(campaign_available(content,now),'Campanha sem recompensa ativa neste momento.',409,'campaign_unavailable')
+    today=timezone.localdate(now)
+    daily=Ledger.objects.filter(member=member,kind='campaign',created_at__date=today).aggregate(total=Sum('delta'))['total'] or 0
+    require(daily+CAMPAIGN_POINTS<=CAMPAIGN_DAILY_CAP,'Limite diário de pontos de campanha atingido para este cadastro.',409,'campaign_daily_cap')
+    Member.objects.filter(pk=member.pk).update(balance=F('balance')+CAMPAIGN_POINTS)
+    entry=Ledger.objects.create(member=member,delta=CAMPAIGN_POINTS,kind='campaign',target_type='campaign',target_id=str(content.pk),actor=user,reason='Interesse confirmado no balcão (assistido; sem verificação de posse do telefone).')
+    audit(user,'campaign.credited',entry)
+    return entry,True
+
+@transaction.atomic
+def reverse_campaign(user,ledger_id,reason):
+    reason=text(reason,'Motivo',240)
+    snapshot=Ledger.objects.filter(pk=ledger_id,kind='campaign').first();require(snapshot is not None,'Crédito de campanha não encontrado.',404)
+    member=Member.objects.select_for_update().get(pk=snapshot.member_id)
+    done=Ledger.objects.filter(kind='reversal',target_type='campaign_credit',target_id=str(snapshot.pk)).first()
+    if done:return done,False
+    require(member.status!='closed','Cadastro encerrado: estorno exige atendimento específico.',409)
+    # Pontos já usados não são estornados automaticamente (saldo nunca negativo): análise manual.
+    require(member.balance>=snapshot.delta,'Saldo insuficiente: os pontos já foram utilizados. Trate o caso manualmente.',409,'campaign_spent')
+    Member.objects.filter(pk=member.pk).update(balance=F('balance')-snapshot.delta)
+    entry=Ledger.objects.create(member=member,delta=-snapshot.delta,kind='reversal',target_type='campaign_credit',target_id=str(snapshot.pk),actor=user,reason=reason)
+    audit(user,'campaign.reversed',entry,reason)
+    return entry,True

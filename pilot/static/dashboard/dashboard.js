@@ -1031,7 +1031,14 @@
     let org;
     try { org = await orgField(item); } catch (err) { toast(errorText(err), 'error'); return; }
     let period; let imageState = { changed: false, data: item ? (item.image_data || '') : '' };
-    let discoveriesBox = null; let kindSelect = null; let altField = null;
+    let discoveriesBox = null; let kindSelect = null; let altField = null; let adBox = null; let paintPreview = () => {};
+    // Locais somente do catálogo do mapa (IDs existentes); eventos da organização para vincular ao cartão.
+    let stores = []; let events = [];
+    try {
+      const [cat, ev] = await Promise.all([api('GET', '/public/catalog'), kind === 'content' ? api('GET', '/events') : null]);
+      stores = (cat && cat.stores) || []; events = (ev && ev.items) || [];
+    } catch (_) { stores = []; events = []; }
+    const storeOptions = [{ value: '', label: t('form.storeNone') }].concat(stores.map((st) => ({ value: st.id, label: st.name })));
     openDialog({
       title: t(item ? cfg.editKey : cfg.newKey),
       wide: true,
@@ -1047,7 +1054,13 @@
         }
         body.appendChild(field({ name: 'title', label: t('form.title'), required: true, value: item ? item.title : '', attrs: { maxlength: 120 } }));
         body.appendChild(field({ name: 'description', label: t('form.description'), type: 'textarea', value: item ? item.description : '', attrs: { maxlength: 2000 }, optional: true }));
-        if (kind === 'events') body.appendChild(field({ name: 'location', label: t('form.location'), required: true, value: item ? item.location : '', attrs: { maxlength: 120 }, hint: t('form.locationHint') }));
+        if (kind === 'events') {
+          const storeF = field({ name: 'store_id', label: t('form.store'), type: 'select', value: item ? item.store_id || '' : '', options: storeOptions, optional: true, hint: t('form.storeHint') });
+          const locF = field({ name: 'location', label: t('form.location'), required: true, value: item ? item.location : '', attrs: { maxlength: 120 }, hint: t('form.locationHint') });
+          storeF.input.addEventListener('change', () => { const st = stores.find((x) => x.id === storeF.input.value); if (st && !locF.input.value.trim()) locF.input.value = st.name; });
+          body.appendChild(storeF); body.appendChild(locF);
+          body.appendChild(checkField({ name: 'all_day', label: t('form.allDay'), checked: item ? !!item.all_day : false }));
+        }
         if (kind === 'benefits') {
           body.appendChild(h('div', { class: 'form-row' },
             field({ name: 'points_cost', label: t('form.pointsCost'), type: 'number', required: true, value: item ? item.points_cost : '', attrs: { min: 1, max: 1000000, step: 1, inputmode: 'numeric' }, hint: t('form.pointsCostHint') }),
@@ -1066,7 +1079,31 @@
           body.appendChild(altField);
           discoveriesBox = discoveriesBlock(item);
           body.appendChild(discoveriesBox);
-          const sync = () => { discoveriesBox.hidden = kindSelect.value === 'ad'; };
+          const evOptions = [{ value: '', label: t('form.eventNone') }].concat(events.map((e) => ({ value: e.id, label: `${e.title} · ${e.organization_name || ''}` })));
+          const preview = h('div', { class: 'card-preview', 'aria-live': 'polite' });
+          const rewardF = checkField({ name: 'reward_enabled', label: t('form.reward'), checked: item ? !!item.reward_enabled : false });
+          if (!isAdmin()) rewardF.input.disabled = true; // somente a administração habilita campanha de pontos (o servidor também exige)
+          adBox = h('fieldset', { class: 'ad-extra' }, h('legend', { text: t('form.adExtra') }),
+            field({ name: 'event_id', label: t('form.event'), type: 'select', value: item && item.event_id ? item.event_id : '', options: evOptions, optional: true, hint: t('form.eventHint') }),
+            field({ name: 'store_id', label: t('form.store'), type: 'select', value: item ? item.store_id || '' : '', options: storeOptions, optional: true, hint: t('form.storeCardHint') }),
+            field({ name: 'position', label: t('form.position'), type: 'number', value: item ? item.position || 0 : 0, attrs: { min: 0, max: 999, step: 1, inputmode: 'numeric' }, hint: t('form.positionHint') }),
+            rewardF, h('p', { class: 'field-hint', text: t('form.rewardHint') + (isAdmin() ? '' : ' ' + t('form.rewardAdminOnly')) }),
+            h('h3', { class: 'preview-title', text: t('form.preview') }), preview);
+          body.appendChild(adBox);
+          paintPreview = () => {
+            const f = body.closest('form') || body;
+            const title = (f.querySelector('[name=title]') || {}).value || t('form.title');
+            const evSel = f.querySelector('[name=event_id]'); const ev = events.find((e) => String(e.id) === (evSel ? evSel.value : ''));
+            const stSel = f.querySelector('[name=store_id]'); const st = stores.find((x) => x.id === (stSel ? stSel.value : ''));
+            const reward = rewardF.input.checked;
+            preview.replaceChildren(
+              imageState.data ? h('img', { src: imageState.data, alt: '' }) : h('span', { class: 'card-preview-fallback', text: title.charAt(0) }),
+              h('span', { class: 'card-preview-text' }, h('strong', { text: title }),
+                h('small', { text: ev ? `${ev.title} · ${new Date(ev.starts).toLocaleString()}` : (st ? st.name : t('form.previewNoPlace')) }),
+                reward ? h('em', { text: t('form.previewReward') }) : null));
+          };
+          body.addEventListener('input', () => paintPreview()); body.addEventListener('change', () => paintPreview());
+          const sync = () => { discoveriesBox.hidden = kindSelect.value === 'ad'; adBox.hidden = kindSelect.value !== 'ad'; if (kindSelect.value !== 'ad') rewardF.input.checked = false; paintPreview(); };
           kindSelect.addEventListener('change', sync);
           sync();
         }
@@ -1088,7 +1125,7 @@
           translations: readTranslations(form, kind === 'content'),
         };
         if (!item && isAdmin()) p.organization_id = Number(form.organization_id.value);
-        if (kind === 'events') p.location = form.location.value.trim();
+        if (kind === 'events') { p.location = form.location.value.trim(); p.store_id = form.store_id.value; p.all_day = !!form.all_day.checked; }
         if (kind === 'benefits') { p.points_cost = parseInt(form.points_cost.value, 10); p.stock = parseInt(form.stock.value, 10); }
         if (kind === 'content') {
           p.kind = form.kind.value;
@@ -1097,6 +1134,12 @@
           p.image_alt = form.image_alt.value.trim();
           if (imageState.changed) p.image_data = imageState.data;
           p.discoveries = p.kind === 'ad' ? [] : readDiscoveries(form);
+          if (p.kind === 'ad') {
+            p.event_id = form.event_id.value ? Number(form.event_id.value) : null;
+            p.store_id = form.store_id.value;
+            p.position = Math.max(0, Math.min(999, parseInt(form.position.value || '0', 10) || 0));
+            p.reward_enabled = !!form.reward_enabled.checked;
+          } else { p.reward_enabled = false; }
         }
         const saved = item ? await api('PATCH', `${cfg.path}/${item.id}`, p) : await api('POST', cfg.path, p);
         toast(item ? t('toast.saved', { title: saved.title }) : t('toast.created', { title: saved.title }));
@@ -1132,7 +1175,7 @@
         return;
       }
       const reader = new FileReader();
-      reader.onload = () => { imageState.data = String(reader.result || ''); imageState.changed = true; show(); };
+      reader.onload = () => { imageState.data = String(reader.result || ''); imageState.changed = true; show(); input.dispatchEvent(new Event('change', { bubbles: true })); };
       reader.onerror = () => { err.textContent = t('srv.imageInvalid'); err.hidden = false; };
       reader.readAsDataURL(f);
     });
@@ -1622,6 +1665,37 @@
       }
     });
 
+    // Confirmação ASSISTIDA de interesse em campanha: o operador confirma com o membro presente.
+    // O servidor decide valor, elegibilidade, limite diário e duplicidade; não é verificação de posse do telefone.
+    function campaignBlock(m) {
+      const list = h('div', { class: 'campaign-list' }, h('p', { class: 'small muted', text: '…' }));
+      const box = h('section', { class: 'campaign-box', 'aria-labelledby': 'camp-title' },
+        h('h3', { id: 'camp-title', text: t('counter.campaigns') }),
+        h('p', { class: 'small muted', text: t('counter.campaignsHint') }), list);
+      api('GET', '/counter/campaigns?member_id=' + encodeURIComponent(m.id)).then((d) => {
+        list.replaceChildren();
+        if (!d.items.length) { list.appendChild(h('p', { class: 'small muted', text: t('counter.noCampaigns') })); return; }
+        d.items.forEach((c) => {
+          const row = h('div', { class: 'campaign-row' }, h('span', { class: 'campaign-title' }, h('strong', { text: c.title }), isAdmin() ? h('small', { text: ' · ' + c.organization_name }) : null));
+          if (c.credited) { row.appendChild(h('span', { class: 'small campaign-done', text: t('counter.campaignAlready') })); list.appendChild(row); return; }
+          const present = checkField({ name: 'present_' + c.id, label: t('counter.campaignPresent') });
+          const go = btn(t('counter.campaignConfirm', { n: fmt.num(d.points) }), { cls: 'btn--primary', onClick: async () => {
+            if (!present.input.checked) { setFieldError(present.input, t('counter.campaignPresentRequired')); present.input.focus(); return; }
+            setFieldError(present.input, '');
+            setBusy(go, true);
+            try {
+              await api('POST', '/counter/campaign-credit', { member_id: m.id, content_id: c.id });
+              toast(t('counter.campaignDone', { n: fmt.num(d.points) }));
+              try { const dd = await api('POST', '/members/lookup', { phone: counter.phone }); counter.member = dd.member; } catch (_) { /* mantém tela */ }
+              draw();
+            } catch (err) { toast(errorText(err), 'error'); } finally { setBusy(go, false); }
+          } });
+          row.append(present, go); list.appendChild(row);
+        });
+      }).catch((err) => { list.replaceChildren(h('p', { class: 'small', text: errorText(err) })); });
+      return box;
+    }
+
     function memberCard(m) {
       const short = [m.first_name, m.last_name ? m.last_name.charAt(0) + '.' : ''].join(' ').trim();
       return h('div', { class: 'member-card' },
@@ -1656,6 +1730,7 @@
         card.appendChild(alertBox('error', t('counter.inactiveTitle'), t('counter.inactiveText')));
         return;
       }
+      card.appendChild(campaignBlock(m));
       const list = (counter.benefits || []).filter(benefitAvailable);
       if (!list.length) {
         card.appendChild(emptyState(t('counter.noBenefits'), isAdmin() ? t('counter.noBenefitsAdmin') : t('counter.noBenefitsStaff'), role() === 'cashier' ? null : h('a', { class: 'btn btn--secondary', href: '#/benefits', text: t('nav.benefits') })));

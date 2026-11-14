@@ -30,6 +30,9 @@ class Editorial(models.Model):
 
 class Event(Editorial):
     location = models.CharField(max_length=120)
+    # Destino do catálogo do mapa (navigation-data.json), validado no servidor; nunca coordenada livre.
+    store_id = models.CharField(max_length=120, blank=True)
+    all_day = models.BooleanField(default=False)
     starts = models.DateTimeField()
     ends = models.DateTimeField()
 
@@ -42,6 +45,12 @@ class Content(Editorial):
     image_alt = models.CharField(max_length=240,blank=True)
     target_url = models.URLField(blank=True)
     discoveries = models.JSONField(default=list,blank=True)
+    # Cartão de anúncio (kind='ad'): starts/ends acima são a vigência de EXIBIÇÃO; o evento tem datas próprias.
+    event = models.ForeignKey(Event,null=True,blank=True,on_delete=models.SET_NULL,related_name='cards')
+    store_id = models.CharField(max_length=120, blank=True)
+    position = models.PositiveSmallIntegerField(default=0)
+    # Recompensa de campanha: desativada por padrão; valor e limites ficam no servidor (services.CAMPAIGN_POINTS).
+    reward_enabled = models.BooleanField(default=False)
 
 class Benefit(Editorial):
     points_cost = models.PositiveIntegerField()
@@ -96,8 +105,8 @@ class Redemption(models.Model):
 class Ledger(models.Model):
     member = models.ForeignKey(Member,on_delete=models.PROTECT)
     delta = models.IntegerField()
-    kind = models.CharField(max_length=16,choices=[('review','Avaliação'),('redemption','Resgate'),('reversal','Estorno'),('closure','Encerramento')])
-    target_type = models.CharField(max_length=5,blank=True)
+    kind = models.CharField(max_length=16,choices=[('review','Avaliação'),('campaign','Campanha'),('redemption','Resgate'),('reversal','Estorno'),('closure','Encerramento')])
+    target_type = models.CharField(max_length=16,blank=True)
     target_id = models.CharField(max_length=120,blank=True)
     review = models.OneToOneField(Review,on_delete=models.SET_NULL,null=True,blank=True)
     redemption = models.ForeignKey(Redemption,on_delete=models.PROTECT,null=True,blank=True)
@@ -105,7 +114,13 @@ class Ledger(models.Model):
     reason = models.CharField(max_length=240,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
-        constraints = [models.UniqueConstraint(fields=['redemption','kind'],name='one_redemption_ledger_kind')]
+        constraints = [
+            models.UniqueConstraint(fields=['redemption','kind'],name='one_redemption_ledger_kind'),
+            # Uma concessão por membro e campanha (target_id = Content.pk), inclusive após estorno.
+            models.UniqueConstraint(fields=['member','target_id'],condition=Q(kind='campaign'),name='one_campaign_credit_per_member'),
+            # Um estorno por crédito de campanha (target_id = Ledger.pk do crédito).
+            models.UniqueConstraint(fields=['target_id'],condition=Q(kind='reversal',target_type='campaign_credit'),name='one_reversal_per_campaign_credit'),
+        ]
 
 class Audit(models.Model):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL,null=True)

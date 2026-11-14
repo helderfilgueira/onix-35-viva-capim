@@ -9,13 +9,15 @@ from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.db import transaction, IntegrityError, OperationalError, connection
 from django.db.models import Count, Avg, Sum, Q
-from django.http import JsonResponse, FileResponse, Http404
+import base64
+from django.http import JsonResponse, FileResponse, Http404, HttpResponse
 from django.middleware.csrf import get_token
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import Organization, StaffProfile, Event, Content, Benefit, Member, Review, Redemption, Ledger, LocationLock
-from .services import DomainError, require, text, integer, phone, datetime_value, translations, image, verify_publish, audit, rate_limit, member_json, register, create_review, redeem, reverse, redemption_json
+from .services import DomainError, require, text, integer, phone, datetime_value, translations, image, verify_publish, audit, rate_limit, member_json, register, create_review, redeem, reverse, redemption_json, credit_campaign, reverse_campaign, campaign_json, campaign_available, CAMPAIGN_POINTS, CAMPAIGN_DAILY_CAP
+from .calendar import google_url, ics_document
 
 sys.path.insert(0,str(settings.LEGACY_DIR))
 from navigation import load_navigation, calculate_route, NavigationError
@@ -49,7 +51,7 @@ def scoped_object(model,pk,who):
 
 def editorial_json(obj):
     data={'id':obj.id,'organization_id':obj.organization_id,'organization_name':obj.organization.name,'title':obj.title,'description':obj.description,'translations':obj.translations,'status':obj.status}
-    for field in ('location','starts','ends','kind','theme','points_cost','stock','image_data','image_alt','target_url','discoveries'):
+    for field in ('location','store_id','all_day','starts','ends','kind','theme','points_cost','stock','image_data','image_alt','target_url','discoveries','event_id','position','reward_enabled'):
         if hasattr(obj,field):
             value=getattr(obj,field);data[field]=value.isoformat() if hasattr(value,'isoformat') else value
     return data
@@ -62,6 +64,41 @@ def public_query(model):
     return query.select_related('organization').order_by('id')
 
 def organization_json(o):return {'id':o.id,'name':o.name,'kind':o.kind,'store_id':o.store_id,'active':o.active}
+
+LOCALES=('pt-BR','en','es')
+def destination(store_id):
+    # Somente destinos existentes do catálogo do mapa; coordenadas livres não são aceitas.
+    store=next((s for s in load_navigation()['stores'] if s['id']==store_id),None)
+    require(store is not None,'Local não encontrado no catálogo do mapa.',400,'invalid_destination')
+    return store
+_CONTENT_I18N=None
+def floor_label(name,lang):
+    global _CONTENT_I18N
+    if lang=='pt-BR' or not name:return name
+    if _CONTENT_I18N is None:
+        try:_CONTENT_I18N=json.loads((settings.LEGACY_DIR/'static'/'map-content-i18n.json').read_text(encoding='utf-8'))
+        except (OSError,ValueError):_CONTENT_I18N={}
+    return (_CONTENT_I18N.get(lang[:2]) or {}).get(name) or name
+def place_json(store_id):
+    if not store_id:return None
+    data=load_navigation();store=next((s for s in data['stores'] if s['id']==store_id),None)
+    if store is None:return None
+    floor=next((f for f in data['floors'] if f['id']==store.get('floor_id')),{})
+    return {'id':store['id'],'name':store['name'],'floor_id':store.get('floor_id'),'floor_name':floor.get('name',''),'route_available':bool(store.get('node_id'))}
+def localized(obj,lang,field):
+    base=getattr(obj,field,'') or ''
+    if lang=='pt-BR':return base
+    return (obj.translations or {}).get(lang[:2],{}).get(field) or base
+def event_state(ev,now=None):
+    now=now or timezone.now()
+    if ev.status!='approved' or not ev.organization.active:return 'cancelled'
+    return 'scheduled' if now<ev.starts else 'ongoing' if now<ev.ends else 'ended'
+def event_public_json(ev,lang):
+    return {'id':ev.id,'title':localized(ev,lang,'title'),'description':localized(ev,lang,'description'),'starts':ev.starts.isoformat(),'ends':ev.ends.isoformat(),'all_day':ev.all_day,'state':event_state(ev),'location':ev.location,'place':place_json(ev.store_id),'url':f'/evento/{ev.id}/'}
+def card_json(c,lang):
+    ev=c.event if (c.event and c.event.status=='approved' and c.event.organization.active) else None
+    return {'id':c.id,'title':localized(c,lang,'title'),'description':localized(c,lang,'description'),'image_url':f'/api/v2/public/cards/{c.id}/image' if c.image_data else None,'image_alt':localized(c,lang,'image_alt'),'theme':c.theme,
+            'place':place_json(ev.store_id if ev and ev.store_id else c.store_id),'event':event_public_json(ev,lang) if ev else None,'reward_points':CAMPAIGN_POINTS if campaign_available(c) else None}
 
 def target(data):
     kind=data.get('target_type');tid=str(data.get('target_id',''))
@@ -86,8 +123,8 @@ def editorial_edit(model,request,who,pk=None,action=None):
     if request.method=='GET' and pk is None:return response({'items':[editorial_json(o) for o in scope(model.objects.select_related('organization'),who).order_by('-id')[:250]]})
     editor(who)
     allowed={'organization_id','title','description','translations'}
-    if model==Event:allowed|={'location','starts','ends'}
-    elif model==Content:allowed|={'kind','theme','starts','ends','image_data','image_alt','target_url','discoveries'}
+    if model==Event:allowed|={'location','store_id','all_day','starts','ends'}
+    elif model==Content:allowed|={'kind','theme','starts','ends','image_data','image_alt','target_url','discoveries','event_id','store_id','position','reward_enabled'}
     else:allowed|={'points_cost','stock','starts','ends'}
     data=body(request,[] if action else allowed)
     require(request.method==('POST' if pk is None or action else 'PATCH'),'Método não permitido.',405)
@@ -119,6 +156,24 @@ def editorial_edit(model,request,who,pk=None,action=None):
             if 'image_data' in data:obj.image_data=image(data['image_data'])
             if 'target_url' in data:
                 value=data['target_url'];require(isinstance(value,str) and len(value)<=2000 and (not value or url_safe(value)),'Destino deve usar HTTPS.');obj.target_url=value
+            if 'store_id' in data:
+                value=data['store_id'];require(isinstance(value,str) and len(value)<=120,'Local inválido.')
+                if value:
+                    store=destination(value)
+                    if model==Event and not data.get('location'):obj.location=store['name'][:120]
+                obj.store_id=value
+            if 'all_day' in data:require(type(data['all_day']) is bool,'Dia inteiro inválido.');obj.all_day=data['all_day']
+            if 'position' in data:obj.position=integer(data['position'],'Ordem',0,999)
+            if 'reward_enabled' in data:
+                require(type(data['reward_enabled']) is bool,'Recompensa inválida.')
+                require(who['role']=='admin' or not data['reward_enabled'] or obj.reward_enabled,'Somente a administração habilita campanha de pontos.',403)
+                obj.reward_enabled=data['reward_enabled']
+            if 'event_id' in data:
+                if data['event_id'] is None:obj.event=None
+                else:
+                    ev=Event.objects.filter(pk=integer(data['event_id'],'Evento',1)).first()
+                    require(ev is not None and ev.organization_id==obj.organization_id,'Evento não encontrado nesta organização.',404)
+                    obj.event=ev
             if 'discoveries' in data:
                 require(isinstance(data['discoveries'],list) and len(data['discoveries'])<=3,'Máximo três descobertas.')
                 result=[]
@@ -132,6 +187,7 @@ def editorial_edit(model,request,who,pk=None,action=None):
                 require(bool(obj.location),'Local obrigatório.')
                 require(not Event.objects.exclude(pk=obj.pk).filter(location=obj.location,status='approved',starts__lt=obj.ends,ends__gt=obj.starts).exists(),'Local ocupado neste período.',409)
             if model==Benefit:require(obj.points_cost is not None and obj.points_cost>0,'Custo deve ser positivo.')
+            if model==Content:require(not obj.reward_enabled or obj.kind=='ad','Recompensa de campanha só em cartões de anúncio.')
             obj.status='pending'
         obj.full_clean();obj.save();audit(request.user,(action or 'save')+'.'+model.__name__.lower(),obj)
     return response(editorial_json(obj),201 if pk is None else 200)
@@ -196,6 +252,22 @@ def api_dispatch(request,path):
     if path.startswith('public/') and request.method=='GET':
         kind=parts[1]
         if kind=='catalog':return response({'benefits':[editorial_json(o) for o in public_query(Benefit)],'events':[editorial_json(o) for o in public_query(Event)],'stores':[{'id':s['id'],'name':s['name']} for s in load_navigation()['stores'] if s.get('unit_type') not in ('facility','structure')],'campaigns':[editorial_json(o) for o in public_query(Content).exclude(kind='ad')],'ads':[editorial_json(o) for o in public_query(Content).filter(kind='ad')]})
+        if kind=='cards':
+            if len(parts)==4 and parts[3]=='image':
+                c=public_query(Content).filter(kind='ad',pk=int(parts[2])).first();require(c is not None and bool(c.image_data),'Imagem não encontrada.',404)
+                header,payload=c.image_data.split(',',1);mime=header[5:header.index(';')]
+                require(mime in ('image/png','image/jpeg','image/webp'),'Imagem não encontrada.',404)
+                result=HttpResponse(base64.b64decode(payload),content_type=mime);result['X-Content-Type-Options']='nosniff';return result
+            require(len(parts)==2,'Recurso não encontrado.',404)
+            lang=request.GET.get('locale','pt-BR');require(lang in LOCALES,'Idioma inválido.')
+            cards=public_query(Content).filter(kind='ad').select_related('event','event__organization').order_by('position','id')[:24]
+            return response({'items':[card_json(c,lang) for c in cards],'campaign_points':CAMPAIGN_POINTS})
+        if kind=='events' and len(parts)==3:
+            lang=request.GET.get('locale','pt-BR');require(lang in LOCALES,'Idioma inválido.')
+            ev=Event.objects.select_related('organization').filter(pk=int(parts[2])).exclude(status='pending').first();require(ev is not None,'Evento não encontrado.',404)
+            # Conteúdo só de evento aprovado (moderado). Pausado/org inativa: apenas o estado, sem título nem texto.
+            if event_state(ev)=='cancelled':return response({'id':ev.id,'state':'cancelled'})
+            return response(event_public_json(ev,lang))
         if kind=='ratings':
             data={'target_type':request.GET.get('target_type'),'target_id':request.GET.get('target_id')};target(data)
             items=aggregate(Review.objects.filter(**data));return response({'items':items,'threshold':5})
@@ -203,7 +275,7 @@ def api_dispatch(request,path):
         return response({'items':[editorial_json(o) for o in public_query(models[kind])]})
     who=identity(request)
     if path=='overview' and request.method=='GET':
-        result={'role':who['role'],'organizations':Organization.objects.count() if who['role']=='admin' else 1,'events':scope(Event.objects.all(),who).count(),'benefits':scope(Benefit.objects.all(),who).count(),'redemptions':scope(Redemption.objects.all(),who).count(),'members':Member.objects.count() if who['role']=='admin' else None,'points_issued':Ledger.objects.filter(kind='review').aggregate(n=Sum('delta'))['n'] or 0 if who['role']=='admin' else None,'points_redeemed':sum(r.points for r in scope(Redemption.objects.filter(status='redeemed'),who)),'pending_approvals':sum(scope(m.objects.filter(status='pending'),who).count() for m in (Event,Content,Benefit))}
+        result={'role':who['role'],'organizations':Organization.objects.count() if who['role']=='admin' else 1,'events':scope(Event.objects.all(),who).count(),'benefits':scope(Benefit.objects.all(),who).count(),'redemptions':scope(Redemption.objects.all(),who).count(),'members':Member.objects.count() if who['role']=='admin' else None,'points_issued':Ledger.objects.filter(kind__in=('review','campaign')).aggregate(n=Sum('delta'))['n'] or 0 if who['role']=='admin' else None,'points_campaign':Ledger.objects.filter(kind='campaign').aggregate(n=Sum('delta'))['n'] or 0 if who['role']=='admin' else None,'points_redeemed':sum(r.points for r in scope(Redemption.objects.filter(status='redeemed'),who)),'pending_approvals':sum(scope(m.objects.filter(status='pending'),who).count() for m in (Event,Content,Benefit))}
         return response(result)
     if parts[0]=='organizations':
         if request.method=='GET':return response({'items':[organization_json(o) for o in (Organization.objects.all() if who['role']=='admin' else Organization.objects.filter(pk=who['organization_id']))]})
@@ -266,7 +338,7 @@ def api_dispatch(request,path):
                 require(m.status!='closed','Cadastro encerrado não pode ser reaberto.',409)
                 m.status='suspended';m.save(update_fields=['status']);audit(request.user,'member.suspended',m);return response(member_json(m))
             if action in ('ledger','export') and request.method=='GET':
-                entries=list(m.ledger_set.values('id','delta','kind','reason','created_at'));audit(request.user,'member.'+action,m)
+                entries=list(m.ledger_set.values('id','delta','kind','target_type','target_id','reason','created_at'));audit(request.user,'member.'+action,m)
                 if action=='ledger':return response({'items':entries})
                 return response({'member':{**member_json(m),'phone':m.phone,'consent_version':m.consent_version},'ledger':entries,'reviews':list(m.review_set.values('target_type','target_id','score','reason','created_at'))})
             if action=='close' and request.method=='POST':
@@ -275,6 +347,19 @@ def api_dispatch(request,path):
                 require(m.balance==0 or data.get('forfeit_balance') is True,'Saldo existente: confirme a renúncia expressa para encerrar.',409)
                 if m.balance:Ledger.objects.create(member=m,delta=-m.balance,kind='closure',actor=request.user,reason=reason)
                 m.balance=0;m.phone=None;m.first_name='';m.last_name='';m.status='closed';m.closed_at=timezone.now();m.save();audit(request.user,'member.closed',m,reason);return response({'ok':True})
+    if path=='counter/campaigns' and request.method=='GET':
+        items=[c for c in scope(Content.objects.filter(kind='ad',reward_enabled=True),who).select_related('organization').order_by('position','id') if campaign_available(c)]
+        credited=set()
+        if request.GET.get('member_id'):credited=set(Ledger.objects.filter(member_id=integer(int(request.GET['member_id']),'Membro',1),kind='campaign').values_list('target_id',flat=True))
+        return response({'points':CAMPAIGN_POINTS,'daily_cap':CAMPAIGN_DAILY_CAP,'items':[{'id':c.id,'title':c.title,'organization_name':c.organization.name,'ends':c.ends.isoformat(),'credited':str(c.id) in credited} for c in items]})
+    if path=='counter/campaign-credit' and request.method=='POST':
+        require(settings.PILOT_OPERATIONS_ENABLED,'Fidelidade temporariamente pausada.',503,'loyalty_paused')
+        rate_limit(request,'campaign_credit:'+str(request.user.pk),120,3600)
+        data=body(request,('member_id','content_id'));entry,created=credit_campaign(request.user,who['role'],who['organization_id'],data)
+        return response(campaign_json(entry),201 if created else 200)
+    if parts[0]=='campaign-credits' and len(parts)==3 and parts[2]=='reverse' and request.method=='POST':
+        administrator(who);data=body(request,('reason',));entry,created=reverse_campaign(request.user,int(parts[1]),data.get('reason'))
+        return response({'id':entry.id,'delta':entry.delta,'credit_id':int(entry.target_id)},201 if created else 200)
     if path=='redemptions':
         if request.method=='GET':return response({'items':[redemption_json(r) for r in scope(Redemption.objects.all(),who).order_by('-id')[:250]]})
         if request.method=='POST':
@@ -283,6 +368,44 @@ def api_dispatch(request,path):
     if parts[0]=='redemptions' and len(parts)==3 and parts[2]=='reverse' and request.method=='POST':administrator(who);data=body(request,('reason',));return response(redemption_json(reverse(request.user,int(parts[1]),data.get('reason'))))
     raise DomainError('Recurso não encontrado.',404)
 
+def public_event_or_404(pk):
+    ev=Event.objects.select_related('organization').filter(pk=pk).exclude(status='pending').first()
+    if ev is None:raise Http404
+    return ev
+def event_context(request,ev):
+    lang=request.GET.get('lang','pt-BR');lang=lang if lang in LOCALES else 'pt-BR'
+    title=localized(ev,lang,'title');details=localized(ev,lang,'description')
+    place=place_json(ev.store_id);location=f"{place['name']} · {floor_label(place['floor_name'],lang)} · Shopping Capim Dourado" if place else f'{ev.location} · Shopping Capim Dourado'
+    page=request.build_absolute_uri(f'/evento/{ev.id}/')
+    return lang,title,details,location,page,place
+MONTHS={'pt-BR':['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'],'en':['January','February','March','April','May','June','July','August','September','October','November','December'],'es':['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']}
+def when_text(ev,lang):
+    from .calendar import all_day_range
+    m=MONTHS[lang]
+    def day(d):return f'{m[d.month-1]} {d.day}, {d.year}' if lang=='en' else f'{d.day} de {m[d.month-1]} de {d.year}'
+    if ev.all_day:
+        a,b=all_day_range(ev);last=b-timedelta(days=1);label={'pt-BR':'dia inteiro','en':'all day','es':'todo el día'}[lang]
+        return f'{day(a)} · {label}' if a==last else f'{day(a)} – {day(last)} · {label}'
+    s_,e_=timezone.localtime(ev.starts),timezone.localtime(ev.ends)
+    tz={'pt-BR':'(horário de Palmas/TO, UTC−3)','en':'(Palmas time, UTC−3)','es':'(hora de Palmas, UTC−3)'}[lang]
+    if s_.date()==e_.date():return f"{day(s_)} · {s_:%H:%M}–{e_:%H:%M} {tz}"
+    return f"{day(s_)} {s_:%H:%M} – {day(e_)} {e_:%H:%M} {tz}"
+def event_page(request,pk):
+    ev=public_event_or_404(pk)
+    if event_state(ev)=='cancelled':
+        # Nunca exibir texto de evento não aprovado/pausado (sem moderação vigente).
+        lang=request.GET.get('lang','pt-BR');lang=lang if lang in LOCALES else 'pt-BR'
+        return render(request,'event.html',{'lang':lang,'title':{'pt-BR':'Evento indisponível','en':'Event unavailable','es':'Evento no disponible'}[lang],'details':'','when':'—','location':'—','state':'cancelled','google':'','ics':'','map':'','event_id':ev.id},status=410)
+    lang,title,details,location,page,place=event_context(request,ev);state=event_state(ev)
+    open_=state in ('scheduled','ongoing')
+    starts=timezone.localtime(ev.starts);ends=timezone.localtime(ev.ends)
+    return render(request,'event.html',{'when':when_text(ev,lang),'lang':lang,'title':title,'details':details,'location':location,'place':place,'state':state,'all_day':ev.all_day,'starts':starts,'ends':ends,
+        'google':google_url(ev,title,details,location,page) if open_ else '','ics':f'/evento/{ev.id}.ics?lang={lang}' if open_ else '','map':f'/explorar.html?destination={place["id"]}' if place else '','event_id':ev.id})
+def event_ics(request,pk):
+    ev=public_event_or_404(pk);lang,title,details,location,page,place=event_context(request,ev)
+    if event_state(ev) not in ('scheduled','ongoing'):return HttpResponse('Evento encerrado ou cancelado.',status=410,content_type='text/plain; charset=utf-8')
+    result=HttpResponse(ics_document(ev,title,details,location,page,request.get_host().split(':')[0]),content_type='text/calendar; charset=utf-8')
+    result['Content-Disposition']=f'attachment; filename="evento-{ev.id}.ics"';return result
 def dashboard(request):return render(request,'dashboard.html')
 def home(request):return redirect('/participar/')
 def local_file(base,name):
@@ -294,7 +417,7 @@ def public_asset(request,name):return local_file(settings.BASE_DIR/'public',name
 def dashboard_asset(request,name):return local_file(settings.BASE_DIR/'static',name)
 def legacy_file(request,name):
     if name=='store-reviews.js':return local_file(settings.BASE_DIR/'integrations','map-store-reviews.js')
-    allowed={'explorar.html','explorar.css','explorar.js','map3d.js','map-plan3d.js','brand-logos.js','store-reviews.css','logo-manifest.json','navigation-data.json','map-i18n.js','map-content-i18n.json','vlibras-accessibility.js','vlibras-accessibility.css'}
+    allowed={'explorar.html','explorar.css','explorar.js','map3d.js','map-plan3d.js','brand-logos.js','store-reviews.css','logo-manifest.json','navigation-data.json','map-i18n.js','map-content-i18n.json','vlibras-accessibility.js','vlibras-accessibility.css','kiosk.js','kiosk.css','cards.js','cards.css','trio.js','trio.css','map-mascots.js'}
     require_allowed=name in allowed or (name.startswith(('vendor/','logos/')) and Path(name).suffix in ('.js','.png','.jpg','.jpeg','.webp','.svg'))
     if not require_allowed:raise Http404
     return local_file(settings.LEGACY_DIR/'static',name)

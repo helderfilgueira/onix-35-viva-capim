@@ -17,6 +17,18 @@ Base `/api/v2`; JSON. Todas as alterações, inclusive públicas, exigem cookie 
 - `POST /events/<id>/approve`, `/content/<id>/approve`, `/benefits/<id>/approve` admin `{}`; `POST .../pause` admin ou parceiro próprio `{}`. Estados `pending`, `approved`, `paused`. Caixa não cria/edita.
 - `GET /public/events`, `/public/content`, `/public/benefits`: somente aprovados, conteúdo temporal ativo, benefícios disponíveis, sem autenticação. Campos iguais aos públicos acima, sem autoria interna.
 
+## Cartões, eventos públicos e campanhas (missão experiência)
+- Eventos aceitam também `store_id` (destino do catálogo do mapa; coordenadas livres → 400 `invalid_destination`) e `all_day:bool`.
+- Conteúdo `kind:ad` aceita `event_id` (evento da mesma organização), `store_id`, `position:0..999` e `reward_enabled:bool` (só em `ad`; padrão `false`). Qualquer edição volta a `pending`.
+- `GET /public/cards?locale=pt-BR|en|es` → `{items:[{id,title,description,image_url,image_alt,theme,place:{id,name,floor_id,floor_name,route_available}|null,event:{id,title,description,starts,ends,all_day,state:scheduled|ongoing|ended|cancelled,location,place,url}|null,reward_points:5|null}],campaign_points:5}`; só cartões aprovados, vigentes e de organização ativa, ordenados por `position`; até 24.
+- `GET /public/cards/<id>/image` → bytes da imagem (`image/png|jpeg|webp`, `nosniff`); 404 se o cartão não for público.
+- `GET /public/events/<id>?locale=` → evento público (pendente → 404).
+- Página `GET /evento/<id>/?lang=` (HTML sem JavaScript) e `GET /evento/<id>.ics?lang=` (`text/calendar`, RFC 5545; horários em UTC, dia inteiro com `VALUE=DATE` e fim exclusivo). Encerrado/cancelado: página informa o estado e `.ics` responde 410. Nenhum dado pessoal em URL ou arquivo. O link do Google Agenda (`calendar.google.com/calendar/render?action=TEMPLATE`) não tem documentação oficial pública; o `.ics` é a alternativa interoperável.
+- `GET /counter/campaigns?member_id=` staff → campanhas com recompensa ativas no escopo do operador `{points,daily_cap,items:[{id,title,organization_name,ends,credited}]}`.
+- `POST /counter/campaign-credit` staff `{member_id,content_id}` → 201 crédito novo / 200 já existente `{id,member_id,content_id,points,created_at}`. Valor (5) e limites ficam no servidor; campos extras → 400. Exige membro ativo, cartão aprovado/vigente/da organização do operador (admin: todas) e operação não pausada; teto diário → 409 `campaign_daily_cap`; indisponível → 409 `campaign_unavailable`. Confirmação assistida: não comprova posse do telefone.
+- `POST /campaign-credits/<ledger_id>/reverse` admin `{reason}` → estorno único (201; repetição 200); não reabre a campanha; pontos já gastos → 409 `campaign_spent` (tratamento manual).
+- `GET /overview` (admin) inclui `points_campaign`; `points_issued` soma avaliações e campanhas.
+
 ## Fidelidade
 - `POST /members/register` público `{first_name,last_name,phone,age_18:true,consent:true,locale?:pt-BR|en|es}` → **sempre** `{ok:true,message:"Solicitação recebida. Procure o atendimento para ativação presencial."}` sem saldo/status/identificador. Telefone brasileiro ou internacional normalizado; dado não verificado por SMS. Cadastro existente não é alterado.
 - `GET /members` admin somente → lista com id,nome,sobrenome,phone mascarado,status,balance,created_at.
