@@ -11,5 +11,5 @@
     "result": "success",
     "tests": 65
   },
-  "deployment_alignment": "final corrected commit redeploy in progress; do not infer from previous deployment"
+  "deployment_alignment": "verified: deployment dpl_3J9fFbuuLLjezkmh1CrNTWzfhFkC serves application commit f70590b4df85522360eae4d84acbe6cc7021a56d; later commits only update documentation"
 }

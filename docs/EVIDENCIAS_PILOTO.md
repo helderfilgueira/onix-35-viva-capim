@@ -41,11 +41,10 @@ Revisão independente executada com Claude Opus 5.5 (`claude-opus-5-5`), sem tro
 
 O tratamento de IP no ambiente Vercel recebeu quatro testes específicos para o limitador de requisições, mantendo a distinção entre ambiente confiável e cabeçalhos enviados pelo cliente. Verificação manual da manutenção: chamada autenticada com segredo retornou 200 e chamada sem segredo retornou 401. O primeiro disparo automático agendado ainda não foi observado.
 
-O redeploy final deve corresponder ao commit corrigido e ser confirmado no relatório de publicação; não atribuir o SHA novo a uma verificação de deployment anterior.
+O redeploy final foi confirmado: deployment `dpl_3J9fFbuuLLjezkmh1CrNTWzfhFkC`, aplicação no commit `f70590b`. Saúde, 15 endpoints/assets, login/CSRF, isolamento, manutenção protegida, exportação na interface e rejeição de identificador inválido foram verificados. Evidência: [VERCEL_PUBLICACAO.json](VERCEL_PUBLICACAO.json). Commits posteriores desta entrega apenas atualizam documentação.
 
 ## O que ainda não está comprovado
 
-- Alinhamento do último commit de configuração/exportação com o redeploy final e seus checks. A demonstração já está publicada e as jornadas em nuvem acima foram verificadas.
 - Primeiro disparo real de retenção agendada e monitoramento operacional do cron.
 - Backup/restauração testados e canal/controlador real para atendimento de direitos.
 - Revisão humana/aprovação do PR, teste com participantes e validação presencial da acessibilidade do shopping.
