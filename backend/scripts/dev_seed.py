@@ -1,4 +1,9 @@
+from pathlib import Path
+import sys
 import uuid
+
+# Allow both "python scripts/dev_seed.py" and module execution from backend/.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from sqlalchemy import select
 
