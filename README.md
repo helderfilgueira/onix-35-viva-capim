@@ -97,7 +97,7 @@ Mapa independente do laboratório: `laboratorio/ABRIR_LABORATORIO.cmd`. Operaç�
 
 ## 📚 Documentação
 
-[Escopo do piloto](docs/PLANO_PILOTO.md) · [Arquitetura](docs/ARQUITETURA.md) · [Privacidade](docs/PRIVACIDADE.md) · [Equipe e backlog](docs/EQUIPE_E_BACKLOG.md) · [Pesquisa e fontes](docs/PESQUISA.md) · [Como contribuir](CONTRIBUTING.md) · [Segurança](SECURITY.md)
+[Escopo do piloto](docs/PLANO_PILOTO.md) · [Arquitetura](docs/ARQUITETURA.md) · [Privacidade](docs/PRIVACIDADE.md) · [Equipe e backlog](docs/EQUIPE_E_BACKLOG.md) · [Pesquisa e fontes](docs/PESQUISA.md) · [Como contribuir](CONTRIBUTING.md) · [Código de conduta](CODE_OF_CONDUCT.md) · [Segurança](SECURITY.md)
 
 ## 👥 Equipe Onix 35
 
