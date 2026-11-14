@@ -27,7 +27,7 @@ Não associar nomes a handles GitHub sem confirmação. CODEOWNERS contém somen
 | Pesquisador | Fontes primárias, referências e limites; recomendação não vira evidência de implementação |
 | Especialista 3D | Preservação de mapa, seleção e percursos; alterações sustentadas pela planta |
 
-Agentes podem acumular papéis em um ciclo, com propriedade de arquivos explícita. A lista define responsabilidades, não afirma que todos estão executando simultaneamente. Uso de Claude deve ser exclusivamente Opus 5.5.
+Definições reutilizáveis dos papéis PO e Scrum Master ficam em `.claude/agents/` e operam somente em leitura: propõem correções e operações no GitHub, aplicadas apenas após aprovação humana. Agentes podem acumular papéis em um ciclo, com propriedade de arquivos explícita. A lista define responsabilidades, não afirma que todos estão executando simultaneamente. Uso de Claude deve ser exclusivamente Opus 5.5.
 
 ## Fluxo e pronto
 
@@ -55,7 +55,19 @@ Critérios de aceite:
 - Interface, categorias, pisos, instalações, descrições, horários e fontes em PT/EN/ES; nomes comerciais e códigos preservados.
 - Nenhuma tradução automática externa em tempo de uso. Avisos de acesso não confirmado, geometrias inferidas e horários desconhecidos mantêm o mesmo sentido.
 - Trocar idioma mantém origem, destino, loja selecionada, preferência acessível e percurso ativo; não recalibra coordenadas nem inventa conexões.
-- VLibras continua somente em português, com opt-in e isolamento das páginas com dados pessoais.
+- VLibras continua PT→Libras, com opt-in e isolamento das páginas com dados pessoais; em EN/ES o widget é ocultado sem perder a rota.
 - Cobertura do catálogo e QA de interface/percurso são evidências distintas. Catálogo validado não comprova publicação nem revisão por tradutor humano.
 
 Baseline do conteúdo em 14/11/2026: 1.058 textos únicos por idioma, 1.674 ocorrências no payload de navegação e 138 nomes comerciais preservados. Tradução assistida por Claude Opus 5.5, seguida de validação independente de chaves e amostragem de avisos técnicos. A referência de cobertura está em `docs/QA_MAPA_CONTEUDO_I18N.json`; novos conteúdos exigem atualizar catálogo e cobertura.
+
+## Revisão PO/Scrum Master · 14/11/2026
+
+Aplicadas após aprovação do usuário: correção de SHAs e contagens desatualizados nas evidências, runbook com mapa PT/EN/ES, labels de área/estado, milestone do laboratório, comentários de rastreio nas issues e atualização do PR #18. Nenhuma issue ou milestone foi encerrado.
+
+Decisões humanas pendentes:
+
+- **PR #19** (backend FastAPI em `backend/`) concorre com a arquitetura Django + Vercel + Supabase do piloto e não tem CI: absorver, adaptar ou arquivar.
+- **Limite diário e janela da loja:** avaliação gravada sem pontos por limite diário ainda bloqueia nova concessão na mesma loja por 30 dias (evento: permanentemente). Opções: considerar só avaliações premiadas ou documentar o comportamento atual.
+- **Dados de QA na média pública:** avaliações de teste completaram a amostra mínima da Vivara. Opções: aguardar a retenção, remoção auditada ou usar alvo fictício excluído do agregado nos próximos ciclos.
+
+Fluxo sem GitHub Projects: labels `estado:pronto`, `estado:em-andamento`, `estado:revisao` e `estado:qa` funcionam como colunas; backlog é a ausência de estado e concluído é a issue fechada, sempre com evidência.
