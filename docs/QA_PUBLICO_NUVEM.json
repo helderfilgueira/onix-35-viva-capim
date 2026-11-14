@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "public approved catalog; 3 discoveries without points; VLibras opt-in not loaded by default",
+    "Portuguese English Spanish interfaces",
+    "real CSRF protected registration generic response and input cleared",
+    "map deep link selects Vivara; one star review persists through API; generic non-enumerating response; no external requests on PII pages",
+    "new attendance clears forms; contrast; mobile390px no overflow; translated form"
+  ],
+  "errors": [],
+  "base": "https://onix35-viva-capim.vercel.app",
+  "testData": "fictional membership and one anonymous review in cloud demonstration"
+}

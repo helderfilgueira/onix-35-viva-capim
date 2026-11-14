@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "admin button downloads JSON with member/ledger/reviews",
+    "generic filename without personal identifiers",
+    "endpoint URL contains internal numeric id only; no query or raw PII",
+    "no PII in localStorage",
+    "PT EN ES labels"
+  ],
+  "errors": [],
+  "permissions": "non-admin endpoint restriction covered by backend suite; no new role changes"
+}
