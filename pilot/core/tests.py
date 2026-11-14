@@ -1,6 +1,6 @@
 import json, hashlib
 from datetime import timedelta
-from unittest import skipUnless
+from unittest import mock, skipUnless
 from concurrent.futures import ThreadPoolExecutor
 from django.test import TestCase, TransactionTestCase, Client, override_settings
 from django.contrib.auth import get_user_model
@@ -48,8 +48,14 @@ class PilotTests(TestCase):
         s=c.get('/api/v2/session').json();r=c.post('/api/v2/auth/login',data=json.dumps({'username':'admin','password':PASSWORD}),content_type='application/json',HTTP_X_CSRFTOKEN=s['csrf_token'])
         self.assertEqual(r.status_code,200);self.assertNotEqual(r.json()['csrf_token'],s['csrf_token']);self.assertEqual(r.json()['user']['role'],'admin')
     def test_login_rate_limit_persisted(self):
-        for _ in range(10):self.request('auth/login',{'username':'bad','password':'bad'})
-        self.assertEqual(self.request('auth/login',{'username':'bad','password':'bad'}).status_code,429);self.assertTrue(RateBucket.objects.exists())
+        # Fixed clock: the limiter uses 15-minute windows aligned to the epoch, so a real
+        # clock crossing a boundary mid-test reset the counter and made this test flaky.
+        start=1_800_000_000-(1_800_000_000%900)+10
+        with mock.patch('core.services.time.time',return_value=start):
+            for _ in range(10):self.assertEqual(self.request('auth/login',{'username':'bad','password':'bad'}).status_code,401)
+            self.assertEqual(self.request('auth/login',{'username':'bad','password':'bad'}).status_code,429);self.assertTrue(RateBucket.objects.exists())
+        with mock.patch('core.services.time.time',return_value=start+900):
+            self.assertEqual(self.request('auth/login',{'username':'bad','password':'bad'}).status_code,401)
     def test_event_ids_cannot_bypass_once_only_reward(self):
         canonical=str(self.event.pk)
         data=self.review(target_type='event',target_id=canonical,reason='organizacao')
