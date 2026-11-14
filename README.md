@@ -10,6 +10,7 @@ HackaRun 2026 · Equipe **Onix 35**
 [![Abrir o mapa](https://img.shields.io/badge/🗺️_Abrir_o_mapa-1a3a2e?style=for-the-badge)](https://onix35-viva-capim.vercel.app/explorar.html)
 [![Participar](https://img.shields.io/badge/⭐_Participar-c8e66b?style=for-the-badge)](https://onix35-viva-capim.vercel.app/participar/)
 [![Painel da equipe](https://img.shields.io/badge/🔐_Painel_da_equipe-ffffff?style=for-the-badge)](https://onix35-viva-capim.vercel.app/dashboard/)
+[![Modo totem](https://img.shields.io/badge/🖐️_Modo_totem-c9973c?style=for-the-badge)](https://onix35-viva-capim.vercel.app/explorar.html?modo=totem)
 
 ![Django](https://img.shields.io/badge/Django_5.2-092E20?logo=django&logoColor=white)
 ![Three.js](https://img.shields.io/badge/Three.js-000000?logo=threedotjs&logoColor=white)
@@ -71,9 +72,10 @@ flowchart LR
 
 | Verificação | Resultado |
 |---|---|
-| Testes Django com PostgreSQL | **56 aprovados**, sem skips |
+| Testes Django com PostgreSQL 16 | **82 aprovados**, sem skips (inclui concorrência da campanha) |
 | Regressão do mapa e laboratório | **69 aprovados** |
-| Ciclo de fidelidade no site publicado | **23 verificações de API + 15 de interface** |
+| Ciclo de fidelidade no site publicado | **23 verificações de API + 15 de interface** (versão `be2a340`) |
+| Experiência interativa (totem, cartões, agenda, trio) | QA independente de backend e frontend; achados corrigidos e retestados |
 | Idiomas, Libras, inatividade, mobile e painel | Relatórios em [`docs/`](docs/EVIDENCIAS_PILOTO.md) |
 
 Resultados por versão e limites estão em [Evidências do piloto](docs/EVIDENCIAS_PILOTO.md).
@@ -101,7 +103,7 @@ Mapa independente do laboratório: `laboratorio/ABRIR_LABORATORIO.cmd`. Operaç�
 
 ## 📚 Documentação
 
-[Escopo do piloto](docs/PLANO_PILOTO.md) · [Arquitetura](docs/ARQUITETURA.md) · [Privacidade](docs/PRIVACIDADE.md) · [Equipe e backlog](docs/EQUIPE_E_BACKLOG.md) · [Pesquisa e fontes](docs/PESQUISA.md) · [Como contribuir](CONTRIBUTING.md) · [Código de conduta](CODE_OF_CONDUCT.md) · [Segurança](SECURITY.md)
+**[Índice completo](docs/README.md)** · [Escopo do piloto](docs/PLANO_PILOTO.md) · [Missão experiência](docs/MISSAO_EXPERIENCIA.md) · [Evidências](docs/EVIDENCIAS_PILOTO.md) · [API](pilot/API.md) · [Arquitetura](docs/ARQUITETURA.md) · [Privacidade](docs/PRIVACIDADE.md) · [Equipe e backlog](docs/EQUIPE_E_BACKLOG.md) · [Pesquisa e fontes](docs/PESQUISA.md) · [Como contribuir](CONTRIBUTING.md) · [Código de conduta](CODE_OF_CONDUCT.md) · [Segurança](SECURITY.md)
 
 ## 👥 Equipe Onix 35
 
