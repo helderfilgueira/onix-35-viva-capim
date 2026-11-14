@@ -28,7 +28,7 @@ Campanhas de Natal, Ano Novo, Páscoa e Dia dos Pais usam tema e três descobert
 
 Inatividade automática limitada ao mapa `/explorar.html`. Catálogo, cadastro e avaliação mantêm encerramento manual, sem limpeza automática por tempo ocioso; expiração administrativa no servidor permanece.
 
-Interface em português, inglês e espanhol. Preferências de texto, contraste e movimento reduzido. VLibras somente por opção explícita em páginas públicas, fora de telas que exibem dados pessoais; integração não equivale a tradução humana validada.
+Catálogo, cadastro e avaliação públicos oferecem botões PT/EN/ES para o conteúdo já traduzido. O dashboard mantém seu seletor anterior; o mapa permanece em português, sem sugerir tradução que não existe. Preferências de texto, contraste e movimento reduzido permanecem. VLibras é opt-in no catálogo público e no mapa, com modal antes de carregar o serviço externo; não é carregado em cadastro, avaliação ou painéis privados. A integração não equivale a tradução humana validada.
 
 ## Piloto controlado
 

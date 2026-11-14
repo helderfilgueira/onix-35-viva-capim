@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "map shows inactivity after 90 seconds",
+    "continue closes warning",
+    "warning returns after another inactive period",
+    "end resets map"
+  ],
+  "url": "http://127.0.0.1:8879/explorar.html"
+}

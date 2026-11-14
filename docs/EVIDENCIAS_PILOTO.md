@@ -1,13 +1,13 @@
 # Evidências do piloto · 14/11/2026
 
-Registro de resultados observados, separado da aprovação para dados reais. Código final das correções e CI: `f70590b4df85522360eae4d84acbe6cc7021a56d`, branch `feat/dashboard-fidelidade`. [PR #18 aberto como Draft](https://github.com/helderfilgueira/onix-35-viva-capim/pull/18), com revisão pendente. As verificações de UI registradas começaram na baseline `7e78d09`; regressões finais e checks de backend foram executados no commit corrigido indicado. Alterações posteriores de UI/configuração exigem seus próprios checks; este relatório não transfere sucesso automaticamente para outro commit.
+Registro de resultados observados, separado da aprovação para dados reais. Código atual e CI: `19c8dbbda96805173f36490a21c837e8b700983b`, branch `feat/dashboard-fidelidade`. [PR #18 aberto como Draft](https://github.com/helderfilgueira/onix-35-viva-capim/pull/18), com revisão pendente. As verificações de UI registradas começaram na baseline `7e78d09`; regressões finais e checks de backend foram executados no commit corrigido indicado. Alterações posteriores de UI/configuração exigem seus próprios checks; este relatório não transfere sucesso automaticamente para outro commit.
 
 ## Testes automatizados
 
 | Verificação | Resultado e evidência |
 |---|---|
-| Django com PostgreSQL | **55 testes aprovados, sem skips**, incluindo permissões e regras de negócio. [Execução 43554037413](https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43554037413). Checks Django, ausência de migrações faltantes e sintaxe JavaScript também passaram nessa execução. |
-| Regressão do laboratório | **65 testes aprovados**. [Execução 43554037557](https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43554037557). |
+| Django com PostgreSQL | **56 testes aprovados, sem skips**, incluindo permissões e regras de negócio. [Execução 43557578176](https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43557578176). Checks Django, ausência de migrações faltantes e sintaxe JavaScript também passaram nessa execução. |
+| Regressão do laboratório | **66 testes aprovados**. [Execução 43557578332](https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43557578332). |
 | Mapa integrado ao Django | Verificação de navegador local aprovada: rota entre pisos, seleção de piso, bloqueio de acesso sem degraus não comprovado, elevador a partir da porta explícita e abertura da nova avaliação da loja. A verificação local está separada da verificação em nuvem abaixo. |
 
 Os resultados CI foram conferidos no GitHub Actions; as duas execuções atuais acima estão aprovadas no commit final indicado. Nenhuma dessas evidências é inspeção física do shopping.
@@ -58,6 +58,24 @@ Quatro regressões locais do ciclo do widget passaram com resposta controlada e 
 A pedido do usuário, **inatividade automática somente em `/explorar.html`**. Seis verificações locais passaram para catálogo, cadastro e avaliação: cinco minutos sem modal/recarregamento/limpeza automática e encerramento manual funcionando. No mapa publicado, quatro verificações passaram: aviso após 90 segundos, Continuar, reaparecimento após novo período ocioso e encerramento que reinicia o mapa. Evidências: [páginas públicas](QA_INATIVIDADE_SOMENTE_MAPA_PUBLICO.json) e [mapa publicado](QA_INATIVIDADE_MAPA.json).
 
 Este ajuste pertence ao commit de aplicação `381c3c395a4dd8825dced1e3720c21935840692f`, separado dos commits documentais. O redeploy correspondente foi confirmado, com seis verificações de inatividade também aprovadas no site publicado: [QA em nuvem](QA_INATIVIDADE_PUBLICO_NUVEM.json). Evidência de publicação: [VERCEL_LIBRAS.json](VERCEL_LIBRAS.json). Os relatórios da versão anterior foram preservados. A expiração de sessão administrativa no servidor permanece independente.
+
+## Incremento posterior · Libras no mapa e botões de idioma
+
+Decisão aplicada localmente: botão flutuante de Libras também no mapa `/explorar.html`, com componente isolado reutilizável pelo laboratório independente. O catálogo mantém seu fluxo; cadastro, avaliação e dashboard não recebem widget externo. CSP admite os domínios do recurso somente no catálogo e mapa, tanto na integração Django quanto no mapa legado.
+
+As três páginas públicas já traduzidas passaram a usar botões PT/EN/ES. O dashboard mantém o seletor anterior; o mapa continua em português, sem promessa de tradução. Trocar idioma limpa dados não enviados do formulário conforme o aviso da interface.
+
+**15 verificações locais aprovadas** cobrem widget real no mapa após opt-in, ausência de carga externa anterior, Escape/foco, reset do modal, botões nas três páginas e ausência de erros JavaScript. **Quatro verificações de inatividade do mapa passaram**, preservando aviso, Continuar, repetição do período e encerramento; o modal Libras não bloqueia esse fluxo. Evidências: [mapa/Libras/idiomas](QA_MAPA_LIBRAS_IDIOMAS.json) e [inatividade integrada](QA_MAPA_LIBRAS_IDLE.json). As rotas integradas também foram revalidadas pelo coordenador.
+
+Testes direcionados executados: um teste CSP Django e 22 testes do conjunto legado pertinente aprovados. As suítes completas atuais passaram no commit `19c8dbb`: 56 testes PostgreSQL e 66 do legado, com links acima. Esse resultado não atribui o SHA novo ao deployment anterior.
+
+## Correção final · novo atendimento e ciclo de rede do VLibras
+
+No commit `19c8dbbda96805173f36490a21c837e8b700983b`, Novo atendimento no mapa com VLibras carregando ou carregado recarrega uma URL limpa, descarrega o terceiro e exige novo opt-in. Sem plugin iniciado, continua o reset habitual. Falha de rede após timeout remove o script inválido antes de nova tentativa; ao fechar consentimento, o foco permanece no diálogo de inatividade quando ele estiver aberto.
+
+**Cinco regressões locais aprovadas** cobrem falha tardia/retry no catálogo e mapa, reset com widget carregando e carregado, e foco do alerta. Usaram relógio/rede controlados; RAF foi desligado somente nos testes temporais, não no produto. Evidência: [QA_LIBRAS_RESET_PRIVACIDADE.json](QA_LIBRAS_RESET_PRIVACIDADE.json). Esse complemento não substitui os 15 testes de mapa/idiomas, os quatro do fluxo de inatividade ou a inspeção visual anterior.
+
+CI atual confirmado para o mesmo SHA: PostgreSQL **56 sem skips** e legado **66**. A promoção canônica foi confirmada no deployment `dpl_Hi1n7kXBebR87kRRSw5dbHZzQvBD`, aplicação `19c8dbb`. Os sete endpoints/headers/arquivos e 15 cenários de navegador publicados passaram: [publicação](VERCEL_MAPA_LIBRAS_IDIOMAS.json) e [QA online](QA_MAPA_LIBRAS_IDIOMAS_NUVEM.json). Commits posteriores apenas documentam essa publicação.
 
 ## O que ainda não está comprovado
 

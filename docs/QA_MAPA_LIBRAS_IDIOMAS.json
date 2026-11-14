@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "name": "Map launcher without third-party load before opt-in",
+      "passed": true
+    },
+    {
+      "name": "Map keyboard Escape returns focus",
+      "passed": true
+    },
+    {
+      "name": "New map attendance closes consent dialog and clears checkbox",
+      "passed": true
+    },
+    {
+      "name": "Real widget loads on map and replaces launcher",
+      "passed": true
+    },
+    {
+      "name": "/participar/ en button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/ es button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/ pt-BR button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/cadastro/ en button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/cadastro/ es button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/cadastro/ pt-BR button and translated content",
+      "passed": true
+    },
+    {
+      "name": "Language change clears unsent private form as announced",
+      "passed": true
+    },
+    {
+      "name": "/participar/avaliar/ en button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/avaliar/ es button and translated content",
+      "passed": true
+    },
+    {
+      "name": "/participar/avaliar/ pt-BR button and translated content",
+      "passed": true
+    },
+    {
+      "name": "Map has no JavaScript errors",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "errors": []
+}

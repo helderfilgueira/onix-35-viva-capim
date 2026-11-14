@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "/participar/ late network failure removes timed-out dead script and retry requests again",
+    "/explorar.html late network failure removes timed-out dead script and retry requests again",
+    "Map reset with loading widget reloads clean URL and requires new opt-in",
+    "Map reset with loaded widget reloads clean URL and requires new opt-in",
+    "Idle dialog retains focus when it closes Libras consent"
+  ],
+  "method": "Local browser, fake clock, controlled third-party network and RAF disabled only in timing tests"
+}

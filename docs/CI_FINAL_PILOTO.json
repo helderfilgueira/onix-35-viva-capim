@@ -1,15 +1,15 @@
 {
-  "source_commit": "f70590b4df85522360eae4d84acbe6cc7021a56d",
+  "source_commit": "19c8dbbda96805173f36490a21c837e8b700983b",
   "pilot": {
-    "run_url": "https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43554037413",
+    "run_url": "https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43557578176",
     "result": "success",
-    "tests": 55,
+    "tests": 56,
     "skipped": 0
   },
   "legacy": {
-    "run_url": "https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43554037557",
+    "run_url": "https://github.com/helderfilgueira/onix-35-viva-capim/actions/runs/43557578332",
     "result": "success",
-    "tests": 65
+    "tests": 66
   },
-  "deployment_alignment": "verified: deployment dpl_3J9fFbuuLLjezkmh1CrNTWzfhFkC serves application commit f70590b4df85522360eae4d84acbe6cc7021a56d; later commits only update documentation"
+  "deployment_alignment": "verified: dpl_Hi1n7kXBebR87kRRSw5dbHZzQvBD serves app 19c8dbb; HTTP and 15 browser scenarios passed; subsequent commits documentation only"
 }
