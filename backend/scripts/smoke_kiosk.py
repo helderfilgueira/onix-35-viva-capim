@@ -5,21 +5,27 @@ import sys
 import urllib.error
 import urllib.request
 import uuid
+from http.cookies import SimpleCookie
+from urllib.parse import urlsplit
 
 
 def main():
     parser = argparse.ArgumentParser(description="Smoke test for the Viva Capim kiosk flow.")
-    parser.add_argument("--base-url", required=True, help="Public Codespaces URL, without trailing slash")
+    parser.add_argument("--base-url", required=True, help="API base URL, without trailing slash")
     parser.add_argument("--device-id", required=True)
     parser.add_argument("--gateway-token", required=True)
     args = parser.parse_args()
 
     base = args.base_url.rstrip("/")
     origin = "http://localhost:5173"
+    parsed_base = urlsplit(base)
+    local_http = parsed_base.scheme == "http" and parsed_base.hostname in {"127.0.0.1", "localhost", "::1"}
     cookies = http.cookiejar.CookieJar()
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookies))
+    local_session_cookie = None
 
     def request(method, path, payload=None, extra_headers=None):
+        nonlocal local_session_cookie
         headers = {
             "Origin": origin,
             "X-Gateway-Token": args.gateway_token,
@@ -29,11 +35,21 @@ def main():
             headers.update({"Content-Type": "application/json", "X-Kiosk-Request": "1"})
         if extra_headers:
             headers.update(extra_headers)
+        # Secure cookies are intentionally not sent by cookie jars over HTTP.
+        # For loopback-only development tests, replay the cookie received from
+        # this same local API. Production/HTTPS requests use the normal cookie jar.
+        if local_http and local_session_cookie:
+            headers["Cookie"] = f"__Host-viva={local_session_cookie}"
         data = json.dumps(payload).encode() if payload is not None else None
         req = urllib.request.Request(base + path, data=data, headers=headers, method=method)
         try:
             with opener.open(req, timeout=20) as response:
                 body = response.read().decode()
+                if local_http and path == "/v1/kiosk/sessions":
+                    parsed_cookie = SimpleCookie()
+                    parsed_cookie.load(response.headers.get("Set-Cookie", ""))
+                    if "__Host-viva" in parsed_cookie:
+                        local_session_cookie = parsed_cookie["__Host-viva"].value
                 return response.status, json.loads(body) if body else None
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode()
