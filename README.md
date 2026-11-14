@@ -17,7 +17,7 @@ Navegação no shopping, eventos, avaliações e fidelidade. Este repositório c
 
 ## Hospedagem escolhida
 
-Vercel + Supabase PostgreSQL, mantendo Django. O projeto Supabase `onix35-viva-capim` foi criado no plano gratuito, na região São Paulo, após liberação de vaga explicitamente autorizada pelo usuário. Migrações e seed remoto concluídos; 22 tabelas verificadas com RLS e leitura direta negada a anon/authenticated. CI: 55 testes PostgreSQL e 65 de regressão aprovados. Demonstração publicada e verificada na nuvem: [site](https://onix35-viva-capim.vercel.app/participar/), [dashboard](https://onix35-viva-capim.vercel.app/dashboard/) e [mapa](https://onix35-viva-capim.vercel.app/explorar.html). PR #18 permanece Draft, com revisão pendente; consulte as [evidências](docs/EVIDENCIAS_PILOTO.md). Veja [estado e roteiro de deploy](docs/DEPLOY_SUPABASE_VERCEL.md). Docker permanece opção portável.
+Vercel + Supabase PostgreSQL, mantendo Django. O projeto Supabase `onix35-viva-capim` foi criado no plano gratuito, na região São Paulo, após liberação de vaga explicitamente autorizada pelo usuário. Migrações e seed remoto concluídos; 22 tabelas verificadas com RLS e leitura direta negada a anon/authenticated. CI: 56 testes PostgreSQL e 66 de regressão aprovados no commit de aplicação `19c8dbb`. Demonstração publicada e verificada na nuvem: [site](https://onix35-viva-capim.vercel.app/participar/), [dashboard](https://onix35-viva-capim.vercel.app/dashboard/) e [mapa](https://onix35-viva-capim.vercel.app/explorar.html). PR #18 permanece Draft, com revisão pendente; consulte as [evidências](docs/EVIDENCIAS_PILOTO.md). Veja [estado e roteiro de deploy](docs/DEPLOY_SUPABASE_VERCEL.md). Docker permanece opção portável.
 
 ## Equipe humana
 
